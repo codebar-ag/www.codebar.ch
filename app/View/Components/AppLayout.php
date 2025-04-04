@@ -30,7 +30,7 @@ class AppLayout extends Component
 
     private function services()
     {
-        return Cache::rememberForever('products', function () {
+        return Cache::rememberForever('services', function () {
             return Service::where('published', true)->orderBy('order')->get();
         });
     }
