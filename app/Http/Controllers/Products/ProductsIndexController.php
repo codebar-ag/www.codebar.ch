@@ -12,6 +12,6 @@ class ProductsIndexController extends Controller
      */
     public function __invoke(): View
     {
-        return view('app.start.index');
+        return view('app.products.index');
     }
 }
