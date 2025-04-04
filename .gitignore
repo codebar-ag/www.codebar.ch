@@ -14,7 +14,6 @@ npm-debug.log
 /.php-cs-fixer.cache
 .DS_STORE
 .npmrc
-vite.config.js
 
 database/seeders/LocalSeeder.php
 database/seeders/ProductionSeeder.php
