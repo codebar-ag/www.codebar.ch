@@ -12,7 +12,7 @@ jobs:
 
     env:
       PHP_VERSION: 8.4
-      NODE_VERSION: 20
+      NODE_VERSION: 22
 
     steps:
       - name: Checkout code
@@ -32,12 +32,6 @@ jobs:
       - name: Prepare the environment
         run: cp .env.ci .env
 
-      - name: Apply Nova license
-        run: composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
-
-#      - name: Apply Media Library license
-#        run: composer config http-basic.satis.spatie.be ${{ secrets.SPATIE_USERNAME }} ${{ secrets.SPATIE_MEDIA_LIBRARY_PRO_LICENSE_KEY }}
-
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
@@ -47,9 +41,6 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --no-interaction --optimize-autoloader
-
-      - name: Set NPM token
-        run: npm config set "//npm.fontawesome.com/:_authToken" ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
       - name: Cache node_modules
         uses: actions/cache@v4
@@ -63,12 +54,6 @@ jobs:
 
       - name: Publish Laravel assets
         run: php artisan vendor:publish --tag=laravel-assets --ansi --force
-
-      - name: Publish Laravel Nova assets
-        run: php artisan vendor:publish --tag=nova-assets --ansi --force
-
-      - name: Filament upgrade
-        run: php artisan filament:upgrade
 
       - name: Clear Cache
         run: php artisan view:clear

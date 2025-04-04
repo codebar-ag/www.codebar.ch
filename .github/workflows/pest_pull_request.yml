@@ -9,7 +9,7 @@ jobs:
 
     env:
       PHP_VERSION: 8.4
-      NODE_VERSION: 20
+      NODE_VERSION: 22
 
     steps:
       - name: Checkout code
@@ -23,13 +23,6 @@ jobs:
 
       - name: Prepare the .env file
         run: cp .env.ci .env
-
-      - name: Configure Composer Credentials
-        run: |
-          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
-
-#      - name: Apply Media Library license
-#        run: composer config http-basic.satis.spatie.be ${{ secrets.SPATIE_USERNAME }} ${{ secrets.SPATIE_MEDIA_LIBRARY_PRO_LICENSE_KEY }}
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v4
@@ -47,9 +40,6 @@ jobs:
       - name: Publish Laravel assets
         run: php artisan vendor:publish --tag=laravel-assets --ansi --force
 
-      - name: Publish Laravel Nova assets
-        run: php artisan vendor:publish --tag=nova-assets --ansi --force
-
       - name: Setup Database
         run: |
           sudo systemctl start mysql
@@ -65,9 +55,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-
-      - name: Set NPM token
-        run: npm config set "//npm.fontawesome.com/:_authToken" ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
       - name: Install NPM Dependencies
         run: npm install --frozen-lockfile
