@@ -1,0 +1,56 @@
+/node_modules
+/public/build/
+/public/hot
+/public/storage
+/public/css/
+/public/js/
+/public/vendor/*
+/public/mix-manifest.json
+/storage/*.key
+/storage/debugbar/
+/vendor
+docker-compose.override.yml
+npm-debug.log
+/.php-cs-fixer.cache
+.DS_STORE
+.npmrc
+vite.config.js
+
+database/seeders/LocalSeeder.php
+database/seeders/ProductionSeeder.php
+
+## Debugbar
+storage/debugbar/
+
+# IDEA configurtion
+/.idea
+/.vscode
+
+# Environment files
+.env
+.env.backup
+.env.production
+.env.staging
+.env.dusk.local
+
+# PHP Unit
+phpunit.xml
+.phpunit.result.cache
+.phpunit.cache/
+
+# Laravel IDE Helper Generator
+/_ide_helper.php
+/_ide_helper_models.php
+/.phpstorm.meta.php
+
+# Composer authentication
+auth.json
+
+# File types
+*.pdf
+*.docx
+*.xlsx
+
+# Coverage
+/coverage/
+--cache-directory

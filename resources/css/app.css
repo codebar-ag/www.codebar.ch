@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+[x-cloak] {
+    display: none;
+}
+
+@theme {
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+    @apply text-gray-800;
+}
+

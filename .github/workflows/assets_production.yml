@@ -1,0 +1,101 @@
+name: production | assets & deploy
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    name: production-assets | ci
+
+    env:
+      PHP_VERSION: 8.4
+      NODE_VERSION: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: dom, curl, fileinfo, mysql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+
+      - name: Prepare the environment
+        run: cp .env.ci .env
+
+      - name: Apply Nova license
+        run: composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
+
+#      - name: Apply Media Library license
+#        run: composer config http-basic.satis.spatie.be ${{ secrets.SPATIE_USERNAME }} ${{ secrets.SPATIE_MEDIA_LIBRARY_PRO_LICENSE_KEY }}
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist --no-interaction --optimize-autoloader
+
+      - name: Set NPM token
+        run: npm config set "//npm.fontawesome.com/:_authToken" ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Install NPM dependencies
+        run: npm install --frozen-lockfile
+
+      - name: Publish Laravel assets
+        run: php artisan vendor:publish --tag=laravel-assets --ansi --force
+
+      - name: Publish Laravel Nova assets
+        run: php artisan vendor:publish --tag=nova-assets --ansi --force
+
+      - name: Filament upgrade
+        run: php artisan filament:upgrade
+
+      - name: Clear Cache
+        run: php artisan view:clear
+
+      - name: Set environment for publishing production assets
+        run: echo "APP_ENV=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Publish production assets
+        env:
+          AWS_ENDPOINT: ${{ secrets.DO_PRODUCTION_ENDPOINT }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.DO_PRODUCTION_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_PRODUCTION_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.DO_PRODUCTION_DEFAULT_REGION }}
+          AWS_BUCKET: ${{ secrets.DO_PRODUCTION_BUCKET }}
+        run: php artisan lasso:publish --no-git
+
+  deploy:
+    needs: assets
+    runs-on: ubuntu-latest
+    name: production | deploy
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+
+      - name: Deploy to production
+        env:
+          ENVOYER_HOOK_PRODUCTION: ${{ secrets.ENVOYER_HOOK_PRODUCTION }}
+        run: curl "${ENVOYER_HOOK_PRODUCTION}?sha=${{ github.sha }}"

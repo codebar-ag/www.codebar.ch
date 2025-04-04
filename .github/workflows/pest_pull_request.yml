@@ -1,0 +1,86 @@
+name: Pull Request | CI Pest
+
+on: pull_request
+
+jobs:
+  ci_pest:
+    runs-on: ubuntu-latest
+    name: pull-request | ci pest
+
+    env:
+      PHP_VERSION: 8.4
+      NODE_VERSION: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP Environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: dom, curl, fileinfo, mysql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+
+      - name: Prepare the .env file
+        run: cp .env.ci .env
+
+      - name: Configure Composer Credentials
+        run: |
+          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
+
+#      - name: Apply Media Library license
+#        run: composer config http-basic.satis.spatie.be ${{ secrets.SPATIE_USERNAME }} ${{ secrets.SPATIE_MEDIA_LIBRARY_PRO_LICENSE_KEY }}
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.composer/cache/files
+            ~/.composer/cache/repo
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-progress --prefer-dist --no-interaction --optimize-autoloader
+
+      - name: Publish Laravel assets
+        run: php artisan vendor:publish --tag=laravel-assets --ansi --force
+
+      - name: Publish Laravel Nova assets
+        run: php artisan vendor:publish --tag=nova-assets --ansi --force
+
+      - name: Setup Database
+        run: |
+          sudo systemctl start mysql
+          mysql --user="root" --password="root" -e "CREATE DATABASE laravel character set UTF8mb4 collate utf8mb4_bin;"
+
+      - name: Generate App Key & Run Migrations
+        run: |
+          php artisan key:generate
+          php artisan migrate:fresh
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Set NPM token
+        run: npm config set "//npm.fontawesome.com/:_authToken" ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+
+      - name: Install NPM Dependencies
+        run: npm install --frozen-lockfile
+
+      - name: Build Frontend Assets
+        run: npm run build
+
+      - name: Execute Pest Parallel Test
+        run: php artisan test --parallel
+
+      - name: Store Log Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Store report artifacts
+          path: ./storage/logs
