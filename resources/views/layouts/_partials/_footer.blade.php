@@ -10,7 +10,8 @@
                         @foreach($services as $service)
                             <li>
                                 <a target="{{ $service->url ? '_blank' : '_self' }}"
-                                   href="{{ $service->url ? '_blank' : '_self'  }}" title="{{ $service->name }}"
+                                   href="{{ $service->url ?? route('services.show',$service)  }}"
+                                   title="{{ $service->name }}"
                                    class="hover:text-black hover:font-semibold transition">{{ $service->name }}</a>
                             </li>
                         @endforeach
@@ -31,7 +32,8 @@
                         @foreach($products as $product)
                             <li>
                                 <a target="{{ $product->url ? '_blank' : '_self' }}"
-                                   href="{{ $product->url ? '_blank' : '_self'  }}" title="{{ $product->name }}"
+                                   href="{{ $product->url ?? route('products.show',$product)   }}"
+                                   title="{{ $product->name }}"
                                    class="hover:text-black hover:font-semibold transition">{{ $product->name }}</a>
                             </li>
                         @endforeach
