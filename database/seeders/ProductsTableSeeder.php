@@ -18,6 +18,7 @@ class ProductsTableSeeder extends Seeder
                 'slug' => 'docuhub',
             ],
             [
+                'published' => true,
                 'order' => 1,
                 'content' => null,
             ]);
@@ -28,6 +29,7 @@ class ProductsTableSeeder extends Seeder
                 'slug' => 'clouddocs',
             ],
             [
+                'published' => true,
                 'order' => 2,
                 'content' => null,
             ]);

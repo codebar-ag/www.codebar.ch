@@ -12,6 +12,6 @@ class ImprintIndexController extends Controller
      */
     public function __invoke(): View
     {
-        return view('app.start.index');
+        return view('app.legal.imprint.index');
     }
 }

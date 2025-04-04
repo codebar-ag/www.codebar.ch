@@ -18,6 +18,7 @@ class ServicesTableSeeder extends Seeder
                 'slug' => 'dms-ecm',
             ],
             [
+                'published' => true,
                 'order' => 1,
                 'content' => null,
             ]);
@@ -28,6 +29,7 @@ class ServicesTableSeeder extends Seeder
                 'slug' => 'zunscan-ch',
             ],
             [
+                'published' => true,
                 'order' => 2,
                 'content' => null,
                 'url' => 'https://zunscan.paperflakes.ch',

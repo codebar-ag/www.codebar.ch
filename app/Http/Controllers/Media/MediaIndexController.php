@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Services;
+namespace App\Http\Controllers\Media;
 
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
-class ServicesIndexController extends Controller
+class MediaIndexController extends Controller
 {
     /**
      * Display the user's profile form.
      */
     public function __invoke(): View
     {
-        return view('app.services.index');
+        return view('app.media.index');
     }
 }

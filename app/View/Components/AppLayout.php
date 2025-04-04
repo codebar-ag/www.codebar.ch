@@ -24,14 +24,14 @@ class AppLayout extends Component
     private function products()
     {
         return Cache::rememberForever('products', function () {
-            return Product::orderBy('order')->get();
+            return Product::where('published', true)->orderBy('order')->get();
         });
     }
 
     private function services()
     {
         return Cache::rememberForever('products', function () {
-            return Service::orderBy('order')->get();
+            return Service::where('published', true)->orderBy('order')->get();
         });
     }
 }

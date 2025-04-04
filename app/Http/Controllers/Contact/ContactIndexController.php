@@ -12,6 +12,6 @@ class ContactIndexController extends Controller
      */
     public function __invoke(): View
     {
-        return view('app.start.index');
+        return view('app.contact.index');
     }
 }

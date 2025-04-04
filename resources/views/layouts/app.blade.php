@@ -36,6 +36,8 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    @speculationRulesApi
+
 </head>
 <body class="font-sans antialiased">
 
@@ -45,7 +47,7 @@
         @include('layouts._partials._navigation')
 
         <section class="my-8 bg-gray-100/50">
-            <div class="text-lg leading-relaxed max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-lg leading-relaxed max-w-6xl mx-auto">
                 {{ $slot }}
             </div>
         </section>

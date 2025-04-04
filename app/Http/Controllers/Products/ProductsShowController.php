@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\View\View;
 
 class ProductsShowController extends Controller
@@ -10,8 +11,10 @@ class ProductsShowController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function __invoke(): View
+    public function __invoke(Product $product): View
     {
-        return view('app.start.index');
+        return view('app.products.show')->with([
+            'product' => $product,
+        ]);
     }
 }

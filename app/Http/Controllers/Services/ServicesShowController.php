@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Services;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use Illuminate\View\View;
 
 class ServicesShowController extends Controller
@@ -10,8 +11,10 @@ class ServicesShowController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function __invoke(): View
+    public function __invoke(Service $service): View
     {
-        return view('app.start.index');
+        return view('app.services.show')->with([
+            'service' => $service,
+        ]);
     }
 }
