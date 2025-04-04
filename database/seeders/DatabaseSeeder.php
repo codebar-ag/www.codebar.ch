@@ -27,5 +27,8 @@ class DatabaseSeeder extends Seeder
         $user->markEmailAsVerified();
 
         $user->assignRole(RoleEnum::ADMINISTRATOR, RoleEnum::USER);
+
+        $this->call(ProductsTableSeeder::class);
+        $this->call(ServicesTableSeeder::class);
     }
 }

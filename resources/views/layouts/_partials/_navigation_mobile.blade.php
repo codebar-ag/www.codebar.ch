@@ -25,17 +25,16 @@
         <span>{{ __('Services') }}</span>
         <div class="mt-1 text-sm text-gray-600 space-y-1">
 
-            <a href="{{ route('services.dms.index') }}"
-               title="{{ __('DMS/ECM') }}"
-               class="block text-base hover:text-black hover:font-semibold transition">
-                {{ __('DMS/ECM') }}
-            </a>
-
-            <a target="_blank" href="https://zunscan.paperflakes.ch"
-               title="{{ __('zunscan.ch') }}"
-               class="block text-base hover:text-black hover:font-semibold transition">
-                {{ __('zunscan.ch') }}
-            </a>
+            @if(!empty($services) && $services->count())
+                @foreach($services as $service)
+                    <a target="{{ $service->url ? '_blank' : '_self' }}"
+                       href="{{ $service->url ?? route('services.show',$service) }}"
+                       title="{{ $service->name }}"
+                       class="block text-base hover:text-black hover:font-semibold transition">
+                        {{ $service->name }}
+                    </a>
+                @endforeach
+            @endif
 
             <a href="{{ route('services.index') }}"
                title="{{ __('More service information') }}"
@@ -50,17 +49,16 @@
         <span>{{ __('Products') }}</span>
         <div class="mt-1 text-sm text-gray-600 space-y-1">
 
-            <a href="{{ route('products.docuhub.index') }}"
-               title="{{ __('DocuHub') }}"
-               class="block text-base hover:text-black hover:font-semibold transition">
-                {{ __('DocuHub') }}
-            </a>
-
-            <a href="{{ route('products.clouddocs.index') }}"
-               title="{{ __('CloudDocs') }}"
-               class="block text-base hover:text-black hover:font-semibold transition">
-                {{ __('CloudDocs') }}
-            </a>
+            @if(!empty($products) && $products->count())
+                @foreach($products as $product)
+                    <a target="{{ $product->url ? '_blank' : '_self' }}"
+                       href="{{ $product->url ?? route('products.show',$product) }}"
+                       title="{{ $product->name }}"
+                       class="block text-base hover:text-black hover:font-semibold transition">
+                        {{ $product->name }}
+                    </a>
+                @endforeach
+            @endif
 
             <a href="{{ route('products.index') }}"
                title="{{ __('More product information') }}"

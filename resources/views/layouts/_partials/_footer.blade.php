@@ -6,15 +6,15 @@
                 <h2 class="text-black font-semibold">{{ __('Services') }}</h2>
                 <ul class="list-none text-base">
 
-                    <li>
-                        <a href="{{ route('services.dms.index') }}" title="{{ __('DMS/ECM') }}"
-                           class="hover:text-black hover:font-semibold transition">{{ 'DMS/ECM' }}</a>
-                    </li>
-
-                    <li>
-                        <a target="_blank" href="https://zunscan.paperflakes.ch" title="{{ __('zunscan.ch') }}"
-                           class="hover:text-black hover:font-semibold transition">{{ 'zunscan.ch' }}</a>
-                    </li>
+                    @if(!empty($services) && $services->count())
+                        @foreach($services as $service)
+                            <li>
+                                <a target="{{ $service->url ? '_blank' : '_self' }}"
+                                   href="{{ $service->url ? '_blank' : '_self'  }}" title="{{ $service->name }}"
+                                   class="hover:text-black hover:font-semibold transition">{{ $service->name }}</a>
+                            </li>
+                        @endforeach
+                    @endif
 
                     <li>
                         <a href="{{ route('services.index') }}" title="{{ __('More service information') }}"
@@ -27,15 +27,15 @@
                 <h2 class="text-black font-semibold">{{ __('Products') }}</h2>
                 <ul class="list-none text-base">
 
-                    <li>
-                        <a href="{{ route('products.docuhub.index') }}" title="{{ __('DocuHub') }}"
-                           class="hover:text-black hover:font-semibold transition">{{ __('DocuHub') }}</a>
-                    </li>
-
-                    <li>
-                        <a href="{{ route('products.clouddocs.index') }}" title="{{ __('CloudDocs') }}"
-                           class="hover:text-black hover:font-semibold transition">{{ __('CloudDocs') }}</a>
-                    </li>
+                    @if(!empty($products) && $products->count())
+                        @foreach($products as $product)
+                            <li>
+                                <a target="{{ $product->url ? '_blank' : '_self' }}"
+                                   href="{{ $product->url ? '_blank' : '_self'  }}" title="{{ $product->name }}"
+                                   class="hover:text-black hover:font-semibold transition">{{ $product->name }}</a>
+                            </li>
+                        @endforeach
+                    @endif
 
                     <li>
                         <a href="{{ route('products.index') }}" title="{{ __('More product information') }}"
