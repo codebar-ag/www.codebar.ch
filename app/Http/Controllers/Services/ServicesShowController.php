@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ServicesShowController extends Controller
@@ -14,7 +15,9 @@ class ServicesShowController extends Controller
     public function __invoke(Service $service): View
     {
         return view('app.services.show')->with([
-            'service' => $service,
+            'name' => $service->name,
+            'teaser' => $service->teaser,
+            'content' => Str::of($service->content)->markdown(),
         ]);
     }
 }

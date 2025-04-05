@@ -2,9 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Models\Product;
-use App\Models\Service;
-use Illuminate\Support\Facades\Cache;
+use App\Actions\ViewDataAction;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -16,22 +14,8 @@ class AppLayout extends Component
     public function render(): View
     {
         return view('layouts.app')->with([
-            'services' => $this->services(),
-            'products' => $this->products(),
+            'services' => (new ViewDataAction)->services(),
+            'products' => (new ViewDataAction)->products(),
         ]);
-    }
-
-    private function products()
-    {
-        return Cache::rememberForever('products', function () {
-            return Product::where('published', true)->orderBy('order')->get();
-        });
-    }
-
-    private function services()
-    {
-        return Cache::rememberForever('services', function () {
-            return Service::where('published', true)->orderBy('order')->get();
-        });
     }
 }

@@ -12,13 +12,13 @@
         {{ __('News') }}
     </a>
 
-    <!-- About us -->
+{{--    <!-- About us -->
     <a @click.stop
        href="{{ route('about-us.index') }}"
        title="{{ __('About us') }}"
        class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
         {{ __('About us') }}
-    </a>
+    </a>--}}
 
     <!-- Services -->
     <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">

@@ -1,3 +1,3 @@
 <x-app-layout>
-    <h1 class="text-2xl font-bold">{{ __('Jobs') }}</h1>
+    <x-h1 :title="__('Jobs')"/>
 </x-app-layout>

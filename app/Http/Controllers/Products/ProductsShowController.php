@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ProductsShowController extends Controller
@@ -14,7 +15,9 @@ class ProductsShowController extends Controller
     public function __invoke(Product $product): View
     {
         return view('app.products.show')->with([
-            'product' => $product,
+            'name' => $product->name,
+            'teaser' => $product->teaser,
+            'content' => Str::of($product->content)->markdown(),
         ]);
     }
 }

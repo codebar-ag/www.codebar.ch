@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Products;
 
+use App\Actions\ViewDataAction;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
@@ -12,6 +13,8 @@ class ProductsIndexController extends Controller
      */
     public function __invoke(): View
     {
-        return view('app.products.index');
+        return view('app.products.index')->with([
+            'products' => (new ViewDataAction)->products(),
+        ]);
     }
 }

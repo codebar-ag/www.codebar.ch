@@ -20,19 +20,7 @@
 
 
     <!-- Fonts -->
-    <link
-            rel="preconnect"
-            href="https://fonts.googleapis.com"
-    />
-    <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossorigin
-    />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-            rel="stylesheet"
-    />
+    @googlefonts
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -42,11 +30,11 @@
 <body class="font-sans antialiased">
 
 <main class="min-h-screen bg-white text-gray-800">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         @include('layouts._partials._navigation')
 
-        <section class="my-8 bg-gray-100/50">
+        <section class="my-8">
             <div class="text-lg leading-relaxed max-w-6xl mx-auto">
                 {{ $slot }}
             </div>

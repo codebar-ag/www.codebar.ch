@@ -16,6 +16,7 @@ return new class extends Migration
             $table->boolean('published')->default(false);
             $table->integer('order');
             $table->string('name');
+            $table->string('teaser')->nullable();
             $table->string('slug')->unique();
             $table->longText('content')->nullable();
             $table->string('url')->nullable();

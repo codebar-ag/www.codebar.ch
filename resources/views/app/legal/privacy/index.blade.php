@@ -1,3 +1,3 @@
 <x-app-layout>
-    <h1 class="text-2xl font-bold">{{ __('Privacy') }}</h1>
+    <x-h1 :title="__('Privacy')"/>
 </x-app-layout>

@@ -1,4 +1,4 @@
-<nav class="mt-12 text-2xl" x-data="{ navigation: false }">
+<nav class="mt-12 text-xl md:text-2xl" x-data="{ navigation: false }">
 
     <div class="flex justify-center md:justify-start">
         <a href="{{ route('start.index') }}" title="Start page" class="group inline-block">

@@ -20,7 +20,8 @@ class ProductsTableSeeder extends Seeder
             [
                 'published' => true,
                 'order' => 1,
-                'content' => null,
+                'teaser' => 'Supercharge Your DMS with Smart Integrations',
+                'content' => file_get_contents(database_path('files/products_docuhub.md')),
             ]);
 
         Product::updateOrCreate(
@@ -31,7 +32,8 @@ class ProductsTableSeeder extends Seeder
             [
                 'published' => true,
                 'order' => 2,
-                'content' => null,
+                'teaser' => 'Give Your Customers Secure Access to Their Documents',
+                'content' => file_get_contents(database_path('files/products_clouddocs.md')),
             ]);
     }
 }

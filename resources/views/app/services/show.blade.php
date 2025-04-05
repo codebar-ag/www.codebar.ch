@@ -1,3 +1,6 @@
 <x-app-layout>
-    <h1 class="text-2xl font-bold">{{ $service->name }}</h1>
+    <x-h1 :title="$name"/>
+    <x-h1-teaser :teaser="$teaser"/>
+
+    @include('components.labels.docuware-silver')
 </x-app-layout>

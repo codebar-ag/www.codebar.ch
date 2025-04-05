@@ -1,3 +1,12 @@
 <x-app-layout>
-    <h1 class="text-2xl font-bold">{{ $product->name }}</h1>
+
+    <x-h1 :title="$name"/>
+    <x-h1-teaser :teaser="$teaser"/>
+
+    <x-section>
+        <div class="prose prose-md max-w-none">
+            {!! $content !!}
+        </div>
+    </x-section>
+
 </x-app-layout>

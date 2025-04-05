@@ -1,13 +1,17 @@
 <x-app-layout>
-    <h1 class="text-2xl font-bold">{{ __('Imprint') }}</h1>
-    <section class="mt-6">
-        <h2 class="text-xl font-semibold">{{ __('Company') }}</h2>
+    <x-h1 :title="__('Imprint')"/>
 
-        <address class="mt-4 not-italic text-gray-700 text-lg leading-relaxed">
+    <x-section>
+        <x-h2 :title="__('Company')"/>
+
+        <address class="not-italic text-gray-700 text-lg leading-relaxed">
             <p class="font-semibold">paperflakes AG</p>
             <p>Mühlematten 12</p>
             <p>CH-4455 Zunzgen</p>
             <p>CHE-432.585.498</p>
         </address>
-    </section>
+
+        <x-a-badge href="https://zefix.ch/de/search/entity/list/firm/1598166"
+                   label="{{ __('Zefix') }}" class-attributes="mt-1" target="_blank"/>
+    </x-section>
 </x-app-layout>

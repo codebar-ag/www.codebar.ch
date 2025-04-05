@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\News;
 
+use App\Actions\ViewDataAction;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
@@ -12,6 +13,8 @@ class NewsIndexController extends Controller
      */
     public function __invoke(): View
     {
-        return view('app.news.index');
+        return view('app.news.index')->with([
+            'news' => (new ViewDataAction)->news(),
+        ]);
     }
 }
