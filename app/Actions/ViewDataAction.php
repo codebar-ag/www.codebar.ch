@@ -11,22 +11,22 @@ class ViewDataAction
 {
     public function products()
     {
-        return Cache::rememberForever('products', function () {
+        return Cache::rememberForever('products_published', function () {
             return Product::where('published', true)->orderBy('order')->get();
         });
     }
 
     public function services()
     {
-        return Cache::rememberForever('services', function () {
+        return Cache::rememberForever('services_published', function () {
             return Service::where('published', true)->orderBy('order')->get();
         });
     }
 
     public function news()
     {
-        return Cache::rememberForever('news', function () {
-            return News::where('published', true)->orderByDesc('published_at')->get();
+        return Cache::rememberForever('news_published', function () {
+            return News::whereNotNull('published_at')->orderByDesc('published_at')->get();
         });
     }
 }

@@ -9,4 +9,9 @@ class News extends Model
 {
     /** @use HasFactory<\Database\Factories\NewsFactory> */
     use HasFactory;
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

@@ -3,7 +3,7 @@
     {{-- Left-aligned primary navigation --}}
     <div class="flex gap-2">
 
-        <x-a :href="route('news.index')" label="{{ __('News') }}"
+        <x-a :href="route('start.index')" label="{{ __('News') }}"
              classAttributes="text-xl md:text-2xl"/>
 
 

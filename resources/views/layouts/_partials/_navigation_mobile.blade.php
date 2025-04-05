@@ -6,7 +6,7 @@
 >
     <!-- News -->
     <a @click.stop
-       href="{{ route('news.index') }}"
+       href="{{ route('start.index') }}"
        title="{{ __('News') }}"
        class="block py-3 text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
         {{ __('News') }}

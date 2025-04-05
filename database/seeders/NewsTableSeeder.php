@@ -18,7 +18,7 @@ class NewsTableSeeder extends Seeder
                 'slug' => 'hello-world',
             ],
             [
-                'teaser' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                'teaser' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                 'published_at' => now(),
                 'content' => null,
             ]);

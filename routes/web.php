@@ -8,7 +8,6 @@ use App\Http\Controllers\Legal\PrivacyIndexController;
 use App\Http\Controllers\Legal\TermsIndexController;
 use App\Http\Controllers\Locale\LocaleUpdateController;
 use App\Http\Controllers\Media\MediaIndexController;
-use App\Http\Controllers\News\NewsIndexController;
 use App\Http\Controllers\News\NewsShowController;
 use App\Http\Controllers\Products\ProductsIndexController;
 use App\Http\Controllers\Products\ProductsShowController;
@@ -19,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', StartIndexController::class)->name('start.index');
 
-Route::get('news', NewsIndexController::class)->name('news.index')->prefetch()->prefetch();
 Route::get('news/{news}', NewsShowController::class)->name('news.show');
 
 Route::get('about-us', AboutUsIndexController::class)->name('about-us.index')->prefetch();
