@@ -8,7 +8,7 @@
                 @if(!empty($products) && $products->count())
                     @foreach($products as $product)
                         <tr class="bg-white">
-                            <td class="text-left px-4 py-2 border-b border-gray-100">
+                            <td class="text-left py-2 border-b border-gray-100">
                                 <x-a :href="$product->url ?? route('products.show',$product)" :label="$product->name"
                                      :target="$product->url ? '_blank' : '_self'"/>
                             </td>

@@ -8,7 +8,7 @@
                 @if(!empty($news) && $news->count())
                     @foreach($news as $entry)
                         <tr class="bg-white">
-                            <td class="text-left px-4 py-2 border-b border-gray-100">
+                            <td class="text-left py-2 border-b border-gray-100">
                                 <x-a :href="route('news.show', $entry)" :label="$entry->title"/>
                             </td>
                         </tr>

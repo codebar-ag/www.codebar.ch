@@ -1,11 +1,10 @@
 <footer class="mb-12 bg-white text-lg">
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-8">
 
-        <div class="flex gap-12">
-            <div class="">
+        <div class="flex flex-col items-start gap-4 md:gap-12 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
+            <div>
                 <h2 class="text-black font-semibold">{{ __('Services') }}</h2>
-                <ul class="list-none text-base">
-
+                <ul class="mt-1 list-none text-base">
                     @if(!empty($services) && $services->count())
                         @foreach($services as $service)
                             <li>
@@ -15,19 +14,17 @@
                             </li>
                         @endforeach
                     @endif
-
                     <li>
                         <x-a :href="route('services.index')" label="{{ __('More') }}"
                              title="{{ __('More service information') }}"
-                             classAttributes="text-base"/>
+                             classAttributes="text-lg"/>
                     </li>
                 </ul>
             </div>
 
-            <div class="">
+            <div>
                 <h2 class="text-black font-semibold">{{ __('Products') }}</h2>
-                <ul class="list-none text-base">
-
+                <ul class="mt-1 list-none text-base">
                     @if(!empty($products) && $products->count())
                         @foreach($products as $product)
                             <li>
@@ -37,48 +34,43 @@
                             </li>
                         @endforeach
                     @endif
-
                     <li>
                         <x-a :href="route('products.index')" label="{{ __('More') }}"
                              title="{{ __('More product information') }}"
-                             classAttributes="text-base"/>
+                             classAttributes="text-lg"/>
                     </li>
                 </ul>
             </div>
-        </div>
+            <div>
+                <h2 class="text-black font-semibold">{{ __('paperflakes AG') }}</h2>
+                <ul class="mt-1 list-none text-base">
 
-        <div class="flex gap-2">
+                    <li>
+                        <x-a :href="route('contact.index')" label="{{ __('Contact') }}" classAttributes="text-lg"/>
+                    </li>
+                    <li>
+                        <x-a :href="route('jobs.index')" label="{{ __('Jobs') }}" classAttributes="text-lg"/>
+                    </li>
+                    <li>
+                        <x-a :href="route('media.index')" label="{{ __('Media') }}" classAttributes="text-lg"/>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-black font-semibold">{{ __('Legal') }}</h2>
+                <ul class="mt-1 list-none text-base">
 
-            {{--            <a href="{{ route('jobs.index') }}"
-                           class="hover:underline hover:text-gray-500 transition">
-                            {{ __('Jobs') }}
-                        </a>
-                        <span class="text-gray-500">|</span>--}}
-
-            {{--            <a href="{{ route('media.index') }}"
-                           class="hover:underline hover:text-gray-500 transition">
-                            {{ __('Media') }}
-                        </a>
-                        <span class="text-gray-500">|</span>--}}
-
-            {{--            <a href="{{ route('privacy.index') }}"
-                           class="hover:text-black hover:font-semibold transition">
-                            {{ __('Privacy') }}
-                        </a>
-                        <span class="text-gray-500">|</span>--}}
-
-            {{--            <a href="{{ route('terms.index') }}"
-                           class="hover:underline hover:text-gray-500 transition">
-                            {{ __('Terms') }}
-                        </a>
-
-                        <span class="text-gray-500">|</span>--}}
-
-            <a href="{{ route('imprint.index') }}"
-               class="hover:text-black hover:font-semibold transition">
-                {{ __('Imprint') }}
-            </a>
-
+                    <li>
+                        <x-a :href="route('privacy.index')" label="{{ __('Privacy') }}" classAttributes="text-lg"/>
+                    </li>
+                    <li>
+                        <x-a :href="route('terms.index')" label="{{ __('Terms') }}" classAttributes="text-lg"/>
+                    </li>
+                    <li>
+                        <x-a :href="route('imprint.index')" label="{{ __('Imprint') }}" classAttributes="text-lg"/>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div>
