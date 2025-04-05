@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole(RoleEnum::ADMINISTRATOR, RoleEnum::USER);
 
+        $this->call(NewsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
     }
