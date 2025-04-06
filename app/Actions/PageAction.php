@@ -31,7 +31,7 @@ class PageAction
     public function newsShow(News $news): ?Page
     {
         return $this->createFakePage(
-            key: $this->prefix.'news_id'.$news->id,
+            key: $this->prefix.'news_'.$news->id,
             title: $news->title,
             description: $news->teaser,
             image: $news->image
@@ -51,7 +51,7 @@ class PageAction
     public function services(Service $service): ?Page
     {
         return $this->createFakePage(
-            key: $this->prefix.'services'.$service->id,
+            key: $this->prefix.'services_'.$service->id,
             title: $service->title,
             description: $service->teaser,
             image: $service->image
