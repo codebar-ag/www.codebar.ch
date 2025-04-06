@@ -1,10 +1,10 @@
 --- # V1 # ---
-
 -[ ] Dynamic SEO Images & Meta Information
 -[ ] Language Switch DE/FR
+-[ ] Refactor Mobile Navigation
+
 -[ ] Translated Routes
 -[ ] Multilanguage Sitemap
--[ ] Refactor Mobile Navigation
 
 --- # GO LIVE Live # ---
 
@@ -25,6 +25,7 @@
 -[ ] Jobs Page
 -[ ] Pagianted News Index
 -[ ] Show Related Services & Products
+-[ ] Custom 404
 
 --- # TBD # ---
 

@@ -36,7 +36,8 @@
                 <ul class="mt-1 list-none text-base">
 
                     <li>
-                        <x-a :href="localized_route('contact.index')" label="{{ __('Contact') }}" classAttributes="text-lg"/>
+                        <x-a :href="localized_route('contact.index')" label="{{ __('Contact') }}"
+                             classAttributes="text-lg"/>
                     </li>
                     {{--                    <li>
                                             <x-a :href="localized_route('jobs.index')" label="{{ __('Jobs') }}" classAttributes="text-lg"/>
@@ -68,7 +69,7 @@
         </div>
 
         <div class="text-base text-gray-500 text-center md:text-left">
-            <span>© {{ date('Y') }} {{ __('paperflakes AG') }}</span>
+            <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ __('paperflakes AG') }}</span>
         </div>
     </div>
 </footer>
