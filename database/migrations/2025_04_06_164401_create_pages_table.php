@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique();
+            $table->string('robots');
+            $table->string('title');
+            $table->string('description');
+            $table->string('image');
             $table->timestamps();
         });
     }

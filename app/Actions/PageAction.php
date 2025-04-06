@@ -65,6 +65,7 @@ class PageAction
 
             $fakePage = new Page;
             $fakePage->locale = app()->getLocale();
+            $fakePage->robots = 'index,follow';
             $fakePage->title = $title;
             $fakePage->teaser = $description;
             $fakePage->image = $image;
