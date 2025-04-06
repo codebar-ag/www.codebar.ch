@@ -13,6 +13,7 @@ use App\Http\Controllers\Products\ProductsIndexController;
 use App\Http\Controllers\Products\ProductsShowController;
 use App\Http\Controllers\Services\ServicesIndexController;
 use App\Http\Controllers\Services\ServicesShowController;
+use App\Http\Controllers\Sitemap\SitemapController;
 use App\Http\Controllers\Start\StartIndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,5 @@ Route::get('jobs', JobsIndexController::class)->name('jobs.index');
 Route::get('media', MediaIndexController::class)->name('media.index');
 Route::get('contact', ContactIndexController::class)->name('contact.index');
 Route::get('locale/update/{locale}', LocaleUpdateController::class)->name('locale.update');
+
+Route::get('sitemap.xml', SitemapController::class);
