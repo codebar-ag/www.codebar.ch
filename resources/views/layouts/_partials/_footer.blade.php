@@ -1,4 +1,4 @@
-<footer class="my-12 md:my-18 bg-white text-lg">
+<footer class="my-12 md:my-20 bg-white text-lg min-h-[200px]">
     <div class="flex flex-col gap-8">
 
         <div class="flex flex-col items-start gap-4 md:gap-18 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">

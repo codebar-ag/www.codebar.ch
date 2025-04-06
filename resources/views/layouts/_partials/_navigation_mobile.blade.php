@@ -68,7 +68,12 @@
 
     <!-- Contact -->
     <div @click.stop class="py-3 text-center bg-gray-50/25 transition space-y-1">
-        <span>{{ __('Contact') }}</span>
+        <a @click.stop
+           href="{{ route('contact.index') }}"
+           title="{{ __('Contact') }}"
+           class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
+            {{ __('Contact') }}
+        </a>
         <div class="mt-1 text-sm text-gray-600 space-y-1">
             <a href="tel:0041615156090"
                title="{{ __('Contact Phone number') }}"
@@ -79,11 +84,6 @@
                title="{{ __('Contact email address') }}"
                class="block text-base hover:text-black hover:font-semibold transition">
                 info@paperflakes.ch
-            </a>
-            <a href="{{ route('contact.index') }}"
-               title="{{ __('More contact information') }}"
-               class="block text-sm hover:text-black hover:font-semibold transition">
-                {{ __('More') }}
             </a>
         </div>
     </div>
