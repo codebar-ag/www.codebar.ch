@@ -35,7 +35,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
 
-        Artisan::call(ClearCommand::class);
-        Artisan::call(ResponseCacheClearCommand::class);
+        if (app()->isLocal()) {
+            Artisan::call(ClearCommand::class);
+            Artisan::call(ResponseCacheClearCommand::class);
+        }
+
     }
 }
