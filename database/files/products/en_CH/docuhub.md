@@ -6,7 +6,7 @@ Whether you need to automate exports, connect external services, or enrich your 
 - **DMS/ECM**: DocuWare, SharePoint, M-Files
 - **Storage**: FTP/SFTP, Amazon S3, Azure Blob Storage
 
-## Modular Features (More Coming!)
+## Modular Features
 - **Backup & Export**: Automatically export documents along with index fields and metadata like OCR results
 - **PostFinance Integration**: Receive Yellowbill invoices via PostFinance Portal and map them directly into your invoice process
 - **Azure Document Intelligence**: Classify and extract data from documents using Azure’s prebuilt or custom AI models
