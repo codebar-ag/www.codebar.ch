@@ -5,9 +5,12 @@ namespace App\Providers;
 use App\Checks\FailedJobsCheck;
 use App\Checks\FilesystemsDefaultCheck;
 use App\Checks\JobsCheck;
+use App\URL\LocalizedUrlGenerator;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
+use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -23,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->localizedUrlGenerator();
     }
 
     /**
@@ -53,5 +56,20 @@ class AppServiceProvider extends ServiceProvider
             FailedJobsCheck::new(),
             SecurityAdvisoriesCheck::new()->lastDayOfMonth(),
         ]);
+    }
+
+    private function localizedUrlGenerator(): void
+    {
+        $this->app->singleton(UrlGenerator::class, function ($app) {
+            return new LocalizedUrlGenerator(
+                $app['router']->getRoutes(),
+                $app->rebinding('request', function ($app, $request) {
+                    $app['url']->setRequest($request);
+                }),
+                $app['request']
+            );
+        });
+
+        $this->app->alias(UrlGenerator::class, UrlGeneratorContract::class);
     }
 }

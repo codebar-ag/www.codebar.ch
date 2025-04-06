@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sitemap;
 
+use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Product;
@@ -15,53 +16,106 @@ class SitemapController extends Controller
 {
     protected Sitemap $sitemap;
 
-    public function __construct() {}
-
     /**
      * Display the user's profile form.
      */
-    public function __invoke(): Response
+    public function index(): Response
     {
         $sitemap = Cache::remember('cached_sitemap_xml', now()->addDay(), function () {
-            $this->sitemap = Sitemap::create();
-            $this->setup();
+            $sitemap = Sitemap::create();
+            $sitemap->add(Url::create(route('sitemap-de-ch')));
+            $sitemap->add(Url::create(route('sitemap-en-ch')));
 
-            return $this->sitemap;
+            return $sitemap;
         });
 
         return response($sitemap->render())
             ->header('Content-Type', 'application/xml');
     }
 
-    private function setup()
+    public function deCH()
     {
-        $this->sitemap = Sitemap::create();
+        $sitemap = Cache::remember('cached_sitemap_de_ch_xml', now()->addDay(), function () {
 
-        $this->sitemap->add(Url::create(route('start.index')));
+            $locale = LocaleEnum::DE->value;
 
-        News::all()->each(function (News $news) {
-            $this->sitemap->add(Url::create(route('news.show', $news)));
+            $sitemap = Sitemap::create();
+
+            $sitemap->add(Url::create(route('start.index')));
+
+            News::where('locale', $locale)->get()->each(function (News $news) use ($sitemap) {
+                $sitemap->add(Url::create(route('news.show', $news)));
+            });
+
+            // $sitemap->add(Url::create(route('about-us.index')));
+            $sitemap->add(Url::create(route('services.index')));
+
+            Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap) {
+                $sitemap->add(Url::create(route('services.show', $service)));
+            });
+
+            $sitemap->add(Url::create(route('products.index')));
+
+            Product::where('locale', $locale)->get()->each(function (Product $product) use ($sitemap) {
+                $sitemap->add(Url::create(route('products.show', $product)));
+            });
+
+            $sitemap->add(Url::create(route('legal.privacy.index')));
+            $sitemap->add(Url::create(route('legal.terms.index')));
+            $sitemap->add(Url::create(route('legal.imprint.index')));
+
+            // $sitemap->add(Url::create(route('jobs.index')));
+            // $sitemap->add(Url::create(route('media.index')));
+            $sitemap->add(Url::create(route('contact.index')));
+
+            return $sitemap;
         });
 
-        // $this->sitemap->add(Url::create(route('about-us.index')));
-        $this->sitemap->add(Url::create(route('services.index')));
+        return response($sitemap->render())
+            ->header('Content-Type', 'application/xml');
 
-        Service::all()->each(function (Service $service) {
-            $this->sitemap->add(Url::create(route('services.show', $service)));
+    }
+
+    public function enCH()
+    {
+        $sitemap = Cache::remember('cached_sitemap_en_ch_xml', now()->addDay(), function () {
+
+            $locale = LocaleEnum::EN->value;
+
+            $sitemap = Sitemap::create();
+
+            $sitemap->add(Url::create(route('start.index')));
+
+            News::where('locale', $locale)->get()->each(function (News $news) use ($sitemap) {
+                $sitemap->add(Url::create(route('news.show', $news)));
+            });
+
+            // $sitemap->add(Url::create(route('about-us.index')));
+            $sitemap->add(Url::create(route('services.index')));
+
+            Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap) {
+                $sitemap->add(Url::create(route('services.show', $service)));
+            });
+
+            $sitemap->add(Url::create(route('products.index')));
+
+            Product::where('locale', $locale)->get()->each(function (Product $product) use ($sitemap) {
+                $sitemap->add(Url::create(route('products.show', $product)));
+            });
+
+            $sitemap->add(Url::create(route('legal.privacy.index')));
+            $sitemap->add(Url::create(route('legal.terms.index')));
+            $sitemap->add(Url::create(route('legal.imprint.index')));
+
+            // $sitemap->add(Url::create(route('jobs.index')));
+            // $sitemap->add(Url::create(route('media.index')));
+            $sitemap->add(Url::create(route('contact.index')));
+
+            return $sitemap;
         });
 
-        $this->sitemap->add(Url::create(route('products.index')));
+        return response($sitemap->render())
+            ->header('Content-Type', 'application/xml');
 
-        Product::all()->each(function (Product $product) {
-            $this->sitemap->add(Url::create(route('products.show', $product)));
-        });
-
-        $this->sitemap->add(Url::create(route('legal.privacy.index')));
-        $this->sitemap->add(Url::create(route('legal.terms.index')));
-        $this->sitemap->add(Url::create(route('legal.imprint.index')));
-
-        // $this->sitemap->add(Url::create(route('jobs.index')));
-        // $this->sitemap->add(Url::create(route('media.index')));
-        $this->sitemap->add(Url::create(route('contact.index')));
     }
 }
