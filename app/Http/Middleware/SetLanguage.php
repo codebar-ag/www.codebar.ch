@@ -23,7 +23,7 @@ class SetLanguage
             return $next($request);
         }
 
-        app()->setLocale(LocaleEnum::EN->value);
+        app()->setLocale(LocaleEnum::DE->value);
 
         return $next($request);
     }
