@@ -3,14 +3,13 @@
 namespace App\View\Components;
 
 use App\Actions\ViewDataAction;
-use App\Models\Page;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
 class AppLayout extends Component
 {
-    public function __construct(protected ?Page $page) {}
+    public function __construct(protected mixed $page) {}
 
     public function render(): View
     {
