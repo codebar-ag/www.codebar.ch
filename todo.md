@@ -1,0 +1,5 @@
+- Dynamic SEO Images & Meta Information
+- Language Switch DE/FR
+- Translated Routes
+- Multilanguage Sitemap
+- Refactor Mobile Navigation
