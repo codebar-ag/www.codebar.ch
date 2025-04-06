@@ -1,10 +1,6 @@
 --- # V1 # ---
 
--[ ] Dynamic SEO Images & Meta Information
 -[ ] Language Switch DE/FR
-
--[ ] Translated Routes
--[ ] Multilanguage Sitemap
 
 --- # GO LIVE Live # ---
 

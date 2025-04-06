@@ -28,8 +28,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Start Index',
-                'description' => 'Start Description',
+                'title' => 'Your Digital Partner',
+                'description' => 'We support you with smart digital solutions that move your business forward.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -40,8 +40,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Services Index',
-                'description' => 'Services Description',
+                'title' => 'Services that Support You',
+                'description' => 'From strategy to implementation â€“ weâ€™re here to support you all the way.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -52,8 +52,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Products Index',
-                'description' => 'Products Description',
+                'title' => 'Tools That Empower You',
+                'description' => 'Our products are built to help you work smarter, faster and better.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -64,8 +64,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Legal Imprint Index',
-                'description' => 'Legal Imprint Description',
+                'title' => 'Legal Notice',
+                'description' => 'All legal details about paperflakes AG.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -76,8 +76,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Contact Index',
-                'description' => 'Contact Description',
+                'title' => 'Let\'s Talk',
+                'description' => 'Have a question? Weâ€™re here to support you â€“ just reach out.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
     }
@@ -93,8 +93,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Start Index',
-                'description' => 'Start Description',
+                'title' => 'Dein digitaler Partner',
+                'description' => 'Wir unterstützen dich mit cleveren Lösungen für deinen digitalen Erfolg.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -105,8 +105,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Dienstleistungen Index',
-                'description' => 'Dienstleistungen Description',
+                'title' => 'Dienstleistungen für dich',
+                'description' => 'Von der Strategie bis zur Umsetzung - wir stehen dir zur Seite.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -117,8 +117,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Produkte Index',
-                'description' => 'Produkte Description',
+                'title' => 'Tools, die dich stärken',
+                'description' => 'Unsere Produkte helfen dir, effizienter, schneller und einfacher zu arbeiten.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -129,8 +129,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Impressum Index',
-                'description' => 'Impressum Description',
+                'title' => 'Rechtliches',
+                'description' => 'Alle rechtlichen Informationen zur paperflakes AG.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -142,8 +142,8 @@ class PagesTableSeeder extends Seeder
             [
 
                 'robots' => 'index,follow',
-                'title' => 'Kontakt Index',
-                'description' => 'Kontakt Description',
+                'title' => 'Lass uns sprechen',
+                'description' => 'Fragen? Wir sind fürr dich da - melde dich jederzeit bei uns.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
     }
