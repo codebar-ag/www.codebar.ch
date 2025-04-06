@@ -23,10 +23,8 @@ class SitemapController extends Controller
     public function __invoke(): Response
     {
         $sitemap = Cache::remember('cached_sitemap_xml', now()->addDay(), function () {
-
             $this->sitemap = Sitemap::create();
-
-            $this->generate();
+            $this->setup();
 
             return $this->sitemap;
         });
@@ -35,7 +33,7 @@ class SitemapController extends Controller
             ->header('Content-Type', 'application/xml');
     }
 
-    private function generate()
+    private function setup()
     {
         $this->sitemap = Sitemap::create();
 
