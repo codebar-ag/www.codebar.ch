@@ -41,7 +41,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Services that Support You',
-                'description' => 'From strategy to implementation â€“ weâ€™re here to support you all the way.',
+                'description' => 'From strategy to implementation - we\'re here to support you all the way.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
 
@@ -77,7 +77,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Let\'s Talk',
-                'description' => 'Have a question? Weâ€™re here to support you â€“ just reach out.',
+                'description' => 'Have a question? We\'re here to support you - just reach out.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif',
             ]);
     }
