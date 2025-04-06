@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('content')->nullable();
             $table->string('url')->nullable();
+            $table->json('tags')->nullable();
             $table->timestamps();
         });
     }

@@ -43,7 +43,7 @@ class NewsTableSeeder extends Seeder
         News::updateOrCreate(
             [
                 'title' => 'DocuWare 7.12 is here',
-                'slug' => Str::slug("docuware-7-12-ist-here-{$publishedAtFormatted}-{$locale}"),
+                'slug' => Str::slug("docuware-7-12-is-here-{$publishedAtFormatted}-{$locale}"),
             ],
             [
                 'teaser' => 'More automation, more insights, more efficiency',

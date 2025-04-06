@@ -23,8 +23,8 @@
     <x-section class-attributes="mt-8">
         <h2 class="mb-2 text-2xl font-semibold">{{ __('Meta information') }}</h2>
         <div class="mt-6 flex flex-col gap-y-2 md:flex-row md:items-center md:gap-x-2">
-            <x-badge :label="__('Created at: :date', ['date' => $published_at])"
-                     :title="__('Created at')"
+            <x-badge :label="__('Published at: :date', ['date' => $published_at])"
+                     :title="__('Published at')"
                      class-attributes="text-sm self-start"/>
             <x-badge :label="__('Last updated at: :date', ['date' => $last_updated_at])"
                      :title="__('Last updated at')"

@@ -14,6 +14,7 @@ class Service extends Model
     protected $casts = [
         'published' => 'boolean',
         'locale' => LocaleEnum::class,
+        'tags' => 'json',
     ];
 
     public function getRouteKeyName(): string
