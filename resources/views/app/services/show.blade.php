@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :page="$page">
 
     <x-section>
         <x-h1 :title="$name"/>

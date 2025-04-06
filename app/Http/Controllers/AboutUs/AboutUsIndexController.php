@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AboutUs;
 
+use App\Actions\PageAction;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
@@ -12,6 +13,8 @@ class AboutUsIndexController extends Controller
      */
     public function __invoke(): View
     {
-        return view('app.about-us.index');
+        return view('app.about-us.index')->with([
+            'page' => (new PageAction('about-us.index'))->default(),
+        ]);
     }
 }

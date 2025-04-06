@@ -7,10 +7,6 @@
 
 {{--<meta name="msapplication-config" content="{{ asset('browserconfig.xml') }}">--}}
 
-@php
-    dd($page)
-@endphp
-
 @if(!empty($page))
     <title>{{ $page->title }}</title>
     <meta name="robots" content="{{ $page->robots }}">

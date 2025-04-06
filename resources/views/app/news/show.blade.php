@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :page="$page">
 
     @if(!empty($tags) && $tags->count())
         <x-section>

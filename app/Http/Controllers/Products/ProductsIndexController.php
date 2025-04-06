@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Products;
 
+use App\Actions\PageAction;
 use App\Actions\ViewDataAction;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
@@ -16,6 +17,7 @@ class ProductsIndexController extends Controller
         $locale = app()->getLocale();
 
         return view('app.products.index')->with([
+            'page' => (new PageAction('products.index'))->default(),
             'products' => (new ViewDataAction)->products($locale),
         ]);
     }

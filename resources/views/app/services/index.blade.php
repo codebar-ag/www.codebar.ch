@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :page="$page">
     <x-h1 :title="__('Services')"/>
 
     @foreach($services as $key => $group)
@@ -8,10 +8,11 @@
                 <x-list>
                     @foreach($group as $service)
                         <x-list-card
-                                :url="localized_route('services.show', $service)"
+                                :url="$service->url ?? localized_route('services.show',$service)"
                                 :title="$service->name"
                                 :teaser="$service->teaser"
-                                :tags="$service->tags"/>
+                                :tags="$service->tags"
+                                target="{{ $service->url ? '_blank' : '_self' }}"/>
                     @endforeach
                 </x-list>
             </x-section>

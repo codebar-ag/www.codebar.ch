@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Products;
 
+use App\Actions\PageAction;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Support\Str;
@@ -15,6 +16,7 @@ class ProductsShowController extends Controller
     public function __invoke(Product $product): View
     {
         return view('app.products.show')->with([
+            'page' => (new PageAction)->products(product: $product),
             'name' => $product->name,
             'teaser' => $product->teaser,
             'content' => Str::of($product->content)->markdown(),

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\News;
 
+use App\Actions\PageAction;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use Illuminate\Support\Str;
@@ -15,6 +16,7 @@ class NewsShowController extends Controller
     public function __invoke(News $news): View
     {
         return view('app.news.show')->with([
+            'page' => (new PageAction)->news(news: $news),
             'published_at' => $news->published_at?->format('d.m.Y'),
             'last_updated_at' => $news->updated_at?->format('d.m.Y'),
             'author' => $news->author,

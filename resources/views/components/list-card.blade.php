@@ -1,6 +1,7 @@
-@props(['url','title','teaser','tags' => []])
+@props(['url','title','teaser','tags' => [],'target' => '_self'])
 
-<a href="{{ $url }}" class="group block p-4 transition hover:bg-gray-50/50 hover:shadow-sm rounded">
+<a target="{{ $target }}" href="{{ $url }}"
+   class="group block p-4 transition hover:bg-gray-50/50 hover:shadow-sm rounded">
     <div class="flex flex-col gap-1">
         <div class="font-semibold text-gray-800 group-hover:text-primary">
             {{ $title }}

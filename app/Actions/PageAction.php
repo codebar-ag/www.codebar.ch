@@ -16,7 +16,7 @@ class PageAction
     private string $prefix;
 
     public function __construct(
-        protected string $key,
+        protected ?string $key = null,
     ) {
         $this->locale = app()->getLocale();
         $this->prefix = 'cached_page_'.$this->locale.'_';
@@ -29,7 +29,7 @@ class PageAction
         return Cache::remember($key, 86400, fn () => $this->findPage());
     }
 
-    public function newsShow(News $news): ?Page
+    public function news(News $news): ?Page
     {
         return $this->createFakePage(
             key: Str::slug($this->prefix.'news_'.$news->id),
@@ -43,7 +43,7 @@ class PageAction
     {
         return $this->createFakePage(
             key: Str::slug($this->prefix.'products_'.$product->id),
-            title: $product->title,
+            title: $product->name,
             description: $product->teaser,
             image: $product->image
         );
@@ -53,7 +53,7 @@ class PageAction
     {
         return $this->createFakePage(
             key: Str::slug($this->prefix.'services_'.$service->id),
-            title: $service->title,
+            title: $service->name,
             description: $service->teaser,
             image: $service->image
         );
@@ -63,7 +63,7 @@ class PageAction
         string $key,
         string $title,
         string $description,
-        string $image
+        mixed $image
     ): ?Page {
         return Cache::rememberForever($key, function () use ($title, $description, $image) {
 
