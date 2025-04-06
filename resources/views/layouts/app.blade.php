@@ -15,10 +15,7 @@
     />
 
 
-    <title>{{ config('app.name') }}</title>
-
-    <meta name="description" content="paperflakes AG Website"/>
-
+    @include('layouts._partials._seo')
     @include('layouts._partials._favicons')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

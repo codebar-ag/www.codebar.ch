@@ -2,7 +2,6 @@
 
 -[ ] Dynamic SEO Images & Meta Information
 -[ ] Language Switch DE/FR
--[ ] Refactor Mobile Navigation
 
 -[ ] Translated Routes
 -[ ] Multilanguage Sitemap
@@ -15,6 +14,7 @@
 
 --- # v2 # ---
 
+-[ ] Refactor Mobile Navigation
 -[ ] Breadcrumbs Website
 -[ ] News: Add Reading Time
 -[ ] Align SMS Logos! Horizontally
