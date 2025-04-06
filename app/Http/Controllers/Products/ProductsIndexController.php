@@ -13,8 +13,10 @@ class ProductsIndexController extends Controller
      */
     public function __invoke(): View
     {
+        $locale = app()->getLocale();
+
         return view('app.products.index')->with([
-            'products' => (new ViewDataAction)->products(),
+            'products' => (new ViewDataAction)->products($locale),
         ]);
     }
 }

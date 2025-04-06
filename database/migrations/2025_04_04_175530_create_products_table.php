@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->boolean('published')->default(false);
+            $table->string('locale');
             $table->integer('order');
             $table->string('name');
             $table->string('teaser')->nullable();

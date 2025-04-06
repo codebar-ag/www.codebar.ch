@@ -13,8 +13,10 @@ class ServicesIndexController extends Controller
      */
     public function __invoke(): View
     {
+        $locale = app()->getLocale();
+
         return view('app.services.index')->with([
-            'services' => (new ViewDataAction)->services(),
+            'services' => (new ViewDataAction)->services($locale),
         ]);
     }
 }

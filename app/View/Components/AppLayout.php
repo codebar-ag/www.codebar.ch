@@ -13,9 +13,11 @@ class AppLayout extends Component
      */
     public function render(): View
     {
+        $locale = app()->getLocale();
+
         return view('layouts.app')->with([
-            'services' => (new ViewDataAction)->services(),
-            'products' => (new ViewDataAction)->products(),
+            'services' => (new ViewDataAction)->services($locale),
+            'products' => (new ViewDataAction)->products($locale),
         ]);
     }
 }

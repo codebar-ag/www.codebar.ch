@@ -1,7 +1,7 @@
-<footer class="mb-12 bg-white text-lg">
+<footer class="my-12 md:my-18 bg-white text-lg">
     <div class="flex flex-col gap-8">
 
-        <div class="flex flex-col items-start gap-4 md:gap-12 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
+        <div class="flex flex-col items-start gap-4 md:gap-18 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
             <div>
                 <h2 class="text-black font-semibold">{{ __('Services') }}</h2>
                 <ul class="mt-1 list-none text-base">
@@ -61,13 +61,13 @@
                 <ul class="mt-1 list-none text-base">
 
                     <li>
-                        <x-a :href="route('privacy.index')" label="{{ __('Privacy') }}" classAttributes="text-lg"/>
+                        <x-a :href="route('legal.privacy.index')" label="{{ __('Privacy') }}" classAttributes="text-lg"/>
                     </li>
                     <li>
-                        <x-a :href="route('terms.index')" label="{{ __('Terms') }}" classAttributes="text-lg"/>
+                        <x-a :href="route('legal.terms.index')" label="{{ __('Terms') }}" classAttributes="text-lg"/>
                     </li>
                     <li>
-                        <x-a :href="route('imprint.index')" label="{{ __('Imprint') }}" classAttributes="text-lg"/>
+                        <x-a :href="route('legal.imprint.index')" label="{{ __('Imprint') }}" classAttributes="text-lg"/>
                     </li>
                 </ul>
             </div>

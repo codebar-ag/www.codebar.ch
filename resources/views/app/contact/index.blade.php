@@ -4,7 +4,7 @@
     <x-section-flex>
         <div>
             <x-h2 :title="__('Phone')"/>
-            <x-a href="tel:0041615156095" label="{{ __('+41 61 515 60 95') }}" classAttributes="block"/>
+            <x-a href="tel:0041615156095" label="{{ __('+41 61 515 60 952') }}" classAttributes="block"/>
         </div>
         <div>
             <x-h2 :title="__('Email')"/>

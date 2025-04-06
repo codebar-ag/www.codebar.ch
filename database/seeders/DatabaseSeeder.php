@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Cache\Console\ClearCommand;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
+use Spatie\ResponseCache\Commands\ClearCommand as ResponseCacheClearCommand;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServicesTableSeeder::class);
 
         Artisan::call(ClearCommand::class);
+        Artisan::call(ResponseCacheClearCommand::class);
     }
 }

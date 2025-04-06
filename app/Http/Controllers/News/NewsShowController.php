@@ -15,6 +15,9 @@ class NewsShowController extends Controller
     public function __invoke(News $news): View
     {
         return view('app.news.show')->with([
+            'published_at' => $news->published_at?->format('d.m.Y'),
+            'last_updated_at' => $news->updated_at?->format('d.m.Y'),
+            'author' => $news->author,
             'title' => $news->title,
             'teaser' => $news->teaser,
             'content' => Str::of($news->content)->markdown(),

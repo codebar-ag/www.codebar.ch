@@ -11,21 +11,21 @@ use Illuminate\Support\Str;
 
 class ViewDataAction
 {
-    public function products(): Collection
+    public function products(string $locale): Collection
     {
-        $key = Str::slug('products_published');
+        $key = Str::slug("products_published_{$locale}");
 
-        return Cache::rememberForever($key, function () {
-            return Product::where('published', true)->orderBy('order')->get();
+        return Cache::rememberForever($key, function () use ($locale) {
+            return Product::where('locale', $locale)->where('published', true)->orderBy('order')->get();
         });
     }
 
-    public function services(): Collection
+    public function services(string $locale): Collection
     {
-        $key = Str::slug('services_published');
+        $key = Str::slug("services_published_{$locale}");
 
-        return Cache::rememberForever($key, function () {
-            return Service::where('published', true)->orderBy('order')->get();
+        return Cache::rememberForever($key, function () use ($locale) {
+            return Service::where('locale', $locale)->where('published', true)->orderBy('order')->get();
         });
     }
 

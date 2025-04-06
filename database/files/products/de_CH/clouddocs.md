@@ -5,13 +5,13 @@ With CloudDocs, your customers can view, download, and upload documents through 
 stays in sync with your internal document system, so you stay in control while giving your customers the access they
 expect.
 
-### Solve key problems at once
+## Solve key problems at once
 
 - Stop emailing documents back and forth
 - Avoid lost files or outdated versions
 - Reduce manual effort and response times
 
-### What CloudDocs lets you do
+## What CloudDocs lets you do
 
 - Share documents directly from your DMS with your customers
 - Let customers upload files that go straight into your system
@@ -21,5 +21,5 @@ expect.
 CloudDocs helps you deliver better service and streamline communication—by giving your customers exactly what they need:
 secure, self-service document access.
 
-### Want to Improve How You Work with Your Customers?
+## Want to Improve How You Work with Your Customers?
 If you're looking to simplify document handling or enhance how your customers interact with you—let’s talk.

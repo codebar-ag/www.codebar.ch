@@ -29,6 +29,8 @@ return new class extends Migration
 
             $table->dateTime('published_at')->nullable();
 
+            $table->string('author')->nullable();
+
             $table->timestamps();
         });
     }
