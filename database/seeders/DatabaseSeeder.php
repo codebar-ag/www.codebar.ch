@@ -6,7 +6,9 @@ use App\Enums\LocaleEnum;
 use App\Enums\RoleEnum;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Cache\Console\ClearCommand;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,5 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
+
+        Artisan::call(ClearCommand::class);
     }
 }

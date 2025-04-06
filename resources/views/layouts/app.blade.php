@@ -24,8 +24,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @speculationRulesApi
-
 </head>
 <body class="font-sans antialiased">
 

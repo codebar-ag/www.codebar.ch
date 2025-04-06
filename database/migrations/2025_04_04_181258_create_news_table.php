@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
 
+            $table->string('locale');
+
             $table->string('title');
 
             $table->string('slug')->unique();
@@ -22,8 +24,8 @@ return new class extends Migration
 
             $table->longText('content')->nullable();
 
-            $table->string('image_disk')->nullable();
-            $table->string('image_path')->nullable();
+            $table->string('preview_image_disk')->nullable();
+            $table->string('preview_image_path')->nullable();
 
             $table->dateTime('published_at')->nullable();
 

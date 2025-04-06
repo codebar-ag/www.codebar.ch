@@ -21,7 +21,7 @@ class ProductsTableSeeder extends Seeder
                 'published' => true,
                 'order' => 1,
                 'teaser' => 'Supercharge Your DMS with Smart Integrations',
-                'content' => file_get_contents(database_path('files/products_docuhub.md')),
+                'content' => file_get_contents(database_path('files/products_clouddocs.md')),
             ]);
 
         Product::updateOrCreate(
