@@ -6,7 +6,7 @@
 >
     <!-- News -->
     <a @click.stop
-       href="{{ route('start.index') }}"
+       href="{{ localized_route('start.index') }}"
        title="{{ __('News') }}"
        class="block py-3 text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
         {{ __('News') }}
@@ -14,7 +14,7 @@
 
 {{--    <!-- About us -->
     <a @click.stop
-       href="{{ route('about-us.index') }}"
+       href="{{ localized_route('about-us.index') }}"
        title="{{ __('About us') }}"
        class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
         {{ __('About us') }}
@@ -23,7 +23,7 @@
     <!-- Services -->
     <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
         <a @click.stop
-           href="{{ route('services.index') }}"
+           href="{{ localized_route('services.index') }}"
            title="{{ __('Services') }}"
            class="block text-center bg-gray-50/25 hover:text-black hover:font-semibold transition rounded-t-lg">
             {{ __('Services') }}
@@ -33,7 +33,7 @@
             @if(!empty($services) && $services->count())
                 @foreach($services as $service)
                     <a target="{{ $service->url ? '_blank' : '_self' }}"
-                       href="{{ $service->url ?? route('services.show',$service) }}"
+                       href="{{ $service->url ?? localized_route('services.show',$service) }}"
                        title="{{ $service->name }}"
                        class="block text-base hover:text-black hover:font-semibold transition">
                         {{ $service->name }}
@@ -46,7 +46,7 @@
     <!-- Products -->
     <div @click.stop class="py-3 text-center bg-gray-50 transition">
         <a @click.stop
-           href="{{ route('products.index') }}"
+           href="{{ localized_route('products.index') }}"
            title="{{ __('Products') }}"
            class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
             {{ __('Products') }}
@@ -56,7 +56,7 @@
             @if(!empty($products) && $products->count())
                 @foreach($products as $product)
                     <a target="{{ $product->url ? '_blank' : '_self' }}"
-                       href="{{ $product->url ?? route('products.show',$product) }}"
+                       href="{{ $product->url ?? localized_route('products.show',$product) }}"
                        title="{{ $product->name }}"
                        class="block text-base hover:text-black hover:font-semibold transition">
                         {{ $product->name }}
@@ -69,7 +69,7 @@
     <!-- Contact -->
     <div @click.stop class="py-3 text-center bg-gray-50/25 transition space-y-1">
         <a @click.stop
-           href="{{ route('contact.index') }}"
+           href="{{ localized_route('contact.index') }}"
            title="{{ __('Contact') }}"
            class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
             {{ __('Contact') }}
@@ -92,12 +92,12 @@
      <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
          <span>{{ __('Language') }}</span>
          <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
-             <a href="{{ route('locale.update', 'de') }}"
+             <a href="{{ localized_route('locale.update', 'de') }}"
                 title="{{ __('Update to german language') }}"
                 class="text-base hover:text-black hover:font-semibold transition">
                  {{ __('DE') }}
              </a>
-             <a href="{{ route('locale.update', 'en') }}"
+             <a href="{{ localized_route('locale.update', 'en') }}"
                 title="{{ __('Update to english language') }}"
                 class="text-base hover:text-black hover:font-semibold transition">
                  {{ __('EN') }}

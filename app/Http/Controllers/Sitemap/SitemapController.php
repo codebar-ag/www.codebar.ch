@@ -23,8 +23,8 @@ class SitemapController extends Controller
     {
         $sitemap = Cache::remember('cached_sitemap_xml', now()->addDay(), function () {
             $sitemap = Sitemap::create();
-            $sitemap->add(Url::create(route('sitemap-de-ch')));
-            $sitemap->add(Url::create(route('sitemap-en-ch')));
+            $sitemap->add(Url::create(route('de-ch.sitemap')));
+            $sitemap->add(Url::create(route('en-en.sitemap')));
 
             return $sitemap;
         });
@@ -41,32 +41,32 @@ class SitemapController extends Controller
 
             $sitemap = Sitemap::create();
 
-            $sitemap->add(Url::create(route('start.index')));
+            $sitemap->add(Url::create(localized_route('start.index', [], true, $locale)));
 
-            News::where('locale', $locale)->get()->each(function (News $news) use ($sitemap) {
-                $sitemap->add(Url::create(route('news.show', $news)));
+            News::where('locale', $locale)->get()->each(function (News $news) use ($sitemap, $locale) {
+                $sitemap->add(Url::create(localized_route('news.show', $news, true, $locale)));
             });
 
-            // $sitemap->add(Url::create(route('about-us.index')));
-            $sitemap->add(Url::create(route('services.index')));
+            // $sitemap->add(Url::create(localized_route('about-us.index', [], true, $locale)));
+            $sitemap->add(Url::create(localized_route('services.index', [], true, $locale)));
 
-            Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap) {
-                $sitemap->add(Url::create(route('services.show', $service)));
+            Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap, $locale) {
+                $sitemap->add(Url::create(localized_route('services.show', $service, true, $locale)));
             });
 
-            $sitemap->add(Url::create(route('products.index')));
+            $sitemap->add(Url::create(localized_route('products.index', [], true, $locale)));
 
-            Product::where('locale', $locale)->get()->each(function (Product $product) use ($sitemap) {
-                $sitemap->add(Url::create(route('products.show', $product)));
+            Product::where('locale', $locale)->get()->each(function (Product $product) use ($sitemap, $locale) {
+                $sitemap->add(Url::create(localized_route('products.show', $product, true, $locale)));
             });
 
-            $sitemap->add(Url::create(route('legal.privacy.index')));
-            $sitemap->add(Url::create(route('legal.terms.index')));
-            $sitemap->add(Url::create(route('legal.imprint.index')));
+            // $sitemap->add(Url::create(localized_route('legal.privacy.index', [], true, $locale)));
+            // $sitemap->add(Url::create(localized_route('legal.terms.index', [], true, $locale)));
+            $sitemap->add(Url::create(localized_route('legal.imprint.index', [], true, $locale)));
 
-            // $sitemap->add(Url::create(route('jobs.index')));
-            // $sitemap->add(Url::create(route('media.index')));
-            $sitemap->add(Url::create(route('contact.index')));
+            // $sitemap->add(Url::create(localized_route('jobs.index', [], true, $locale)));
+            // $sitemap->add(Url::create(localized_route('media.index', [], true, $locale)));
+            $sitemap->add(Url::create(localized_route('contact.index', [], true, $locale)));
 
             return $sitemap;
         });
@@ -84,32 +84,32 @@ class SitemapController extends Controller
 
             $sitemap = Sitemap::create();
 
-            $sitemap->add(Url::create(route('start.index')));
+            $sitemap->add(Url::create(localized_route('start.index', [], true, $locale)));
 
-            News::where('locale', $locale)->get()->each(function (News $news) use ($sitemap) {
-                $sitemap->add(Url::create(route('news.show', $news)));
+            News::where('locale', $locale)->get()->each(function (News $news) use ($sitemap, $locale) {
+                $sitemap->add(Url::create(localized_route('news.show', $news, true, $locale)));
             });
 
-            // $sitemap->add(Url::create(route('about-us.index')));
-            $sitemap->add(Url::create(route('services.index')));
+            // $sitemap->add(Url::create(localized_route('about-us.index', [], true, $locale)));
+            $sitemap->add(Url::create(localized_route('services.index', [], true, $locale)));
 
-            Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap) {
-                $sitemap->add(Url::create(route('services.show', $service)));
+            Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap, $locale) {
+                $sitemap->add(Url::create(localized_route('services.show', $service, true, $locale)));
             });
 
-            $sitemap->add(Url::create(route('products.index')));
+            $sitemap->add(Url::create(localized_route('products.index', [], true, $locale)));
 
-            Product::where('locale', $locale)->get()->each(function (Product $product) use ($sitemap) {
-                $sitemap->add(Url::create(route('products.show', $product)));
+            Product::where('locale', $locale)->get()->each(function (Product $product) use ($sitemap, $locale) {
+                $sitemap->add(Url::create(localized_route('products.show', $product, true, $locale)));
             });
 
-            $sitemap->add(Url::create(route('legal.privacy.index')));
-            $sitemap->add(Url::create(route('legal.terms.index')));
-            $sitemap->add(Url::create(route('legal.imprint.index')));
+            // $sitemap->add(Url::create(localized_route('legal.privacy.index', [], true, $locale)));
+            // $sitemap->add(Url::create(localized_route('legal.terms.index', [], true, $locale)));
+            $sitemap->add(Url::create(localized_route('legal.imprint.index', [], true, $locale)));
 
-            // $sitemap->add(Url::create(route('jobs.index')));
-            // $sitemap->add(Url::create(route('media.index')));
-            $sitemap->add(Url::create(route('contact.index')));
+            // $sitemap->add(Url::create(localized_route('jobs.index', [], true, $locale)));
+            // $sitemap->add(Url::create(localized_route('media.index', [], true, $locale)));
+            $sitemap->add(Url::create(localized_route('contact.index', [], true, $locale)));
 
             return $sitemap;
         });

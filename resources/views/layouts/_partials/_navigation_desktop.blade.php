@@ -3,40 +3,40 @@
     {{-- Left-aligned primary navigation --}}
     <div class="flex gap-2">
 
-        <x-a :href="route('start.index')" label="{{ __('News') }}"
+        <x-a :href="localized_route('start.index')" label="{{ __('News') }}"
              classAttributes="text-xl md:text-2xl"/>
 
 
         {{--
              <span class="text-gray-500">|</span>
 
-         <x-a :href="route('about-us.index')" label="{{ __('About us') }}"
+         <x-a :href="localized_route('about-us.index')" label="{{ __('About us') }}"
                      classAttributes="text-xl md:text-2xl"/>--}}
 
         <span class="text-gray-500">|</span>
 
-        <x-a :href="route('services.index')" label="{{ __('Services') }}"
+        <x-a :href="localized_route('services.index')" label="{{ __('Services') }}"
              classAttributes="text-xl md:text-2xl"/>
 
         <span class="text-gray-500">|</span>
 
-        <x-a :href="route('products.index')" label="{{ __('Products') }}"
+        <x-a :href="localized_route('products.index')" label="{{ __('Products') }}"
              classAttributes="text-xl md:text-2xl"/>
 
         <span class="text-gray-500">|</span>
 
-        <x-a :href="route('contact.index')" label="{{ __('Contact') }}"
+        <x-a :href="localized_route('contact.index')" label="{{ __('Contact') }}"
              classAttributes="text-xl md:text-2xl"/>
 
     </div>
 
     {{-- <div class="flex gap-2 text-lg items-center">
-         <a href="{{ route('locale.update','de') }}" class="hover:text-black hover:font-semibold transition"
+         <a href="{{ localized_route('locale.update','de') }}" class="hover:text-black hover:font-semibold transition"
             title="{{ __('Update to german language') }}">
              {{ __('Deutsch') }}
          </a>
          <span class="text-gray-400 font-light">|</span>
-         <a href="{{ route('locale.update','en') }}" class="hover:text-black hover:font-semibold transition"
+         <a href="{{ localized_route('locale.update','en') }}" class="hover:text-black hover:font-semibold transition"
             title="{{ __('Update to english language') }}">
              {{ __('English') }}
          </a>

@@ -5,7 +5,7 @@
         <x-list>
             @foreach($news as $entry)
                 <x-list-card
-                        :url="route("{$locale}.news.show", $entry)"
+                        :url="localized_route('news.show', $entry)"
                         :title="$entry->title"
                         :teaser="$entry->teaser"
                         :tags="$entry->tags"/>

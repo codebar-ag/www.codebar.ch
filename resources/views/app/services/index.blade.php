@@ -8,7 +8,7 @@
             <x-list>
                 @foreach($group as $service)
                     <x-list-card
-                            :url="route('services.show', $service)"
+                            :url="localized_route('services.show', $service)"
                             :title="$service->name"
                             :teaser="$service->teaser"
                             :tags="$service->tags"/>

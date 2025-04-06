@@ -1,7 +1,7 @@
 <nav class="mt-12 text-xl md:text-2xl" x-data="{ navigation: false }">
 
     <div class="flex justify-center md:justify-start">
-        <a href="{{ route('start.index') }}" title="Start page" class="group inline-block">
+        <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 851 147"
                  class="h-10 w-auto transition-transform duration-700 animate-[lava_8s_ease-in-out_infinite]"
