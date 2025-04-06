@@ -34,12 +34,12 @@
 <body class="font-sans antialiased">
 
 <main class="min-h-screen bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         @include('layouts._partials._navigation')
 
         <section class="my-8">
-            <div class="text-lg leading-relaxed max-w-6xl mx-auto px-8 md:px-0">
+            <div class="text-lg leading-relaxed max-w-6xl mx-auto px-4 md:px-0">
                 {{ $slot }}
             </div>
         </section>
