@@ -5,8 +5,10 @@
 -[ ] Translated Routes
 -[ ] Multilanguage Sitemap
 -[ ] Refactor Mobile Navigation
--[ ] Analytics Fathom
 -[ ] Update zunscan.ch
+-[ ] Google Page Insights
+
+
 
 --- # GO LIVE Live # ---
 
@@ -36,4 +38,5 @@
 -[ ] WIKI :DocuHub: Modules
 -[ ] CTA Contact
 -[ ] Testimonials: Uses Cases Projects
+-[ ] Tools: DocuWare Price Calculator
 
