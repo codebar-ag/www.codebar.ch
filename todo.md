@@ -1,5 +1,39 @@
-- Dynamic SEO Images & Meta Information
-- Language Switch DE/FR
-- Translated Routes
-- Multilanguage Sitemap
-- Refactor Mobile Navigation
+--- # V1 # ---
+
+-[ ] Dynamic SEO Images & Meta Information
+-[ ] Language Switch DE/FR
+-[ ] Translated Routes
+-[ ] Multilanguage Sitemap
+-[ ] Refactor Mobile Navigation
+-[ ] Analytics Fathom
+-[ ] Update zunscan.ch
+
+--- # GO LIVE Live # ---
+
+-[ ] Submit Sitemap XML
+-[ ] Search Console + Bing
+-[ ] LinkedIn Post
+
+--- # v2 # ---
+
+-[ ] Breadcrumbs Website
+-[ ] News: Add Reading Time
+-[ ] Align SMS Logos! Horizontally
+-[ ] Contact: Add Social Media LinkedIn
+-[ ] About Us
+-[ ] Legal Privacy
+-[ ] Legal Terms
+-[ ] Media Page
+-[ ] Jobs Page
+-[ ] Pagianted News Index
+-[ ] Show Related Services & Products
+
+--- # TBD # ---
+
+-[ ] Products: DocuHub
+-[ ] Products:CloudDocs
+-[ ] WIKI DocuWare: Arithmetic Epression
+-[ ] WIKI :DocuHub: Modules
+-[ ] CTA Contact
+-[ ] Testimonials: Uses Cases Projects
+

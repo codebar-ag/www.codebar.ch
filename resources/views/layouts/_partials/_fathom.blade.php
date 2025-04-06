@@ -1,10 +1,7 @@
-@props([])
-
 @php
     use Illuminate\Support\Arr;
-
     $environments = config('default.services.fathom.environments', []);
-    $url = config('default.services.fathom.url');
+    $url = 'https://cdn.usefathom.com/script.js';
     $siteId = config('default.services.fathom.site_id');
 @endphp
 
