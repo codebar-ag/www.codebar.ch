@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Start;
 
+use App\Actions\PageAction;
 use App\Actions\ViewDataAction;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
@@ -16,6 +17,7 @@ class StartIndexController extends Controller
         $locale = app()->getLocale();
 
         return view('app.start.index')->with([
+            'page' => (new PageAction('start.index'))->default(),
             'news' => (new ViewDataAction)->news($locale),
         ]);
     }

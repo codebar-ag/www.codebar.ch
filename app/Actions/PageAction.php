@@ -10,12 +10,15 @@ use Illuminate\Support\Facades\Cache;
 
 class PageAction
 {
+    private string $locale;
+
     private string $prefix;
 
     public function __construct(
         protected string $key,
     ) {
-        $this->prefix = 'cached_page_'.app()->getLocale().'_';
+        $this->locale = app()->getLocale();
+        $this->prefix = 'cached_page_'.$this->locale.'_';
     }
 
     public function default(): ?Page
@@ -76,6 +79,6 @@ class PageAction
 
     private function findPage(): ?Page
     {
-        return Page::where('index', $this->key)->first();
+        return Page::where('locale', $this->locale)->where('index', $this->key)->first();
     }
 }

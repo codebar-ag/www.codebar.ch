@@ -21,14 +21,16 @@
     <meta property="og:description" content="{{ $page->description }}">
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:url" content="{{ request()->url() }}">
-    <meta property="og:image" content="{{ $page->image }}">
+    <meta property="og:image"
+          content="{{ $page->image ?? 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif' }}">
 
     <meta name="twitter:site" content="'twitter_site'">
     <meta name="twitter:site:id" content="twitter_site_id">
     <meta name="twitter:card" content="twitter_card">
     <meta name="twitter:title" content="{{ $page->title }}">
     <meta name="twitter:description" content="{{ $page->description }}">
-    <meta name="twitter:image" content="{{ $page->image }}">
+    <meta name="twitter:image"
+          content="{{ $page->image ?? 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.avif' }}">
 @endif
 
 
