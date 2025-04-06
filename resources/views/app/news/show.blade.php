@@ -9,7 +9,7 @@
     @endif
 
     <x-section>
-        <x-h1 :title="$name"/>
+        <x-h1 :title="$title"/>
         <x-h1-teaser :teaser="$teaser"/>
 
         <x-content :content="$content"/>
