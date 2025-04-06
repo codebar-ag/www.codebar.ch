@@ -17,14 +17,7 @@ class SetLanguage
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        if ($request->user()) {
-            app()->setLocale($request->user()->locale->value ?? LocaleEnum::EN->value);
-
-            return $next($request);
-        }
-
         if ($request->session()->has(SessionKeyEnum::LANGUAGE->value)) {
-            /** @phpstan-ignore-next-line */
             app()->setLocale($request->session()->get(SessionKeyEnum::LANGUAGE->value));
 
             return $next($request);

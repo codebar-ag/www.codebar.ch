@@ -1,3 +1,4 @@
+@php use App\Enums\LocaleEnum; @endphp
 <div
         x-show="navigation"
         x-transition
@@ -12,13 +13,13 @@
         {{ __('News') }}
     </a>
 
-{{--    <!-- About us -->
-    <a @click.stop
-       href="{{ localized_route('about-us.index') }}"
-       title="{{ __('About us') }}"
-       class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
-        {{ __('About us') }}
-    </a>--}}
+    {{--    <!-- About us -->
+        <a @click.stop
+           href="{{ localized_route('about-us.index') }}"
+           title="{{ __('About us') }}"
+           class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
+            {{ __('About us') }}
+        </a>--}}
 
     <!-- Services -->
     <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
@@ -88,21 +89,21 @@
         </div>
     </div>
 
-    {{-- <!-- Language -->
-     <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
-         <span>{{ __('Language') }}</span>
-         <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
-             <a href="{{ localized_route('locale.update', 'de') }}"
-                title="{{ __('Update to german language') }}"
-                class="text-base hover:text-black hover:font-semibold transition">
-                 {{ __('DE') }}
-             </a>
-             <a href="{{ localized_route('locale.update', 'en') }}"
-                title="{{ __('Update to english language') }}"
-                class="text-base hover:text-black hover:font-semibold transition">
-                 {{ __('EN') }}
-             </a>
-         </div>
-     </div>--}}
+    <!-- Language -->
+    <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
+        <span>{{ __('Language') }}</span>
+        <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
+            <a href="{{ route('locale.update', LocaleEnum::DE) }}"
+               title="{{ __('Update to german language') }}"
+               class="text-base hover:text-black hover:font-semibold transition">
+                {{ __('DE') }}
+            </a>
+            <a href="{{ route('locale.update', LocaleEnum::EN) }}"
+               title="{{ __('Update to english language') }}"
+               class="text-base hover:text-black hover:font-semibold transition">
+                {{ __('EN') }}
+            </a>
+        </div>
+    </div>
 
 </div>
