@@ -24,8 +24,7 @@ return new class extends Migration
 
             $table->longText('content')->nullable();
 
-            $table->string('preview_image_disk')->nullable();
-            $table->string('preview_image_path')->nullable();
+            $table->string('image')->nullable();
 
             $table->dateTime('published_at')->nullable();
 

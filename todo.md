@@ -1,4 +1,5 @@
 --- # V1 # ---
+
 -[ ] Dynamic SEO Images & Meta Information
 -[ ] Language Switch DE/FR
 -[ ] Refactor Mobile Navigation
@@ -26,6 +27,7 @@
 -[ ] Pagianted News Index
 -[ ] Show Related Services & Products
 -[ ] Custom 404
+-[ ] Flash Notifications
 
 --- # TBD # ---
 

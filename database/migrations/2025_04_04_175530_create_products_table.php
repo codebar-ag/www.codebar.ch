@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('teaser');
             $table->string('slug')->unique();
             $table->longText('content')->nullable();
+            $table->string('image');
             $table->string('url')->nullable();
             $table->json('tags')->nullable();
             $table->timestamps();
