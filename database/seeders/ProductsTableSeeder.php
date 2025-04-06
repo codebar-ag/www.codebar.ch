@@ -26,6 +26,7 @@ class ProductsTableSeeder extends Seeder
                 'locale' => $locale,
                 'order' => 1,
                 'teaser' => 'Supercharge Your DMS with Smart Integrations',
+                'tags' => ['DocuWare', 'M-Files', 'SharePoint'],
                 'content' => file_get_contents(database_path("files/products/{$locale}/docuhub.md")),
 
             ]);
@@ -42,6 +43,7 @@ class ProductsTableSeeder extends Seeder
                 'locale' => $locale,
                 'order' => 2,
                 'teaser' => 'Give Your Customers Secure Access to Their Documents',
+                'tags' => ['DocuWare', 'M-Files'],
                 'content' => file_get_contents(database_path("files/products/{$locale}/clouddocs.md")),
 
             ]);
