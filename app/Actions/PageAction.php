@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class PageAction
 {
@@ -23,7 +24,7 @@ class PageAction
 
     public function default(): ?Page
     {
-        $key = $this->prefix.$this->key;
+        Str::slug($key = $this->prefix.$this->key);
 
         return Cache::remember($key, 86400, fn () => $this->findPage());
     }
@@ -31,7 +32,7 @@ class PageAction
     public function newsShow(News $news): ?Page
     {
         return $this->createFakePage(
-            key: $this->prefix.'news_'.$news->id,
+            key: Str::slug($this->prefix.'news_'.$news->id),
             title: $news->title,
             description: $news->teaser,
             image: $news->image
@@ -41,7 +42,7 @@ class PageAction
     public function products(Product $product): ?Page
     {
         return $this->createFakePage(
-            key: $this->prefix.'products_'.$product->id,
+            key: Str::slug($this->prefix.'products_'.$product->id),
             title: $product->title,
             description: $product->teaser,
             image: $product->image
@@ -51,7 +52,7 @@ class PageAction
     public function services(Service $service): ?Page
     {
         return $this->createFakePage(
-            key: $this->prefix.'services_'.$service->id,
+            key: Str::slug($this->prefix.'services_'.$service->id),
             title: $service->title,
             description: $service->teaser,
             image: $service->image
@@ -79,6 +80,6 @@ class PageAction
 
     private function findPage(): ?Page
     {
-        return Page::where('locale', $this->locale)->where('index', $this->key)->first();
+        return Page::where('locale', $this->locale)->where('key', $this->key)->first();
     }
 }
