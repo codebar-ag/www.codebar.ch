@@ -34,7 +34,7 @@
 <body class="font-sans antialiased">
 
 <main class="min-h-screen bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8">
 
         @include('layouts._partials._navigation')
 
