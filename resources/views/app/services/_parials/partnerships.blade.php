@@ -1,5 +1,5 @@
 <x-section class-attributes="mt-6">
-    <x-h2 :title="__('Collaborations')"/>
+    <x-h2 :title="__('Partnerships')"/>
 
     <div class="mt-6 flex">
 
