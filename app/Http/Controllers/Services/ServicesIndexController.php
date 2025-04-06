@@ -16,7 +16,7 @@ class ServicesIndexController extends Controller
         $locale = app()->getLocale();
 
         return view('app.services.index')->with([
-            'services' => (new ViewDataAction)->services($locale),
+            'services' => (new ViewDataAction)->services($locale)->groupBy('group'),
         ]);
     }
 }

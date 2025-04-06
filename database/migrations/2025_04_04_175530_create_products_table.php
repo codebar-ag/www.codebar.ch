@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('locale');
             $table->integer('order');
             $table->string('name');
-            $table->string('teaser')->nullable();
+            $table->string('teaser');
             $table->string('slug')->unique();
             $table->longText('content')->nullable();
             $table->string('url')->nullable();

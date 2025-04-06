@@ -31,6 +31,23 @@ class ProductsTableSeeder extends Seeder
 
             ]);
 
+        $locale = LocaleEnum::DE->value;
+
+        Product::updateOrCreate(
+            [
+                'name' => 'DocuHub',
+                'slug' => Str::slug("docuhub-{$locale}"),
+            ],
+            [
+                'published' => true,
+                'locale' => $locale,
+                'order' => 1,
+                'teaser' => 'Bring dein DMS mit smarten Integrationen auf das nächste Level',
+                'tags' => ['DocuWare', 'M-Files', 'SharePoint'],
+                'content' => file_get_contents(database_path("files/products/{$locale}/docuhub.md")),
+
+            ]);
+
         $locale = LocaleEnum::EN->value;
 
         Product::updateOrCreate(
@@ -43,6 +60,23 @@ class ProductsTableSeeder extends Seeder
                 'locale' => $locale,
                 'order' => 2,
                 'teaser' => 'Give Your Customers Secure Access to Their Documents',
+                'tags' => ['DocuWare', 'M-Files'],
+                'content' => file_get_contents(database_path("files/products/{$locale}/clouddocs.md")),
+
+            ]);
+
+        $locale = LocaleEnum::DE->value;
+
+        Product::updateOrCreate(
+            [
+                'name' => 'CloudDocs',
+                'slug' => Str::slug("clouddocs-{$locale}"),
+            ],
+            [
+                'published' => true,
+                'locale' => $locale,
+                'order' => 2,
+                'teaser' => 'Gib deinen Kunden sicheren Zugriff auf ihre Dokumente',
                 'tags' => ['DocuWare', 'M-Files'],
                 'content' => file_get_contents(database_path("files/products/{$locale}/clouddocs.md")),
 

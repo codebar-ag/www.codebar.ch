@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->boolean('published')->default(false);
             $table->string('locale');
+            $table->string('group');
             $table->integer('order');
             $table->string('name');
-            $table->string('teaser')->nullable();
+            $table->string('teaser');
             $table->string('slug')->unique();
             $table->longText('content')->nullable();
             $table->string('url')->nullable();

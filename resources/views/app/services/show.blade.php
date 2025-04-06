@@ -9,6 +9,4 @@
         </div>
     </x-section>
 
-    @include('components.labels.docuware-silver')
-
 </x-app-layout>

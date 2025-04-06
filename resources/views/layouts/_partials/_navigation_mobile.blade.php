@@ -21,9 +21,14 @@
     </a>--}}
 
     <!-- Services -->
-    <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
-        <span>{{ __('Services') }}</span>
-        <div class="mt-1 text-sm text-gray-600 space-y-1">
+    <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
+        <a @click.stop
+           href="{{ route('services.index') }}"
+           title="{{ __('Services') }}"
+           class="block text-center bg-gray-50/25 hover:text-black hover:font-semibold transition rounded-t-lg">
+            {{ __('Services') }}
+        </a>
+        <div class="text-sm text-gray-600 space-y-1">
 
             @if(!empty($services) && $services->count())
                 @foreach($services as $service)
@@ -35,19 +40,18 @@
                     </a>
                 @endforeach
             @endif
-
-            <a href="{{ route('services.index') }}"
-               title="{{ __('More service information') }}"
-               class="block text-sm hover:text-black hover:font-semibold transition">
-                {{ __('More') }}
-            </a>
         </div>
     </div>
 
     <!-- Products -->
-    <div @click.stop class="py-3 text-center bg-gray-50 transition space-y-1">
-        <span>{{ __('Products') }}</span>
-        <div class="mt-1 text-sm text-gray-600 space-y-1">
+    <div @click.stop class="py-3 text-center bg-gray-50 transition">
+        <a @click.stop
+           href="{{ route('products.index') }}"
+           title="{{ __('Products') }}"
+           class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
+            {{ __('Products') }}
+        </a>
+        <div class="text-sm text-gray-600 space-y-1">
 
             @if(!empty($products) && $products->count())
                 @foreach($products as $product)
@@ -59,17 +63,11 @@
                     </a>
                 @endforeach
             @endif
-
-            <a href="{{ route('products.index') }}"
-               title="{{ __('More product information') }}"
-               class="block text-sm hover:text-black hover:font-semibold transition">
-                {{ __('More') }}
-            </a>
         </div>
     </div>
 
     <!-- Contact -->
-    <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
+    <div @click.stop class="py-3 text-center bg-gray-50/25 transition space-y-1">
         <span>{{ __('Contact') }}</span>
         <div class="mt-1 text-sm text-gray-600 space-y-1">
             <a href="tel:0041615156090"

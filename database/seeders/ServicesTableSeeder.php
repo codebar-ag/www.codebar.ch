@@ -18,14 +18,19 @@ class ServicesTableSeeder extends Seeder
 
         Service::updateOrCreate(
             [
-                'name' => 'DMS/ECM',
-                'slug' => Str::slug("dms-ecm-{$locale}"),
+                'name' => 'DocuWare',
+                'slug' => Str::slug("dms-ecm-docuware-{$locale}"),
             ],
             [
                 'published' => true,
                 'locale' => $locale,
+                'group' => 'DMS/ECM',
+                'teaser' => 'Smarter Document Management with DocuWare',
                 'order' => 1,
-                'content' => file_get_contents(database_path("files/services/{$locale}/dms_ecm.md")),
+                'tags' => [
+                    'DMS/ECM',
+                ],
+                'content' => file_get_contents(database_path("files/services/{$locale}/docuware.md")),
 
             ]);
 
@@ -33,14 +38,19 @@ class ServicesTableSeeder extends Seeder
 
         Service::updateOrCreate(
             [
-                'name' => 'DMS/ECM',
-                'slug' => Str::slug("dms-ecm-{$locale}"),
+                'name' => 'DocuWare',
+                'slug' => Str::slug("dms-ecm-docuware-{$locale}"),
             ],
             [
                 'published' => true,
                 'locale' => $locale,
+                'group' => 'DMS/ECM',
+                'teaser' => 'Intelligentes Dokumentenmanagement mit DocuWare',
                 'order' => 1,
-                'content' => file_get_contents(database_path("files/services/{$locale}/dms_ecm.md")),
+                'tags' => [
+                    'DMS/ECM',
+                ],
+                'content' => file_get_contents(database_path("files/services/{$locale}/docuware.md")),
             ]);
 
         $locale = LocaleEnum::DE->value;
@@ -52,9 +62,15 @@ class ServicesTableSeeder extends Seeder
             ],
             [
                 'published' => true,
+                'group' => 'Digitalisierung',
                 'locale' => $locale,
+                'teaser' => 'Das Scanning Center in der Nordwestschweiz',
                 'order' => 2,
                 'content' => null,
+                'tags' => [
+                    'Digitalisierung',
+                    'Scanning',
+                ],
                 'url' => 'https://zunscan.paperflakes.ch',
             ]);
     }

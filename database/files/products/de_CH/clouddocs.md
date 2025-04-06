@@ -1,25 +1,19 @@
-CloudDocs is a modern, multitenant portal that lets you easily share documents from your DMS/ECM with your own
-customers—securely, efficiently, and without hassle.
+**CloudDocs** ist ein modernes, mandantenfähiges Portal, mit dem du ganz einfach Dokumente aus deinem DMS/ECM mit deinen Kund:innen teilen kannst – sicher, effizient und ohne Aufwand.
 
-With CloudDocs, your customers can view, download, and upload documents through a simple online interface. Everything
-stays in sync with your internal document system, so you stay in control while giving your customers the access they
-expect.
+Mit **CloudDocs** können deine Kund:innen Dokumente über eine einfache Online-Oberfläche ansehen, herunterladen und hochladen. Alles bleibt mit deinem internen Dokumentensystem synchronisiert – du behältst die Kontrolle und bietest gleichzeitig den Zugriff, den deine Kund:innen erwarten.
 
-## Solve key problems at once
+## Mehrere Probleme auf einmal lösen
+- Kein Hin- und Her-Senden von Dokumenten per E-Mail mehr
+- Keine verlorenen Dateien oder veralteten Versionen
+- Weniger manueller Aufwand und schnellere Reaktionszeiten
 
-- Stop emailing documents back and forth
-- Avoid lost files or outdated versions
-- Reduce manual effort and response times
+## Was du mit CloudDocs machen kannst
+- Dokumente direkt aus deinem DMS mit deinen Kund:innen teilen
+- Kund:innen können Dateien hochladen, die direkt in deinem System landen
+- Mit mehreren Mandanten nutzen – Daten bleiben sauber getrennt und sicher
+- Ein professionelles, intuitives Portal anbieten – ohne zusätzlichen Schulungsaufwand
 
-## What CloudDocs lets you do
+**CloudDocs** hilft dir, besseren Service zu bieten und die Kommunikation zu vereinfachen – indem du deinen Kund:innen genau das gibst, was sie brauchen: sicheren, selbstbedienbaren Dokumentenzugriff.
 
-- Share documents directly from your DMS with your customers
-- Let customers upload files that go straight into your system
-- Use it with multiple clients—data stays separated and secure
-- Offer a professional, intuitive portal with no extra training needed
-
-CloudDocs helps you deliver better service and streamline communication—by giving your customers exactly what they need:
-secure, self-service document access.
-
-## Want to Improve How You Work with Your Customers?
-If you're looking to simplify document handling or enhance how your customers interact with you—let’s talk.
+## Möchtest du die Zusammenarbeit mit deinen Kund:innen verbessern?
+Wenn du die Dokumentenverwaltung vereinfachen oder die Interaktion mit deinen Kund:innen optimieren möchtest – sprich mit uns!

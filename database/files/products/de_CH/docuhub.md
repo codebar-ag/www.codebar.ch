@@ -1,28 +1,21 @@
-DocuHub is your Swiss army knife for document management. It enhances and extends the functionality of your existing
-DMS/ECM system—like DocuWare, SharePoint, or M-Files—by connecting it with powerful third-party services and
-streamlining your document workflows.
+**DocuHub** ist dein Schweizer Taschenmesser für das Dokumentenmanagement. Es erweitert und verbessert die Funktionen deines bestehenden **DMS-/ECM**-Systems – wie DocuWare, SharePoint oder M-Files – durch die Anbindung leistungsstarker Drittanbieter-Dienste und die Optimierung deiner Dokumentenprozesse.
 
-Whether you need to automate exports, connect external services, or enrich your document processing with AI—DocuHub
-helps you do more with your documents.
+Egal ob du Exporte automatisieren, externe Services anbinden oder deine Dokumentenverarbeitung mit KI anreichern möchtest – **DocuHub** hilft dir, mehr aus deinen Dokumenten herauszuholen.
 
-## Supported Platforms
+## Unterstützte Plattformen
+- **DMS/ECM**: DocuWare, SharePoint, M-Files
+- **Speicherlösungen**: FTP/SFTP, Amazon S3, Azure Blob Storage
 
-- DMS/ECM: DocuWare, SharePoint, M-Files
-- Storage: FTP/SFTP, Amazon S3, Azure Blob Storage
+## Modulare Funktionen (Weitere folgen!)
+- **Backup & Export**: Automatischer Export von Dokumenten inkl. Indexdaten und Metadaten wie OCR-Ergebnisse
+- **PostFinance-Integration**: Empfange Yellowbill-Rechnungen über das PostFinance-Portal und integriere sie direkt in deinen Rechnungsprozess
+- **Azure Document Intelligence**: Klassifiziere und extrahiere Daten mithilfe vortrainierter oder benutzerdefinierter KI-Modelle von Azure
+- **Externe Aktionen**: Binde externe Nutzer:innen sicher in deine Dokumentenprozesse ein
+- **Bexio Sync**: Verwalte deine Buchhaltungsprozesse direkt im DMS und synchronisiere finale Daten mit Bexio
+- **Microsoft Dynamics 365 FO**: Prüfe Rechnungen gegen Bestellungen und übertrage abgeglichene Daten an Dynamics FO
+- **Sproof**: Integriere digitale Signaturen nahtlos in deinen Dokumentenfluss
+- **Postmark**: Versende professionelle E-Mail-Benachrichtigungen mit anpassbaren Templates
 
-## Modular Features (More Coming!)
+## Eigene Module? Lass uns sprechen!
+Du brauchst eine individuelle Lösung oder möchtest deine Prozesse weiter ausbauen? Wir entwickeln massgeschneiderte Module nach deinen Anforderungen.
 
-- **Backup & Export**: Automatically export documents along with index fields and metadata like OCR results
-- **PostFinance Integration**: Receive Yellowbill invoices via PostFinance Portal and map them directly into your
-  invoice process
-- **Azure Document Intelligence**: Classify and extract data from documents using Azure’s prebuilt or custom AI models
-- **External Actions**: Invite external users into your document workflows for secure collaboration
-- **Bexio Sync**: Build and manage your accounting process within the DMS and sync final data to Bexio
-- **Microsoft Dynamics 365 FO**: Validate invoices against purchase orders and transfer matched data to Dynamics FO
-- **Sproof**: Integrate digital signing into your document flow
-- **Postmark**: Send professional email notifications with customizable templates
-
-## Custom Modules? Let's Talk!
-
-Need a tailored solution or want to extend your document process even further?  
-We build custom modules to match your exact needs.

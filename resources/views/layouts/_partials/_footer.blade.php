@@ -14,11 +14,6 @@
                             </li>
                         @endforeach
                     @endif
-                    <li>
-                        <x-a :href="route('services.index')" label="{{ __('More') }}"
-                             title="{{ __('More service information') }}"
-                             classAttributes="text-lg"/>
-                    </li>
                 </ul>
             </div>
 
@@ -34,11 +29,6 @@
                             </li>
                         @endforeach
                     @endif
-                    <li>
-                        <x-a :href="route('products.index')" label="{{ __('More') }}"
-                             title="{{ __('More product information') }}"
-                             classAttributes="text-lg"/>
-                    </li>
                 </ul>
             </div>
             <div>
