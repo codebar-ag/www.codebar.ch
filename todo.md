@@ -5,10 +5,6 @@
 -[ ] Translated Routes
 -[ ] Multilanguage Sitemap
 -[ ] Refactor Mobile Navigation
--[ ] Update zunscan.ch
--[ ] Google Page Insights
-
-
 
 --- # GO LIVE Live # ---
 
