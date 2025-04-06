@@ -20,6 +20,7 @@ class NewsShowController extends Controller
             'author' => $news->author,
             'title' => $news->title,
             'teaser' => $news->teaser,
+            'tags' => collect($news->tags),
             'content' => Str::of($news->content)->markdown(),
         ]);
     }

@@ -31,6 +31,8 @@ return new class extends Migration
 
             $table->string('author')->nullable();
 
+            $table->json('tags')->nullable();
+
             $table->timestamps();
         });
     }

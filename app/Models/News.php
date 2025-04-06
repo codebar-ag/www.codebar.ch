@@ -13,6 +13,7 @@ class News extends Model
 
     protected $casts = [
         'locale' => LocaleEnum::class,
+        'tags' => 'json',
         'published_at' => 'datetime',
     ];
 

@@ -31,6 +31,10 @@ class NewsTableSeeder extends Seeder
                 'locale' => $locale,
                 'author' => 'Sebastian Bürgin-Fix',
                 'published_at' => $publishedAt,
+                'tags' => [
+                    'DMS/ECM',
+                    'DocuWare',
+                ],
                 'content' => file_get_contents(database_path("files/news/{$locale}/20250406_docuware_712.md")),
             ]);
 
@@ -46,6 +50,10 @@ class NewsTableSeeder extends Seeder
                 'locale' => $locale,
                 'author' => 'Sebastian Bürgin-Fix',
                 'published_at' => $publishedAt,
+                'tags' => [
+                    'DMS/ECM',
+                    'DocuWare',
+                ],
                 'content' => file_get_contents(database_path("files/news/{$locale}/20250406_docuware_712.md")),
             ]);
     }

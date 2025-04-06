@@ -48,12 +48,12 @@
                     <li>
                         <x-a :href="route('contact.index')" label="{{ __('Contact') }}" classAttributes="text-lg"/>
                     </li>
-                    <li>
+{{--                    <li>
                         <x-a :href="route('jobs.index')" label="{{ __('Jobs') }}" classAttributes="text-lg"/>
-                    </li>
-                    <li>
+                    </li>--}}
+{{--                    <li>
                         <x-a :href="route('media.index')" label="{{ __('Media') }}" classAttributes="text-lg"/>
-                    </li>
+                    </li>--}}
                 </ul>
             </div>
             <div>
