@@ -14,7 +14,10 @@
             content="{{ csrf_token() }}"
     />
 
+
     <title>{{ config('app.name') }}</title>
+
+    <meta name="description" content="paperflakes AG Website"/>
 
     @include('layouts._partials._favicons')
 
