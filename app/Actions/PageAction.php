@@ -16,7 +16,7 @@ class PageAction
     private string $prefix;
 
     public function __construct(
-        protected ?string $key = null,
+        private ?string $key = null,
     ) {
         $this->locale = app()->getLocale();
         $this->prefix = 'cached_page_'.$this->locale.'_';

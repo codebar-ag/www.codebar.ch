@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Actions\LocaleAction;
 use App\Enums\LocaleEnum;
 use App\Enums\SessionKeyEnum;
 use Closure;
@@ -17,13 +18,11 @@ class SetLanguage
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        if ($request->session()->has(SessionKeyEnum::LANGUAGE->value)) {
-            app()->setLocale($request->session()->get(SessionKeyEnum::LANGUAGE->value));
+        $locale = $request->session()->has(SessionKeyEnum::LANGUAGE->value)
+            ? $request->session()->get(SessionKeyEnum::LANGUAGE->value)
+            : LocaleEnum::DE->value;
 
-            return $next($request);
-        }
-
-        app()->setLocale(LocaleEnum::DE->value);
+        (new LocaleAction($locale))->setLocale();
 
         return $next($request);
     }
