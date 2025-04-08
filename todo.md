@@ -1,37 +1,31 @@
---- # V1 # ---
+--- # Sprint # ---
 
--[ ] Language Switch DE/FR
-
---- # GO LIVE Live # ---
-
--[ ] Submit Sitemap XML
--[ ] Search Console + Bing
--[ ] LinkedIn Post
-
---- # v2 # ---
-
--[ ] Refactor Mobile Navigation
+-[ ] Language Switcher Desktop DE/FR
+-[ ] Refactor Mobile Navigation: Also With Groups for Services
 -[ ] Breadcrumbs Website
--[ ] News: Add Reading Time
--[ ] Align SMS Logos! Horizontally
+
+--- # Backlog # ---
+
 -[ ] Contact: Add Social Media LinkedIn
 -[ ] About Us
 -[ ] Legal Privacy
 -[ ] Legal Terms
 -[ ] Media Page
 -[ ] Jobs Page
--[ ] Pagianted News Index
--[ ] Show Related Services & Products
 -[ ] Custom 404
--[ ] Flash Notifications
+-[ ] Flash Notifications: Language Switcher
+-[ ] CTA Contact
+-[ ] Products:DocuHub
+-[ ] Products:CloudDocs
+-[ ] Tutorials & Technical Wiki: DocuWare: Arithmetic Epression
 
 --- # TBD # ---
 
--[ ] Products: DocuHub
--[ ] Products:CloudDocs
+-[ ] News: Add Reading Time
+-[ ] Align SMS Logos! Horizontally
+-[ ] Paginated News Index
+-[ ] Show Related Services & Products
 -[ ] WIKI DocuWare: Arithmetic Epression
 -[ ] WIKI :DocuHub: Modules
--[ ] CTA Contact
 -[ ] Testimonials: Uses Cases Projects
 -[ ] Tools: DocuWare Price Calculator
-

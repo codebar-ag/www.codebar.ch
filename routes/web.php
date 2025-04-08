@@ -25,7 +25,7 @@ Route::get('/', EntryIndexController::class)->name('entry.index');
 Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('en-ch', StartIndexController::class)->name('start.index');
     Route::get('news/{news}', NewsShowController::class)->name('news.show');
-    // Route::get('about-us', AboutUsIndexController::class)->name('about-us.index');
+    Route::get('about-us', AboutUsIndexController::class)->name('about-us.index');
     Route::get('services', ServicesIndexController::class)->name('services.index');
     Route::get('services/{service}', ServicesShowController::class)->name('services.show');
     Route::get('products', ProductsIndexController::class)->name('products.index');
@@ -40,7 +40,7 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
 
 Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('de-ch', StartIndexController::class)->name('start.index');
-    Route::get('aktueles/{news}', NewsShowController::class)->name('news.show');
+    Route::get('aktuelles/{news}', NewsShowController::class)->name('news.show');
     // Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
     Route::get('dienstleistungen', ServicesIndexController::class)->name('services.index');
     Route::get('dienstleistungen/{service}', ServicesShowController::class)->name('services.show');

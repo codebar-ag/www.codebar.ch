@@ -47,7 +47,7 @@ class SitemapController extends Controller
                 $sitemap->add(Url::create(localized_route('news.show', $news, true, $locale)));
             });
 
-            // $sitemap->add(Url::create(localized_route('about-us.index', [], true, $locale)));
+            $sitemap->add(Url::create(localized_route('about-us.index', [], true, $locale)));
             $sitemap->add(Url::create(localized_route('services.index', [], true, $locale)));
 
             Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap, $locale) {
