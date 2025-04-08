@@ -27,7 +27,6 @@
     "spatie/laravel-honeypot": "^4.5",
     "spatie/laravel-ignition": "^2.7",
     "spatie/laravel-permission": "^6.7",
-    "spatie/laravel-responsecache": "^7.6",
     "spatie/laravel-sitemap": "^7.3",
     "spatie/security-advisories-health-check": "^1.2"
   },

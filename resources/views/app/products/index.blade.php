@@ -1,6 +1,5 @@
 <x-app-layout :page="$page">
     <x-h1 :title="__('Products')"/>
-
     <x-section>
         <x-list>
             @foreach($products as $product)
@@ -12,5 +11,4 @@
             @endforeach
         </x-list>
     </x-section>
-
 </x-app-layout>

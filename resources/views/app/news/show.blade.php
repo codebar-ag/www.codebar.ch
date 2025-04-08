@@ -8,10 +8,11 @@
         </x-section>
     @endif
 
-    <x-section>
-        <x-h1 :title="$title"/>
-        <x-h1-teaser :teaser="$teaser"/>
 
+    <x-h1 :title="$title"/>
+    <x-h1-teaser :teaser="$teaser"/>
+
+    <x-section>
         <x-content :content="$content"/>
 
         <div class="mt-8">

@@ -2,12 +2,13 @@
 
 -[ ] Language Switcher Desktop DE/FR
 -[ ] Refactor Mobile Navigation: Also With Groups for Services
+-[ ] About Us
 -[ ] Breadcrumbs Website
+-[ ] Contact: Add Social Media LinkedIn
+-
 
 --- # Backlog # ---
 
--[ ] Contact: Add Social Media LinkedIn
--[ ] About Us
 -[ ] Legal Privacy
 -[ ] Legal Terms
 -[ ] Media Page

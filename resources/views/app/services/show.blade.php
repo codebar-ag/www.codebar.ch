@@ -1,9 +1,9 @@
 <x-app-layout :page="$page">
 
-    <x-section>
-        <x-h1 :title="$name"/>
-        <x-h1-teaser :teaser="$teaser"/>
+    <x-h1 :title="$name"/>
+    <x-h1-teaser :teaser="$teaser"/>
 
+    <x-section>
         <x-content :content="$content"/>
     </x-section>
 
