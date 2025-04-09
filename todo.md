@@ -1,9 +1,8 @@
 --- # In Progress # ---
 
--[ ] Language Switcher Desktop DE/FR
-
 --- # Sprint # ---
 
+-[ ] Overthink Multilanguage Concept
 -[ ] xhtml Language
 
 ```

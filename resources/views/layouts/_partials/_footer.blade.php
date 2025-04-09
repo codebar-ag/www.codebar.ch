@@ -8,7 +8,7 @@
                     @if(!empty($services) && $services->count())
                         @foreach($services as $service)
                             <li>
-                                <x-a :href="$service->url ?? localized_route('services.show',$service)"
+                                <x-a :href="$service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service])"
                                      label="{{ $service->name }}" :target="$service->url ? '_blank' : '_self'"
                                      classAttributes="text-lg"/>
                             </li>

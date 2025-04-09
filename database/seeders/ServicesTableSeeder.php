@@ -19,11 +19,11 @@ class ServicesTableSeeder extends Seeder
         Service::updateOrCreate(
             [
                 'name' => 'DocuWare',
-                'slug' => Str::slug("dms-ecm-docuware-{$locale}"),
+                'slug' => Str::slug('dms-ecm-docuware'),
+                'locale' => $locale,
             ],
             [
                 'published' => true,
-                'locale' => $locale,
                 'group' => 'DMS/ECM',
                 'teaser' => 'Smarter Document Management with DocuWare',
                 'order' => 1,
@@ -39,11 +39,11 @@ class ServicesTableSeeder extends Seeder
         Service::updateOrCreate(
             [
                 'name' => 'DocuWare',
-                'slug' => Str::slug("dms-ecm-docuware-{$locale}"),
+                'slug' => Str::slug('dms-ecm-docuware'),
+                'locale' => $locale,
             ],
             [
                 'published' => true,
-                'locale' => $locale,
                 'group' => 'DMS/ECM',
                 'teaser' => 'Intelligentes Dokumentenmanagement mit DocuWare',
                 'order' => 1,
@@ -59,12 +59,12 @@ class ServicesTableSeeder extends Seeder
         Service::updateOrCreate(
             [
                 'name' => 'zunscan.ch',
-                'slug' => Str::slug("zunscan-ch-{$locale}"),
+                'slug' => Str::slug('zunscan-ch'),
+                'locale' => $locale,
             ],
             [
                 'published' => true,
                 'group' => 'Digitalisierung',
-                'locale' => $locale,
                 'teaser' => 'Das Scanning Center in der Nordwestschweiz',
                 'order' => 2,
                 'content' => null,

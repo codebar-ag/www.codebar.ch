@@ -13,10 +13,10 @@ class ServicesShowController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function __invoke(Service $service): View
+    public function __invoke(string $locale, Service $service): View
     {
         return view('app.services.show')->with([
-            'page' => (new PageAction)->services(service: $service),
+            'page' => (new PageAction(key: null, locale: $locale))->services(service: $service),
             'name' => $service->name,
             'teaser' => $service->teaser,
             'content' => Str::of($service->content)->markdown(),

@@ -27,7 +27,7 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('news/{news}', NewsShowController::class)->name('news.show');
     Route::get('about-us', AboutUsIndexController::class)->name('about-us.index');
     Route::get('services', ServicesIndexController::class)->name('services.index');
-    Route::get('services/{service}', ServicesShowController::class)->name('services.show');
+    Route::get('services/{locale}/{service}', ServicesShowController::class)->name('services.show');
     Route::get('products', ProductsIndexController::class)->name('products.index');
     Route::get('products/{product}', ProductsShowController::class)->name('products.show');
     // Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
@@ -43,7 +43,7 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('aktuelles/{news}', NewsShowController::class)->name('news.show');
     // Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
     Route::get('dienstleistungen', ServicesIndexController::class)->name('services.index');
-    Route::get('dienstleistungen/{service}', ServicesShowController::class)->name('services.show');
+    Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->name('services.show');
     Route::get('produkte', ProductsIndexController::class)->name('products.index');
     Route::get('produkte/{product}', ProductsShowController::class)->name('products.show');
     // Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');

@@ -35,7 +35,7 @@
             @if(!empty($services) && $services->count())
                 @foreach($services as $service)
                     <a target="{{ $service->url ? '_blank' : '_self' }}"
-                       href="{{ $service->url ?? localized_route('services.show',$service) }}"
+                       href="{{ $service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service]) }}"
                        title="{{ $service->name }}"
                        class="block text-base hover:text-black hover:font-semibold transition">
                         {{ $service->name }}
