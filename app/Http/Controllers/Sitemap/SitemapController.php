@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Service;
-use App\Sitemap\LocalizedUrlFactory;
+use App\Sitemap\SitemapBuilder;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -45,8 +45,21 @@ class SitemapController extends Controller
 
     public function deCH(): Response
     {
-        return response($this->buildSitemap(LocaleEnum::DE)->render())
-            ->header('Content-Type', 'application/xml');
+        $locale = LocaleEnum::DE->value;
+
+        $sitemap = SitemapBuilder::make();
+
+        $route = 'start.index';
+        $page = (new PageAction(key: $route, locale: $locale))->default();
+
+        $sitemap->addItem(
+            route: route('entry.index'),
+            lastModificationDate: $this->lastModificationDate,
+            imageTitle: $page->title,
+            imageUrl: $page->image
+        );
+
+        return response($sitemap->toXml())->header('Content-Type', 'application/xml');
     }
 
     public function enCH(): Response
@@ -68,13 +81,14 @@ class SitemapController extends Controller
             $page = (new PageAction(key: $route, locale: $locale))->default();
 
             $sitemap->add(
-                LocalizedUrlFactory::create(
-                    localized_route('start.index', [], true, $locale),
-                    [
-                        'de' => localized_route('start.index', [], true, 'de'),
-                        'en' => localized_route('start.index', [], true, 'en'),
-                    ]
-                )
+                Url::create(localized_route('start.index', [], true, $locale))
+                    ->LocalizedUrlFactory::create(
+                        localized_route('start.index', [], true, $locale),
+                        [
+                            'de' => localized_route('start.index', [], true, 'de'),
+                            'en' => localized_route('start.index', [], true, 'en'),
+                        ]
+                    )
                     ->setPriority(1.0)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                     ->setLastModificationDate($this->lastModificationDate)
