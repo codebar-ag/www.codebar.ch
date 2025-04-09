@@ -31,6 +31,7 @@
 
 --- # TBD # ---
 
+-[ ] Add & Explain Labels
 -[ ] News: Add Reading Time
 -[ ] Align SMS Logos! Horizontally
 -[ ] Paginated News Index
