@@ -17,7 +17,6 @@ class NewsTableSeeder extends Seeder
     {
 
         $publishedAt = Carbon::parse('2025-04-06 00:00:00');
-        $publishedAtFormatted = $publishedAt->format('Ymd');
 
         $locale = LocaleEnum::DE->value;
 

@@ -19,7 +19,7 @@ class ProductsTableSeeder extends Seeder
         Product::updateOrCreate(
             [
                 'name' => 'DocuHub',
-                'slug' => Str::slug("docuhub-{$locale}"),
+                'slug' => Str::slug('docuhub'),
                 'locale' => $locale,
             ],
             [
@@ -36,7 +36,7 @@ class ProductsTableSeeder extends Seeder
         Product::updateOrCreate(
             [
                 'name' => 'DocuHub',
-                'slug' => Str::slug("docuhub-{$locale}"),
+                'slug' => Str::slug('docuhub'),
                 'locale' => $locale,
             ],
             [
@@ -53,7 +53,7 @@ class ProductsTableSeeder extends Seeder
         Product::updateOrCreate(
             [
                 'name' => 'CloudDocs',
-                'slug' => Str::slug("clouddocs-{$locale}"),
+                'slug' => Str::slug('clouddocs'),
                 'locale' => $locale,
             ],
             [
@@ -70,7 +70,7 @@ class ProductsTableSeeder extends Seeder
         Product::updateOrCreate(
             [
                 'name' => 'CloudDocs',
-                'slug' => Str::slug("clouddocs-{$locale}"),
+                'slug' => Str::slug('clouddocs'),
                 'locale' => $locale,
             ],
             [
