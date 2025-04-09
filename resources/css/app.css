@@ -21,6 +21,10 @@
     --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
 }
 
+@defaults fontFamily {
+    sans: var(--font-sans);
+}
+
 body {
     @apply text-gray-800;
 }
