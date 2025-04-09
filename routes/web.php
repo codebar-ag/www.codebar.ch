@@ -54,7 +54,7 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('kontakt', ContactIndexController::class)->name('contact.index');
 });
 
-Route::get('locale/update/{locale}', LocaleUpdateController::class)->name('locale.update');
+Route::post('language/update', LocaleUpdateController::class)->name('language.update');
 
 Route::get('sitemap.xml', [SitemapController::class, 'index']);
 Route::get('sitemap-de-ch.xml', [SitemapController::class, 'deCH'])->name('de-ch.sitemap');

@@ -91,20 +91,23 @@
     </div>
 
     <!-- Language -->
-    <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
-        <span>{{ __('Language') }}</span>
-        <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
-            <a href="{{ route('locale.update', LocaleEnum::DE->value) }}"
-               title="{{ __('Update to german language') }}"
-               class="text-base hover:text-black hover:font-semibold transition">
-                {{ __('DE') }}
-            </a>
-            <a href="{{ route('locale.update', LocaleEnum::EN->value) }}"
-               title="{{ __('Update to english language') }}"
-               class="text-base hover:text-black hover:font-semibold transition">
-                {{ __('EN') }}
-            </a>
+    @if(!empty($locales))
+        <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
+            <span>{{ __('Language') }}</span>
+            <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
+                @foreach($locales as $language)
+                    <form method="POST" action="{{ route('language.update') }}">
+                        @csrf
+                        <input type="hidden" name="language" value="{{ $language->value }}">
+                        <button type="submit"
+                                class="text-base hover:text-black hover:font-semibold transition cursor-pointer"
+                                title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
+                            {{ $language->getLabel() }}
+                        </button>
+                    </form>
+                @endforeach
+            </div>
         </div>
-    </div>
+    @endif
 
 </div>

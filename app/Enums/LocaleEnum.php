@@ -15,8 +15,8 @@ enum LocaleEnum: string implements HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            LocaleEnum::DE => __('German'),
-            LocaleEnum::EN => __('English'),
+            LocaleEnum::DE => __('DE'),
+            LocaleEnum::EN => __('EN'),
         };
     }
 }
