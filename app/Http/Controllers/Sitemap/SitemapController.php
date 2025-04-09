@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Service;
+use App\Sitemap\LocalizedUrlFactory;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -67,7 +68,13 @@ class SitemapController extends Controller
             $page = (new PageAction(key: $route, locale: $locale))->default();
 
             $sitemap->add(
-                Url::create(localized_route('start.index', [], true, $locale))
+                LocalizedUrlFactory::create(
+                    localized_route('start.index', [], true, $locale),
+                    [
+                        'de' => localized_route('start.index', [], true, 'de'),
+                        'en' => localized_route('start.index', [], true, 'en'),
+                    ]
+                )
                     ->setPriority(1.0)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                     ->setLastModificationDate($this->lastModificationDate)
