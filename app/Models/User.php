@@ -19,10 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmailContract
 {
     use HasActivity;
-
-    /** @phpstan-ignore-next-line */
     use HasFactory;
-
     use HasRoles;
     use HasUuid;
     use MustVerifyEmail;

@@ -4,20 +4,8 @@ parameters:
         - app
 
     # Level 9 is the highest level
-    level: 9
+    level: 1
 
     ignoreErrors:
-        - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ has parameter \\$[a-zA-Z0-9_]+ with no value type specified in iterable type array#"
-        - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ return type has no value type specified in iterable type array#"
-        - "#Property [a-zA-Z0-9\\$\\_\\\\:\\(\\)]+ type has no value type specified in iterable type array#"
-        - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ return type with generic class [a-zA-Z0-9\\_\\\\]+ does not specify its types: [a-zA-Z0-9\\_]+#"
-        - "#Method [a-zA-Z0-9\\_\\\\:\\(\\)]+ has parameter \\$[a-zA-Z0-9_]+ with generic class [a-zA-Z0-9\\_\\\\]+ but does not specify its types: [a-zA-Z0-9\\_]+#"
-
 
     excludePaths:
-        - .\app\Nova\Resources\Resource.php
-        - .\app\Nova\Resources\Role.php
-        - .\app\Nova\Resources\Activity.php
-        - .\app\Nova\Resources\Configuration.php?
-        - .\app\Nova\Resources\DocuwareConfiguration.php?
-        - .\app\Providers\NovaServiceProvider.php?
