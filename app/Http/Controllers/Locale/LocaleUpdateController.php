@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Locale;
 
 use App\Actions\LocaleAction;
-use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class LocaleUpdateController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function __invoke(LocaleEnum $locale)
+    public function __invoke(string $locale)
     {
-        (new LocaleAction($locale->value))->setLocale();
+        $locale = (new LocaleAction($locale))->setLocale();
 
-        return back();
+        $previousUrl = url()->previous();
+
+        $previousRoute = app('router')->getRoutes()->match(request()->create($previousUrl));
+        $previousRouteName = Str::after($previousRoute?->getName() ?? '', '.');
+
+        $routeParameters = $previousRoute?->parameters();
+
+        $localeSlug = Str::slug($locale);
+
+        return redirect()->route($localeSlug.'.'.$previousRouteName, $routeParameters);
     }
 }

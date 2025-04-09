@@ -1,3 +1,5 @@
+@php use App\Enums\LocaleEnum; @endphp
+
 <div class="hidden md:flex justify-between w-full">
 
     {{-- Left-aligned primary navigation --}}
@@ -30,16 +32,18 @@
 
     </div>
 
-    {{-- <div class="flex gap-2 text-lg items-center">
-         <a href="{{ localized_route('locale.update','de') }}" class="hover:text-black hover:font-semibold transition"
-            title="{{ __('Update to german language') }}">
-             {{ __('Deutsch') }}
-         </a>
-         <span class="text-gray-400 font-light">|</span>
-         <a href="{{ localized_route('locale.update','en') }}" class="hover:text-black hover:font-semibold transition"
-            title="{{ __('Update to english language') }}">
-             {{ __('English') }}
-         </a>
-     </div>--}}
+    <div class="flex gap-2 text-lg items-center">
+        <a href="{{ route('locale.update',LocaleEnum::DE->value) }}"
+           class="hover:text-black hover:font-semibold transition"
+           title="{{ __('Update to german language') }}">
+            {{ __('DE') }}
+        </a>
+        <span class="text-gray-400 font-light">|</span>
+        <a href="{{ route('locale.update',LocaleEnum::EN->value) }}"
+           class="hover:text-black hover:font-semibold transition"
+           title="{{ __('Update to english language') }}">
+            {{ __('EN') }}
+        </a>
+    </div>
 
 </div>

@@ -3,11 +3,10 @@
 use Database\Seeders\RolesAndPermissionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
-use NovaTesting\NovaAssertions;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Tests\TestCase;
 
-uses(TestCase::class, RefreshDatabase::class, NovaAssertions::class)
+uses(TestCase::class, RefreshDatabase::class)
     ->beforeEach(function () {
         $this->seed(RolesAndPermissionsSeeder::class);
     })

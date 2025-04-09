@@ -1,4 +1,5 @@
 @php use App\Enums\LocaleEnum; @endphp
+
 <div
         x-show="navigation"
         x-transition
@@ -93,12 +94,12 @@
     <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
         <span>{{ __('Language') }}</span>
         <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
-            <a href="{{ route('locale.update', LocaleEnum::DE) }}"
+            <a href="{{ route('locale.update', LocaleEnum::DE->value) }}"
                title="{{ __('Update to german language') }}"
                class="text-base hover:text-black hover:font-semibold transition">
                 {{ __('DE') }}
             </a>
-            <a href="{{ route('locale.update', LocaleEnum::EN) }}"
+            <a href="{{ route('locale.update', LocaleEnum::EN->value) }}"
                title="{{ __('Update to english language') }}"
                class="text-base hover:text-black hover:font-semibold transition">
                 {{ __('EN') }}

@@ -11,11 +11,14 @@ class LocaleAction
         private string $locale,
     ) {}
 
-    public function setLocale(): void
+    public function setLocale(): string
     {
         $locale = $this->validate() ? $this->locale : LocaleEnum::DE->value;
+
         session()->put(SessionKeyEnum::LANGUAGE->value, $locale);
         app()->setLocale($locale);
+
+        return $locale;
     }
 
     private function validate(): bool

@@ -10,11 +10,9 @@ it('has enum labels', function () {
 
     expect($enumLabels)
         ->toBeArray()
-        ->toHaveCount(4)
+        ->toHaveCount(2)
         ->toBe([
             'de_CH' => 'German',
-            'fr_CH' => 'French',
-            'it_CH' => 'Italian',
             'en_CH' => 'English',
         ]);
 })->group('unit', 'traits', 'labels');

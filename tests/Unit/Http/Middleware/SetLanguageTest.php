@@ -24,20 +24,20 @@ it('sets locale based on authenticated user', function () {
         ->assertOk();
 
     expect(App::getLocale())->toBe(LocaleEnum::DE->value);
-});
+})->group('middleware', 'locale');
 
 it('sets locale based on session when user is not authenticated', function () {
-    Session::put(SessionKeyEnum::LANGUAGE->value, LocaleEnum::FR->value);
+    Session::put(SessionKeyEnum::LANGUAGE->value, LocaleEnum::EN->value);
 
     $this->get('/test')
         ->assertOk();
 
-    expect(App::getLocale())->toBe(LocaleEnum::FR->value);
-});
+    expect(App::getLocale())->toBe(LocaleEnum::EN->value);
+})->group('middleware', 'locale');
 
 it('defaults to English locale when no user or session language is set', function () {
     $this->get('/test')
         ->assertOk();
 
-    expect(App::getLocale())->toBe(LocaleEnum::EN->value);
-});
+    expect(App::getLocale())->toBe(LocaleEnum::DE->value);
+})->group('middleware', 'locale');
