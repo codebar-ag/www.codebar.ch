@@ -3,8 +3,8 @@
 use App\Enums\LocaleEnum;
 
 it('returns correct labels array', function () {
-    expect(LocaleEnum::DE->getLabel())->toBe(__('German'))
-        ->and(LocaleEnum::EN->getLabel())->toBe(__('English'));
+    expect(LocaleEnum::DE->getLabel())->toBe(__('DE'))
+        ->and(LocaleEnum::EN->getLabel())->toBe(__('EN'));
 })->group('enums', 'locale-enum');
 
 it('returns correct cases array', function () {

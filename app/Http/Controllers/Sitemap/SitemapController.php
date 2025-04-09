@@ -79,7 +79,7 @@ class SitemapController extends Controller
                 $page = (new PageAction(key: null, locale: $locale))->news($news);
 
                 $sitemap->add(
-                    Url::create(localized_route('news.show', $news, true, $locale))
+                    Url::create(localized_route('news.show', ['locale' => $locale, 'news' => $news], true, $locale))
                         ->setPriority(1.0)
                         ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                         ->setLastModificationDate($this->lastModificationDate)
@@ -95,7 +95,7 @@ class SitemapController extends Controller
                 $page = (new PageAction(key: null, locale: $locale))->services($service);
 
                 $sitemap->add(
-                    Url::create(localized_route('services.show', $service, true, $locale))
+                    Url::create(localized_route('services.show', ['locale' => $locale, 'service' => $service], true, $locale))
                         ->setPriority(1.0)
                         ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                         ->setLastModificationDate($this->lastModificationDate)
@@ -119,7 +119,7 @@ class SitemapController extends Controller
                 $page = (new PageAction(key: null, locale: $locale))->products($product);
 
                 $sitemap->add(
-                    Url::create(localized_route('products.show', $product, true, $locale))
+                    Url::create(localized_route('products.show', ['locale' => $locale, 'product' => $product], true, $locale))
                         ->setPriority(1.0)
                         ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                         ->setLastModificationDate($this->lastModificationDate)
