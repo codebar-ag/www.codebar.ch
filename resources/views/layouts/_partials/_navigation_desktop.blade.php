@@ -39,7 +39,8 @@
                 <form method="POST" action="{{ route('language.update') }}">
                     @csrf
                     <input type="hidden" name="language" value="{{ $language->value }}">
-                    <button type="submit" class="hover:text-black hover:font-semibold transition cursor-pointer" title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
+                    <button type="submit" class="hover:text-black hover:font-semibold transition cursor-pointer"
+                            title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
                         {{ $language->getLabel() }}
                     </button>
                 </form>
