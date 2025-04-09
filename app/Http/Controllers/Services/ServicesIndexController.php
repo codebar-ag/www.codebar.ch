@@ -17,7 +17,7 @@ class ServicesIndexController extends Controller
         $locale = app()->getLocale();
 
         return view('app.services.index')->with([
-            'page' => (new PageAction('services.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'services.index'))->default(),
             'services' => (new ViewDataAction)->services($locale)->groupBy('group'),
         ]);
     }

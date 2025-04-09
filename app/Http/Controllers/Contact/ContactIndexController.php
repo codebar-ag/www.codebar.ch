@@ -14,7 +14,7 @@ class ContactIndexController extends Controller
     public function __invoke(): View
     {
         return view('app.contact.index')->with([
-            'page' => (new PageAction('contact.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'contact.index'))->default(),
         ]);
     }
 }

@@ -9,6 +9,7 @@ class PageDTO
 {
     public function __construct(
         public string $locale,
+        public string $routeKey,
         public string $routeName,
         public string $title,
         public Carbon $lastModificationDate,
@@ -21,6 +22,6 @@ class PageDTO
 
     public function url(): string
     {
-        return localized_route($this->routeName, $this->routeParameters, true, $this->locale);
+        return route($this->routeName, $this->routeParameters, true);
     }
 }

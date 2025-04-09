@@ -17,7 +17,7 @@ class ProductsIndexController extends Controller
         $locale = app()->getLocale();
 
         return view('app.products.index')->with([
-            'page' => (new PageAction('products.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'products.index'))->default(),
             'products' => (new ViewDataAction)->products($locale),
         ]);
     }

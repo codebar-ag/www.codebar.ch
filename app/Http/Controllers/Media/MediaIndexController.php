@@ -14,7 +14,7 @@ class MediaIndexController extends Controller
     public function __invoke(): View
     {
         return view('app.media.index')->with([
-            'page' => (new PageAction('media.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'media.index'))->default(),
         ]);
     }
 }

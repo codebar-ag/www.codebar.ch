@@ -14,7 +14,7 @@ class JobsIndexController extends Controller
     public function __invoke(): View
     {
         return view('app.jobs.index')->with([
-            'page' => (new PageAction('jobs.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'jobs.index'))->default(),
         ]);
     }
 }

@@ -16,7 +16,7 @@ class ServicesShowController extends Controller
     public function __invoke(string $locale, Service $service): View
     {
         return view('app.services.show')->with([
-            'page' => (new PageAction(key: null, locale: $locale))->services(service: $service),
+            'page' => (new PageAction(locale: $locale, routeName: null))->services(service: $service),
             'name' => $service->name,
             'teaser' => $service->teaser,
             'content' => Str::of($service->content)->markdown(),
