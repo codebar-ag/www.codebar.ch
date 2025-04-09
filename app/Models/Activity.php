@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Activity extends Model
 {
-    /** @phpstan-ignore-next-line */
     use HasFactory;
 
     public const array RELATIONS = [
