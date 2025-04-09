@@ -1,11 +1,20 @@
---- # Sprint # ---
+--- # In Progress # ---
 
 -[ ] Language Switcher Desktop DE/FR
+
+--- # Sprint # ---
+
+-[ ] xhtml Language
+
+```
+<xhtml:link rel="alternate" hreflang="en" href="https://www.thejungledog.eco/en/about/the-challenge" />
+<xhtml:link rel="alternate" hreflang="de" href="https://www.thejungledog.eco/de/about/the-challenge" />
+```
+
 -[ ] Refactor Mobile Navigation: Also With Groups for Services
 -[ ] About Us
 -[ ] Breadcrumbs Website
 -[ ] Contact: Add Social Media LinkedIn
--
 
 --- # Backlog # ---
 
