@@ -13,10 +13,10 @@ class NewsShowController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function __invoke(News $news): View
+    public function __invoke(string $locale, News $news): View
     {
         return view('app.news.show')->with([
-            'page' => (new PageAction)->news(news: $news),
+            'page' => (new PageAction(key: null, locale: $locale))->news(news: $news),
             'published_at' => $news->published_at?->format('d.m.Y'),
             'last_updated_at' => $news->updated_at?->format('d.m.Y'),
             'author' => $news->author,

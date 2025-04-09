@@ -23,7 +23,7 @@
                     @if(!empty($products) && $products->count())
                         @foreach($products as $product)
                             <li>
-                                <x-a :href="$product->url ?? localized_route('products.show',$product)"
+                                <x-a :href="$product->url ?? localized_route('products.show',['locale' => app()->getLocale(),'product' => $product])"
                                      label="{{ $product->name }}" :target="$product->url ? '_blank' : '_self'"
                                      classAttributes="text-lg"/>
                             </li>

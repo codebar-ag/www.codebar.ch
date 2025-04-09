@@ -58,7 +58,7 @@
             @if(!empty($products) && $products->count())
                 @foreach($products as $product)
                     <a target="{{ $product->url ? '_blank' : '_self' }}"
-                       href="{{ $product->url ?? localized_route('products.show',$product) }}"
+                       href="{{ $product->url ?? localized_route('products.show',['locale' => app()->getLocale(),'product' => $product]) }}"
                        title="{{ $product->name }}"
                        class="block text-base hover:text-black hover:font-semibold transition">
                         {{ $product->name }}

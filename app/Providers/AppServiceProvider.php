@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Checks\FailedJobsCheck;
 use App\Checks\FilesystemsDefaultCheck;
 use App\Checks\JobsCheck;
+use App\Models\News;
+use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->multilanguage();
+
         Model::unguard();
         Model::shouldBeStrict($this->app->isLocal());
 
@@ -48,10 +52,22 @@ class AppServiceProvider extends ServiceProvider
 
     private function multilanguage()
     {
+        Route::bind('news', function ($value) {
+            $locale = request()->route('locale');
+
+            return News::whereLocale($locale)->where('slug', $value)->firstOrFail();
+        });
+
         Route::bind('service', function ($value) {
             $locale = request()->route('locale');
 
             return Service::whereLocale($locale)->where('slug', $value)->firstOrFail();
+        });
+
+        Route::bind('product', function ($value) {
+            $locale = request()->route('locale');
+
+            return Product::whereLocale($locale)->where('slug', $value)->firstOrFail();
         });
     }
 }

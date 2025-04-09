@@ -20,10 +20,10 @@ class ProductsTableSeeder extends Seeder
             [
                 'name' => 'DocuHub',
                 'slug' => Str::slug("docuhub-{$locale}"),
+                'locale' => $locale,
             ],
             [
                 'published' => true,
-                'locale' => $locale,
                 'order' => 1,
                 'teaser' => 'Supercharge Your DMS with Smart Integrations',
                 'tags' => ['DocuWare', 'M-Files', 'SharePoint'],
@@ -37,10 +37,10 @@ class ProductsTableSeeder extends Seeder
             [
                 'name' => 'DocuHub',
                 'slug' => Str::slug("docuhub-{$locale}"),
+                'locale' => $locale,
             ],
             [
                 'published' => true,
-                'locale' => $locale,
                 'order' => 1,
                 'teaser' => 'Bring dein DMS mit smarten Integrationen auf das nächste Level',
                 'tags' => ['DocuWare', 'M-Files', 'SharePoint'],
@@ -54,10 +54,10 @@ class ProductsTableSeeder extends Seeder
             [
                 'name' => 'CloudDocs',
                 'slug' => Str::slug("clouddocs-{$locale}"),
+                'locale' => $locale,
             ],
             [
                 'published' => true,
-                'locale' => $locale,
                 'order' => 2,
                 'teaser' => 'Give Your Customers Secure Access to Their Documents',
                 'tags' => ['DocuWare', 'M-Files'],
@@ -71,10 +71,10 @@ class ProductsTableSeeder extends Seeder
             [
                 'name' => 'CloudDocs',
                 'slug' => Str::slug("clouddocs-{$locale}"),
+                'locale' => $locale,
             ],
             [
                 'published' => true,
-                'locale' => $locale,
                 'order' => 2,
                 'teaser' => 'Gib deinen Kunden sicheren Zugriff auf ihre Dokumente',
                 'tags' => ['DocuWare', 'M-Files'],

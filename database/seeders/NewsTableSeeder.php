@@ -24,11 +24,11 @@ class NewsTableSeeder extends Seeder
         News::updateOrCreate(
             [
                 'title' => 'DocuWare 7.12 ist da',
-                'slug' => Str::slug("docuware-7-12-ist-da-{$publishedAtFormatted}-{$locale}"),
+                'slug' => Str::slug('docuware-7-12-ist-da'),
+                'locale' => $locale,
             ],
             [
                 'teaser' => 'Mehr Automatisierung, mehr Insights, mehr Effizienz',
-                'locale' => $locale,
                 'author' => 'Sebastian Bürgin-Fix',
                 'published_at' => $publishedAt,
                 'tags' => [
@@ -44,11 +44,12 @@ class NewsTableSeeder extends Seeder
         News::updateOrCreate(
             [
                 'title' => 'DocuWare 7.12 is here',
-                'slug' => Str::slug("docuware-7-12-is-here-{$publishedAtFormatted}-{$locale}"),
+                'slug' => Str::slug('docuware-7-12-is-here'),
+                'locale' => $locale,
             ],
             [
                 'teaser' => 'More automation, more insights, more efficiency',
-                'locale' => $locale,
+
                 'author' => 'Sebastian Bürgin-Fix',
                 'published_at' => $publishedAt,
                 'tags' => [
