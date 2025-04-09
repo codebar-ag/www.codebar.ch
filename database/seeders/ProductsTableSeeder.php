@@ -28,7 +28,7 @@ class ProductsTableSeeder extends Seeder
                 'teaser' => 'Supercharge Your DMS with Smart Integrations',
                 'tags' => ['DocuWare', 'M-Files', 'SharePoint'],
                 'content' => file_get_contents(database_path("files/products/{$locale}/docuhub.md")),
-
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 
         $locale = LocaleEnum::DE->value;
@@ -45,7 +45,7 @@ class ProductsTableSeeder extends Seeder
                 'teaser' => 'Bring dein DMS mit smarten Integrationen auf das nächste Level',
                 'tags' => ['DocuWare', 'M-Files', 'SharePoint'],
                 'content' => file_get_contents(database_path("files/products/{$locale}/docuhub.md")),
-
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 
         $locale = LocaleEnum::EN->value;
@@ -62,7 +62,7 @@ class ProductsTableSeeder extends Seeder
                 'teaser' => 'Give Your Customers Secure Access to Their Documents',
                 'tags' => ['DocuWare', 'M-Files'],
                 'content' => file_get_contents(database_path("files/products/{$locale}/clouddocs.md")),
-
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 
         $locale = LocaleEnum::DE->value;
@@ -79,7 +79,7 @@ class ProductsTableSeeder extends Seeder
                 'teaser' => 'Gib deinen Kunden sicheren Zugriff auf ihre Dokumente',
                 'tags' => ['DocuWare', 'M-Files'],
                 'content' => file_get_contents(database_path("files/products/{$locale}/clouddocs.md")),
-
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
     }
 }

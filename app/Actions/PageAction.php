@@ -11,14 +11,13 @@ use Illuminate\Support\Str;
 
 class PageAction
 {
-    private string $locale;
-
     private string $prefix;
 
     public function __construct(
         private ?string $key = null,
+        private ?string $locale = null,
     ) {
-        $this->locale = app()->getLocale();
+        $this->locale = $locale ?? app()->getLocale();
         $this->prefix = 'cached_page_'.$this->locale.'_';
     }
 
@@ -55,7 +54,7 @@ class PageAction
             key: Str::slug($this->prefix.'services_'.$service->id),
             title: $service->name,
             description: $service->teaser,
-            image: $service->image
+            image: $service->image,
         );
     }
 

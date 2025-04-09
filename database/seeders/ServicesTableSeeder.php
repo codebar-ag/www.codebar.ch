@@ -31,7 +31,7 @@ class ServicesTableSeeder extends Seeder
                     'DMS/ECM',
                 ],
                 'content' => file_get_contents(database_path("files/services/{$locale}/docuware.md")),
-
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 
         $locale = LocaleEnum::DE->value;
@@ -51,6 +51,7 @@ class ServicesTableSeeder extends Seeder
                     'DMS/ECM',
                 ],
                 'content' => file_get_contents(database_path("files/services/{$locale}/docuware.md")),
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 
         $locale = LocaleEnum::DE->value;
@@ -72,6 +73,7 @@ class ServicesTableSeeder extends Seeder
                     'Scanning',
                 ],
                 'url' => 'https://zunscan.paperflakes.ch',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
     }
 }

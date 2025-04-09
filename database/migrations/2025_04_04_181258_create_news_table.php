@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('teaser');
             $table->longText('content')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->dateTime('published_at')->nullable();
             $table->string('author')->nullable();
             $table->json('tags')->nullable();

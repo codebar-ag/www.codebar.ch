@@ -36,6 +36,7 @@ class NewsTableSeeder extends Seeder
                     'DocuWare',
                 ],
                 'content' => file_get_contents(database_path("files/news/{$locale}/20250406_docuware_712.md")),
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 
         $locale = LocaleEnum::EN->value;
@@ -55,6 +56,8 @@ class NewsTableSeeder extends Seeder
                     'DocuWare',
                 ],
                 'content' => file_get_contents(database_path("files/news/{$locale}/20250406_docuware_712.md")),
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
+
             ]);
     }
 }
