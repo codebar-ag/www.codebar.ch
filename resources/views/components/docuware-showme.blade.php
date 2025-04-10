@@ -1,4 +1,5 @@
 @use(App\Enums\LocaleEnum;use Illuminate\Support\Str)
+
 @php
     $showme_url = match (app()->getLocale()) {
         LocaleEnum::EN->value => 'https://showme.docuware.com/en-gb/interactive-tours',

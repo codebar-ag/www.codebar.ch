@@ -20,6 +20,7 @@ class ProductsShowController extends Controller
             'name' => $product->name,
             'teaser' => $product->teaser,
             'content' => Str::of($product->content)->markdown(),
+            'tags' => $product->tags,
         ]);
     }
 }
