@@ -31,8 +31,8 @@ class LocaleUpdateController extends Controller
         $previousUrl = url()->previous();
 
         $route = Route::getRoutes()->match(request()->create($previousUrl));
-        $routeName = Str::after($route?->getName() ?? '', '.');
-        $routeParameters = $route?->parameters();
+        $routeName = Str::after($route->getName(), '.');
+        $routeParameters = $route->parameters();
 
         $localeSlug = Str::slug($locale);
 

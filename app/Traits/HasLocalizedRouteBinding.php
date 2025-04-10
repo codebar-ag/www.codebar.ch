@@ -9,7 +9,7 @@ trait HasLocalizedRouteBinding
 {
     public static function registerLocalizedBinding(string $parameter): void
     {
-        /** @var class-string<Model> $modelClass */
+        /** @var class-string<static> $modelClass */
         $modelClass = static::class;
 
         Route::bind(key: $parameter, binder: function (string $value) use ($modelClass): Model {

@@ -49,27 +49,32 @@ class SitemapController extends Controller
 
         News::whereNotNull('published_at')
             ->with('references')
-            ->each(fn (News $news): mixed => $this->addLocalizedPageSet(
-                page: (new PageAction(locale: null, routeName: null))->news(news: $news, withReferences: true),
-            ));
+            ->each(function (News $news): void {
+                $this->addLocalizedPageSet(
+                    page: (new PageAction(locale: null, routeName: null))->news(news: $news, withReferences: true),
+                );
+            });
 
         Service::where('published', true)
             ->with('references')
-            ->each(fn (Service $service): mixed => $this->addLocalizedPageSet(
-                page: (new PageAction(locale: null, routeName: null))->service(service: $service, withReferences: true),
-            ));
+            ->each(function (Service $service): void {
+                $this->addLocalizedPageSet(
+                    page: (new PageAction(locale: null, routeName: null))->service(service: $service, withReferences: true),
+                );
+            });
 
         Product::where('published', true)
             ->with('references')
-            ->each(fn (Product $product): mixed => $this->addLocalizedPageSet(
-                page: (new PageAction(locale: null, routeName: null))->product(product: $product, withReferences: true),
-            ));
+            ->each(function (Product $product): void {
+                $this->addLocalizedPageSet(
+                    page: (new PageAction(locale: null, routeName: null))->product(product: $product, withReferences: true),
+                );
+            });
     }
 
     private function addDefaultRoutesToSitemap(): void
     {
         collect(value: self::DEFAULT_ROUTES)->each(function (string $routeName): void {
-
             $pages = collect(self::DEFAULT_LOCALES)
                 ->map(function (string $locale) use ($routeName): ?PageDTO {
                     return (new PageAction(locale: $locale, routeName: $routeName))->default();
@@ -80,7 +85,9 @@ class SitemapController extends Controller
                 $page->referencePages = $pages;
             });
 
-            $pages->each(fn (PageDTO $page): mixed => $this->sitemap->addItem(page: $page));
+            $pages->each(function (PageDTO $page): void {
+                $this->sitemap->addItem(page: $page);
+            });
         });
     }
 
