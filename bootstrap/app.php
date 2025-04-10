@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\AddReferrerPolicyMiddleware;
 use App\Http\Middleware\SetLanguage;
 use App\Providers\AppServiceProvider;
 use App\Providers\EventServiceProvider;
@@ -25,7 +24,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             AddCspHeaders::class,
-            AddReferrerPolicyMiddleware::class,
             AddFeaturePolicyHeaders::class,
             SetLanguage::class,
             CacheResponse::class,
