@@ -11,8 +11,11 @@
     };
 @endphp
 
-<x-section class-attributes="bg-gray-100">
-    <section class="flex flex-col md:flex-row items-center justify-between gap-10 p-6 md:p-12">
+<x-section class-attributes="relative isolate bg-gray-100 overflow-hidden">
+
+    <div class="absolute -top-32 -left-20 -z-10 h-[30rem] w-[30rem] rounded-full bg-[#2E36B4] opacity-10 blur-[120px]"></div>
+
+    <section class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 p-6 md:p-12">
         <div class="w-full">
             <x-h2 title="Erleben Sie DocuWare in Aktion"/>
             <p class="text-gray-700 text-base md:text-lg mb-6">
