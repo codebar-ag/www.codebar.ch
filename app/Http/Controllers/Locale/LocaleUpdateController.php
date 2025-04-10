@@ -7,9 +7,11 @@ use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
+use Spatie\ResponseCache\Commands\ClearCommand;
 
 class LocaleUpdateController extends Controller
 {
@@ -33,6 +35,8 @@ class LocaleUpdateController extends Controller
         $routeParameters = $route?->parameters();
 
         $localeSlug = Str::slug($locale);
+
+        Artisan::call(ClearCommand::class);
 
         return redirect()->route("{$localeSlug}.{$routeName}", $routeParameters);
     }
