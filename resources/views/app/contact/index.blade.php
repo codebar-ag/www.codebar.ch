@@ -21,7 +21,7 @@
             <p>CH-4455 Zunzgen</p>
         </address>
         <x-a-badge href="https://www.google.com/maps/place/Hauptstrasse+91,+4455+Zunzgen,+Schweiz"
-                   label="{{ __('Google Maps') }}" class-attributes="mt-1" target="_blank">
+                   label="{{ __('Google Maps') }}" class-attributes="mt-1" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor" class="mr-1 size-3">
                 <path stroke-linecap="round" stroke-linejoin="round"
