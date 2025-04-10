@@ -20,7 +20,7 @@ class ServicesShowController extends Controller
             'name' => $service->name,
             'teaser' => $service->teaser,
             'content' => Str::of($service->content)->markdown(),
-            'tags' => $product->tags,
+            'tags' => $service->tags,
         ]);
     }
 }
