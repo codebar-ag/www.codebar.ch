@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             AddCspHeaders::class,
-            //	AddReferrerPolicyMiddleware::class,
+            AddReferrerPolicyMiddleware::class,
             AddFeaturePolicyHeaders::class,
             SetLanguage::class,
             CacheResponse::class,
