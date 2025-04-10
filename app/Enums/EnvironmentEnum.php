@@ -2,9 +2,7 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
-
-enum EnvironmentEnum: string implements HasLabel
+enum EnvironmentEnum: string
 {
     case LOCAL = 'local';
     case STAGING = 'staging';

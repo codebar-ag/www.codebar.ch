@@ -2,9 +2,7 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
-
-enum SessionKeyEnum: string implements HasLabel
+enum SessionKeyEnum: string
 {
     case LANGUAGE = 'language';
 
