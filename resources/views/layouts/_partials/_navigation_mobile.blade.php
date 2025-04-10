@@ -1,12 +1,7 @@
 @php use App\Enums\LocaleEnum; @endphp
 
-<div
-        x-show="navigation"
-        x-transition
-        @click.outside="navigation = false"
-        class="md:hidden mt-4 text-xl space-y-2"
-        x-cloak x-transition
->
+<div x-show="open" x-transition x-cloak
+        class="md:hidden mt-4 text-xl space-y-2">
     <!-- News -->
     <a @click.stop
        href="{{ localized_route('start.index') }}"

@@ -5,8 +5,6 @@
 >
 <head>
 
-    <link rel="preload" href="{{ asset('fonts/poppins/poppins-regular.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
-
     <meta charset="utf-8"/>
 
     <meta

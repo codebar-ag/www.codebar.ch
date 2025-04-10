@@ -1,4 +1,4 @@
-<nav class="mt-12 text-xl md:text-2xl" x-data="{ navigation: false }">
+<nav class="mt-12 text-xl md:text-2xl" x-data="navigation">
 
     <div class="flex justify-center md:justify-start">
         <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
@@ -30,12 +30,11 @@
 
         @include('layouts._partials._navigation_desktop')
 
-        <button @click="navigation = !navigation"
+        <button @click="toggle"
                 class="flex items-center gap-1 md:hidden hover:text-black hover:font-semibold transition focus:outline-none mx-auto">
             <span>{{ __('Menu') }}</span>
 
-            <div class="transition-transform duration-300 ease-in-out"
-                 :class="navigation ? 'rotate-180' : 'rotate-0'">
+            <div class="transition-transform duration-300 ease-in-out" x-bind:class="icon_rotate">
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                     <path fill-rule="evenodd"
