@@ -13,8 +13,6 @@
         </x-list>
     </x-section>
 
-
-        <x-docuware-showme/>
-
+    <x-docuware-showme/>
 
 </x-app-layout>

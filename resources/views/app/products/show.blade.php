@@ -7,4 +7,6 @@
         <x-content :content="$content"/>
     </x-section>
 
+    <x-docuware-showme/>
+
 </x-app-layout>
