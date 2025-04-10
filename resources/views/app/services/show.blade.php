@@ -7,4 +7,8 @@
         <x-content :content="$content"/>
     </x-section>
 
+    @if(in_array('DocuWare', $tags))
+        <x-docuware-showme/>
+    @endif
+
 </x-app-layout>
