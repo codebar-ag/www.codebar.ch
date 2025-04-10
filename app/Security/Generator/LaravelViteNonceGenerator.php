@@ -9,9 +9,6 @@ class LaravelViteNonceGenerator implements NonceGenerator
 {
     public function generate(): string
     {
-        $vite = Vite::cspNonce();
-        ray($vite);
-
-        return $vite;
+        return Vite::cspNonce();
     }
 }

@@ -7,13 +7,7 @@ use Illuminate\Support\Facades\Vite;
 
 class AddContentSecurityPolicyHeaders
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next): string
     {
         return $next($request)->withHeaders([
             'Content-Security-Policy' => "script-src 'nonce-".Vite::cspNonce()."'",
