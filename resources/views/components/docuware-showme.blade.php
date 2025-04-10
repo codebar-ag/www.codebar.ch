@@ -17,11 +17,9 @@
 
     <section class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 p-6 md:p-12">
         <div class="w-full">
-            <x-h2 title="Erleben Sie DocuWare in Aktion"/>
+            <x-h2 :title="__('components.docuware.showme.title')"/>
             <p class="text-gray-700 text-base md:text-lg mb-6">
-                Entdecken Sie interaktive Touren rund um intelligente Dokumentenverarbeitung, Rechnungsfreigabe und
-                Vertragsmanagement. Sehen Sie live, wie DocuWare Prozesse vereinfacht, Fehler reduziert und Ihr Business
-                effizienter macht.
+                {{ __('components.docuware.showme.teaser') }}
             </p>
 
             <div class="flex flex-col sm:flex-row gap-2 text-center">
@@ -29,7 +27,7 @@
                    aria-label="Interaktive DocuWare-Tour starten"
                    class="flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium hover:font-semibold transition text-white w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2E36B4]"
                    style="background-color: #2E36B4;">
-                    <span>Jetzt entdecken</span>
+                    {{ __('components.docuware.showme.buttons.discover_now') }}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                          stroke="currentColor" class="ml-1 w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -40,7 +38,7 @@
                 <a href="{{ $product_url }}" rel="noopener noreferrer"
                    class="px-4 py-2 border rounded-md text-sm font-medium hover:font-semibold transition w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2E36B4]"
                    style="background-color: white; color: #2E36B4; border-color: #2E36B4;">
-                    Mehr über DocuWare
+                    {{ __('components.docuware.showme.buttons.more') }}
                 </a>
             </div>
         </div>
