@@ -24,7 +24,6 @@ class ViewDataAction
     {
         $key = Str::slug("services_published_{$locale}");
 
-        // dd(Service::get());
         return Cache::rememberForever($key, function () use ($locale) {
             return Service::where('locale', $locale)->where('published', true)->orderBy('order')->get();
         });
