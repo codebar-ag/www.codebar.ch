@@ -5,6 +5,7 @@
         x-transition
         @click.outside="navigation = false"
         class="md:hidden mt-4 text-xl space-y-2"
+        x-cloak x-transition
 >
     <!-- News -->
     <a @click.stop
