@@ -13,10 +13,10 @@ class ProductsShowController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function __invoke(Product $product): View
+    public function __invoke(string $locale, Product $product): View
     {
         return view('app.products.show')->with([
-            'page' => (new PageAction)->products(product: $product),
+            'page' => (new PageAction(locale: $locale))->product(product: $product),
             'name' => $product->name,
             'teaser' => $product->teaser,
             'content' => Str::of($product->content)->markdown(),

@@ -24,7 +24,7 @@ class StartIndexController extends Controller
         (new LocaleAction($locale))->setLocale();
 
         return view('app.start.index')->with([
-            'page' => (new PageAction('start.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'start.index'))->default(),
             'news' => (new ViewDataAction)->news($locale),
         ]);
     }

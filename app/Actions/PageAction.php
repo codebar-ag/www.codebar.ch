@@ -2,83 +2,108 @@
 
 namespace App\Actions;
 
+use App\DTO\PageDTO;
 use App\Models\News;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\Reference;
 use App\Models\Service;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class PageAction
 {
-    private string $prefix;
-
     public function __construct(
-        private ?string $key = null,
         private ?string $locale = null,
+        private ?string $routeName = null,
+        private mixed $routeParameters = [],
+        private ?Collection $referencePages = null,
     ) {
         $this->locale = $locale ?? app()->getLocale();
-        $this->prefix = 'cached_page_'.$this->locale.'_';
     }
 
-    public function default(): ?Page
+    public function default(): ?PageDTO
     {
-        Str::slug($key = $this->prefix.$this->key);
+        $page = $this->findPage();
 
-        return Cache::remember($key, 86400, fn () => $this->findPage());
+        if (! $page) {
+            return null;
+        }
+
+        return new PageDTO(
+            locale: $page->locale,
+            routeKey: $page->key,
+            routeName: Str::slug($page->locale).'.'.$this->routeName,
+            title: $page->title,
+            description: $page->description,
+            image: $page->image,
+            lastModificationDate: $page->updated_at ?? now(),
+            routeParameters: $this->routeParameters,
+            referencePages: $this->referencePages
+        );
     }
 
-    public function news(News $news): ?Page
+    public function news(News $news, bool $withReferences = false, ?string $locale = null): PageDTO
     {
-        return $this->createFakePage(
-            key: Str::slug($this->prefix.'news_'.$news->id),
+        return new PageDTO(
+            locale: $locale ?? $news->locale->value,
+            routeKey: 'news.show',
+            routeName: Str::slug(title: $locale ?? $news->locale->value).'.news.show',
             title: $news->title,
             description: $news->teaser,
-            image: $news->image
+            image: $news->image,
+            lastModificationDate: $news->updated_at ?? now(),
+            routeParameters: ['locale' => $news->locale, 'news' => $news],
+            referencePages: $withReferences ? $news->references->map(function (Reference $reference) {
+                $reference->load(['target']);
+
+                return self::news(news: $reference->target, withReferences: false, locale: $reference->reference_locale);
+            }) : null,
         );
     }
 
-    public function products(Product $product): ?Page
+    public function product(Product $product, bool $withReferences = false, ?string $locale = null): PageDTO
     {
-        return $this->createFakePage(
-            key: Str::slug($this->prefix.'products_'.$product->id),
+        return new PageDTO(
+            locale: $locale ?? $product->locale->value,
+            routeKey: 'products.show',
+            routeName: Str::slug(title: $locale ?? $product->locale->value).'.products.show',
             title: $product->name,
             description: $product->teaser,
-            image: $product->image
+            image: $product->image,
+            lastModificationDate: $product->updated_at ?? now(),
+            routeParameters: ['locale' => $product->locale, 'product' => $product],
+            referencePages: $withReferences ? $product->references->map(function (Reference $reference) {
+                $reference->load(['target']);
+
+                return self::product(product: $reference->target, withReferences: false, locale: $reference->reference_locale);
+            }) : null,
         );
     }
 
-    public function services(Service $service): ?Page
+    public function service(Service $service, bool $withReferences = false, ?string $locale = null): PageDTO
     {
-        return $this->createFakePage(
-            key: Str::slug($this->prefix.'services_'.$service->id),
+        return new PageDTO(
+            locale: $locale ?? $service->locale->value,
+            routeKey: 'services.show',
+            routeName: Str::slug(title: $locale ?? $service->locale->value).'.services.show',
             title: $service->name,
             description: $service->teaser,
             image: $service->image,
+            lastModificationDate: $service->updated_at ?? now(),
+            routeParameters: ['locale' => $service->locale, 'service' => $service],
+            referencePages: $withReferences ? $service->references->map(function (Reference $reference) {
+                $reference->load(['target']);
+
+                return self::service(service: $reference->target, withReferences: false, locale: $reference->reference_locale);
+            }) : null,
         );
-    }
-
-    private function createFakePage(
-        string $key,
-        string $title,
-        string $description,
-        mixed $image
-    ): ?Page {
-        return Cache::rememberForever($key, function () use ($title, $description, $image) {
-
-            $fakePage = new Page;
-            $fakePage->locale = app()->getLocale();
-            $fakePage->robots = 'index,follow';
-            $fakePage->title = $title;
-            $fakePage->description = $description;
-            $fakePage->image = $image;
-
-            return $fakePage;
-        });
     }
 
     private function findPage(): ?Page
     {
-        return Page::where('locale', $this->locale)->where('key', $this->key)->first();
+        return Page::where('locale', $this->locale)
+            ->where('key', $this->routeName)
+            ->first();
     }
 }

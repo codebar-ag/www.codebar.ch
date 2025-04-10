@@ -12,7 +12,7 @@ it('has enum labels', function () {
         ->toBeArray()
         ->toHaveCount(2)
         ->toBe([
-            'de_CH' => 'German',
-            'en_CH' => 'English',
+            'de_CH' => 'DE',
+            'en_CH' => 'EN',
         ]);
 })->group('unit', 'traits', 'labels');

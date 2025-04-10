@@ -14,7 +14,7 @@ class ImprintIndexController extends Controller
     public function __invoke(): View
     {
         return view('app.legal.imprint.index')->with([
-            'page' => (new PageAction('legal.imprint.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'legal.imprint.index'))->default(),
         ]);
     }
 }

@@ -14,7 +14,7 @@ class PrivacyIndexController extends Controller
     public function __invoke(): View
     {
         return view('app.legal.privacy.index')->with([
-            'page' => (new PageAction('legal.privacy.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'legal.privacy.index'))->default(),
         ]);
     }
 }

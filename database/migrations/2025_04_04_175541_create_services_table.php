@@ -19,12 +19,14 @@ return new class extends Migration
             $table->integer('order');
             $table->string('name');
             $table->string('teaser');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->longText('content')->nullable();
             $table->string('image');
             $table->string('url')->nullable();
             $table->json('tags')->nullable();
             $table->timestamps();
+
+            $table->unique(['slug', 'locale']);
         });
     }
 

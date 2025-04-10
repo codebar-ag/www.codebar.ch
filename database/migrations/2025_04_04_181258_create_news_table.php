@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('locale');
             $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->string('teaser');
             $table->longText('content')->nullable();
             $table->string('image');
@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->json('tags')->nullable();
             $table->timestamps();
+
+            $table->unique(['slug', 'locale']);
         });
     }
 

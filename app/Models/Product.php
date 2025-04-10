@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use App\Enums\LocaleEnum;
+use App\Traits\HasLocalizedReferences;
+use App\Traits\HasLocalizedRouteBinding;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+    use HasLocalizedReferences;
+    use HasLocalizedRouteBinding;
 
     protected $casts = [
         'published' => 'boolean',

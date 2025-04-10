@@ -3,159 +3,106 @@
 namespace App\Http\Controllers\Sitemap;
 
 use App\Actions\PageAction;
+use App\DTO\PageDTO;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Service;
-use Carbon\Carbon;
+use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
 
 class SitemapController extends Controller
 {
-    protected Sitemap $sitemap;
+    protected ?SitemapBuilder $sitemap = null;
 
-    protected Carbon $lastModificationDate;
+    protected const array DEFAULT_ROUTES = [
+        'start.index',
+        'products.index',
+        'services.index',
+        'contact.index',
+        'legal.imprint.index',
+    ];
 
-    public function __construct()
+    protected const array DEFAULT_LOCALES = [
+        LocaleEnum::DE->value,
+        LocaleEnum::EN->value,
+    ];
+
+    public function __invoke(): Response
     {
-        $this->lastModificationDate = now()->startOfMonth();
-    }
+        $content = Cache::rememberForever(key: 'sitemap_xml', callback: function (): string {
+            $this->sitemap = new SitemapBuilder;
+            $this->builder();
 
-    /**
-     * Display the user's profile form.
-     */
-    public function index(): Response
-    {
-        $sitemap = Cache::remember('cached_sitemap_xml', now()->addDay(), function () {
-            $sitemap = Sitemap::create();
-            $sitemap->add(Url::create(route('de-ch.sitemap')));
-            $sitemap->add(Url::create(route('en-en.sitemap')));
-
-            return $sitemap;
+            return $this->sitemap->toXml();
         });
 
-        return response($sitemap->render())
+        return response(content: $content)
             ->header('Content-Type', 'application/xml');
     }
 
-    public function deCH(): Response
+    private function builder(): void
     {
-        return response($this->buildSitemap(LocaleEnum::DE)->render())
-            ->header('Content-Type', 'application/xml');
+        $this->addDefaultRoutesToSitemap();
+
+        News::whereNotNull('published_at')
+            ->with('references')
+            ->each(function (News $news): void {
+                $this->addLocalizedPageSet(
+                    page: (new PageAction(locale: null, routeName: null))->news(news: $news, withReferences: true),
+                );
+            });
+
+        Service::where('published', true)
+            ->with('references')
+            ->each(function (Service $service): void {
+                $this->addLocalizedPageSet(
+                    page: (new PageAction(locale: null, routeName: null))->service(service: $service, withReferences: true),
+                );
+            });
+
+        Product::where('published', true)
+            ->with('references')
+            ->each(function (Product $product): void {
+                $this->addLocalizedPageSet(
+                    page: (new PageAction(locale: null, routeName: null))->product(product: $product, withReferences: true),
+                );
+            });
     }
 
-    public function enCH(): Response
+    private function addDefaultRoutesToSitemap(): void
     {
-        return response($this->buildSitemap(LocaleEnum::EN)->render())
-            ->header('Content-Type', 'application/xml');
+        collect(value: self::DEFAULT_ROUTES)->each(function (string $routeName): void {
+            $pages = collect(self::DEFAULT_LOCALES)
+                ->map(function (string $locale) use ($routeName): ?PageDTO {
+                    return (new PageAction(locale: $locale, routeName: $routeName))->default();
+                })
+                ->filter();
+
+            $pages->each(function (PageDTO $page) use ($pages): void {
+                $page->referencePages = $pages;
+            });
+
+            $pages->each(function (PageDTO $page): void {
+                $this->sitemap->addItem(page: $page);
+            });
+        });
     }
 
-    private function buildSitemap(LocaleEnum $localeEnum): Sitemap
+    private function addLocalizedPageSet(PageDTO $page): void
     {
-        $locale = $localeEnum->value;
-        $key = 'cached_sitemap_'.$localeEnum->value.'_xml';
+        $pages = collect(value: $page->referencePages)
+            ->prepend(value: $page)
+            ->unique(fn (PageDTO $p): string => $p->locale);
 
-        return Cache::remember($key, now()->addWeek(), function () use ($locale) {
+        $pages->each(function (PageDTO $page) use ($pages): void {
+            $page->referencePages = collect(value: [$page])
+                ->merge($pages->reject(fn (PageDTO $ref): bool => $ref->locale === $page->locale))
+                ->values();
 
-            $sitemap = Sitemap::create();
-
-            $route = 'start.index';
-            $page = (new PageAction(key: $route, locale: $locale))->default();
-
-            $sitemap->add(
-                Url::create(localized_route('start.index', [], true, $locale))
-                    ->setPriority(1.0)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                    ->setLastModificationDate($this->lastModificationDate)
-                    ->addImage($page->image, $page->title)
-            );
-
-            News::where('locale', $locale)->get()->each(function (News $news) use ($sitemap, $locale) {
-
-                $page = (new PageAction(key: null, locale: $locale))->news($news);
-
-                $sitemap->add(
-                    Url::create(localized_route('news.show', $news, true, $locale))
-                        ->setPriority(1.0)
-                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                        ->setLastModificationDate($this->lastModificationDate)
-                        ->addImage($page->image, $page->title)
-                );
-            });
-
-            // $sitemap->add(Url::create(localized_route('about-us.index', [], true, $locale)));
-            $sitemap->add(Url::create(localized_route('services.index', [], true, $locale)));
-
-            Service::where('locale', $locale)->get()->each(function (Service $service) use ($sitemap, $locale) {
-
-                $page = (new PageAction(key: null, locale: $locale))->services($service);
-
-                $sitemap->add(
-                    Url::create(localized_route('services.show', $service, true, $locale))
-                        ->setPriority(1.0)
-                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                        ->setLastModificationDate($this->lastModificationDate)
-                        ->addImage($page->image, $page->title)
-                );
-            });
-
-            $route = 'products.index';
-            $page = (new PageAction(key: $route, locale: $locale))->default();
-
-            $sitemap->add(
-                Url::create(localized_route($route, [], true, $locale))
-                    ->setPriority(1.0)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                    ->setLastModificationDate($this->lastModificationDate)
-                    ->addImage($page->image, $page->title)
-            );
-
-            Product::where('locale', $locale)->get()->each(function (Product $product) use ($sitemap, $locale) {
-
-                $page = (new PageAction(key: null, locale: $locale))->products($product);
-
-                $sitemap->add(
-                    Url::create(localized_route('products.show', $product, true, $locale))
-                        ->setPriority(1.0)
-                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                        ->setLastModificationDate($this->lastModificationDate)
-                        ->addImage($page->image, $page->title)
-                );
-            });
-
-            // $sitemap->add(Url::create(localized_route('legal.privacy.index', [], true, $locale)));
-            // $sitemap->add(Url::create(localized_route('legal.terms.index', [], true, $locale)));
-
-            $route = 'legal.imprint.index';
-            $page = (new PageAction(key: $route, locale: $locale))->default();
-
-            $sitemap->add(
-                Url::create(localized_route($route, [], true, $locale))
-                    ->setPriority(1.0)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                    ->setLastModificationDate($this->lastModificationDate)
-                    ->addImage($page->image, $page->title)
-            );
-
-            // $sitemap->add(Url::create(localized_route('jobs.index', [], true, $locale)));
-            // $sitemap->add(Url::create(localized_route('media.index', [], true, $locale)));
-
-            $route = 'contact.index';
-            $page = (new PageAction(key: $route, locale: $locale))->default();
-
-            $sitemap->add(
-                Url::create(localized_route($route, [], true, $locale))
-                    ->setPriority(1.0)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                    ->setLastModificationDate($this->lastModificationDate)
-                    ->addImage($page->image, $page->title)
-            );
-
-            return $sitemap;
+            $this->sitemap->addItem(page: $page);
         });
     }
 }

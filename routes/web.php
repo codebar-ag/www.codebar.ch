@@ -24,12 +24,12 @@ Route::get('/', EntryIndexController::class)->name('entry.index');
 
 Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('en-ch', StartIndexController::class)->name('start.index');
-    Route::get('news/{news}', NewsShowController::class)->name('news.show');
+    Route::get('news/{locale}/{news}', NewsShowController::class)->name('news.show');
     Route::get('about-us', AboutUsIndexController::class)->name('about-us.index');
     Route::get('services', ServicesIndexController::class)->name('services.index');
-    Route::get('services/{service}', ServicesShowController::class)->name('services.show');
+    Route::get('services/{locale}/{service}', ServicesShowController::class)->name('services.show');
     Route::get('products', ProductsIndexController::class)->name('products.index');
-    Route::get('products/{product}', ProductsShowController::class)->name('products.show');
+    Route::get('products/{locale}/{product}', ProductsShowController::class)->name('products.show');
     // Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
     // Route::get('legal/terms', TermsIndexController::class)->name('legal.terms.index');
     Route::get('legal/imprint', ImprintIndexController::class)->name('legal.imprint.index');
@@ -40,12 +40,12 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
 
 Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('de-ch', StartIndexController::class)->name('start.index');
-    Route::get('aktuelles/{news}', NewsShowController::class)->name('news.show');
+    Route::get('aktuelles/{locale}/{news}', NewsShowController::class)->name('news.show');
     // Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
     Route::get('dienstleistungen', ServicesIndexController::class)->name('services.index');
-    Route::get('dienstleistungen/{service}', ServicesShowController::class)->name('services.show');
+    Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->name('services.show');
     Route::get('produkte', ProductsIndexController::class)->name('products.index');
-    Route::get('produkte/{product}', ProductsShowController::class)->name('products.show');
+    Route::get('produkte/{locale}/{product}', ProductsShowController::class)->name('products.show');
     // Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
     // Route::get('rechtlichtes/geschaeftsbedingungen', TermsIndexController::class)->name('legal.terms.index');
     Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');
@@ -54,8 +54,6 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('kontakt', ContactIndexController::class)->name('contact.index');
 });
 
-Route::get('locale/update/{locale}', LocaleUpdateController::class)->name('locale.update');
+Route::post('language/update', LocaleUpdateController::class)->name('language.update');
 
-Route::get('sitemap.xml', [SitemapController::class, 'index']);
-Route::get('sitemap-de-ch.xml', [SitemapController::class, 'deCH'])->name('de-ch.sitemap');
-Route::get('sitemap-en-ch.xml', [SitemapController::class, 'enCH'])->name('en-en.sitemap');
+Route::get('sitemap.xml', SitemapController::class);

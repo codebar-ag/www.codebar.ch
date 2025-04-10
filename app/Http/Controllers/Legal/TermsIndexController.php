@@ -14,7 +14,7 @@ class TermsIndexController extends Controller
     public function __invoke(): View
     {
         return view('app.legal.terms.index')->with([
-            'page' => (new PageAction('legal.terms.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'legal.terms.index'))->default(),
         ]);
     }
 }

@@ -14,7 +14,7 @@ class AboutUsIndexController extends Controller
     public function __invoke(): View
     {
         return view('app.about-us.index')->with([
-            'page' => (new PageAction('about-us.index'))->default(),
+            'page' => (new PageAction(locale: null, routeName: 'about-us.index'))->default(),
         ]);
     }
 }

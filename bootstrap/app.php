@@ -9,6 +9,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Mazedlx\FeaturePolicy\AddFeaturePolicyHeaders;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Permission\Middleware\RoleMiddleware;
+use Spatie\ResponseCache\Middlewares\CacheResponse;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             AddCspHeaders::class,
             AddFeaturePolicyHeaders::class,
             SetLanguage::class,
+            CacheResponse::class,
         ]);
         $middleware->alias([
             'role' => RoleMiddleware::class,
