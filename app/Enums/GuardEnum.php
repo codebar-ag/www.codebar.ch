@@ -2,9 +2,7 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
-
-enum GuardEnum: string implements HasLabel
+enum GuardEnum: string
 {
     case WEB = 'web';
 

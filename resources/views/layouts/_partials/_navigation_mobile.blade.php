@@ -92,7 +92,7 @@
             <span>{{ __('Language') }}</span>
             <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
                 @foreach($locales as $language)
-                    <form method="POST" action="{{ route('language.update') }}">
+                    <form method="POST" action="{{ route('language.update') }}" rel="nofollow">
                         @csrf
                         <input type="hidden" name="language" value="{{ $language->value }}">
                         <button type="submit"

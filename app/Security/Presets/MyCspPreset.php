@@ -13,28 +13,43 @@ class MyCspPreset implements Preset
     {
         $policy->add(Directive::BASE, Keyword::SELF);
 
-        $policy->add(Directive::CONNECT, Keyword::SELF);
         $policy->add(Directive::DEFAULT, Keyword::SELF);
-        $policy->add(Directive::FONT, Keyword::SELF);
-        $policy->add(Directive::FORM_ACTION, Keyword::SELF);
-        $policy->add(Directive::IMG, [
-            Keyword::SELF,
-            'data:',
-        ]);
-        $policy->add(Directive::MEDIA, Keyword::SELF);
-        $policy->add(Directive::OBJECT, Keyword::NONE);
 
-        $policy->add(Directive::SCRIPT, Keyword::SELF);
+        $policy->add(Directive::SCRIPT, [
+            Keyword::SELF,
+            'cdn.usefathom.com',
+            'cdn-eu.usefathom.com',
+        ]);
+
+        $policy->add(Directive::SCRIPT_ELEM, [
+            Keyword::SELF,
+            'cdn.usefathom.com',
+            'cdn-eu.usefathom.com',
+        ]);
 
         $policy->add(Directive::STYLE, [
             Keyword::SELF,
             Keyword::UNSAFE_INLINE,
         ]);
 
-        // Fathom Analytics
-        $policy->add(Directive::SCRIPT, 'cdn.usefathom.com');
-        $policy->add(Directive::CONNECT, 'cdn.usefathom.com');
-        $policy->add(Directive::SCRIPT, 'cdn-eu.usefathom.com');
-        $policy->add(Directive::CONNECT, 'cdn-eu.usefathom.com');
+        $policy->add(Directive::STYLE_ELEM, [
+            Keyword::SELF,
+            Keyword::UNSAFE_INLINE,
+        ]);
+
+        $policy->add(Directive::IMG, [
+            Keyword::SELF,
+            'data:',
+        ]);
+
+        $policy->add(Directive::FONT, Keyword::SELF);
+        $policy->add(Directive::FORM_ACTION, Keyword::SELF);
+        $policy->add(Directive::MEDIA, Keyword::SELF);
+        $policy->add(Directive::OBJECT, Keyword::NONE);
+        $policy->add(Directive::CONNECT, [
+            Keyword::SELF,
+            'cdn.usefathom.com',
+            'cdn-eu.usefathom.com',
+        ]);
     }
 }
