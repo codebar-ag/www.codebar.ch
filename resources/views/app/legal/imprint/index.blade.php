@@ -12,7 +12,7 @@
         </address>
 
         <x-a-badge href="https://zefix.ch/de/search/entity/list/firm/1598166" label="{{ __('Zefix') }}"
-                   class-attributes="mt-1" target="_blank">
+                   class-attributes="mt-1" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor" class="mr-1 size-3">
                 <path stroke-linecap="round" stroke-linejoin="round"
