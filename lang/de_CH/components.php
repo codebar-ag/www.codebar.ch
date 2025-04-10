@@ -10,7 +10,7 @@ return [
                 effizienter macht.',
             'buttons' => [
                 'discover_now' => 'Jetzt entdecken',
-                'more' => 'Mehr über DocuWare,',
+                'more' => 'Mehr über DocuWare',
             ],
         ],
     ],
