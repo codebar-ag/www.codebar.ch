@@ -5,10 +5,6 @@
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
-[x-cloak] {
-    display: none;
-}
-
 @font-face {
     font-family: 'Poppins';
     font-style: normal;
