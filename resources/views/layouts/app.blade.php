@@ -14,7 +14,6 @@
             content="{{ csrf_token() }}"
     />
 
-
     @include('layouts._partials._seo')
     @include('layouts._partials._favicons')
 
