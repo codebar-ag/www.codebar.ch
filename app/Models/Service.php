@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    /** @use HasFactory<\Database\Factories\ServiceFactory> */
     use HasFactory;
-
     use HasLocalizedReferences;
     use HasLocalizedRouteBinding;
 

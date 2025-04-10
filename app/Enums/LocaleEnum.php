@@ -2,13 +2,10 @@
 
 namespace App\Enums;
 
-use App\Traits\HasNovaEnumLabel;
 use Filament\Support\Contracts\HasLabel;
 
 enum LocaleEnum: string implements HasLabel
 {
-    use HasNovaEnumLabel;
-
     case DE = 'de_CH';
     case EN = 'en_CH';
 

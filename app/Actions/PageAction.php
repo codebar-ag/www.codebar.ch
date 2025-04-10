@@ -6,6 +6,7 @@ use App\DTO\PageDTO;
 use App\Models\News;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\Reference;
 use App\Models\Service;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -47,16 +48,16 @@ class PageAction
         return new PageDTO(
             locale: $locale ?? $news->locale->value,
             routeKey: 'news.show',
-            routeName: Str::slug($locale ?? $news->locale->value).'.news.show',
+            routeName: Str::slug(title: $locale ?? $news->locale->value).'.news.show',
             title: $news->title,
             description: $news->teaser,
             image: $news->image,
             lastModificationDate: $news->updated_at ?? now(),
             routeParameters: ['locale' => $news->locale, 'news' => $news],
-            referencePages: $withReferences ? $news->references->map(function ($reference) {
+            referencePages: $withReferences ? $news->references->map(function (Reference $reference) {
                 $reference->load(['target']);
 
-                return self::news($reference->target, false, $reference->reference_locale);
+                return self::news(news: $reference->target, withReferences: false, locale: $reference->reference_locale);
             }) : null,
         );
     }
@@ -66,16 +67,16 @@ class PageAction
         return new PageDTO(
             locale: $locale ?? $product->locale->value,
             routeKey: 'products.show',
-            routeName: Str::slug($locale ?? $product->locale->value).'.products.show',
+            routeName: Str::slug(title: $locale ?? $product->locale->value).'.products.show',
             title: $product->name,
             description: $product->teaser,
             image: $product->image,
             lastModificationDate: $product->updated_at ?? now(),
             routeParameters: ['locale' => $product->locale, 'product' => $product],
-            referencePages: $withReferences ? $product->references->map(function ($reference) {
+            referencePages: $withReferences ? $product->references->map(function (Reference $reference) {
                 $reference->load(['target']);
 
-                return self::product($reference->target, false, $reference->reference_locale);
+                return self::product(product: $reference->target, withReferences: false, locale: $reference->reference_locale);
             }) : null,
         );
     }
@@ -85,16 +86,16 @@ class PageAction
         return new PageDTO(
             locale: $locale ?? $service->locale->value,
             routeKey: 'services.show',
-            routeName: Str::slug($locale ?? $service->locale->value).'.services.show',
+            routeName: Str::slug(title: $locale ?? $service->locale->value).'.services.show',
             title: $service->name,
             description: $service->teaser,
             image: $service->image,
             lastModificationDate: $service->updated_at ?? now(),
             routeParameters: ['locale' => $service->locale, 'service' => $service],
-            referencePages: $withReferences ? $service->references->map(function ($reference) {
+            referencePages: $withReferences ? $service->references->map(function (Reference $reference) {
                 $reference->load(['target']);
 
-                return self::service($reference->target, false, $reference->reference_locale);
+                return self::service(service: $reference->target, withReferences: false, locale: $reference->reference_locale);
             }) : null,
         );
     }

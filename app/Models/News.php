@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    /** @use HasFactory<\Database\Factories\NewsFactory> */
     use HasFactory;
-
     use HasLocalizedReferences;
     use HasLocalizedRouteBinding;
 

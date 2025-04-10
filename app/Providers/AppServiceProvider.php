@@ -9,7 +9,6 @@ use App\Models\News;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -20,17 +19,11 @@ use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $this->multilanguage();
@@ -50,24 +43,10 @@ class AppServiceProvider extends ServiceProvider
         ]);
     }
 
-    private function multilanguage()
+    private function multilanguage(): void
     {
-        Route::bind('news', function ($value) {
-            $locale = request()->route('locale');
-
-            return News::whereLocale($locale)->where('slug', $value)->firstOrFail();
-        });
-
-        Route::bind('service', function ($value) {
-            $locale = request()->route('locale');
-
-            return Service::whereLocale($locale)->where('slug', $value)->firstOrFail();
-        });
-
-        Route::bind('product', function ($value) {
-            $locale = request()->route('locale');
-
-            return Product::whereLocale($locale)->where('slug', $value)->firstOrFail();
-        });
+        News::registerLocalizedBinding('news');
+        Service::registerLocalizedBinding('service');
+        Product::registerLocalizedBinding('product');
     }
 }

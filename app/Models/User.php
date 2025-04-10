@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\LocaleEnum;
-use App\Traits\HasActivity;
 use App\Traits\HasUuid;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
@@ -18,7 +17,6 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use HasActivity;
     use HasFactory;
     use HasRoles;
     use HasUuid;

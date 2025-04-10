@@ -32,16 +32,15 @@ class SitemapController extends Controller
 
     public function __invoke(): Response
     {
-        $sitemap = Cache::rememberForever('sitemap_xml', function () {
+        $content = Cache::rememberForever(key: 'sitemap_xml', callback: function (): string {
             $this->sitemap = new SitemapBuilder;
             $this->builder();
 
             return $this->sitemap->toXml();
         });
 
-        return response($sitemap)
+        return response(content: $content)
             ->header('Content-Type', 'application/xml');
-
     }
 
     private function builder(): void
@@ -50,46 +49,50 @@ class SitemapController extends Controller
 
         News::whereNotNull('published_at')
             ->with('references')
-            ->each(fn (News $news) => $this->addLocalizedPageSet(
-                page: (new PageAction(locale: null, routeName: null))->news($news, withReferences: true),
+            ->each(fn (News $news): mixed => $this->addLocalizedPageSet(
+                page: (new PageAction(locale: null, routeName: null))->news(news: $news, withReferences: true),
             ));
 
         Service::where('published', true)
             ->with('references')
-            ->each(fn (Service $service) => $this->addLocalizedPageSet(
-                page: (new PageAction(locale: null, routeName: null))->service($service, withReferences: true),
+            ->each(fn (Service $service): mixed => $this->addLocalizedPageSet(
+                page: (new PageAction(locale: null, routeName: null))->service(service: $service, withReferences: true),
             ));
 
         Product::where('published', true)
             ->with('references')
-            ->each(fn (Product $product) => $this->addLocalizedPageSet(
-                page: (new PageAction(locale: null, routeName: null))->product($product, withReferences: true),
+            ->each(fn (Product $product): mixed => $this->addLocalizedPageSet(
+                page: (new PageAction(locale: null, routeName: null))->product(product: $product, withReferences: true),
             ));
     }
 
     private function addDefaultRoutesToSitemap(): void
     {
-        collect(self::DEFAULT_ROUTES)->each(function ($routeName) {
+        collect(value: self::DEFAULT_ROUTES)->each(function (string $routeName): void {
 
-            $pages = collect(self::DEFAULT_LOCALES)->map(function ($locale) use ($routeName) {
-                return (new PageAction(locale: $locale, routeName: $routeName))->default();
-            })->filter();
+            $pages = collect(self::DEFAULT_LOCALES)
+                ->map(function (string $locale) use ($routeName): ?PageDTO {
+                    return (new PageAction(locale: $locale, routeName: $routeName))->default();
+                })
+                ->filter();
 
-            $pages->each(function ($page) use ($pages) {
+            $pages->each(function (PageDTO $page) use ($pages): void {
                 $page->referencePages = $pages;
             });
 
-            $pages->each(fn (PageDTO $page) => $this->sitemap->addItem($page));
+            $pages->each(fn (PageDTO $page): mixed => $this->sitemap->addItem(page: $page));
         });
     }
 
     private function addLocalizedPageSet(PageDTO $page): void
     {
-        $pages = collect($page->referencePages)->prepend($page)->unique(fn (PageDTO $p) => $p->locale);
+        $pages = collect(value: $page->referencePages)
+            ->prepend(value: $page)
+            ->unique(fn (PageDTO $p): string => $p->locale);
 
-        $pages->each(function (PageDTO $page) use ($pages) {
-            $page->referencePages = collect([$page])
-                ->merge($pages->reject(fn ($ref) => $ref->locale === $page->locale))
+        $pages->each(function (PageDTO $page) use ($pages): void {
+            $page->referencePages = collect(value: [$page])
+                ->merge($pages->reject(fn (PageDTO $ref): bool => $ref->locale === $page->locale))
                 ->values();
 
             $this->sitemap->addItem(page: $page);

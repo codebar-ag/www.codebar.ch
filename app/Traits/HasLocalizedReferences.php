@@ -9,6 +9,6 @@ trait HasLocalizedReferences
 {
     public function references(): MorphMany
     {
-        return $this->morphMany(Reference::class, 'source');
+        return $this->morphMany(related: Reference::class, name: 'source');
     }
 }

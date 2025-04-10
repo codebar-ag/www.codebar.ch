@@ -9,10 +9,13 @@ trait HasLocalizedRouteBinding
 {
     public static function registerLocalizedBinding(string $parameter): void
     {
-        Route::bind($parameter, function ($value): Model {
-            $locale = request()->route('locale');
+        /** @var class-string<Model> $modelClass */
+        $modelClass = static::class;
 
-            return static::query()
+        Route::bind(key: $parameter, binder: function (string $value) use ($modelClass): Model {
+            $locale = request()->route(param: 'locale');
+
+            return $modelClass::query()
                 ->where('locale', $locale)
                 ->where('slug', $value)
                 ->firstOrFail();

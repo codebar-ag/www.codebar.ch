@@ -20,7 +20,6 @@
     "mazedlx/laravel-feature-policy": "^2.2",
     "owenvoke/blade-fontawesome": "^2.6",
     "sammyjo20/lasso": "3.4.0",
-    "spatie/laravel-activitylog": "^4.8",
     "spatie/laravel-csp": "^2.9",
     "spatie/laravel-flash": "^1.10",
     "spatie/laravel-health": "^1.27",

@@ -22,30 +22,29 @@ class SitemapBuilder
 
     public function addItem(PageDTO $page): void
     {
-        $url = Url::create($page->url());
-        $url->setPriority(1.0);
-        $url->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
-        $url->setLastModificationDate($this->lastModificationDate);
-        $url->addImage($page->image, $page->title);
+        $url = Url::create(url: $page->url());
+        $url->setPriority(priority: 1.0);
+        $url->setChangeFrequency(changeFrequency: Url::CHANGE_FREQUENCY_WEEKLY);
+        $url->setLastModificationDate(lastModificationDate: $this->lastModificationDate);
+        $url->addImage(url: $page->image, caption: $page->title);
 
         if (! empty($page->referencePages) && $page->referencePages->count()) {
-            $page->referencePages->each(function ($page) use ($url) {
-                $url->addAlternate($page->url(), $page->locale);
+            $page->referencePages->each(function (PageDTO $page) use ($url): void {
+                $url->addAlternate(url: $page->url(), locale: $page->locale);
             });
         }
 
         $this->sitemap->add($url);
-
     }
 
     public function toXml(): string
     {
         $xml = $this->sitemap->render();
 
-        $dom = new \DOMDocument('1.0');
+        $dom = new \DOMDocument(version: '1.0');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
-        $dom->loadXML($xml);
+        $dom->loadXML(source: $xml);
 
         return $dom->saveXML();
     }
