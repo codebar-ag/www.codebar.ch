@@ -5,13 +5,8 @@
 >
 <head>
 
-    <link rel="preload"
-          as="font"
-          type="font/woff2"
-          href="{{ asset('fonts/poppins/poppins-regular.woff2') }}"
-          crossorigin="anonymous">
-
     <meta charset="utf-8"/>
+
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1"
@@ -24,7 +19,8 @@
     @include('layouts._partials._seo')
     @include('layouts._partials._favicons')
 
-    @vite('resources/js/app.js')
+    @vite(['resources/js/app.js'])
+
 
 </head>
 <body class="font-sans antialiased">

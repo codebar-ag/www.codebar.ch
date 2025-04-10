@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2100039e11d59b6ee310f1a8c000256f",
+    "content-hash": "67b779edfcfcb2ca0a28f93bea867955",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -4477,66 +4477,6 @@
             "time": "2025-03-11T14:40:46+00:00"
         },
         {
-            "name": "owenvoke/blade-fontawesome",
-            "version": "v2.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/owenvoke/blade-fontawesome.git",
-                "reference": "94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/owenvoke/blade-fontawesome/zipball/94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1",
-                "reference": "94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1",
-                "shasum": ""
-            },
-            "require": {
-                "blade-ui-kit/blade-icons": "^1.5",
-                "illuminate/support": "^10.34|^11.0|^12.0",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.13",
-                "orchestra/testbench": "^8.12|^9.0|^10.0",
-                "pestphp/pest": "^2.26|^3.7",
-                "phpstan/phpstan": "^1.10|^2.1",
-                "symfony/var-dumper": "^6.3|^7.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "OwenVoke\\BladeFontAwesome\\BladeFontAwesomeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "OwenVoke\\BladeFontAwesome\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A package to easily make use of Font Awesome in your Laravel Blade views",
-            "support": {
-                "issues": "https://github.com/owenvoke/blade-fontawesome/issues",
-                "source": "https://github.com/owenvoke/blade-fontawesome/tree/v2.9.1"
-            },
-            "funding": [
-                {
-                    "url": "https://ecologi.com/owenvoke?gift-trees",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/owenvoke",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-03-28T16:03:42+00:00"
-        },
-        {
             "name": "phpoption/phpoption",
             "version": "1.9.3",
             "source": {
@@ -6132,28 +6072,28 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "2.10.3",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "15e40c28d46076b3d5a4268b63040b3900cc05d3"
+                "reference": "395ec40d2e7aa9713af1d45096b73a3a57c7b2c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/15e40c28d46076b3d5a4268b63040b3900cc05d3",
-                "reference": "15e40c28d46076b3d5a4268b63040b3900cc05d3",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/395ec40d2e7aa9713af1d45096b73a3a57c7b2c4",
+                "reference": "395ec40d2e7aa9713af1d45096b73a3a57c7b2c4",
                 "shasum": ""
             },
             "require": {
-                "illuminate/http": "^9.0|^10.0|^11.36.1|^12",
-                "illuminate/support": "^9.0|^10.0|^11.36.1|^12",
-                "php": "^8.1",
+                "illuminate/http": "^11.36.1|^12.0",
+                "illuminate/support": "^11.36.1|^12.0",
+                "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.17"
             },
             "require-dev": {
-                "mockery/mockery": "^1.6.12",
-                "orchestra/testbench": "^7.0|^8.0|^9.9|^10",
-                "pestphp/pest": "^1.23.0|^2.36.0|^3",
+                "mockery/mockery": "^1.6",
+                "orchestra/testbench": "^9.9|^10.0",
+                "pestphp/pest": "^3.0",
                 "roave/security-advisories": "dev-master"
             },
             "type": "library",
@@ -6165,9 +6105,6 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
                 "psr-4": {
                     "Spatie\\Csp\\": "src"
                 }
@@ -6188,6 +6125,12 @@
                     "email": "freek@spatie.be",
                     "homepage": "https://spatie.be",
                     "role": "Developer"
+                },
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
                 }
             ],
             "description": "Add CSP headers to the responses of a Laravel app",
@@ -6202,7 +6145,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-csp/tree/2.10.3"
+                "source": "https://github.com/spatie/laravel-csp/tree/3.8.0"
             },
             "funding": [
                 {
@@ -6210,7 +6153,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-02-14T13:23:32+00:00"
+            "time": "2025-04-08T13:13:05+00:00"
         },
         {
             "name": "spatie/laravel-flash",
