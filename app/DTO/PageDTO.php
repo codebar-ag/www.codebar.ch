@@ -13,7 +13,7 @@ class PageDTO
         public string $routeName,
         public string $title,
         public Carbon $lastModificationDate,
-        public string $robots = 'noindex,nofollow',
+        public string $robots = 'index,follow',
         public mixed $routeParameters = [],
         public ?string $description = null,
         public ?string $image = null,
