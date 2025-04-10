@@ -24,15 +24,10 @@ class MyCspPreset implements Preset
         $policy->add(Directive::MEDIA, Keyword::SELF);
         $policy->add(Directive::OBJECT, Keyword::NONE);
 
-        $policy->add(Directive::SCRIPT, [
-            Keyword::SELF,
-            Keyword::UNSAFE_EVAL,
-            // Keyword::UNSAFE_INLINE,
-        ]);
+        $policy->add(Directive::SCRIPT, Keyword::SELF);
 
         $policy->add(Directive::STYLE, [
             Keyword::SELF,
-            // Keyword::UNSAFE_EVAL,
             Keyword::UNSAFE_INLINE,
         ]);
 
