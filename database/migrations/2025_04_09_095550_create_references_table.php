@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('source_type');
             $table->unsignedBigInteger('source_id');
 
+            $table->string('reference_locale');
             $table->string('reference_type');
             $table->unsignedBigInteger('reference_id');
-            $table->string('reference_locale');
 
             $table->timestamps();
 

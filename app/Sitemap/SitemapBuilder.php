@@ -20,16 +20,18 @@ class SitemapBuilder
         $this->sitemap = Sitemap::create();
     }
 
-    public function addItem(PageDTO $pageDTO): void
+    public function addItem(PageDTO $page): void
     {
-        $url = Url::create($pageDTO->url());
+        $url = Url::create($page->url());
         $url->setPriority(1.0);
         $url->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
         $url->setLastModificationDate($this->lastModificationDate);
-        $url->addImage($pageDTO->image, $pageDTO->title);
+        $url->addImage($page->image, $page->title);
 
-        foreach ($pageDTO->referencePages as $referencePage) {
-            $url->addAlternate($referencePage->url(), $referencePage->locale);
+        if (! empty($page->referencePages) && $page->referencePages->count()) {
+            $page->referencePages->each(function ($page) use ($url) {
+                $url->addAlternate($page->url(), $page->locale);
+            });
         }
 
         $this->sitemap->add($url);
@@ -38,6 +40,13 @@ class SitemapBuilder
 
     public function toXml(): string
     {
-        return $this->sitemap->render();
+        $xml = $this->sitemap->render();
+
+        $dom = new \DOMDocument('1.0');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml);
+
+        return $dom->saveXML();
     }
 }

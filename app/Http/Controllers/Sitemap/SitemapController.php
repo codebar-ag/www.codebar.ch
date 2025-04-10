@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Sitemap;
 
 use App\Actions\PageAction;
+use App\DTO\PageDTO;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
+use App\Models\News;
+use App\Models\Product;
+use App\Models\Service;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
 
 class SitemapController extends Controller
 {
+    protected ?SitemapBuilder $sitemap = null;
+
     protected const array DEFAULT_ROUTES = [
         'start.index',
         'products.index',
@@ -21,71 +25,74 @@ class SitemapController extends Controller
         'legal.imprint.index',
     ];
 
-    /**
-     * Display the user's profile form.
-     */
-    public function index(): Response
-    {
-        $sitemap = Cache::remember('cached_sitemap_xml', now()->addDay(), function () {
-            $sitemap = Sitemap::create();
-            $sitemap->add(Url::create(route('de-ch.sitemap')));
-            $sitemap->add(Url::create(route('en-en.sitemap')));
+    protected const array DEFAULT_LOCALES = [
+        LocaleEnum::DE->value,
+        LocaleEnum::EN->value,
+    ];
 
-            return $sitemap;
+    public function __invoke(): Response
+    {
+        $sitemap = Cache::rememberForever('sitemap_xml', function () {
+            $this->sitemap = new SitemapBuilder;
+            $this->builder();
+
+            return $this->sitemap->toXml();
         });
-
-        return response($sitemap->render())
-            ->header('Content-Type', 'application/xml');
-    }
-
-    public function deCH(): Response
-    {
-        $locale = LocaleEnum::DE->value;
-        $referenceLocale = LocaleEnum::EN->value;
-
-        $sitemap = $this->defaultRoutes($locale, $referenceLocale);
 
         return response($sitemap)
             ->header('Content-Type', 'application/xml');
+
     }
 
-    public function enCH(): Response
+    private function builder(): void
     {
-        $locale = LocaleEnum::EN->value;
-        $referenceLocale = LocaleEnum::DE->value;
+        $this->addDefaultRoutesToSitemap();
 
-        $sitemap = $this->defaultRoutes($locale, $referenceLocale);
+        News::whereNotNull('published_at')
+            ->with('references')
+            ->each(fn (News $news) => $this->addLocalizedPageSet(
+                page: (new PageAction(locale: null, routeName: null))->news($news, withReferences: true),
+            ));
 
-        return response($sitemap)
-            ->header('Content-Type', 'application/xml');
+        Service::where('published', true)
+            ->with('references')
+            ->each(fn (Service $service) => $this->addLocalizedPageSet(
+                page: (new PageAction(locale: null, routeName: null))->service($service, withReferences: true),
+            ));
+
+        Product::where('published', true)
+            ->with('references')
+            ->each(fn (Product $product) => $this->addLocalizedPageSet(
+                page: (new PageAction(locale: null, routeName: null))->product($product, withReferences: true),
+            ));
     }
 
-    private function defaultRoutes(string $locale, string $referenceLocale): string
+    private function addDefaultRoutesToSitemap(): void
     {
-        $sitemap = (new SitemapBuilder);
+        collect(self::DEFAULT_ROUTES)->each(function ($routeName) {
 
-        $routes = collect(self::DEFAULT_ROUTES);
+            $pages = collect(self::DEFAULT_LOCALES)->map(function ($locale) use ($routeName) {
+                return (new PageAction(locale: $locale, routeName: $routeName))->default();
+            })->filter();
 
-        $routes->each(function ($routeName) use ($sitemap, $locale, $referenceLocale) {
-            $this->addItem($sitemap, $locale, $routeName, $referenceLocale);
+            $pages->each(function ($page) use ($pages) {
+                $page->referencePages = $pages;
+            });
+
+            $pages->each(fn (PageDTO $page) => $this->sitemap->addItem($page));
         });
-
-        return $sitemap->toXml();
     }
 
-    private function addItem(SitemapBuilder $builder, string $locale, string $routeName, ?string $referenceLocale = null)
+    private function addLocalizedPageSet(PageDTO $page): void
     {
-        $defaultPage = (new PageAction(locale: $locale, routeName: $routeName))->default();
+        $pages = collect($page->referencePages)->prepend($page)->unique(fn (PageDTO $p) => $p->locale);
 
-        if (! blank($referenceLocale)) {
-            $referencePage = (new PageAction(locale: $referenceLocale, routeName: $routeName))->default();
+        $pages->each(function (PageDTO $page) use ($pages) {
+            $page->referencePages = collect([$page])
+                ->merge($pages->reject(fn ($ref) => $ref->locale === $page->locale))
+                ->values();
 
-            $page = (new PageAction(locale: $locale, routeName: $routeName, routeParameters: [], referencePages: collect([
-                $defaultPage,
-                $referencePage,
-            ])))->default();
-        }
-
-        $builder->addItem(pageDTO: $page);
+            $this->sitemap->addItem(page: $page);
+        });
     }
 }

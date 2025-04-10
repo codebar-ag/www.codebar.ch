@@ -17,7 +17,7 @@ class PageDTO
         public mixed $routeParameters = [],
         public ?string $description = null,
         public ?string $image = null,
-        public Collection $referencePages = new Collection
+        public ?Collection $referencePages = null,
     ) {}
 
     public function url(): string

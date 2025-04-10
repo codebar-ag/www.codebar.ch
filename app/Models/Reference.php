@@ -22,6 +22,6 @@ class Reference extends Model
 
     public function target(): MorphTo
     {
-        return $this->morphTo('reference');
+        return $this->morphTo('target', 'reference_type', 'reference_id');
     }
 }
