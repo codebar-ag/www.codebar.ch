@@ -1,20 +1,20 @@
 --- # In Progress # ---
 
---- # Sprint # ---
-
 -[ ] Refactor Mobile Navigation: Also With Groups for Services
 -[ ] About Us
 -[ ] Breadcrumbs Website
 -[ ] Contact: Add Social Media LinkedIn
-
---- # Backlog # ---
-
 -[ ] Legal Privacy
 -[ ] Legal Terms
 -[ ] Media Page
--[ ] Jobs Page
 -[ ] Custom 404
 -[ ] Flash Notifications: Language Switcher
+
+--- # Sprint # ---
+
+--- # Backlog # ---
+
+-[ ] Jobs Page
 -[ ] CTA Contact
 -[ ] Products:DocuHub
 -[ ] Products:CloudDocs
