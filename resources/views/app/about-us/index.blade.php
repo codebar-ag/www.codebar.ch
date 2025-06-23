@@ -68,7 +68,7 @@
                     <x-list-image-card
                             :name="$contact->name"
                             :image="$contact->image"
-                            image-container-class-attributes="h-20 w-auto flex-shrink-0 overflow-hidden"/>
+                            image-container-class-attributes="h-20 w-20 flex-shrink-0 overflow-hidden"/>
                 @endforeach
             </x-list-grid>
         </x-section>
