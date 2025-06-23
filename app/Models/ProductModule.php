@@ -7,9 +7,9 @@ use App\Traits\HasLocalizedReferences;
 use App\Traits\HasLocalizedRouteBinding;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Product extends Model
+class ProductModule extends Model
 {
     use HasFactory;
     use HasLocalizedReferences;
@@ -26,8 +26,8 @@ class Product extends Model
         return 'slug';
     }
 
-    public function productModules(): HasMany
+    public function product(): BelongsTo
     {
-        return $this->hasMany(ProductModule::class);
+        return $this->belongsTo(Product::class);
     }
 }

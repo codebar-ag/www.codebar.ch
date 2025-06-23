@@ -5,10 +5,10 @@ namespace Database\Seeders;
 use App\Enums\LocaleEnum;
 use App\Enums\RoleEnum;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Cache\Console\ClearCommand;
+use Database\Seeders\Paperflakes\RolesAndPermissionsSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,14 +30,8 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole(RoleEnum::ADMINISTRATOR, RoleEnum::USER);
 
-        $this->call(PagesTableSeeder::class);
-        $this->call(NewsTableSeeder::class);
-        $this->call(ProductsTableSeeder::class);
-        $this->call(ServicesTableSeeder::class);
-
-        if (app()->isLocal()) {
-            Artisan::call(ClearCommand::class);
-        }
+        $this->call(PaperflakesSeeder::class);
+        // $this->call(CodebarSeeder::class);
 
     }
 }

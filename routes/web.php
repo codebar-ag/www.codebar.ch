@@ -41,7 +41,7 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
 Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('de-ch', StartIndexController::class)->name('start.index');
     Route::get('aktuelles/{locale}/{news}', NewsShowController::class)->name('news.show');
-    // Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
+    Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
     Route::get('dienstleistungen', ServicesIndexController::class)->name('services.index');
     Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->name('services.show');
     Route::get('produkte', ProductsIndexController::class)->name('products.index');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Paperflakes;
 
 use App\Enums\LocaleEnum;
 use App\Models\Page;
@@ -30,6 +30,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Your Digital Partner',
                 'description' => 'We support you with smart digital solutions that move your business forward.',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
+            ]);
+
+        Page::updateOrCreate(
+            [
+                'key' => 'about-us.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'About Us  – paperflakes AG',
+                'description' => 'Get to know paperflakes AG – your Swiss partner for digital transformation and innovative software solutions.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 
@@ -95,6 +107,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Dein digitaler Partner',
                 'description' => 'Wir unterstützen dich mit cleveren Lösungen für deinen digitalen Erfolg.',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
+            ]);
+
+        Page::updateOrCreate(
+            [
+                'key' => 'about-us.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Über uns – paperflakes AG',
+                'description' => 'Lerne die paperflakes AG kennen – dein Schweizer Partner für digitale Transformation und innovative Softwarelösungen.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]);
 

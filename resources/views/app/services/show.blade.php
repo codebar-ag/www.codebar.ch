@@ -7,7 +7,7 @@
         <x-content :content="$content"/>
     </x-section>
 
-    @if(in_array('DocuWare', $tags))
+    @if(collect(['DMS/ECM', 'DocuWare'])->diff($tags)->isEmpty())
         <x-docuware-showme/>
     @endif
 
