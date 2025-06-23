@@ -46,21 +46,27 @@ class ViewDataAction
         $key = Str::slug("contacts_published_{$locale}");
 
         return Cache::rememberForever($key, function () use ($locale) {
+            $publishedContacts = Contact::query()
+                ->where('published', true)
+                ->orderBy('name')
+                ->get();
+
             return (object) collect([
                 ContactSectionEnum::EMPLOYEE_SERVICES,
                 ContactSectionEnum::EMPLOYEE_PRODUCTS,
                 ContactSectionEnum::EMPLOYEE_ADMINISTRATION,
                 ContactSectionEnum::COLLABORATIONS,
                 ContactSectionEnum::BOARD_MEMBERS,
-            ])->mapWithKeys(function (string $section) use ($locale) {
-                $contacts = Contact::query()
-                    ->where('published', true)
-                    ->whereRaw("JSON_CONTAINS_PATH(sections, 'one', '$.\"$section\"')")
-                    ->orderBy('name')
-                    ->get()
+            ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale) {
+                $contacts = $publishedContacts
+                    ->filter(function ($contact) use ($section) {
+                        $sections = $contact->sections ?? [];
+
+                        return array_key_exists($section, $sections);
+                    })
                     ->map(fn ($contact) => ContactDTO::fromModel($contact, $section, $locale));
 
-                return [$section => $contacts];
+                return [$section => $contacts->values()];
             })->all();
         });
     }
