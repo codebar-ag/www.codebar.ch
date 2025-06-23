@@ -1,9 +1,11 @@
 <nav class="mt-12 text-xl md:text-2xl" x-data="navigation">
-    {{-- Logo & Language Switcher --}}
     <div class="flex justify-between items-center">
-        <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
-            <x-logo-paperflakes/>
-        </a>
+
+        @if(filled($configuration->logo))
+            <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
+                @include($configuration->logo)
+            </a>
+        @endif
 
         @if(!empty($locales))
             <div class="hidden lg:flex gap-2 text-lg items-center">

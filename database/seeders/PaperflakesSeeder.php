@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Paperflakes\ConfigurationsTableSeeder;
 use Database\Seeders\Paperflakes\ContactsTableSeeder;
 use Database\Seeders\Paperflakes\NewsTableSeeder;
 use Database\Seeders\Paperflakes\PagesTableSeeder;
@@ -18,6 +19,7 @@ class PaperflakesSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(ConfigurationsTableSeeder::class);
         $this->call(PagesTableSeeder::class);
         $this->call(NewsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
