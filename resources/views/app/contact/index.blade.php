@@ -15,7 +15,6 @@
 
     <x-section>
         <x-h2 :title="__('Office')"/>
-
         <div class="grid grid-cols-2">
             <div class="">
                 <address class="not-italic leading-relaxed ">
@@ -51,7 +50,6 @@
                 </x-badge>
             </div>
         </div>
-
     </x-section>
 
 </x-app-layout>
