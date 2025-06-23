@@ -1,3 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Privacy')"/>
+    @if(filled($configuration?->key))
+        @include("app.legal.privacy._partials.{$configuration->key}")
+    @endif
 </x-app-layout>

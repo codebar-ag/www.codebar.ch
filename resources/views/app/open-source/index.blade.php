@@ -1,10 +1,10 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Products')"/>
+    <x-h1 :title="__('Open Source')"/>
     <x-section>
         <x-list>
-            @foreach($products as $entry)
+            @foreach($openSource as $entry)
                 <x-list-card
-                        :url="localized_route('products.show', ['locale' => app()->getLocale(),'product' => $entry])"
+                        :url="localized_route('openSource.show', ['locale' => app()->getLocale(),'openSource' => $entry])"
                         :title="$entry->name"
                         :teaser="$entry->teaser"
                         :tags="$entry->tags"/>

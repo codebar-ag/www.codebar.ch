@@ -6,13 +6,13 @@
             <x-h2 :title="__($key)"/>
             <x-section>
                 <x-list>
-                    @foreach($group as $service)
+                    @foreach($group as $entry)
                         <x-list-card
-                                :url="$service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service])"
-                                :title="$service->name"
-                                :teaser="$service->teaser"
-                                :tags="$service->tags"
-                                target="{{ $service->url ? '_blank' : '_self' }}"/>
+                                :url="$entry->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $entry])"
+                                :title="$entry->name"
+                                :teaser="$entry->teaser"
+                                :tags="$entry->tags"
+                                target="{{ $entry->url ? '_blank' : '_self' }}"/>
                     @endforeach
                 </x-list>
             </x-section>

@@ -17,7 +17,6 @@ class AppLayout extends Component
         $locale = app()->getLocale();
 
         return view('layouts.app')->with([
-            'configuration' => (new ViewDataAction)->configuration($locale),
             'locales' => LocaleEnum::cases(),
             'locale' => Str::slug($locale),
             'page' => $this->page,

@@ -1,9 +1,9 @@
 <nav class="mt-12 text-xl md:text-2xl" x-data="navigation">
     <div class="flex justify-between items-center">
 
-        @if(filled($configuration?->logo))
+        @if(filled($configuration?->key))
             <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
-                @include($configuration->logo)
+                @include("layouts._logos.{$configuration->key}")
             </a>
         @endif
 
@@ -26,7 +26,6 @@
         @endif
     </div>
 
-    {{-- Navigation & mobile toggle --}}
     <div class="mt-2 flex items-center justify-between">
         @include('layouts._partials._navigation_desktop')
 

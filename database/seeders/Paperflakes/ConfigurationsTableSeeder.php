@@ -2,7 +2,6 @@
 
 namespace Database\Seeders\Paperflakes;
 
-use App\Enums\LocaleEnum;
 use App\Models\Configuration;
 use Illuminate\Database\Seeder;
 
@@ -14,10 +13,20 @@ class ConfigurationsTableSeeder extends Seeder
     public function run(): void
     {
         Configuration::updateOrCreate([], [
-            'logo' => 'layouts._logos._paperflakes',
-            'footer' => [
-                LocaleEnum::DE->value => 'paperflakes AG',
+            'company' => 'paperflakes AG',
+
+            'section_services' => true,
+            'section_products' => true,
+            'section_technologies' => false,
+            'section_open_source' => false,
+
+            'key' => '_paperflakes',
+
+            'links' => [
+                'linkedin' => 'https://www.linkedin.com/company/paperflakes',
+                'github' => 'https://github.com/orgs/paperflakes-ag',
             ],
+
         ]);
     }
 }

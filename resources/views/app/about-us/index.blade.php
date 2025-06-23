@@ -7,7 +7,7 @@
 
 
         <x-section>
-            <x-h2 :title="__('paperflakes AG')"/>
+            <x-h2 :title="$configuration?->company"/>
 
             <div class="space-y-6">
                 @if(!empty($contacts->employee_services) && $contacts->employee_services->count())
@@ -24,7 +24,7 @@
                     </x-list-grid>
                 @endif
 
-                @if(!empty($contacts->employee_services) && $contacts->employee_services->count())
+                @if(!empty($contacts->employee_products) && $contacts->employee_products->count())
                     <x-h3 :title="__('Products')"/>
                     <x-list-grid>
                         @foreach($contacts->employee_products as $contact)

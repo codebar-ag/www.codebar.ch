@@ -18,51 +18,53 @@
         {{ __('About us') }}
     </a>
 
-    <!-- Services -->
-    <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
-        <a @click.stop
-           href="{{ localized_route('services.index') }}"
-           title="{{ __('Services') }}"
-           class="block text-center bg-gray-50/25 hover:text-black hover:font-semibold transition rounded-t-lg">
-            {{ __('Services') }}
-        </a>
-        <div class="text-sm text-gray-600 space-y-1">
+    @if($configuration?->section_services)
+        <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
+            <a @click.stop
+               href="{{ localized_route('services.index') }}"
+               title="{{ __('Services') }}"
+               class="block text-center bg-gray-50/25 hover:text-black hover:font-semibold transition rounded-t-lg">
+                {{ __('Services') }}
+            </a>
+            <div class="text-sm text-gray-600 space-y-1">
 
-            @if(!empty($services) && $services->count())
-                @foreach($services as $service)
-                    <a target="{{ $service->url ? '_blank' : '_self' }}"
-                       href="{{ $service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service]) }}"
-                       title="{{ $service->name }}"
-                       class="block text-base hover:text-black hover:font-semibold transition">
-                        {{ $service->name }}
-                    </a>
-                @endforeach
-            @endif
+                @if(!empty($services) && $services->count())
+                    @foreach($services as $service)
+                        <a target="{{ $service->url ? '_blank' : '_self' }}"
+                           href="{{ $service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service]) }}"
+                           title="{{ $service->name }}"
+                           class="block text-base hover:text-black hover:font-semibold transition">
+                            {{ $service->name }}
+                        </a>
+                    @endforeach
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
 
-    <!-- Products -->
-    <div @click.stop class="py-3 text-center bg-gray-50 transition">
-        <a @click.stop
-           href="{{ localized_route('products.index') }}"
-           title="{{ __('Products') }}"
-           class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
-            {{ __('Products') }}
-        </a>
-        <div class="text-sm text-gray-600 space-y-1">
+    @if($configuration?->section_products)
+        <div @click.stop class="py-3 text-center bg-gray-50 transition">
+            <a @click.stop
+               href="{{ localized_route('products.index') }}"
+               title="{{ __('Products') }}"
+               class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
+                {{ __('Products') }}
+            </a>
+            <div class="text-sm text-gray-600 space-y-1">
 
-            @if(!empty($products) && $products->count())
-                @foreach($products as $product)
-                    <a target="{{ $product->url ? '_blank' : '_self' }}"
-                       href="{{ $product->url ?? localized_route('products.show',['locale' => app()->getLocale(),'product' => $product]) }}"
-                       title="{{ $product->name }}"
-                       class="block text-base hover:text-black hover:font-semibold transition">
-                        {{ $product->name }}
-                    </a>
-                @endforeach
-            @endif
+                @if(!empty($products) && $products->count())
+                    @foreach($products as $product)
+                        <a target="{{ $product->url ? '_blank' : '_self' }}"
+                           href="{{ $product->url ?? localized_route('products.show',['locale' => app()->getLocale(),'product' => $product]) }}"
+                           title="{{ $product->name }}"
+                           class="block text-base hover:text-black hover:font-semibold transition">
+                            {{ $product->name }}
+                        </a>
+                    @endforeach
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
 
     <!-- Contact -->
     <div @click.stop class="py-3 text-center bg-gray-50/25 transition space-y-1">

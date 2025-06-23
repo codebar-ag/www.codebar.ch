@@ -54,7 +54,7 @@
                             @break
 
                         @case('email')
-                            <a href="{{ $url }}" target="_blank" title="E-Mail" aria-label="E-Mail"
+                            <a href="mailto:{{ $url }}"  title="E-Mail" aria-label="E-Mail"
                                class="text-gray-500 hover:text-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
                                      stroke="currentColor" stroke-width="2"
