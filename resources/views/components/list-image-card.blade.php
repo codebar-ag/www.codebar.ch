@@ -1,6 +1,6 @@
 @props([
     'image',
-	'imageContainerClassAttributes' => 'h-30 w-auto flex-shrink-0 overflow-hidden',
+	'imageContainerClassAttributes' => 'h-30 h-30 flex-shrink-0 overflow-hidden',
     'name',
     'role' => null,
     'icons' => [],
