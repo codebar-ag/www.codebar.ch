@@ -23,7 +23,10 @@ class SitemapController extends Controller
         'products.index',
         'services.index',
         'contact.index',
+        'legal.terms.index',
         'legal.imprint.index',
+        'legal.privacy.index',
+        'jobs.index',
     ];
 
     protected const array DEFAULT_LOCALES = [

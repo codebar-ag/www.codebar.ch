@@ -30,11 +30,11 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('services/{locale}/{service}', ServicesShowController::class)->name('services.show');
     Route::get('products', ProductsIndexController::class)->name('products.index');
     Route::get('products/{locale}/{product}', ProductsShowController::class)->name('products.show');
-    // Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
-    // Route::get('legal/terms', TermsIndexController::class)->name('legal.terms.index');
+    Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('legal/imprint', ImprintIndexController::class)->name('legal.imprint.index');
-    // Route::get('jobs', JobsIndexController::class)->name('jobs.index');
-    // Route::get('media', MediaIndexController::class)->name('media.index');
+    Route::get('legal/terms', TermsIndexController::class)->name('legal.terms.index');
+    Route::get('jobs', JobsIndexController::class)->name('jobs.index');
+    Route::get('media', MediaIndexController::class)->name('media.index');
     Route::get('contact', ContactIndexController::class)->name('contact.index');
 });
 
@@ -46,11 +46,11 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->name('services.show');
     Route::get('produkte', ProductsIndexController::class)->name('products.index');
     Route::get('produkte/{locale}/{product}', ProductsShowController::class)->name('products.show');
-    // Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
-    // Route::get('rechtlichtes/geschaeftsbedingungen', TermsIndexController::class)->name('legal.terms.index');
+    Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');
-    // Route::get('stellen', JobsIndexController::class)->name('jobs.index');
-    // Route::get('medien', MediaIndexController::class)->name('media.index');
+    Route::get('rechtlichtes/geschaeftsbedingungen', TermsIndexController::class)->name('legal.terms.index');
+    Route::get('stellen', JobsIndexController::class)->name('jobs.index');
+    Route::get('medien', MediaIndexController::class)->name('media.index');
     Route::get('kontakt', ContactIndexController::class)->name('contact.index');
 });
 

@@ -42,23 +42,26 @@
                         <x-a :href="localized_route('contact.index')" label="{{ __('Contact') }}"
                              classAttributes="text-lg"/>
                     </li>
-                    {{--                    <li>
-                                            <x-a :href="localized_route('jobs.index')" label="{{ __('Jobs') }}" classAttributes="text-lg"/>
-                                        </li>--}}
-                    {{--                    <li>
-                                            <x-a :href="localized_route('media.index')" label="{{ __('Media') }}" classAttributes="text-lg"/>
-                                        </li>--}}
+                    <li>
+                        <x-a :href="localized_route('media.index')" label="{{ __('Media') }}"
+                             classAttributes="text-lg"/>
+                    </li>
+                    <li>
+                        <x-a :href="localized_route('jobs.index')" label="{{ __('Jobs') }}" classAttributes="text-lg"/>
+                    </li>
                 </ul>
             </div>
             <div>
                 <h2 class="text-black font-semibold">{{ __('Legal') }}</h2>
                 <ul class="mt-1 list-none text-base">
-                    {{--                    <li>
-                                            <x-a :href="localized_route('legal.privacy.index')" label="{{ __('Privacy') }}" classAttributes="text-lg"/>
-                                        </li>--}}
-                    {{--                    <li>
-                                            <x-a :href="localized_route('legal.terms.index')" label="{{ __('Terms') }}" classAttributes="text-lg"/>
-                                        </li>--}}
+                    <li>
+                        <x-a :href="localized_route('legal.terms.index')" label="{{ __('Terms') }}"
+                             classAttributes="text-lg"/>
+                    </li>
+                    <li>
+                        <x-a :href="localized_route('legal.privacy.index')" label="{{ __('Privacy') }}"
+                             classAttributes="text-lg"/>
+                    </li>
                     <li>
                         <x-a :href="localized_route('legal.imprint.index')" label="{{ __('Imprint') }}"
                              classAttributes="text-lg"/>
