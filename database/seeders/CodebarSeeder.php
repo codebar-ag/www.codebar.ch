@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Codebar\ConfigurationsTableSeeder;
 use Illuminate\Cache\Console\ClearCommand;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -15,6 +16,8 @@ class CodebarSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(ConfigurationsTableSeeder::class);
+
         if (app()->isLocal()) {
             Artisan::call(ClearCommand::class);
         }
