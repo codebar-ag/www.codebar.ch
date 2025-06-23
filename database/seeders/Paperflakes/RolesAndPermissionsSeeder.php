@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Paperflakes;
 
 use App\Enums\GuardEnum;
 use App\Enums\RoleEnum;
