@@ -18,6 +18,10 @@ class ConfigurationsTableSeeder extends Seeder
             'footer' => [
                 LocaleEnum::DE->value => 'paperflakes AG',
             ],
+            'links' => [
+                'linkedin' => 'https://www.linkedin.com/company/paperflakes',
+                'github' => 'https://github.com/orgs/paperflakes-ag',
+            ],
         ]);
     }
 }

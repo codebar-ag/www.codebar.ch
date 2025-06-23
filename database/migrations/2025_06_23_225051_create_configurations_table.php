@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('terms')->nullable();
             $table->json('imprint')->nullable();
             $table->json('privacy')->nullable();
+            $table->json('links')->nullable();
             $table->json('footer')->nullable();
             $table->timestamps();
         });
