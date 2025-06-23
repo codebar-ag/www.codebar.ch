@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->json('sections')->nullable();
             $table->string('image');
-            $table->string('link')->nullable();
             $table->json('icons')->nullable();
             $table->timestamps();
         });

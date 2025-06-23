@@ -160,7 +160,10 @@ class ContactsTableSeeder extends Seeder
                         ],
                     ],
                 ],
-                'link' => 'https://www.codebar.ch',
+                'icons' => [
+                    'email' => 'info@codebar.ch',
+                    'website' => 'https://www.codebar.ch',
+                ],
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/Zeichenfla%CC%88che_1.webp',
             ]
         );
@@ -178,7 +181,10 @@ class ContactsTableSeeder extends Seeder
                         ],
                     ],
                 ],
-                'link' => 'https://www.business-solutions.gmbh',
+                'icons' => [
+                    'email' => 'info@codebar.ch',
+                    'website' => 'https://www.business-solutions.gmbh',
+                ],
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/wds.jpg',
             ]
         );
