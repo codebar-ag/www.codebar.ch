@@ -57,14 +57,14 @@ class ViewDataAction
                 ContactSectionEnum::EMPLOYEE_ADMINISTRATION,
                 ContactSectionEnum::COLLABORATIONS,
                 ContactSectionEnum::BOARD_MEMBERS,
-            ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale) {
+            ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale): array {
                 $contacts = $publishedContacts
-                    ->filter(function ($contact) use ($section) {
+                    ->filter(function (Contact $contact) use ($section): bool {
                         $sections = $contact->sections ?? [];
 
                         return array_key_exists($section, $sections);
                     })
-                    ->map(fn ($contact) => ContactDTO::fromModel($contact, $section, $locale));
+                    ->map(fn (Contact $contact) => ContactDTO::fromModel($contact, $section, $locale));
 
                 return [$section => $contacts->values()];
             })->all();
