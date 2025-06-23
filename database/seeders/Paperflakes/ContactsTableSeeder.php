@@ -182,7 +182,7 @@ class ContactsTableSeeder extends Seeder
                     ],
                 ],
                 'icons' => [
-                    'email' => 'info@codebar.ch',
+                    'email' => 'wieland@business-solutions.gmbh',
                     'website' => 'https://www.business-solutions.gmbh',
                 ],
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/wds.jpg',
