@@ -1,7 +1,7 @@
 <nav class="mt-12 text-xl md:text-2xl" x-data="navigation">
     <div class="flex justify-between items-center">
 
-        @if(filled($configuration->logo))
+        @if(filled($configuration?->logo))
             <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
                 @include($configuration->logo)
             </a>

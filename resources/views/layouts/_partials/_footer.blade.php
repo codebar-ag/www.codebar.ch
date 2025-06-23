@@ -71,7 +71,7 @@
             @include('layouts._partials._footer.labels')
         </div>
 
-        @if(filled($configuration->footer))
+        @if(filled($configuration?->footer))
             <div class="text-base text-gray-500 text-center md:text-left">
                 <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ $configuration->footer }}</span>
             </div>

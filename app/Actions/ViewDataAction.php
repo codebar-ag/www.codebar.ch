@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class ViewDataAction
 {
-    public function configuration(string $locale): Configuration
+    public function configuration(string $locale): ?Configuration
     {
         $key = Str::slug("configuration_{$locale}");
 
