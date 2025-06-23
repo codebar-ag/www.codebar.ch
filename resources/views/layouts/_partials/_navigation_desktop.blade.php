@@ -13,25 +13,25 @@
 
         <span class="text-gray-500">|</span>
 
-        @if($configuration->section_services)
+        @if($configuration?->section_services)
             <x-a :href="localized_route('services.index')" label="{{ __('Services') }}"
                  classAttributes="text-xl md:text-2xl"/>
             <span class="text-gray-500">|</span>
         @endif
 
-        @if($configuration->section_products)
+        @if($configuration?->section_products)
             <x-a :href="localized_route('products.index')" label="{{ __('Products') }}"
                  classAttributes="text-xl md:text-2xl"/>
             <span class="text-gray-500">|</span>
         @endif
 
-        @if($configuration->section_technologies)
+        @if($configuration?->section_technologies)
             <x-a :href="localized_route('technologies.index')" label="{{ __('Technologies') }}"
                  classAttributes="text-xl md:text-2xl"/>
             <span class="text-gray-500">|</span>
         @endif
 
-        @if($configuration->section_open_source)
+        @if($configuration?->section_open_source)
             <x-a :href="localized_route('open-source.index')" label="{{ __('Open Source') }}"
                  classAttributes="text-xl md:text-2xl"/>
             <span class="text-gray-500">|</span>

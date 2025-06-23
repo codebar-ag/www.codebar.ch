@@ -18,7 +18,7 @@
         {{ __('About us') }}
     </a>
 
-    @if($configuration->section_services)
+    @if($configuration?->section_services)
         <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
             <a @click.stop
                href="{{ localized_route('services.index') }}"
@@ -42,7 +42,7 @@
         </div>
     @endif
 
-    @if($configuration->section_products)
+    @if($configuration?->section_products)
         <div @click.stop class="py-3 text-center bg-gray-50 transition">
             <a @click.stop
                href="{{ localized_route('products.index') }}"

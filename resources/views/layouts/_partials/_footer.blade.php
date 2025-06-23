@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-8">
 
         <div class="hidden md:flex flex-col items-start gap-4 md:gap-18 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
-            @if($configuration->section_services)
+            @if($configuration?->section_services)
                 <div>
                     <h2 class="text-black font-semibold">{{ __('Services') }}</h2>
                     <ul class="mt-1 list-none text-base">
@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            @if($configuration->section_products)
+            @if($configuration?->section_products)
                 <div>
                     <h2 class="text-black font-semibold">{{ __('Products') }}</h2>
                     <ul class="mt-1 list-none text-base">
@@ -81,7 +81,7 @@
 
         @if(filled($configuration?->footer))
             <div class="text-base text-gray-500 text-center md:text-left">
-                <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ $configuration->footer }}</span>
+                <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ $configuration?->footer }}</span>
             </div>
         @endif
     </div>
