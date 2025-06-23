@@ -19,6 +19,7 @@ class SitemapController extends Controller
 
     protected const array DEFAULT_ROUTES = [
         'start.index',
+        'about-us.index',
         'products.index',
         'services.index',
         'contact.index',

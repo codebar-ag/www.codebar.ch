@@ -14,7 +14,6 @@ class AboutUsIndexController extends Controller
      */
     public function __invoke(): View
     {
-
         $locale = app()->getLocale();
 
         return view('app.about-us.index')->with([

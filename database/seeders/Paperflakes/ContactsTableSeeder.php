@@ -23,13 +23,13 @@ class ContactsTableSeeder extends Seeder
                             'en_CH' => 'DMS/ECM Specialist',
                         ],
                     ],
-                    ContactSectionEnum::EMPLOYEE_PRODUCTS => [
+                    /*					ContactSectionEnum::EMPLOYEE_PRODUCTS => [
                         'key' => ContactSectionEnum::EMPLOYEE_PRODUCTS,
                         'role' => [
                             'de_CH' => 'Software-Architekt',
                             'en_CH' => 'Software-Engineer',
                         ],
-                    ],
+                    ],*/
                     ContactSectionEnum::BOARD_MEMBERS => [
                         'key' => ContactSectionEnum::BOARD_MEMBERS,
                     ],
@@ -38,7 +38,7 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'sebastian.buergin@paperflakes.ch',
                     'linkedin' => 'https://www.linkedin.com/in/fix-sebastian/',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/20201001_new_sebastian_fix_square.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/s_fix_e_background_removal_f_png.webp',
             ]
         );
 
@@ -62,7 +62,7 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'mischa.lanz@paperflakes.ch',
                     'linkedin' => 'https://www.realestateclub.ch/images/REC_social_linkedin.svg',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/e2ch9rzadt0hamytyzc8.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/6528f7c6bddf8430fb5d154c_Mischa_Hemd.webp',
             ]
         );
 
@@ -80,7 +80,7 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'dominique.ernst@paperflakes.ch',
                     'linkedin' => 'https://www.linkedin.com/in/dominique-ernst',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/ujywqubl5rkkm5hjqjsa.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/ujywqubl5rkkm5hjqjsa_e_background_removal_f_png.webp',
             ]
         );
 
@@ -102,7 +102,7 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'rhys.leess@paperflakes.ch',
                     'linkedin' => 'https://www.linkedin.com/in/rhys-lees',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/r_lees.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/r_lees_e_background_removal_f_png.webp',
             ]
         );
 
@@ -124,12 +124,31 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'katja.lanz@paperflakes.ch',
                     'linkedin' => 'https://www.linkedin.com/in/katja-lanz-a92372149/',
                 ],
-                'image' => 'https://www.realestateclub.ch/images/652d4179a3494dedacf6555a_Katja_Jacke.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/652d4179a3494dedacf6555a_Katja_Jacke.webp',
             ]
         );
 
         Contact::updateOrCreate(
             ['id' => 6],
+            [
+                'name' => 'DR-G2110',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::EMPLOYEE_ADMINISTRATION => [
+                        'key' => ContactSectionEnum::EMPLOYEE_ADMINISTRATION,
+                        'role' => [
+                            'de_CH' => 'Digitalisierungs-Beauftragter',
+                            'en_CH' => 'Head of Digital Transformation',
+                        ],
+                    ],
+                ],
+                'icons' => [],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_thumb,g_face,w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/drg.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 7],
             [
                 'name' => 'Sebastian Bürgin-Fix',
                 'published' => true,
@@ -142,12 +161,12 @@ class ContactsTableSeeder extends Seeder
                     ],
                 ],
                 'link' => 'https://www.codebar.ch',
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/codebar_social_linkedin_profilbild.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/Zeichenfla%CC%88che_1.webp',
             ]
         );
 
         Contact::updateOrCreate(
-            ['id' => 7],
+            ['id' => 8],
             [
                 'name' => 'Dario Wieland',
                 'published' => true,
@@ -160,7 +179,7 @@ class ContactsTableSeeder extends Seeder
                     ],
                 ],
                 'link' => 'https://www.business-solutions.gmbh',
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/wieland_busines_solutions_gmbh.jpg',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/wds.jpg',
             ]
         );
     }
