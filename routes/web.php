@@ -40,8 +40,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('technologies', TechnologiesIndexController::class)->name('technologies.index');
     Route::get('technologies/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
-    Route::get('open-source', OpenSourceIndexController::class)->name('open-source.index');
-    Route::get('open-source/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
+    Route::get('open-source-contributions', OpenSourceIndexController::class)->name('open-source.index');
+    Route::get('open-source-contributions/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
     Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('legal/imprint', ImprintIndexController::class)->name('legal.imprint.index');
@@ -66,8 +66,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('technologien', TechnologiesIndexController::class)->name('technologies.index');
     Route::get('technologien/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
-    Route::get('open-source', OpenSourceIndexController::class)->name('open-source.index');
-    Route::get('open-source/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
+    Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');
+    Route::get('open-source-beitraege/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
     Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');
