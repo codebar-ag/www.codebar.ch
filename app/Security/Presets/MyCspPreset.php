@@ -40,6 +40,7 @@ class MyCspPreset implements Preset
         $policy->add(Directive::IMG, [
             Keyword::SELF,
             'data:',
+            'res.cloudinary.com',
         ]);
 
         $policy->add(Directive::FONT, Keyword::SELF);

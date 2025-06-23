@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Paperflakes;
 
 use App\Enums\LocaleEnum;
 use App\Models\Service;
@@ -20,14 +20,14 @@ class ServicesTableSeeder extends Seeder
                 LocaleEnum::DE->value => [
                     'name' => 'DocuWare',
                     'teaser' => 'Intelligentes Dokumentenmanagement mit DocuWare',
-                    'tags' => ['DMS/ECM'],
+                    'tags' => ['DMS/ECM', 'DocuWare'],
                     'content' => file_get_contents(database_path('files/services/de_CH/docuware.md')),
                     'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                 ],
                 LocaleEnum::EN->value => [
                     'name' => 'DocuWare',
                     'teaser' => 'Smarter Document Management with DocuWare',
-                    'tags' => ['DMS/ECM'],
+                    'tags' => ['DMS/ECM', 'DocuWare'],
                     'content' => file_get_contents(database_path('files/services/en_CH/docuware.md')),
                     'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                 ],

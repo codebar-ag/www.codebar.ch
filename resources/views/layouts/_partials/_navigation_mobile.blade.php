@@ -1,7 +1,7 @@
 @php use App\Enums\LocaleEnum; @endphp
 
 <div x-show="open" x-transition x-cloak
-        class="md:hidden mt-4 text-xl space-y-2">
+     class="md:hidden mt-4 text-xl space-y-2">
     <!-- News -->
     <a @click.stop
        href="{{ localized_route('start.index') }}"
@@ -10,13 +10,13 @@
         {{ __('News') }}
     </a>
 
-    {{--    <!-- About us -->
-        <a @click.stop
-           href="{{ localized_route('about-us.index') }}"
-           title="{{ __('About us') }}"
-           class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
-            {{ __('About us') }}
-        </a>--}}
+    <!-- About us -->
+    <a @click.stop
+       href="{{ localized_route('about-us.index') }}"
+       title="{{ __('About us') }}"
+       class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
+        {{ __('About us') }}
+    </a>
 
     <!-- Services -->
     <div @click.stop class="py-3 text-center bg-gray-50/50 transition">

@@ -8,12 +8,10 @@
         <x-a :href="localized_route('start.index')" label="{{ __('News') }}"
              classAttributes="text-xl md:text-2xl"/>
 
+        <span class="text-gray-500">|</span>
 
-        {{--
-             <span class="text-gray-500">|</span>
-
-         <x-a :href="localized_route('about-us.index')" label="{{ __('About us') }}"
-                     classAttributes="text-xl md:text-2xl"/>--}}
+        <x-a :href="localized_route('about-us.index')" label="{{ __('About us') }}"
+             classAttributes="text-xl md:text-2xl"/>
 
         <span class="text-gray-500">|</span>
 
