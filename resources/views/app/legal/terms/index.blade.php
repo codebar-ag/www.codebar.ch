@@ -1,3 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Terms')"/>
+    @if(filled($configuration?->key))
+        @include("app.legal.terms._partials.{$configuration->key}")
+    @endif
 </x-app-layout>

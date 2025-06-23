@@ -14,18 +14,17 @@ return new class extends Migration
         Schema::create('configurations', function (Blueprint $table) {
             $table->id();
 
+            $table->string('company')->nullable();
+
             $table->boolean('section_services')->default(false);
             $table->boolean('section_products')->default(false);
             $table->boolean('section_technologies')->default(false);
             $table->boolean('section_open_source')->default(false);
 
-            $table->string('logo')->nullable();
-            $table->json('contact')->nullable();
-            $table->json('terms')->nullable();
-            $table->json('imprint')->nullable();
-            $table->json('privacy')->nullable();
+            $table->string('key');
+
             $table->json('links')->nullable();
-            $table->json('footer')->nullable();
+
             $table->timestamps();
         });
     }

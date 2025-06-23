@@ -7,6 +7,7 @@ use App\Enums\RoleEnum;
 use App\Models\User;
 use Database\Seeders\Paperflakes\RolesAndPermissionsSeeder;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Config;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -30,8 +31,12 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole(RoleEnum::ADMINISTRATOR, RoleEnum::USER);
 
-        $this->call(PaperflakesSeeder::class);
-        // $this->call(CodebarSeeder::class);
+        if (Config::get('seeder.seeder.paperflakes')) {
+            $this->call(PaperflakesSeeder::class);
+        }
+        if (Config::get('seeder.seeder.codebar')) {
+            $this->call(CodebarSeeder::class);
+        }
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Actions\ViewDataAction;
 use App\Checks\FailedJobsCheck;
 use App\Checks\FilesystemsDefaultCheck;
 use App\Checks\JobsCheck;
@@ -9,6 +10,8 @@ use App\Models\News;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -41,6 +44,9 @@ class AppServiceProvider extends ServiceProvider
             FailedJobsCheck::new(),
             SecurityAdvisoriesCheck::new()->lastDayOfMonth(),
         ]);
+
+        View::share('configuration', Schema::hasTable('configurations') ? (new ViewDataAction)->configuration(app()->getLocale()) : null);
+
     }
 
     private function multilanguage(): void

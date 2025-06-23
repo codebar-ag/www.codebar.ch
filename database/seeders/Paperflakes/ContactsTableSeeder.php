@@ -166,7 +166,7 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'info@codebar.ch',
                     'website' => 'https://www.codebar.ch',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/Zeichenfla%CC%88che_1.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
             ]
         );
 

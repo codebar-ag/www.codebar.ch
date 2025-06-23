@@ -37,7 +37,7 @@
             @endif
 
             <div>
-                <h2 class="text-black font-semibold">{{ __('paperflakes AG') }}</h2>
+                <h2 class="text-black font-semibold">{{ $configuration?->company }}</h2>
                 <ul class="mt-1 list-none text-base">
                     <li>
                         <x-a :href="localized_route('about-us.index')" label="{{ __('About us') }}"
@@ -79,9 +79,9 @@
             @include('layouts._partials._footer.labels')
         </div>
 
-        @if(filled($configuration?->footer))
+        @if(filled($configuration?->company))
             <div class="text-base text-gray-500 text-center md:text-left">
-                <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ $configuration?->footer }}</span>
+                <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ $configuration?->company }}</span>
             </div>
         @endif
     </div>
