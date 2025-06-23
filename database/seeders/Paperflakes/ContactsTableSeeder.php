@@ -143,7 +143,7 @@ class ContactsTableSeeder extends Seeder
                     ],
                 ],
                 'icons' => [],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_thumb,g_face,w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/drg.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/drg_e_background_removal_f_png.webp',
             ]
         );
 
