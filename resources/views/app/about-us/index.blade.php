@@ -15,8 +15,11 @@
                     <x-list-grid>
 
                         @foreach($contacts->employee_services as $contact)
-                            <x-list-image-card :name="$contact->name" :role="$contact->role" :icons="$contact->icons"
-                                               :image="$contact->image"/>
+                            <x-list-image-card
+                                    :name="$contact->name"
+                                    :role="$contact->role"
+                                    :icons="$contact->icons"
+                                    :image="$contact->image"/>
                         @endforeach
                     </x-list-grid>
                 @endif
