@@ -34,7 +34,10 @@
             <div>
                 <h2 class="text-black font-semibold">{{ __('paperflakes AG') }}</h2>
                 <ul class="mt-1 list-none text-base">
-
+                    <li>
+                        <x-a :href="localized_route('about-us.index')" label="{{ __('About us') }}"
+                             classAttributes="text-lg"/>
+                    </li>
                     <li>
                         <x-a :href="localized_route('contact.index')" label="{{ __('Contact') }}"
                              classAttributes="text-lg"/>

@@ -11,8 +11,9 @@ class ContactsTableSeeder extends Seeder
     public function run(): void
     {
         Contact::updateOrCreate(
-            ['name' => 'Sebastian Bürgin-Fix'],
+            ['id' => 1],
             [
+                'name' => 'Sebastian Bürgin-Fix',
                 'published' => true,
                 'sections' => [
                     ContactSectionEnum::EMPLOYEE_SERVICES => [
@@ -29,12 +30,6 @@ class ContactsTableSeeder extends Seeder
                             'en_CH' => 'Software-Engineer',
                         ],
                     ],
-                    ContactSectionEnum::COLLABORATIONS => [
-                        'key' => ContactSectionEnum::COLLABORATIONS,
-                        'role' => [
-                            'de_CH' => 'codebar Solutions AG',
-                        ],
-                    ],
                     ContactSectionEnum::BOARD_MEMBERS => [
                         'key' => ContactSectionEnum::BOARD_MEMBERS,
                     ],
@@ -43,14 +38,14 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'sebastian.buergin@paperflakes.ch',
                     'linkedin' => 'https://www.linkedin.com/in/fix-sebastian/',
                 ],
-                'link' => 'https://www.codebar.ch',
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-codebar-ch/team/s_fix.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/20201001_new_sebastian_fix_square.webp',
             ]
         );
 
         Contact::updateOrCreate(
-            ['name' => 'Mischa Lanz'],
+            ['id' => 2],
             [
+                'name' => 'Mischa Lanz',
                 'published' => true,
                 'sections' => [
                     ContactSectionEnum::EMPLOYEE_SERVICES => [
@@ -67,13 +62,14 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'mischa.lanz@paperflakes.ch',
                     'linkedin' => 'https://www.realestateclub.ch/images/REC_social_linkedin.svg',
                 ],
-                'image' => 'https://www.realestateclub.ch/images/6528f7c6bddf8430fb5d154c_Mischa_Hemd.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/e2ch9rzadt0hamytyzc8.webp',
             ]
         );
 
         Contact::updateOrCreate(
-            ['name' => 'Dominique Ernst'],
+            ['id' => 3],
             [
+                'name' => 'Dominique Ernst',
                 'published' => true,
                 'sections' => [
                     ContactSectionEnum::BOARD_MEMBERS => [
@@ -84,13 +80,14 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'dominique.ernst@paperflakes.ch',
                     'linkedin' => 'https://www.linkedin.com/in/dominique-ernst',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-codebar-ch/team/d_ernst.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/ujywqubl5rkkm5hjqjsa.webp',
             ]
         );
 
         Contact::updateOrCreate(
-            ['name' => 'Rhys Lees'],
+            ['id' => 4],
             [
+                'name' => 'Rhys Lees',
                 'published' => true,
                 'sections' => [
                     ContactSectionEnum::EMPLOYEE_PRODUCTS => [
@@ -105,13 +102,14 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'rhys.leess@paperflakes.ch',
                     'linkedin' => 'https://www.linkedin.com/in/rhys-lees',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-codebar-ch/team/r_lees.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/r_lees.webp',
             ]
         );
 
         Contact::updateOrCreate(
-            ['name' => 'Katja Lanz'],
+            ['id' => 5],
             [
+                'name' => 'Katja Lanz',
                 'published' => true,
                 'sections' => [
                     ContactSectionEnum::EMPLOYEE_ADMINISTRATION => [
@@ -131,8 +129,27 @@ class ContactsTableSeeder extends Seeder
         );
 
         Contact::updateOrCreate(
-            ['name' => 'Dario Wieland'],
+            ['id' => 6],
             [
+                'name' => 'Sebastian Bürgin-Fix',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::COLLABORATIONS => [
+                        'key' => ContactSectionEnum::COLLABORATIONS,
+                        'role' => [
+                            'de_CH' => 'codebar Solutions AG',
+                        ],
+                    ],
+                ],
+                'link' => 'https://www.codebar.ch',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/codebar_social_linkedin_profilbild.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 7],
+            [
+                'name' => 'Dario Wieland',
                 'published' => true,
                 'sections' => [
                     ContactSectionEnum::COLLABORATIONS => [
@@ -143,7 +160,7 @@ class ContactsTableSeeder extends Seeder
                     ],
                 ],
                 'link' => 'https://www.business-solutions.gmbh',
-                'image' => 'https://cdn.prod.website-files.com/6727978a2c75d658e43b75d5/67543ad5eb733f845bc34ba6_DarioWieland_Web.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_500/www-paperflakes-ch/people/wieland_busines_solutions_gmbh.jpg',
             ]
         );
     }
