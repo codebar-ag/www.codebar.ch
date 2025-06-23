@@ -52,6 +52,7 @@ class ContactsTableSeeder extends Seeder
                         'key' => ContactSectionEnum::EMPLOYEE_SERVICES,
                         'role' => [
                             'de_CH' => 'zunscan.ch',
+                            'en_CH' => 'zunscan.ch',
                         ],
                     ],
                     ContactSectionEnum::BOARD_MEMBERS => [
@@ -157,6 +158,7 @@ class ContactsTableSeeder extends Seeder
                         'key' => ContactSectionEnum::COLLABORATIONS,
                         'role' => [
                             'de_CH' => 'codebar Solutions AG',
+                            'en_CH' => 'codebar Solutions AG',
                         ],
                     ],
                 ],
@@ -178,6 +180,7 @@ class ContactsTableSeeder extends Seeder
                         'key' => ContactSectionEnum::COLLABORATIONS,
                         'role' => [
                             'de_CH' => 'Wieland Business Solutions GmbH',
+                            'en_CH' => 'Wieland Business Solutions GmbH',
                         ],
                     ],
                 ],

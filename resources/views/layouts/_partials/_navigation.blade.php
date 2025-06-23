@@ -26,7 +26,6 @@
         @endif
     </div>
 
-    {{-- Navigation & mobile toggle --}}
     <div class="mt-2 flex items-center justify-between">
         @include('layouts._partials._navigation_desktop')
 

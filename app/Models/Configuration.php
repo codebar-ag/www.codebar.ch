@@ -21,6 +21,11 @@ class Configuration extends Model
     ];
 
     protected $casts = [
+        'section_services' => 'boolean',
+        'section_products' => 'boolean',
+        'section_technologies' => 'boolean',
+        'section_open_source' => 'boolean',
+
         'contact' => 'json',
         'terms' => 'json',
         'imprint' => 'json',

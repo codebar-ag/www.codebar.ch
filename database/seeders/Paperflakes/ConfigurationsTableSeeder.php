@@ -14,13 +14,24 @@ class ConfigurationsTableSeeder extends Seeder
     public function run(): void
     {
         Configuration::updateOrCreate([], [
+            'section_services' => true,
+            'section_products' => true,
+            'section_technologies' => false,
+            'section_open_source' => false,
+
             'logo' => 'layouts._logos._paperflakes',
-            'footer' => [
-                LocaleEnum::DE->value => 'paperflakes AG',
-            ],
+
+            'contact' => null,
+            'terms' => null,
+            'imprint' => null,
+            'privacy' => null,
+
             'links' => [
                 'linkedin' => 'https://www.linkedin.com/company/paperflakes',
                 'github' => 'https://github.com/orgs/paperflakes-ag',
+            ],
+            'footer' => [
+                LocaleEnum::DE->value => 'paperflakes AG',
             ],
         ]);
     }
