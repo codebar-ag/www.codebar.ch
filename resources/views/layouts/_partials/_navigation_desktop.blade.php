@@ -1,6 +1,6 @@
 @php use App\Enums\LocaleEnum; @endphp
 
-<div class="hidden md:flex justify-between w-full">
+<div class="hidden lg:flex justify-between w-full">
 
     {{-- Left-aligned primary navigation --}}
     <div class="flex gap-2">

@@ -11,7 +11,7 @@
         @include('layouts._partials._navigation_desktop')
 
         <button @click="toggle"
-                class="flex items-center gap-1 md:hidden hover:text-black hover:font-semibold transition focus:outline-none mx-auto">
+                class="flex items-center gap-1 lg:hidden hover:text-black hover:font-semibold transition focus:outline-none mx-auto">
             <span>{{ __('Menu') }}</span>
 
             <div class="transition-transform duration-300 ease-in-out" x-bind:class="icon_rotate">
