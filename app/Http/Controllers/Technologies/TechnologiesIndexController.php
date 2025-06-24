@@ -16,9 +16,9 @@ class TechnologiesIndexController extends Controller
     {
         $locale = app()->getLocale();
 
-        return view('app.products.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'products.index'))->default(),
-            'products' => (new ViewDataAction)->products($locale),
+        return view('app.technologies.index')->with([
+            'page' => (new PageAction(locale: null, routeName: 'technologies.index'))->default(),
+            'technologies' => (new ViewDataAction)->technologies($locale),
         ]);
     }
 }

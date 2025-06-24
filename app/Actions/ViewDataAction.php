@@ -7,8 +7,10 @@ use App\Enums\ContactSectionEnum;
 use App\Models\Configuration;
 use App\Models\Contact;
 use App\Models\News;
+use App\Models\OpenSource;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\Technology;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -48,6 +50,24 @@ class ViewDataAction
 
         return Cache::rememberForever($key, function () use ($locale) {
             return News::where('locale', $locale)->whereNotNull('published_at')->orderByDesc('published_at')->get();
+        });
+    }
+
+    public function technologies(string $locale): Collection
+    {
+        $key = Str::slug("technologies_published_{$locale}");
+
+        return Cache::rememberForever($key, function () use ($locale) {
+            return Technology::where('locale', $locale)->where('published', true)->orderBy('order')->get();
+        });
+    }
+
+    public function openSource(string $locale): Collection
+    {
+        $key = Str::slug("open_source_published_{$locale}");
+
+        return Cache::rememberForever($key, function () use ($locale) {
+            return OpenSource::where('locale', $locale)->where('published', true)->orderByDesc('downloads')->get();
         });
     }
 

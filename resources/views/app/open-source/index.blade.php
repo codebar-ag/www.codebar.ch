@@ -4,10 +4,11 @@
         <x-list>
             @foreach($openSource as $entry)
                 <x-list-card
-                        :url="localized_route('openSource.show', ['locale' => app()->getLocale(),'openSource' => $entry])"
-                        :title="$entry->name"
+                        :url="$entry->link"
+                        :title="$entry->title"
                         :teaser="$entry->teaser"
-                        :tags="$entry->tags"/>
+                        :tags="$entry->tags"
+                        target="_blank"/>
             @endforeach
         </x-list>
     </x-section>

@@ -14,7 +14,7 @@
         @endphp
 
         @if(!empty($tags) && $tags->count())
-            <div class="hidden md:flex gap-2">
+            <div class="mt-1 hidden md:flex gap-2">
                 @foreach($tags as $tag)
                     <x-badge label="{{ $tag }}" class-attributes="text-xs"/>
                 @endforeach

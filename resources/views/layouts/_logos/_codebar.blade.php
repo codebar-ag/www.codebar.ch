@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 599 116"
-     class="h-10 w-auto transition-transform duration-700 animate-[lava_8s_ease-in-out_infinite]"
+     class="h-9 w-auto transition-transform duration-700 animate-[lava_8s_ease-in-out_infinite]"
      fill="none">
     <defs>
         <linearGradient id="logo-gradient" x1="0" y1="0" x2="1" y2="1">

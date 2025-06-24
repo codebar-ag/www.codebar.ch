@@ -4,11 +4,11 @@ namespace Database\Seeders;
 
 use Database\Seeders\Codebar\ConfigurationsTableSeeder;
 use Database\Seeders\Codebar\ContactsTableSeeder;
+use Database\Seeders\Codebar\OpenSourceTableSeeder;
+use Database\Seeders\Codebar\TechnologiesTableSeeder;
 use Illuminate\Cache\Console\ClearCommand;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CodebarSeeder extends Seeder
 {
@@ -19,6 +19,8 @@ class CodebarSeeder extends Seeder
     {
         $this->call(ConfigurationsTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
+        $this->call(OpenSourceTableSeeder::class);
+        $this->call(TechnologiesTableSeeder::class);
 
         if (app()->isLocal()) {
             Artisan::call(ClearCommand::class);
