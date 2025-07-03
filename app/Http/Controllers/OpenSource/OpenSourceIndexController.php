@@ -16,9 +16,9 @@ class OpenSourceIndexController extends Controller
     {
         $locale = app()->getLocale();
 
-        return view('app.products.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'products.index'))->default(),
-            'products' => (new ViewDataAction)->products($locale),
+        return view('app.open-source.index')->with([
+            'page' => (new PageAction(locale: null, routeName: 'open-source.index'))->default(),
+            'openSource' => (new ViewDataAction)->openSource($locale),
         ]);
     }
 }

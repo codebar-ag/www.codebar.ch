@@ -15,7 +15,7 @@ class OpenSoruceShowController extends Controller
      */
     public function __invoke(string $locale, Product $product): View
     {
-        return view('app.products.show')->with([
+        return view('app.open-source.show')->with([
             'page' => (new PageAction(locale: $locale))->product(product: $product),
             'name' => $product->name,
             'teaser' => $product->teaser,
