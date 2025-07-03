@@ -61,7 +61,7 @@ class ContactsTableSeeder extends Seeder
                 ],
                 'icons' => [
                     'email' => 'mischa.lanz@paperflakes.ch',
-                    'linkedin' => 'https://www.realestateclub.ch/images/REC_social_linkedin.svg',
+                    'linkedin' => 'https://www.linkedin.com/in/mischa-lanz-672a65112',
                 ],
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/6528f7c6bddf8430fb5d154c_Mischa_Hemd.webp',
             ]
