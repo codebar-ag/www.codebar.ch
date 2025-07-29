@@ -19,8 +19,8 @@ class ConfigurationsTableSeeder extends Seeder
             'company_primary_color' => '#500472',
 
             'component_intro' => [
-                LocaleEnum::DE->value => file_get_contents(database_path('seeders/files/codebar_intro_de.md')),
-                LocaleEnum::EN->value => file_get_contents(database_path('seeders/files/codebar_intro_en.md')),
+                LocaleEnum::DE->value => file_get_contents(database_path('files/intro/codebar_intro_de.md')),
+                LocaleEnum::EN->value => file_get_contents(database_path('files/intro/codebar_intro_en.md')),
             ],
 
             'section_news' => false,
