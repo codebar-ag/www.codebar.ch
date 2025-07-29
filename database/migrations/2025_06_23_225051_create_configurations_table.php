@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('company')->nullable();
+            $table->string('company_primary_color')->nullable();
+
+            $table->json('component_intro');
 
             $table->boolean('section_news')->default(false);
             $table->boolean('section_services')->default(false);

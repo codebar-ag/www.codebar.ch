@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\Codebar;
 
+use App\Enums\LocaleEnum;
 use App\Models\Configuration;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,12 @@ class ConfigurationsTableSeeder extends Seeder
         Configuration::updateOrCreate([], [
 
             'company' => 'codebar Solutions AG',
+            'company_primary_color' => '#500472',
+
+            'component_intro' => [
+                LocaleEnum::DE->value => file_get_contents(database_path('seeders/files/codebar_intro_de.md')),
+                LocaleEnum::EN->value => file_get_contents(database_path('seeders/files/codebar_intro_en.md')),
+            ],
 
             'section_news' => false,
             'section_services' => false,

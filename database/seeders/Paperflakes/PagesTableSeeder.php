@@ -41,8 +41,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => '',
-                'description' => '',
+                'title' => 'News & Insights',
+                'description' => 'Stay up to date with the latest news, expert insights and trends on DMS, ECM and digital transformation from paperflakes.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]
         );
@@ -137,8 +137,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => '',
-                'description' => '',
+                'title' => 'Neuigkeiten & Insights',
+                'description' => 'Aktuelle News, Fachbeiträge und Trends rund um DMS, ECM und digitale Transformation mit paperflakes.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
             ]
         );

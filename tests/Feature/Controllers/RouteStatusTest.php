@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\LocaleEnum;
+use Illuminate\Support\Str;
 
 use function Pest\Laravel\get;
 
@@ -8,6 +9,7 @@ dataset('routes', function () {
     return [
         // EN-CH
         [LocaleEnum::EN->value, 'start.index'],
+        [LocaleEnum::EN->value, 'news.index'],
         //		[LocaleEnum::EN->value, 'news.show', ['news' => 1]],
         [LocaleEnum::EN->value, 'about-us.index'],
         [LocaleEnum::EN->value, 'services.index'],
@@ -19,6 +21,7 @@ dataset('routes', function () {
 
         // DE-CH
         [LocaleEnum::DE->value, 'start.index'],
+        [LocaleEnum::DE->value, 'news.index'],
         //		[LocaleEnum::DE->value, 'news.show', ['news' => 1]],
         [LocaleEnum::DE->value, 'services.index'],
         //		[LocaleEnum::DE->value, 'services.show', ['service' => 1]],

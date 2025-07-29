@@ -1,4 +1,4 @@
-<nav class="mt-12 text-xl md:text-2xl" x-data="navigation">
+<nav class="mt-12 text-xl md:text-2xl px-4 md:px-0" x-data="navigation">
     <div class="flex justify-between items-center">
 
         @if(filled($configuration?->key))
@@ -30,7 +30,7 @@
         @include('layouts._partials._navigation_desktop')
 
         <button @click="toggle"
-                class="flex items-center gap-1 lg:hidden hover:text-black hover:font-semibold transition focus:outline-none mx-auto">
+                class="flex items-center gap-1 lg:hidden hover:text-black hover:font-semibold transition focus:outline-none">
             <span>{{ __('Menu') }}</span>
 
             <div class="transition-transform duration-300 ease-in-out" x-bind:class="icon_rotate">
@@ -43,5 +43,7 @@
         </button>
     </div>
 
-    @include('layouts._partials._navigation_mobile')
+    <div class="lg:hidden">
+        @include('layouts._partials._navigation_mobile')
+    </div>
 </nav>

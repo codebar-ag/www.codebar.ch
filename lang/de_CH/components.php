@@ -1,7 +1,11 @@
 <?php
 
 return [
-
+    'intro' => [
+        'buttons' => [
+            'more' => 'Mehr über uns',
+        ],
+    ],
     'docuware' => [
         'showme' => [
             'title' => 'Erleben Sie DocuWare in Aktion',
