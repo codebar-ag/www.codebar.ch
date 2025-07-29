@@ -1,7 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: '#^Out of 157 possible param types, only 154 \- 98\.0 %% actually have it\. Add more param types to get over 99 %%$#'
-			identifier: typeCoverage.paramTypeCoverage
-			count: 3
-			path: app/Http/Controllers/Sitemap/SitemapController.php

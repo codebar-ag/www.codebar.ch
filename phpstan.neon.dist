@@ -9,6 +9,3 @@ parameters:
     ignoreErrors:
 
     excludePaths:
-
-includes:
-    - phpstan-baseline.neon

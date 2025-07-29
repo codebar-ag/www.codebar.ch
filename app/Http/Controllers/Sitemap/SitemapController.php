@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class SitemapController extends Controller
@@ -55,7 +56,8 @@ class SitemapController extends Controller
         // Use chunked queries to prevent memory issues
         News::whereNotNull('published_at')
             ->with('references')
-            ->chunk(100, function ($news) {
+            ->chunk(100, function (Collection $news): void {
+                /** @var News $item */
                 foreach ($news as $item) {
                     $this->addLocalizedPageSet(
                         page: (new PageAction(locale: null, routeName: null))->news(news: $item, withReferences: true),
@@ -65,7 +67,8 @@ class SitemapController extends Controller
 
         Service::where('published', true)
             ->with('references')
-            ->chunk(100, function ($services) {
+            ->chunk(100, function (Collection $services): void {
+                /** @var Service $item */
                 foreach ($services as $item) {
                     $this->addLocalizedPageSet(
                         page: (new PageAction(locale: null, routeName: null))->service(service: $item, withReferences: true),
@@ -75,7 +78,8 @@ class SitemapController extends Controller
 
         Product::where('published', true)
             ->with('references')
-            ->chunk(100, function ($products) {
+            ->chunk(100, function (Collection $products): void {
+                /** @var Product $item */
                 foreach ($products as $item) {
                     $this->addLocalizedPageSet(
                         page: (new PageAction(locale: null, routeName: null))->product(product: $item, withReferences: true),
