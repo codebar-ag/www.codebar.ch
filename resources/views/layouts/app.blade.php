@@ -4,23 +4,23 @@
         class="scroll-smooth"
 >
 <head>
-
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1"
-    />
-    <meta
-            name="csrf-token"
-            content="{{ csrf_token() }}"
-    />
+    <!-- Resource hints for performance -->
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <link rel="preconnect" href="https://cdn.usefathom.com">
+    <link rel="dns-prefetch" href="https://cdn.usefathom.com">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{{ asset('fonts/poppins/poppins-regular.woff2') }}" as="font" type="font/woff2" crossorigin>
 
     @include('layouts._partials._seo')
     @include('layouts._partials._favicons')
 
     @vite(['resources/js/app.js'])
-
 
 </head>
 <body class="font-sans antialiased">

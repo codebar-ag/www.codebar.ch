@@ -1,7 +1,9 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('News')"/>
+
+    <x-intro/>
 
     <x-section>
+        <x-h1 :title="__('News')"/>
         <x-list>
             @foreach($news as $entry)
                 <x-list-card

@@ -16,20 +16,13 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Sebastian Bürgin-Fix',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEE_SERVICES => [
-                        'key' => ContactSectionEnum::EMPLOYEE_SERVICES,
-                        'role' => [
-                            'de_CH' => 'DMS/ECM Spezialist',
-                            'en_CH' => 'DMS/ECM Specialist',
-                        ],
-                    ],
-                    /*					ContactSectionEnum::EMPLOYEE_PRODUCTS => [
-                        'key' => ContactSectionEnum::EMPLOYEE_PRODUCTS,
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
                             'de_CH' => 'Software-Architekt',
                             'en_CH' => 'Software-Engineer',
                         ],
-                    ],*/
+                    ],
                     ContactSectionEnum::BOARD_MEMBERS => [
                         'key' => ContactSectionEnum::BOARD_MEMBERS,
                     ],
@@ -48,8 +41,8 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Mischa Lanz',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEE_SERVICES => [
-                        'key' => ContactSectionEnum::EMPLOYEE_SERVICES,
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
                             'de_CH' => 'zunscan.ch',
                             'en_CH' => 'zunscan.ch',
@@ -73,6 +66,13 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Dominique Ernst',
                 'published' => true,
                 'sections' => [
+                    /*                     ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
+                        'role' => [
+                            'de_CH' => 'DMS/ECM Berater',
+                            'en_CH' => 'DMS/ECM Consultant',
+                        ],
+                    ], */
                     ContactSectionEnum::BOARD_MEMBERS => [
                         'key' => ContactSectionEnum::BOARD_MEMBERS,
                     ],
@@ -88,36 +88,14 @@ class ContactsTableSeeder extends Seeder
         Contact::updateOrCreate(
             ['id' => 4],
             [
-                'name' => 'Rhys Lees',
-                'published' => false,
-                'sections' => [
-                    ContactSectionEnum::EMPLOYEE_PRODUCTS => [
-                        'key' => ContactSectionEnum::EMPLOYEE_PRODUCTS,
-                        'role' => [
-                            'de_CH' => 'Entwickler',
-                            'en_CH' => 'Developer',
-                        ],
-                    ],
-                ],
-                'icons' => [
-                    'email' => 'rhys.leess@paperflakes.ch',
-                    'linkedin' => 'https://www.linkedin.com/in/rhys-lees',
-                ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/r_lees_e_background_removal_f_png.webp',
-            ]
-        );
-
-        Contact::updateOrCreate(
-            ['id' => 5],
-            [
                 'name' => 'Katja Lanz',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEE_ADMINISTRATION => [
-                        'key' => ContactSectionEnum::EMPLOYEE_ADMINISTRATION,
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
-                            'de_CH' => 'Finanzen & HR',
-                            'en_CH' => 'Finance & HR',
+                            'de_CH' => 'HR',
+                            'en_CH' => 'HR',
                         ],
                     ],
                 ],
@@ -130,13 +108,38 @@ class ContactsTableSeeder extends Seeder
         );
 
         Contact::updateOrCreate(
+            ['id' => 5],
+            [
+                'name' => 'Melanie Bürgin-Fix',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
+                        'role' => [
+                            'de_CH' => 'Administration',
+                            'en_CH' => 'Administration',
+                        ],
+                    ],
+                    ContactSectionEnum::BOARD_MEMBERS => [
+                        'key' => ContactSectionEnum::BOARD_MEMBERS,
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'melanie.buergin@paperflakes.ch',
+                    'linkedin' => 'https://www.linkedin.com/in/melanie-buergin',
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/paperflakes.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
             ['id' => 6],
             [
                 'name' => 'DR-G2110',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEE_ADMINISTRATION => [
-                        'key' => ContactSectionEnum::EMPLOYEE_ADMINISTRATION,
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
                             'de_CH' => 'Digitalisierungs-Beauftragter',
                             'en_CH' => 'Head of Digital Transformation',
@@ -149,29 +152,29 @@ class ContactsTableSeeder extends Seeder
         );
 
         Contact::updateOrCreate(
-            ['id' => 7],
+            ['id' => 6],
             [
-                'name' => 'Sebastian Bürgin-Fix',
-                'published' => true,
+                'name' => 'PST GmbH',
+                'published' => false,
                 'sections' => [
                     ContactSectionEnum::COLLABORATIONS => [
                         'key' => ContactSectionEnum::COLLABORATIONS,
                         'role' => [
-                            'de_CH' => 'codebar Solutions AG',
-                            'en_CH' => 'codebar Solutions AG',
+                            'de_CH' => 'Finanzen',
+                            'en_CH' => 'Finance',
                         ],
                     ],
                 ],
                 'icons' => [
-                    'email' => 'info@codebar.ch',
-                    'website' => 'https://www.codebar.ch',
+                    'email' => 'info@pstgmbh.ch',
+                    'website' => 'https://www.pstgmbh.ch',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/paperflakes.webp',
             ]
         );
 
         Contact::updateOrCreate(
-            ['id' => 8],
+            ['id' => 7],
             [
                 'name' => 'Dario Wieland',
                 'published' => true,
