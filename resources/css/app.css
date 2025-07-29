@@ -11,15 +11,39 @@
     display: none !important;
 }
 
+/* Optimize font loading */
 @font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
+    font-preload: true;
     src: url('../fonts/poppins/poppins-regular.woff2') format('woff2');
 }
 
+/* Critical CSS for above-the-fold content */
 body {
     font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     @apply text-gray-800;
+    /* Optimize text rendering */
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

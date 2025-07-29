@@ -44,35 +44,43 @@ class SitemapController extends Controller
         });
 
         return response(content: $content)
-            ->header('Content-Type', 'application/xml');
+            ->header('Content-Type', 'application/xml')
+            ->header('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
     }
 
     private function builder(): void
     {
         $this->addDefaultRoutesToSitemap();
 
+        // Use chunked queries to prevent memory issues
         News::whereNotNull('published_at')
             ->with('references')
-            ->each(function (News $news): void {
-                $this->addLocalizedPageSet(
-                    page: (new PageAction(locale: null, routeName: null))->news(news: $news, withReferences: true),
-                );
+            ->chunk(100, function ($news) {
+                foreach ($news as $item) {
+                    $this->addLocalizedPageSet(
+                        page: (new PageAction(locale: null, routeName: null))->news(news: $item, withReferences: true),
+                    );
+                }
             });
 
         Service::where('published', true)
             ->with('references')
-            ->each(function (Service $service): void {
-                $this->addLocalizedPageSet(
-                    page: (new PageAction(locale: null, routeName: null))->service(service: $service, withReferences: true),
-                );
+            ->chunk(100, function ($services) {
+                foreach ($services as $item) {
+                    $this->addLocalizedPageSet(
+                        page: (new PageAction(locale: null, routeName: null))->service(service: $item, withReferences: true),
+                    );
+                }
             });
 
         Product::where('published', true)
             ->with('references')
-            ->each(function (Product $product): void {
-                $this->addLocalizedPageSet(
-                    page: (new PageAction(locale: null, routeName: null))->product(product: $product, withReferences: true),
-                );
+            ->chunk(100, function ($products) {
+                foreach ($products as $item) {
+                    $this->addLocalizedPageSet(
+                        page: (new PageAction(locale: null, routeName: null))->product(product: $item, withReferences: true),
+                    );
+                }
             });
     }
 
