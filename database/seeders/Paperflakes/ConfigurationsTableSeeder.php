@@ -15,6 +15,7 @@ class ConfigurationsTableSeeder extends Seeder
         Configuration::updateOrCreate([], [
             'company' => 'paperflakes AG',
 
+            'section_news' => true,
             'section_services' => true,
             'section_products' => true,
             'section_technologies' => false,

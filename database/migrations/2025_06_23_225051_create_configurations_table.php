@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('company')->nullable();
 
+            $table->boolean('section_news')->default(false);
             $table->boolean('section_services')->default(false);
             $table->boolean('section_products')->default(false);
             $table->boolean('section_technologies')->default(false);

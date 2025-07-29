@@ -31,7 +31,21 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Your Digital Partner',
                 'description' => 'We support you with smart digital solutions that move your business forward.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'news.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => '',
+                'description' => '',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -43,7 +57,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'About Us  – paperflakes AG',
                 'description' => 'Get to know paperflakes AG – your Swiss partner for digital transformation and innovative software solutions.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -55,7 +70,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Services that Support You',
                 'description' => 'From strategy to implementation - we\'re here to support you all the way.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -67,7 +83,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Tools That Empower You',
                 'description' => 'Our products are built to help you work smarter, faster and better.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -79,7 +96,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Legal Notice',
                 'description' => 'All legal details about paperflakes AG.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -91,7 +109,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Let\'s Talk',
                 'description' => 'Have a question? We\'re here to support you - just reach out.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
     }
 
     private function deCH()
@@ -108,7 +127,21 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Dein digitaler Partner',
                 'description' => 'Wir unterstützen dich mit cleveren Lösungen für deinen digitalen Erfolg.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'news.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => '',
+                'description' => '',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -120,7 +153,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Über uns – paperflakes AG',
                 'description' => 'Lerne die paperflakes AG kennen – dein Schweizer Partner für digitale Transformation und innovative Softwarelösungen.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -132,7 +166,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Dienstleistungen für dich',
                 'description' => 'Von der Strategie bis zur Umsetzung - wir stehen dir zur Seite.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -144,7 +179,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Tools, die dich stärken',
                 'description' => 'Unsere Produkte helfen dir, effizienter, schneller und einfacher zu arbeiten.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -156,7 +192,8 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Rechtliches',
                 'description' => 'Alle rechtlichen Informationen zur paperflakes AG.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
 
         Page::updateOrCreate(
             [
@@ -169,6 +206,7 @@ class PagesTableSeeder extends Seeder
                 'title' => 'Lass uns sprechen',
                 'description' => 'Fragen? Wir sind fürr dich da - melde dich jederzeit bei uns.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-            ]);
+            ]
+        );
     }
 }

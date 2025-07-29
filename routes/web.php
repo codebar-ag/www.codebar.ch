@@ -10,6 +10,7 @@ use App\Http\Controllers\Legal\PrivacyIndexController;
 use App\Http\Controllers\Legal\TermsIndexController;
 use App\Http\Controllers\Locale\LocaleUpdateController;
 use App\Http\Controllers\Media\MediaIndexController;
+use App\Http\Controllers\News\NewsIndexController;
 use App\Http\Controllers\News\NewsShowController;
 use App\Http\Controllers\OpenSource\OpenSoruceShowController;
 use App\Http\Controllers\OpenSource\OpenSourceIndexController;
@@ -28,7 +29,10 @@ Route::get('/', EntryIndexController::class)->name('entry.index');
 
 Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('en-ch', StartIndexController::class)->name('start.index');
+
+    Route::get('news', NewsIndexController::class)->name('news.index');
     Route::get('news/{locale}/{news}', NewsShowController::class)->name('news.show');
+
     Route::get('about-us', AboutUsIndexController::class)->name('about-us.index');
 
     Route::get('services', ServicesIndexController::class)->name('services.index');
@@ -54,6 +58,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
 
 Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('de-ch', StartIndexController::class)->name('start.index');
+
+    Route::get('aktuelles', NewsIndexController::class)->name('news.index');
     Route::get('aktuelles/{locale}/{news}', NewsShowController::class)->name('news.show');
     Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
 

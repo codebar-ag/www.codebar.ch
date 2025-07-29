@@ -66,13 +66,13 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Dominique Ernst',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
+                    /*                     ContactSectionEnum::EMPLOYEES => [
                         'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
                             'de_CH' => 'DMS/ECM Berater',
                             'en_CH' => 'DMS/ECM Consultant',
                         ],
-                    ],
+                    ], */
                     ContactSectionEnum::BOARD_MEMBERS => [
                         'key' => ContactSectionEnum::BOARD_MEMBERS,
                     ],
@@ -155,7 +155,7 @@ class ContactsTableSeeder extends Seeder
             ['id' => 6],
             [
                 'name' => 'PST GmbH',
-                'published' => true,
+                'published' => false,
                 'sections' => [
                     ContactSectionEnum::COLLABORATIONS => [
                         'key' => ContactSectionEnum::COLLABORATIONS,

@@ -16,6 +16,7 @@ class ConfigurationsTableSeeder extends Seeder
 
             'company' => 'codebar Solutions AG',
 
+            'section_news' => false,
             'section_services' => false,
             'section_products' => false,
             'section_technologies' => true,

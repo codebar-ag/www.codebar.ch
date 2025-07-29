@@ -10,6 +10,7 @@ class Configuration extends Model
     use HasFactory;
 
     protected $casts = [
+        'section_news' => 'boolean',
         'section_services' => 'boolean',
         'section_products' => 'boolean',
         'section_technologies' => 'boolean',

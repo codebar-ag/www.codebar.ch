@@ -3,10 +3,16 @@
 <div class="hidden lg:flex justify-between w-full">
     <div class="flex gap-2">
 
-        <x-a :href="localized_route('start.index')" label="{{ __('News') }}"
-             classAttributes="text-xl md:text-2xl"/>
+        <x-a :href="localized_route('start.index')" label="{{ __('Home') }}"
+        classAttributes="text-xl md:text-2xl"/>
 
         <span class="text-gray-500">|</span>
+
+        @if($configuration?->section_news)
+            <x-a :href="localized_route('news.index')" label="{{ __('News') }}"
+                classAttributes="text-xl md:text-2xl"/>
+            <span class="text-gray-500">|</span>
+        @endif
 
         <x-a :href="localized_route('about-us.index')" label="{{ __('About us') }}"
              classAttributes="text-xl md:text-2xl"/>

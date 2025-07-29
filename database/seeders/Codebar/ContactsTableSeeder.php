@@ -86,7 +86,7 @@ class ContactsTableSeeder extends Seeder
             ['id' => 4],
             [
                 'name' => 'Alexander Christoph Boll',
-                'published' => true,
+                'published' => false,
                 'sections' => [
                     ContactSectionEnum::EMPLOYEES => [
                         'key' => ContactSectionEnum::EMPLOYEES,
@@ -105,32 +105,10 @@ class ContactsTableSeeder extends Seeder
         );
 
         Contact::updateOrCreate(
-            ['id' => 5],
-            [
-                'name' => 'Dominique Ernst',
-                'published' => false,
-                'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
-                        'key' => ContactSectionEnum::EMPLOYEES,
-                        'role' => [
-                            'de_CH' => 'Projektleiter',
-                            'en_CH' => 'Project Manager',
-                        ],
-                    ],
-                ],
-                'icons' => [
-                    'email' => 'info@paperflakes.ch',
-                    'website' => 'https://www.paperflakes.ch',
-                ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
-            ]
-        );
-
-        Contact::updateOrCreate(
             ['id' => 6],
             [
                 'name' => 'PST GmbH',
-                'published' => true,
+                'published' => false,
                 'sections' => [
                     ContactSectionEnum::COLLABORATIONS => [
                         'key' => ContactSectionEnum::COLLABORATIONS,
