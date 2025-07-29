@@ -89,7 +89,7 @@ class ContactsTableSeeder extends Seeder
             ['id' => 4],
             [
                 'name' => 'Rhys Lees',
-                'published' => true,
+                'published' => false,
                 'sections' => [
                     ContactSectionEnum::EMPLOYEE_PRODUCTS => [
                         'key' => ContactSectionEnum::EMPLOYEE_PRODUCTS,
