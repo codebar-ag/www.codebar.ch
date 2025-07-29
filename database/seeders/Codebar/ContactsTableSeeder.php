@@ -16,8 +16,8 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Sebastian Bürgin-Fix',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEE_SERVICES => [
-                        'key' => ContactSectionEnum::EMPLOYEE_SERVICES,
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
                             'de_CH' => 'Software-Architekt',
                             'en_CH' => 'Software-Engineer',
@@ -38,36 +38,83 @@ class ContactsTableSeeder extends Seeder
         Contact::updateOrCreate(
             ['id' => 2],
             [
-                'name' => 'Rhys Lees',
-                'published' => false,
+                'name' => 'Melanie Bürgin-Fix',
+                'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEE_SERVICES => [
-                        'key' => ContactSectionEnum::EMPLOYEE_SERVICES,
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
-                            'de_CH' => 'Entwickler',
-                            'en_CH' => 'Developer',
+                            'de_CH' => 'Administration',
+                            'en_CH' => 'Administration',
                         ],
+                    ],
+                    ContactSectionEnum::BOARD_MEMBERS => [
+                        'key' => ContactSectionEnum::BOARD_MEMBERS,
                     ],
                 ],
                 'icons' => [
-                    'email' => 'rhys.leess@codebar.ch',
-                    'linkedin' => 'https://www.linkedin.com/in/rhys-lees',
+                    'email' => 'melanie.buergin@codebar.ch',
+                    'linkedin' => 'https://www.linkedin.com/in/melanie-buergin',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/r_lees_e_background_removal_f_png.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
             ]
         );
 
         Contact::updateOrCreate(
-            ['id' => 7],
+            ['id' => 3],
             [
-                'name' => 'Sebastian Bürgin-Fix',
+                'name' => 'Tobias Brogle',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::COLLABORATIONS => [
-                        'key' => ContactSectionEnum::COLLABORATIONS,
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
-                            'de_CH' => 'paperflakes AG',
-                            'en_CH' => 'paperflakes AG',
+                            'de_CH' => 'Applikationsentwickler',
+                            'en_CH' => 'Application Developer',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'tobias.brogle@codebar.ch',
+                    'linkedin' => null,
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 4],
+            [
+                'name' => 'Alexander Christoph Boll',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
+                        'role' => [
+                            'de_CH' => 'Produktentwickler',
+                            'en_CH' => 'Product Developer',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'alexander.boll@codebar.ch',
+                    'linkedin' => 'https://www.linkedin.com/in/alexanderboll',
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 5],
+            [
+                'name' => 'Dominique Ernst',
+                'published' => false,
+                'sections' => [
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
+                        'role' => [
+                            'de_CH' => 'Projektleiter',
+                            'en_CH' => 'Project Manager',
                         ],
                     ],
                 ],
@@ -75,8 +122,31 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'info@paperflakes.ch',
                     'website' => 'https://www.paperflakes.ch',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/paperflakes.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
             ]
         );
+
+        Contact::updateOrCreate(
+            ['id' => 6],
+            [
+                'name' => 'PST GmbH',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::COLLABORATIONS => [
+                        'key' => ContactSectionEnum::COLLABORATIONS,
+                        'role' => [
+                            'de_CH' => 'Finanzen',
+                            'en_CH' => 'Finance',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'info@pstgmbh.ch',
+                    'website' => 'https://www.pstgmbh.ch',
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+            ]
+        );
+
     }
 }

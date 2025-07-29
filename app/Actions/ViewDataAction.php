@@ -82,9 +82,7 @@ class ViewDataAction
                 ->get();
 
             return (object) collect([
-                ContactSectionEnum::EMPLOYEE_SERVICES,
-                ContactSectionEnum::EMPLOYEE_PRODUCTS,
-                ContactSectionEnum::EMPLOYEE_ADMINISTRATION,
+                ContactSectionEnum::EMPLOYEES,
                 ContactSectionEnum::COLLABORATIONS,
                 ContactSectionEnum::BOARD_MEMBERS,
             ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale): array {

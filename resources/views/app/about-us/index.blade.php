@@ -7,14 +7,13 @@
 
 
         <x-section>
-            <x-h2 :title="$configuration?->company"/>
+            <x-h2 :title="__('Employees')"/>
 
             <div class="space-y-6">
-                @if(!empty($contacts->employee_services) && $contacts->employee_services->count())
-                    <x-h3 :title="__('Services')"/>
+                @if(!empty($contacts->employees) && $contacts->employees->count())
                     <x-list-grid>
 
-                        @foreach($contacts->employee_services as $contact)
+                        @foreach($contacts->employees as $contact)
                             <x-list-image-card
                                     :name="$contact->name"
                                     :role="$contact->role"
@@ -24,32 +23,10 @@
                     </x-list-grid>
                 @endif
 
-                @if(!empty($contacts->employee_products) && $contacts->employee_products->count())
-                    <x-h3 :title="__('Products')"/>
-                    <x-list-grid>
-                        @foreach($contacts->employee_products as $contact)
-                            <x-list-image-card
-                                    :name="$contact->name"
-                                    :role="$contact->role"
-                                    :icons="$contact->icons"
-                                    :image="$contact->image"/>
-                        @endforeach
-                    </x-list-grid>
-                @endif
-
-                @if(!empty($contacts->employee_administration) && $contacts->employee_administration->count())
-                    <x-h3 :title="__('Administration')"/>
-                    <x-list-grid>
-                        @foreach($contacts->employee_administration as $contact)
-                            <x-list-image-card :name="$contact->name" :role="$contact->role" :icons="$contact->icons"
-                                               :image="$contact->image"/>
-                        @endforeach
-                    </x-list-grid>
-                @endif
             </div>
         </x-section>
 
-        @if(!empty($contacts->employee_services) && $contacts->employee_services->count())
+        @if(!empty($contacts->collaborations) && $contacts->collaborations->count())
             <x-section>
                 <x-h2 :title="__('Collaboration')"/>
                 <x-list-grid>
