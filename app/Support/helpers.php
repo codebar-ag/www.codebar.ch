@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Str;
 
 if (! function_exists('localized_route')) {
@@ -9,5 +10,12 @@ if (! function_exists('localized_route')) {
         $localizedName = Str::slug($override ?? $locale).'.'.$name;
 
         return route($localizedName, $parameters, $absolute);
+    }
+}
+
+if (! function_exists('csp_nonce')) {
+    function csp_nonce(): string
+    {
+        return Vite::cspNonce() ?? '';
     }
 }
