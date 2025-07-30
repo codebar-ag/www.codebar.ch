@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Database\Seeders\Codebar\ConfigurationsTableSeeder;
 use Database\Seeders\Codebar\ContactsTableSeeder;
 use Database\Seeders\Codebar\OpenSourceTableSeeder;
+use Database\Seeders\Codebar\PagesTableSeeder;
 use Database\Seeders\Codebar\TechnologiesTableSeeder;
 use Illuminate\Cache\Console\ClearCommand;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,7 @@ class CodebarSeeder extends Seeder
     public function run(): void
     {
         $this->call(ConfigurationsTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
         // $this->call(OpenSourceTableSeeder::class);
         $this->call(TechnologiesTableSeeder::class);
