@@ -2,6 +2,7 @@
 
     <x-intro/>
 
+    @if($configuration?->section_news)
     <x-section>
         <x-h1 :title="__('News')"/>
         <x-list>
@@ -14,6 +15,7 @@
             @endforeach
         </x-list>
     </x-section>
+    @endif
 
     <x-docuware-showme/>
 

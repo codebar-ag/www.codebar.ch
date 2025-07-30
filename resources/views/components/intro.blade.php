@@ -3,6 +3,7 @@
 @php
     $locale = app()->getLocale();
     $color = $configuration?->company_primary_color;
+
     $team_url = match ($locale) {
         LocaleEnum::EN->value => route(Str::slug(LocaleEnum::EN->value) . '.about-us.index'),
         default => route(Str::slug(LocaleEnum::DE->value) . '.about-us.index'),
@@ -26,8 +27,8 @@
                 </div>
                 <div class="flex flex-col sm:flex-row gap-2 text-center">
                     <a href="{{ $team_url }}" rel="noopener noreferrer"
-                        class="px-4 py-2 border rounded-md text-sm font-medium hover:font-semibold transition w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-offset-2"
-                        style="background-color: white; color: {{ $color }}; border-color: {{ $color }}; --tw-ring-color: {{ $color }};">
+                        class="px-4 py-2 border rounded-md text-sm font-medium hover:font-semibold transition w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-offset-2 text-gray-800"
+                        style="background-color: white; border-color: {{ $color }}; --tw-ring-color: {{ $color }};">
                         {{ __('components.intro.buttons.more') }}
                     </a>
                 </div>
