@@ -26,7 +26,7 @@ class ConfigurationsTableSeeder extends Seeder
             'section_news' => false,
             'section_services' => false,
             'section_products' => false,
-            'section_technologies' => true,
+            'section_technologies' => false,
             'section_open_source' => true,
 
             'key' => '_codebar',
