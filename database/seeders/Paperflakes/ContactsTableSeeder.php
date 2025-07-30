@@ -120,9 +120,6 @@ class ContactsTableSeeder extends Seeder
                             'en_CH' => 'Administration',
                         ],
                     ],
-                    ContactSectionEnum::BOARD_MEMBERS => [
-                        'key' => ContactSectionEnum::BOARD_MEMBERS,
-                    ],
                 ],
                 'icons' => [
                     'email' => 'melanie.buergin@paperflakes.ch',
