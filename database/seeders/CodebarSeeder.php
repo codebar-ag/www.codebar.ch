@@ -19,7 +19,7 @@ class CodebarSeeder extends Seeder
     {
         $this->call(ConfigurationsTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
-        $this->call(OpenSourceTableSeeder::class);
+        // $this->call(OpenSourceTableSeeder::class);
         $this->call(TechnologiesTableSeeder::class);
 
         if (app()->isLocal()) {
