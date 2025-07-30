@@ -6,5 +6,5 @@
 @endphp
 
 @if (in_array(app()->environment(), $environments) && $siteId)
-    <script @cspNonce src="{{ $url }}" data-site="{{ $siteId }}" type="text/javascript" defer></script>
+    <script src="{{ $url }}" data-site="{{ $siteId }}" type="text/javascript" defer></script>
 @endif
