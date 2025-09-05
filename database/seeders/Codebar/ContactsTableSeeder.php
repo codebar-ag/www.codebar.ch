@@ -105,6 +105,28 @@ class ContactsTableSeeder extends Seeder
         );
 
         Contact::updateOrCreate(
+            ['id' => 5],
+            [
+                'name' => 'Faissal Wahabali',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
+                        'role' => [
+                            'de_CH' => 'Produkt- und Innovationsmanagement',
+                            'en_CH' => 'Product and Innovation Management',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'alexander.boll@codebar.ch',
+                    'linkedin' => 'https://www.linkedin.com/in/faissaloux/',
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/faissal_wahabali.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
             ['id' => 6],
             [
                 'name' => 'PST GmbH',
