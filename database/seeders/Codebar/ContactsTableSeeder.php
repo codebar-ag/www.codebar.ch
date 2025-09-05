@@ -56,7 +56,7 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'melanie.buergin@codebar.ch',
                     'linkedin' => 'https://www.linkedin.com/in/melanie-buergin',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/melanie_buergin.webp',
             ]
         );
 
