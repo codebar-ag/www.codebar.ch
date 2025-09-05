@@ -113,8 +113,8 @@ class ContactsTableSeeder extends Seeder
                     ContactSectionEnum::EMPLOYEES => [
                         'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
-                            'de_CH' => 'Produkt- und Innovationsmanagement',
-                            'en_CH' => 'Product and Innovation Management',
+                            'de_CH' => 'Applikationsentwickler',
+                            'en_CH' => 'Application Developer',
                         ],
                     ],
                 ],
