@@ -44,8 +44,8 @@ class ContactsTableSeeder extends Seeder
                     ContactSectionEnum::EMPLOYEES => [
                         'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
-                            'de_CH' => 'Administration',
-                            'en_CH' => 'Administration',
+                            'de_CH' => 'Projektleiterin',
+                            'en_CH' => 'Project Manager',
                         ],
                     ],
                     ContactSectionEnum::BOARD_MEMBERS => [
