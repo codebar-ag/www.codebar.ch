@@ -86,13 +86,13 @@ class ContactsTableSeeder extends Seeder
             ['id' => 4],
             [
                 'name' => 'Alexander Christoph Boll',
-                'published' => false,
+                'published' => true,
                 'sections' => [
                     ContactSectionEnum::EMPLOYEES => [
                         'key' => ContactSectionEnum::EMPLOYEES,
                         'role' => [
-                            'de_CH' => 'Produktentwickler',
-                            'en_CH' => 'Product Developer',
+                            'de_CH' => 'Produkt- und Innovationsmanagement',
+                            'en_CH' => 'Product and Innovation Management',
                         ],
                     ],
                 ],
@@ -100,7 +100,7 @@ class ContactsTableSeeder extends Seeder
                     'email' => 'alexander.boll@codebar.ch',
                     'linkedin' => 'https://www.linkedin.com/in/alexanderboll',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/alexander_boll.webp',
             ]
         );
 

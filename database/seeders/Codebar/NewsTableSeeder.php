@@ -57,7 +57,7 @@ class NewsTableSeeder extends Seeder
                     'slug' => 'docuware-7-12-is-here',
                     'teaser' => 'More automation, more insights, more efficiency',
                     'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
-                    'content' => file_get_contents(database_path('files/news/en_CH/20250406_docuware_712.md')),
+                    'content' => file_getscontents(database_path('files/news/en_CH/20250406_docuware_712.md')),
                     'tags' => ['DMS/ECM', 'DocuWare'],
 
                 ],
