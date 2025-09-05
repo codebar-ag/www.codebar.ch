@@ -119,7 +119,7 @@ class ContactsTableSeeder extends Seeder
                     ],
                 ],
                 'icons' => [
-                    'email' => 'alexander.boll@codebar.ch',
+                    'email' => 'faissal.wahabali@codebar.ch',
                     'linkedin' => 'https://www.linkedin.com/in/faissaloux/',
                 ],
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/faissal_wahabali.webp',
