@@ -148,5 +148,27 @@ class ContactsTableSeeder extends Seeder
             ]
         );
 
+        Contact::updateOrCreate(
+            ['id' => 7],
+            [
+                'name' => 'Julian Leipert',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::EMPLOYEES => [
+                        'key' => ContactSectionEnum::EMPLOYEES,
+                        'role' => [
+                            'de_CH' => 'Applikationsentwickler',
+                            'en_CH' => 'Application Developer',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'julian.leipert@codebar.ch',
+                    'linkedin' => null,
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+            ]
+        );
+
     }
 }
