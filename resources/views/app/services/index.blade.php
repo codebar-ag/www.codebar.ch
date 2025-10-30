@@ -19,9 +19,6 @@
         </x-section>
     @endforeach
 
-
-
-
     @include('app.services._parials.partnerships')
 
 

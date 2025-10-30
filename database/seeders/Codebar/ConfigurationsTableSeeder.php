@@ -23,11 +23,11 @@ class ConfigurationsTableSeeder extends Seeder
                 LocaleEnum::EN->value => file_get_contents(database_path('files/intro/codebar_intro_en.md')),
             ],
 
-            'section_news' => false,
-            'section_services' => false,
-            'section_products' => false,
-            'section_technologies' => false,
-            'section_open_source' => false,
+            'section_news' => true,
+            'section_services' => true,
+            'section_products' => true,
+            'section_technologies' => true,
+            'section_open_source' => true,
 
             'key' => '_codebar',
 

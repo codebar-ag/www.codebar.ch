@@ -16,11 +16,18 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Sebastian Bürgin-Fix',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
-                        'key' => ContactSectionEnum::EMPLOYEES,
+                    ContactSectionEnum::SOFTWARE_ENGINERING => [
+                        'key' => ContactSectionEnum::SOFTWARE_ENGINERING,
                         'role' => [
                             'de_CH' => 'Software-Architekt',
                             'en_CH' => 'Software-Engineer',
+                        ],
+                    ],
+                    ContactSectionEnum::DIGITAL_TRANSFORMATION => [
+                        'key' => ContactSectionEnum::DIGITAL_TRANSFORMATION,
+                        'role' => [
+                            'de_CH' => 'DMS/ECM-Architekt',
+                            'en_CH' => 'DMS/ECM-Engineer',
                         ],
                     ],
                     ContactSectionEnum::BOARD_MEMBERS => [
@@ -41,8 +48,8 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Melanie Bürgin-Fix',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
-                        'key' => ContactSectionEnum::EMPLOYEES,
+                    ContactSectionEnum::DIGITAL_TRANSFORMATION => [
+                        'key' => ContactSectionEnum::DIGITAL_TRANSFORMATION,
                         'role' => [
                             'de_CH' => 'Projektleiterin',
                             'en_CH' => 'Project Manager',
@@ -66,8 +73,8 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Tobias Brogle',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
-                        'key' => ContactSectionEnum::EMPLOYEES,
+                    ContactSectionEnum::SOFTWARE_ENGINERING => [
+                        'key' => ContactSectionEnum::SOFTWARE_ENGINERING,
                         'role' => [
                             'de_CH' => 'Applikationsentwickler',
                             'en_CH' => 'Application Developer',
@@ -88,8 +95,8 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Alexander Christoph Boll',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
-                        'key' => ContactSectionEnum::EMPLOYEES,
+                    ContactSectionEnum::DIGITAL_TRANSFORMATION => [
+                        'key' => ContactSectionEnum::DIGITAL_TRANSFORMATION,
                         'role' => [
                             'de_CH' => 'Produkt- und Innovationsmanagement',
                             'en_CH' => 'Product and Innovation Management',
@@ -110,8 +117,8 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Faissal Wahabali',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
-                        'key' => ContactSectionEnum::EMPLOYEES,
+                    ContactSectionEnum::SOFTWARE_ENGINERING => [
+                        'key' => ContactSectionEnum::SOFTWARE_ENGINERING,
                         'role' => [
                             'de_CH' => 'Applikationsentwickler',
                             'en_CH' => 'Application Developer',
@@ -129,22 +136,22 @@ class ContactsTableSeeder extends Seeder
         Contact::updateOrCreate(
             ['id' => 6],
             [
-                'name' => 'PST GmbH',
-                'published' => false,
+                'name' => 'Sarah Fässler',
+                'published' => true,
                 'sections' => [
                     ContactSectionEnum::COLLABORATIONS => [
                         'key' => ContactSectionEnum::COLLABORATIONS,
                         'role' => [
-                            'de_CH' => 'Finanzen',
-                            'en_CH' => 'Finance',
+                            'de_CH' => 'PST GmbH',
+                            'en_CH' => 'PST GmbH',
                         ],
                     ],
                 ],
                 'icons' => [
-                    'email' => 'info@pstgmbh.ch',
+                    'email' => 'sarah.faessler@pstgmbh.ch',
                     'website' => 'https://www.pstgmbh.ch',
                 ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,f_auto,q_auto/www-codebar-ch/contacts/pst_gmbh.webp',
             ]
         );
 
@@ -154,8 +161,8 @@ class ContactsTableSeeder extends Seeder
                 'name' => 'Julian Leipert',
                 'published' => true,
                 'sections' => [
-                    ContactSectionEnum::EMPLOYEES => [
-                        'key' => ContactSectionEnum::EMPLOYEES,
+                    ContactSectionEnum::SOFTWARE_ENGINERING => [
+                        'key' => ContactSectionEnum::SOFTWARE_ENGINERING,
                         'role' => [
                             'de_CH' => 'Applikationsentwickler',
                             'en_CH' => 'Application Developer',
@@ -167,6 +174,91 @@ class ContactsTableSeeder extends Seeder
                     'linkedin' => null,
                 ],
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/codebar.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 8],
+            [
+                'name' => 'Dario Wieland',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::COLLABORATIONS => [
+                        'key' => ContactSectionEnum::COLLABORATIONS,
+                        'role' => [
+                            'de_CH' => 'Wieland Business Solutions GmbH',
+                            'en_CH' => 'Wieland Business Solutions GmbH',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'wieland@business-solutions.gmbh',
+                    'website' => 'https://www.business-solutions.gmbh',
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/wds.jpg',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 9],
+            [
+                'name' => 'DR-G2110',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::SCANNING => [
+                        'key' => ContactSectionEnum::SCANNING,
+                        'role' => [
+                            'de_CH' => 'Digitalisierungs-Beauftragter',
+                            'en_CH' => 'Head of Digital Transformation',
+                        ],
+                    ],
+                ],
+                'icons' => [],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/drg_e_background_removal_f_png.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 10],
+            [
+                'name' => 'Mischa Lanz',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::SCANNING => [
+                        'key' => ContactSectionEnum::SCANNING,
+                        'role' => [
+                            'de_CH' => 'zunscan.ch',
+                            'en_CH' => 'zunscan.ch',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'mischa.lanz@codebar.ch',
+                    'linkedin' => 'https://www.linkedin.com/in/mischa-lanz-672a65112',
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/6528f7c6bddf8430fb5d154c_Mischa_Hemd.webp',
+            ]
+        );
+
+        Contact::updateOrCreate(
+            ['id' => 11],
+            [
+                'name' => 'Dominique Ernst',
+                'published' => true,
+                'sections' => [
+                    ContactSectionEnum::DIGITAL_TRANSFORMATION => [
+                        'key' => ContactSectionEnum::DIGITAL_TRANSFORMATION,
+                        'role' => [
+                            'de_CH' => 'DMS/ECM Berater',
+                            'en_CH' => 'DMS/ECM Consultant',
+                        ],
+                    ],
+                ],
+                'icons' => [
+                    'email' => 'dominique.ernst@codebar.ch',
+                    'linkedin' => 'https://www.linkedin.com/in/dominique-ernst',
+                ],
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/ujywqubl5rkkm5hjqjsa_e_background_removal_f_png.webp',
             ]
         );
 

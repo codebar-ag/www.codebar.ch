@@ -5,6 +5,7 @@ namespace Database\Seeders\Codebar;
 use App\Models\OpenSource;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class OpenSourceTableSeeder extends Seeder
 {
@@ -366,24 +367,33 @@ class OpenSourceTableSeeder extends Seeder
         );
     }
 
-    private function seed(string $identifier, array $localizedData): void
-    {
-        $entries = collect($localizedData)->map(function ($data, $locale) use ($identifier) {
+    private function seed(
+        string $sharedSlug,
+        array $localizedData,
+        ?string $link = null,
+        ?int $downloads = null,
+        ?string $version = null,
+        ?string $identifier = null
+    ): void {
+        $slug = Str::slug($sharedSlug);
+
+        $entries = collect($localizedData)->map(function ($data, $locale) use ($slug, $link, $downloads, $version) {
 
             return OpenSource::updateOrCreate(
                 [
                     'locale' => $locale,
-                    'identifier' => $identifier,
-
+                    'slug' => $slug,
                 ],
                 [
-                    'slug' => $slug,
                     'published' => true,
                     'title' => Arr::get($data, 'title'),
                     'teaser' => Arr::get($data, 'teaser'),
                     'image' => Arr::get($data, 'image'),
                     'tags' => Arr::get($data, 'tags', []),
                     'content' => Arr::get($data, 'content'),
+                    'link' => $link,
+                    'downloads' => $downloads,
+                    'version' => $version,
                 ]
             );
         });

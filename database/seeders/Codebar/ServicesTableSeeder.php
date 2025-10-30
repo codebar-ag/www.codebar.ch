@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Paperflakes;
+namespace Database\Seeders\Codebar;
 
 use App\Enums\LocaleEnum;
 use App\Models\Service;
