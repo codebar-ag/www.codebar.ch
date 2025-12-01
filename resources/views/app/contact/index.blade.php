@@ -12,9 +12,9 @@
         </div>
     </x-section-flex>
 
-    <x-section>
-        <x-h2 :title="__('Office')" />
-        <div class="grid grid-cols-2">
+    <x-section classAttributes="!mt-8 !mb-8">
+        <x-h2 :title="__('Locations')" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="">
                 <address class="not-italic leading-relaxed ">
                     <p class="font-semibold">codebar Solutions AG</p>
@@ -46,6 +46,40 @@
                             d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
                 </x-a-badge>
+            </div>
+        </div>
+    </x-section>
+
+    <x-section classAttributes="!mt-8 !mb-8">
+        <x-h2 :title="__('Opening hours')" />
+        <div class="space-y-1 mt-2">
+            <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                <span class="font-medium">{{ __('Monday') }}</span>
+                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                <span class="font-medium">{{ __('Tuesday') }}</span>
+                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                <span class="font-medium">{{ __('Wednesday') }}</span>
+                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                <span class="font-medium">{{ __('Thursday') }}</span>
+                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                <span class="font-medium">{{ __('Friday') }}</span>
+                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                <span class="font-medium">{{ __('Saturday') }}</span>
+                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
+            </div>
+            <div class="flex justify-between items-center py-1">
+                <span class="font-medium">{{ __('Sunday') }}</span>
+                <span class="font-light text-gray-500">{{ __('Closed') }}</span>
             </div>
         </div>
     </x-section>
