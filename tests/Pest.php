@@ -1,6 +1,6 @@
 <?php
 
-use Database\Seeders\Paperflakes\RolesAndPermissionsSeeder;
+use Database\Seeders\Codebar\RolesAndPermissionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;

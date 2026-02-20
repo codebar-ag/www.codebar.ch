@@ -2,16 +2,13 @@
 
 namespace App\Providers;
 
-use App\Actions\ViewDataAction;
 use App\Checks\FailedJobsCheck;
 use App\Checks\FilesystemsDefaultCheck;
 use App\Checks\JobsCheck;
-use App\Models\Configuration;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -44,8 +41,6 @@ class AppServiceProvider extends ServiceProvider
             FailedJobsCheck::new(),
             SecurityAdvisoriesCheck::new()->lastDayOfMonth(),
         ]);
-
-        View::share('configuration', $this->getConfiguration());
     }
 
     private function multilanguage(): void
@@ -53,14 +48,5 @@ class AppServiceProvider extends ServiceProvider
         News::registerLocalizedBinding('news');
         Service::registerLocalizedBinding('service');
         Product::registerLocalizedBinding('product');
-    }
-
-    private function getConfiguration(): ?Configuration
-    {
-        try {
-            return (new ViewDataAction)->configuration(app()->getLocale());
-        } catch (\Throwable) {
-            return null;
-        }
     }
 }

@@ -1,36 +1,18 @@
 <nav class="mt-12 text-xl md:text-2xl px-4 md:px-0" x-data="navigation">
     <div class="flex justify-between items-center">
 
-        @if(filled($configuration?->key))
-            <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
-                @include("layouts._logos.{$configuration->key}")
-            </a>
-        @endif
+        <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
+            @include("layouts._logos." . config('site.key'))
+        </a>
 
-        @if(!empty($locales))
-            <div class="hidden lg:flex gap-2 text-lg items-center">
-                @foreach($locales as $language)
-                    <form method="POST" action="{{ route('language.update') }}">
-                        @csrf
-                        <input type="hidden" name="language" value="{{ $language->value }}">
-                        <button type="submit" class="hover:text-black hover:font-semibold transition cursor-pointer"
-                                title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
-                            {{ $language->getLabel() }}
-                        </button>
-                    </form>
-                    @if (!$loop->last)
-                        <span class="text-gray-400 font-light">|</span>
-                    @endif
-                @endforeach
-            </div>
-        @endif
+        <x-nav-language-switcher :locales="$locales" classAttributes="hidden lg:flex" />
     </div>
 
     <div class="mt-2 flex items-center justify-between">
         @include('layouts._partials._navigation_desktop')
 
-        <button @click="toggle"
-                class="flex items-center gap-1 lg:hidden hover:text-black hover:font-semibold transition focus:outline-none">
+        <button x-on:click="toggle"
+                class="flex items-center gap-1 lg:hidden hover:text-black hover:font-semibold transition focus:outline-none cursor-pointer">
             <span>{{ __('Menu') }}</span>
 
             <div class="transition-transform duration-300 ease-in-out" x-bind:class="icon_rotate">

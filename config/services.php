@@ -38,4 +38,8 @@ return [
         'tenant' => env('MICROSOFT_TENANT_ID'),
         'include_tenant_info' => true,
     ],
+
+    'github' => [
+        'token' => env('GITHUB_TOKEN'),
+    ],
 ];

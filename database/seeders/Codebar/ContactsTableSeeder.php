@@ -112,28 +112,6 @@ class ContactsTableSeeder extends Seeder
         );
 
         Contact::updateOrCreate(
-            ['id' => 5],
-            [
-                'name' => 'Faissal Wahabali',
-                'published' => true,
-                'sections' => [
-                    ContactSectionEnum::SOFTWARE_ENGINERING => [
-                        'key' => ContactSectionEnum::SOFTWARE_ENGINERING,
-                        'role' => [
-                            'de_CH' => 'Applikationsentwickler',
-                            'en_CH' => 'Application Developer',
-                        ],
-                    ],
-                ],
-                'icons' => [
-                    'email' => 'faissal.wahabali@codebar.ch',
-                    'linkedin' => 'https://www.linkedin.com/in/faissaloux/',
-                ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/faissal_wahabali.webp',
-            ]
-        );
-
-        Contact::updateOrCreate(
             ['id' => 6],
             [
                 'name' => 'Sarah Fässler',
@@ -237,28 +215,6 @@ class ContactsTableSeeder extends Seeder
                     'linkedin' => 'https://www.linkedin.com/in/mischa-lanz-672a65112',
                 ],
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/6528f7c6bddf8430fb5d154c_Mischa_Hemd.webp',
-            ]
-        );
-
-        Contact::updateOrCreate(
-            ['id' => 11],
-            [
-                'name' => 'Dominique Ernst',
-                'published' => true,
-                'sections' => [
-                    ContactSectionEnum::DIGITAL_TRANSFORMATION => [
-                        'key' => ContactSectionEnum::DIGITAL_TRANSFORMATION,
-                        'role' => [
-                            'de_CH' => 'DMS/ECM Berater',
-                            'en_CH' => 'DMS/ECM Consultant',
-                        ],
-                    ],
-                ],
-                'icons' => [
-                    'email' => 'dominique.ernst@codebar.ch',
-                    'linkedin' => 'https://www.linkedin.com/in/dominique-ernst',
-                ],
-                'image' => 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/ujywqubl5rkkm5hjqjsa_e_background_removal_f_png.webp',
             ]
         );
 

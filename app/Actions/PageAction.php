@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\DTO\PageDTO;
+use App\Models\GithubRepository;
 use App\Models\News;
 use App\Models\Page;
 use App\Models\Product;
@@ -77,6 +78,25 @@ class PageAction
                 $reference->load(['target']);
 
                 return self::product(product: $reference->target, withReferences: false, locale: $reference->reference_locale);
+            }) : null,
+        );
+    }
+
+    public function githubRepository(GithubRepository $githubRepository, bool $withReferences = false, ?string $locale = null): PageDTO
+    {
+        return new PageDTO(
+            locale: $locale ?? $githubRepository->locale->value,
+            routeKey: 'open-source.show',
+            routeName: Str::slug(title: $locale ?? $githubRepository->locale->value).'.open-source.show',
+            title: $githubRepository->title,
+            description: $githubRepository->teaser,
+            image: $githubRepository->image,
+            lastModificationDate: $githubRepository->updated_at ?? now(),
+            routeParameters: ['locale' => $githubRepository->locale, 'githubRepository' => $githubRepository],
+            referencePages: $withReferences ? $githubRepository->references->map(function (Reference $reference) {
+                $reference->load(['target']);
+
+                return self::githubRepository(githubRepository: $reference->target, withReferences: false, locale: $reference->reference_locale);
             }) : null,
         );
     }

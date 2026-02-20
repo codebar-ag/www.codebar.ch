@@ -3,7 +3,7 @@
     <x-h2 :title="__('Company')"/>
     <address class="not-italic text-gray-700 text-lg leading-relaxed">
         <p class="font-semibold">codebar Solutions AG</p>
-        <p>Mühlematten 12</p>
+        <p>Haupstrasse 91</p>
         <p>CH-4455 Zunzgen</p>
         <p>CHE-257.955.682</p>
     </address>

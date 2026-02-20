@@ -1,10 +1,10 @@
 @props(['manifest' => asset('manifest.json'), 'path' => asset('favicons'), 'color' => '#ffffff'])
 
 @php
-    $prefix = match($configuration?->key) {
+    $prefix = match(config('site.key')) {
         '_paperflakes' => 'paperflakes',
         '_codebar' => 'codebar',
-        default => $configuration?->key
+        default => config('site.key'),
     };
 @endphp
 

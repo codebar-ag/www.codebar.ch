@@ -2,12 +2,12 @@
 
 namespace Database\Seeders\Codebar;
 
-use App\Models\OpenSource;
+use App\Models\GithubRepository;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class OpenSourceTableSeeder extends Seeder
+class GithubRepositoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -379,7 +379,7 @@ class OpenSourceTableSeeder extends Seeder
 
         $entries = collect($localizedData)->map(function ($data, $locale) use ($slug, $link, $downloads, $version) {
 
-            return OpenSource::updateOrCreate(
+            return GithubRepository::updateOrCreate(
                 [
                     'locale' => $locale,
                     'slug' => $slug,
@@ -398,8 +398,8 @@ class OpenSourceTableSeeder extends Seeder
             );
         });
 
-        $entries->each(function (OpenSource $entry) use ($entries) {
-            $entries->each(function (OpenSource $reference) use ($entry) {
+        $entries->each(function (GithubRepository $entry) use ($entries) {
+            $entries->each(function (GithubRepository $reference) use ($entry) {
                 $entry->references()->updateOrCreate([
                     'reference_type' => get_class($reference),
                     'reference_id' => $reference->id,

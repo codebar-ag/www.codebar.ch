@@ -51,36 +51,6 @@
     </x-section>
 
     <x-section classAttributes="!mt-8 !mb-8">
-        <x-h2 :title="__('Opening hours')" />
-        <div class="space-y-1 mt-2">
-            <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                <span class="font-medium">{{ __('Monday') }}</span>
-                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
-            </div>
-            <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                <span class="font-medium">{{ __('Tuesday') }}</span>
-                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
-            </div>
-            <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                <span class="font-medium">{{ __('Wednesday') }}</span>
-                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
-            </div>
-            <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                <span class="font-medium">{{ __('Thursday') }}</span>
-                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
-            </div>
-            <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                <span class="font-medium">{{ __('Friday') }}</span>
-                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
-            </div>
-            <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                <span class="font-medium">{{ __('Saturday') }}</span>
-                <span class="font-light">{{ __('08:00 bis 18:00 Uhr') }}</span>
-            </div>
-            <div class="flex justify-between items-center py-1">
-                <span class="font-medium">{{ __('Sunday') }}</span>
-                <span class="font-light text-gray-500">{{ __('Closed') }}</span>
-            </div>
-        </div>
+        <x-opening-hours :hours="$openingHours" />
     </x-section>
 </x-app-layout>

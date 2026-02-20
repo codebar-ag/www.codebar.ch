@@ -4,10 +4,9 @@ namespace App\Actions;
 
 use App\DTO\ContactDTO;
 use App\Enums\ContactSectionEnum;
-use App\Models\Configuration;
 use App\Models\Contact;
+use App\Models\GithubRepository;
 use App\Models\News;
-use App\Models\OpenSource;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Technology;
@@ -17,15 +16,6 @@ use Illuminate\Support\Str;
 
 class ViewDataAction
 {
-    public function configuration(string $locale): ?Configuration
-    {
-        $key = Str::slug("configuration_{$locale}");
-
-        return Cache::rememberForever($key, function () {
-            return Configuration::first();
-        });
-    }
-
     public function products(string $locale): Collection
     {
         $key = Str::slug("products_published_{$locale}");
@@ -62,12 +52,12 @@ class ViewDataAction
         });
     }
 
-    public function openSource(string $locale): Collection
+    public function githubRepositories(string $locale): Collection
     {
-        $key = Str::slug("open_source_published_{$locale}");
+        $key = Str::slug("github_repositories_published_{$locale}");
 
         return Cache::rememberForever($key, function () use ($locale) {
-            return OpenSource::where('locale', $locale)->where('published', true)->orderByDesc('downloads')->get();
+            return GithubRepository::where('locale', $locale)->where('published', true)->orderByDesc('downloads')->get();
         });
     }
 

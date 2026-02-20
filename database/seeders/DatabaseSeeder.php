@@ -7,8 +7,8 @@ use App\Enums\RoleEnum;
 use App\Models\User;
 use Database\Seeders\Codebar\ConfigurationsTableSeeder;
 use Database\Seeders\Codebar\ContactsTableSeeder;
+use Database\Seeders\Codebar\GithubRepositoriesTableSeeder;
 use Database\Seeders\Codebar\NewsTableSeeder;
-use Database\Seeders\Codebar\OpenSourceTableSeeder;
 use Database\Seeders\Codebar\PagesTableSeeder;
 use Database\Seeders\Codebar\ProductsTableSeeder;
 use Database\Seeders\Codebar\RolesAndPermissionsSeeder;
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
-        $this->call(OpenSourceTableSeeder::class);
+        $this->call(GithubRepositoriesTableSeeder::class);
         $this->call(TechnologiesTableSeeder::class);
 
         if (app()->isLocal()) {

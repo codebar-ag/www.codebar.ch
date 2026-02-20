@@ -1,14 +1,25 @@
-@use(App\Enums\LocaleEnum;use Illuminate\Support\Facades\Config;use Illuminate\Support\Str;use App\Helpers\HelperMarkdown;use Illuminate\Support\Arr)
+@use(App\Enums\LocaleEnum;use Illuminate\Support\Str;use App\Helpers\HelperMarkdown)
 
 @php
     $locale = app()->getLocale();
-    $color = $configuration?->company_primary_color;
+    $color = config('site.primary_color');
 
     $team_url = match ($locale) {
         LocaleEnum::EN->value => route(Str::slug(LocaleEnum::EN->value) . '.about-us.index'),
         default => route(Str::slug(LocaleEnum::DE->value) . '.about-us.index'),
     };
-    $markdownContent = Arr::get($configuration?->component_intro, $locale);
+
+    $introKey = match (config('site.key')) {
+        '_codebar' => 'codebar',
+        '_paperflakes' => 'paperflakes',
+        default => 'codebar',
+    };
+    $introLocale = match ($locale) {
+        LocaleEnum::EN->value => 'en',
+        default => 'de',
+    };
+    $introPath = database_path("files/intro/{$introKey}_intro_{$introLocale}.md");
+    $markdownContent = file_exists($introPath) ? file_get_contents($introPath) : '';
     $htmlContent = $markdownContent ? app(HelperMarkdown::class)->formatMarkdown($markdownContent) : '';
     $htmlContent = preg_replace('/<h2>/', '<h2 class="mb-2 text-lg md:text-xl font-semibold">', $htmlContent);
     $htmlContent = preg_replace('/<p>/', '<p class="mb-4">', $htmlContent);

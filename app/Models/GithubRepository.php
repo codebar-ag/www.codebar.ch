@@ -8,7 +8,7 @@ use App\Traits\HasLocalizedRouteBinding;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OpenSource extends Model
+class GithubRepository extends Model
 {
     use HasFactory;
     use HasLocalizedReferences;
@@ -19,6 +19,8 @@ class OpenSource extends Model
         'locale' => LocaleEnum::class,
         'tags' => 'json',
         'downloads' => 'int',
+        'stars' => 'int',
+        'forks' => 'int',
     ];
 
     public function getRouteKeyName(): string

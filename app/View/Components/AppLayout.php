@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Actions\ViewDataAction;
 use App\Enums\LocaleEnum;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
@@ -14,14 +13,10 @@ class AppLayout extends Component
 
     public function render(): View
     {
-        $locale = app()->getLocale();
-
         return view('layouts.app')->with([
             'locales' => LocaleEnum::cases(),
-            'locale' => Str::slug($locale),
+            'locale' => Str::slug(app()->getLocale()),
             'page' => $this->page,
-            'services' => (new ViewDataAction)->services($locale),
-            'products' => (new ViewDataAction)->products($locale),
         ]);
     }
 }

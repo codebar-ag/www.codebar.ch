@@ -2,6 +2,8 @@
 
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\AboutUs\AboutUsIndexController;
+use App\Http\Controllers\Ai\AiIndexController;
+use App\Http\Controllers\Ai\AiShowController;
 use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Jobs\JobsIndexController;
@@ -12,8 +14,8 @@ use App\Http\Controllers\Locale\LocaleUpdateController;
 use App\Http\Controllers\Media\MediaIndexController;
 use App\Http\Controllers\News\NewsIndexController;
 use App\Http\Controllers\News\NewsShowController;
-use App\Http\Controllers\OpenSource\OpenSoruceShowController;
 use App\Http\Controllers\OpenSource\OpenSourceIndexController;
+use App\Http\Controllers\OpenSource\OpenSourceShowController;
 use App\Http\Controllers\Products\ProductsIndexController;
 use App\Http\Controllers\Products\ProductsShowController;
 use App\Http\Controllers\Services\ServicesIndexController;
@@ -45,7 +47,10 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('technologies/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
     Route::get('open-source-contributions', OpenSourceIndexController::class)->name('open-source.index');
-    Route::get('open-source-contributions/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
+    Route::get('open-source-contributions/{locale}/{githubRepository}', OpenSourceShowController::class)->name('open-source.show');
+
+    Route::get('ai', AiIndexController::class)->name('ai.index');
+    Route::get('ai/{slug}', AiShowController::class)->name('ai.show');
 
     Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('legal/imprint', ImprintIndexController::class)->name('legal.imprint.index');
@@ -73,7 +78,10 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('technologien/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
     Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');
-    Route::get('open-source-beitraege/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
+    Route::get('open-source-beitraege/{locale}/{githubRepository}', OpenSourceShowController::class)->name('open-source.show');
+
+    Route::get('ki', AiIndexController::class)->name('ai.index');
+    Route::get('ki/{slug}', AiShowController::class)->name('ai.show');
 
     Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');

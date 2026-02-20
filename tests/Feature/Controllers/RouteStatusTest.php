@@ -17,7 +17,13 @@ dataset('routes', function () {
         [LocaleEnum::EN->value, 'products.index'],
         //		[LocaleEnum::EN->value, 'products.show', ['product' => 1]],
         [LocaleEnum::EN->value, 'legal.imprint.index'],
+        [LocaleEnum::EN->value, 'legal.privacy.index'],
+        [LocaleEnum::EN->value, 'legal.terms.index'],
         [LocaleEnum::EN->value, 'contact.index'],
+        [LocaleEnum::EN->value, 'ai.index'],
+        [LocaleEnum::EN->value, 'ai.show', ['slug' => 'gki-strategy']],
+        [LocaleEnum::EN->value, 'ai.show', ['slug' => 'gki-sprint']],
+        [LocaleEnum::EN->value, 'ai.show', ['slug' => 'gki-build']],
 
         // DE-CH
         [LocaleEnum::DE->value, 'start.index'],
@@ -28,7 +34,13 @@ dataset('routes', function () {
         [LocaleEnum::DE->value, 'products.index'],
         //		[LocaleEnum::DE->value, 'products.show', ['product' => 1]],
         [LocaleEnum::DE->value, 'legal.imprint.index'],
+        [LocaleEnum::DE->value, 'legal.privacy.index'],
+        [LocaleEnum::DE->value, 'legal.terms.index'],
         [LocaleEnum::DE->value, 'contact.index'],
+        [LocaleEnum::DE->value, 'ai.index'],
+        [LocaleEnum::DE->value, 'ai.show', ['slug' => 'gki-strategy']],
+        [LocaleEnum::DE->value, 'ai.show', ['slug' => 'gki-sprint']],
+        [LocaleEnum::DE->value, 'ai.show', ['slug' => 'gki-build']],
     ];
 });
 
