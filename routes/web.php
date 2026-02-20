@@ -87,3 +87,15 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 Route::post('language/update', LocaleUpdateController::class)->name('language.update');
 
 Route::get('sitemap.xml', SitemapController::class);
+
+Route::get('.well-known/matrix/server', function () {
+    return response()->json([
+        'm.server' => 'connect.codebar.ch:443',
+    ]);
+});
+
+Route::get('.well-known/matrix/client', function () {
+    return response()->json([
+        'm.homeserver' => ['base_url' => 'https://connect.codebar.ch'],
+    ])->header('Access-Control-Allow-Origin', '*');
+});
