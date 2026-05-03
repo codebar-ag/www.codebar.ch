@@ -1,12 +1,12 @@
 @props(['image', 'imageContainerClassAttributes' => null, 'name', 'role' => null, 'icons' => []])
 
-<div class="flex flex-row rounded-xl overflow-hidden transition group">
+<div class="surface-card flex flex-row overflow-hidden transition group">
     <div class="{{ $imageContainerClassAttributes ?? 'h-32 w-32 flex-shrink-0 overflow-hidden' }}">
         <img src="{{ $image }}" alt="{{ $name }}"
             class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105" />
     </div>
 
-    <div class="flex flex-col justify-center p-4 space-y-1">
+    <div class="flex flex-col justify-center p-4 space-y-1 md:p-5">
         <div class="text-base font-bold text-gray-900 leading-tight">
             {{ $name }}
         </div>

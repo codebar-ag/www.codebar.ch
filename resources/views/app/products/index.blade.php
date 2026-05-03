@@ -1,6 +1,10 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Products')"/>
-    <x-section>
+    <x-blocks.editorial-hero
+        :title="__('Products')"
+        :teaser="__('Selected platforms and products with practical impact.')"
+        :eyebrow="__('Product Studio')"
+    />
+    <x-ui.section class-attributes="editorial-divider">
         <x-list>
             @foreach($products as $entry)
                 <x-list-card
@@ -10,5 +14,5 @@
                         :tags="$entry->tags"/>
             @endforeach
         </x-list>
-    </x-section>
+    </x-ui.section>
 </x-app-layout>

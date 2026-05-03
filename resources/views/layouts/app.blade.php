@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
         lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-        class="scroll-smooth"
+        class="scroll-smooth [view-transition-name:root]"
 >
 <head>
     <meta charset="utf-8"/>
@@ -23,15 +23,15 @@
     @vite(['resources/js/app.js'])
 
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" style="--brand-color: {{ $configuration?->company_primary_color ?? '#500472' }};">
 
-<main class="min-h-screen bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<main class="app-shell text-gray-800">
+    <div class="app-container px-4 sm:px-6 lg:px-8">
 
         @include('layouts._partials._navigation')
 
-        <section class="my-8">
-            <div class="text-lg leading-relaxed max-w-6xl mx-auto px-4 md:px-0">
+        <section class="section-spacing editorial-divider">
+            <div class="editorial-shell text-base leading-relaxed md:text-lg">
                 {{ $slot }}
             </div>
         </section>

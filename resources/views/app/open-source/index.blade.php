@@ -1,6 +1,10 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Open Source')"/>
-    <x-section>
+    <x-blocks.editorial-hero
+        :title="__('Open Source')"
+        :teaser="__('Contributions and tools we share with the community.')"
+        :eyebrow="__('Community')"
+    />
+    <x-ui.section class-attributes="editorial-divider">
         <x-list>
             @foreach($openSource as $entry)
                 <x-list-card
@@ -11,5 +15,5 @@
                         target="_blank"/>
             @endforeach
         </x-list>
-    </x-section>
+    </x-ui.section>
 </x-app-layout>

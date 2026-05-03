@@ -1,7 +1,4 @@
-<x-section class-attributes="mt-6">
-    <x-h2 :title="__('Partnerships')"/>
-
-    <div class="mt-6 flex">
+<div class="surface-card mt-6 flex p-6">
 
         <a target="_blank" href="https://start.docuware.com/"
            title="{{ __('DocuWare Silver Partner') }}">
@@ -82,4 +79,3 @@
             </svg>
         </a>
     </div>
-</x-section>

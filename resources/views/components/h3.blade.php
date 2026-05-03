@@ -1,3 +1,3 @@
 @props(['title'])
 
-<h3 class="mb-2 text-lg md:text-xl font-semibold">{{ $title }}</h3>
+<x-ui.headline :title="$title" level="h3" class-attributes="mb-2 text-gray-900" />

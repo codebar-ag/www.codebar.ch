@@ -1,106 +1,103 @@
-@php use App\Enums\LocaleEnum; @endphp
+<div class="lg:hidden">
+    <div
+        x-cloak
+        x-show="openDrawer"
+        x-transition.opacity.duration.180ms
+        class="fixed inset-0 z-50"
+        aria-hidden="true"
+    >
+        <button
+            type="button"
+            class="absolute inset-0 bg-slate-900/35 backdrop-blur-[1px]"
+            @click="closeDrawer()"
+            aria-label="{{ __('Close navigation overlay') }}"
+        ></button>
 
-<div x-show="open" x-transition x-cloak class="mt-4 text-xl space-y-2">
-    <!-- Home -->
-    <a @click.stop href="{{ localized_route('start.index') }}" title="{{ __('Home') }}"
-        class="block py-3 text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
-        {{ __('News') }}
-    </a>
+        <aside
+            id="mobile-main-nav"
+            class="nav-mobile-drawer menu-shell surface-card"
+            role="dialog"
+            aria-modal="true"
+            aria-label="{{ __('Main menu') }}"
+        >
+            <header class="flex items-center justify-between border-b border-(--border-subtle) px-5 py-4">
+                <p class="text-sm font-semibold tracking-wide text-(--text-soft)">{{ __('Navigation') }}</p>
+                <button
+                    type="button"
+                    class="nav-trigger"
+                    @click="closeDrawer()"
+                    aria-label="{{ __('Close menu') }}"
+                >
+                    {{ __('Close') }}
+                </button>
+            </header>
 
-    @if ($configuration?->section_news)
-    <!-- News -->
-    <a @click.stop href="{{ localized_route('news.index') }}" title="{{ __('News') }}"
-        class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
-        {{ __('News') }}
-    </a>
-    @endif
-
-    <!-- About us -->
-    <a @click.stop href="{{ localized_route('about-us.index') }}" title="{{ __('About us') }}"
-        class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
-        {{ __('About us') }}
-    </a>
-
-    @if ($configuration?->section_services)
-        <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
-            <a @click.stop href="{{ localized_route('services.index') }}" title="{{ __('Services') }}"
-                class="block text-center bg-gray-50/25 hover:text-black hover:font-semibold transition rounded-t-lg">
-                {{ __('Services') }}
-            </a>
-            <div class="text-sm text-gray-600 space-y-1">
-
-                @if (!empty($services) && $services->count())
-                    @foreach ($services as $service)
-                        <a target="{{ $service->url ? '_blank' : '_self' }}"
-                            href="{{ $service->url ?? localized_route('services.show', ['locale' => app()->getLocale(), 'service' => $service]) }}"
-                            title="{{ $service->name }}"
-                            class="block text-base hover:text-black hover:font-semibold transition">
-                            {{ $service->name }}
+            <div class="nav-drawer-scroll">
+                @foreach($navBuckets as $bucket)
+                    @if(($bucket['type'] ?? null) === 'link')
+                        <a href="{{ $bucket['href'] }}"
+                           title="{{ $bucket['label'] }}"
+                           class="nav-mobile-link"
+                           @click="closeDrawer()">
+                            {{ $bucket['label'] }}
                         </a>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    @endif
+                    @else
+                        <section class="nav-mobile-section">
+                            <button
+                                type="button"
+                                class="nav-mobile-section-trigger"
+                                @click="toggleSection('{{ $bucket['key'] }}')"
+                                x-bind:aria-expanded="isSectionOpen('{{ $bucket['key'] }}').toString()"
+                                aria-controls="drawer-section-{{ $bucket['key'] }}"
+                            >
+                                <span>{{ $bucket['label'] }}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 transition-transform duration-200"
+                                     x-bind:class="{ 'rotate-180': isSectionOpen('{{ $bucket['key'] }}') }">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.168l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.51a.75.75 0 0 1-1.08 0l-4.25-4.51a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
 
-    @if ($configuration?->section_products)
-        <div @click.stop class="py-3 text-center bg-gray-50 transition">
-            <a @click.stop href="{{ localized_route('products.index') }}" title="{{ __('Products') }}"
-                class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
-                {{ __('Products') }}
-            </a>
-            <div class="text-sm text-gray-600 space-y-1">
-
-                @if (!empty($products) && $products->count())
-                    @foreach ($products as $product)
-                        <a target="{{ $product->url ? '_blank' : '_self' }}"
-                            href="{{ $product->url ?? localized_route('products.show', ['locale' => app()->getLocale(), 'product' => $product]) }}"
-                            title="{{ $product->name }}"
-                            class="block text-base hover:text-black hover:font-semibold transition">
-                            {{ $product->name }}
-                        </a>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    @endif
-
-    <!-- Contact -->
-    <div @click.stop class="py-3 text-center bg-gray-50/25 transition space-y-1">
-        <a @click.stop href="{{ localized_route('contact.index') }}" title="{{ __('Contact') }}"
-            class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
-            {{ __('Contact') }}
-        </a>
-        <div class="mt-1 text-sm text-gray-600 space-y-1">
-            <a href="tel:0041615156090" title="{{ __('Contact Phone number') }}"
-                class="block text-base hover:text-black hover:font-semibold transition">
-                +41 61 515 60 90
-            </a>
-            <a href="mailto:info@paperflakes.ch" title="{{ __('Contact email address') }}"
-                class="block text-base hover:text-black hover:font-semibold transition">
-                info@paperflakes.ch
-            </a>
-        </div>
-    </div>
-
-    <!-- Language -->
-    @if (!empty($locales))
-        <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
-            <span>{{ __('Language') }}</span>
-            <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
-                @foreach ($locales as $language)
-                    <form method="POST" action="{{ route('language.update') }}" rel="nofollow">
-                        @csrf
-                        <input type="hidden" name="language" value="{{ $language->value }}">
-                        <button type="submit"
-                            class="text-base hover:text-black hover:font-semibold transition cursor-pointer"
-                            title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
-                            {{ $language->getLabel() }}
-                        </button>
-                    </form>
+                            <div
+                                id="drawer-section-{{ $bucket['key'] }}"
+                                class="space-y-1"
+                                x-cloak
+                                x-show="isSectionOpen('{{ $bucket['key'] }}')"
+                                x-transition.duration.160ms
+                            >
+                                @foreach(($bucket['items'] ?? []) as $item)
+                                    <a href="{{ $item['href'] }}"
+                                       title="{{ $item['label'] }}"
+                                       class="nav-mobile-sub-link"
+                                       @click="closeDrawer()">
+                                        {{ $item['label'] }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </section>
+                    @endif
                 @endforeach
             </div>
-        </div>
-    @endif
 
+            <footer class="space-y-4 border-t border-(--border-subtle) px-5 py-4">
+                @if(!empty($locales))
+                    <div class="flex items-center gap-2">
+                        @foreach($locales as $language)
+                            <form method="POST" action="{{ route('language.update') }}">
+                                @csrf
+                                <input type="hidden" name="language" value="{{ $language->value }}">
+                                <button type="submit" class="brand-link rounded px-2.5 py-1.5 text-sm">
+                                    {{ $language->getLabel() }}
+                                </button>
+                            </form>
+                        @endforeach
+                    </div>
+                @endif
+
+                <div class="text-sm text-(--text-soft)">
+                    <a href="tel:0041615156090" class="brand-link mr-4">+41 61 515 60 90</a>
+                    <a href="mailto:info@paperflakes.ch" class="brand-link">info@paperflakes.ch</a>
+                </div>
+            </footer>
+        </aside>
+    </div>
 </div>

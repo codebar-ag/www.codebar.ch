@@ -20,6 +20,7 @@ use App\Http\Controllers\Services\ServicesIndexController;
 use App\Http\Controllers\Services\ServicesShowController;
 use App\Http\Controllers\Sitemap\SitemapController;
 use App\Http\Controllers\Start\StartIndexController;
+use App\Http\Controllers\Styleguide\StyleguideIndexController;
 use App\Http\Controllers\Technologies\TechnologiesIndexController;
 use App\Http\Controllers\Technologies\TechnologiesShowController;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 });
 
 Route::post('language/update', LocaleUpdateController::class)->name('language.update');
+
+Route::get('styleguide', StyleguideIndexController::class)->name('styleguide.index');
 
 Route::get('sitemap.xml', SitemapController::class);
 

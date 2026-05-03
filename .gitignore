@@ -54,3 +54,6 @@ auth.json
 # Coverage
 /coverage/
 --cache-directory
+
+/laravel-start/
+laravel-start/

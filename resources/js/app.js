@@ -5,13 +5,56 @@ import Alpine from '@alpinejs/csp'
 window.Alpine = Alpine
 
 Alpine.data('navigation', () => ({
-    open: false,
-    toggle() {
-        this.open = !this.open
+    openDrawer: false,
+    activePanel: null,
+    sections: {
+        work: true,
+        company: false,
+        resources: false,
     },
 
-    get icon_rotate() {
-        return this.open ? 'rotate-180' : 'rotate-0'
+    toggleDrawer() {
+        this.openDrawer = !this.openDrawer
+        if (this.openDrawer) {
+            this.closePanel()
+        }
+    },
+
+    closeDrawer() {
+        this.openDrawer = false
+    },
+
+    openPanel(key) {
+        this.activePanel = key
+    },
+
+    closePanel() {
+        this.activePanel = null
+    },
+
+    togglePanel(key) {
+        this.activePanel = this.activePanel === key ? null : key
+    },
+
+    isPanel(key) {
+        return this.activePanel === key
+    },
+
+    toggleSection(key) {
+        this.sections[key] = !this.sections[key]
+    },
+
+    isSectionOpen(key) {
+        return this.sections[key] ?? false
+    },
+
+    closeAll() {
+        this.closeDrawer()
+        this.closePanel()
+    },
+
+    get menuIconRotation() {
+        return this.openDrawer ? 'rotate-180' : 'rotate-0'
     },
 }))
 

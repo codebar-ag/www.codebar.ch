@@ -1,3 +1,3 @@
 @props(['teaser'])
 
-<span class="-mt-3 text-xl md:text-2xl font-semibold">{{ $teaser }}</span>
+<x-ui.text size="lg" class-attributes="-mt-2 mb-2 text-gray-600">{{ $teaser }}</x-ui.text>

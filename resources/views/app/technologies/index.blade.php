@@ -1,6 +1,10 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Technologies')"/>
-    <x-section>
+    <x-blocks.editorial-hero
+        :title="__('Technologies')"
+        :teaser="__('A curated field guide of technologies we actively use.')"
+        :eyebrow="__('Technology Atlas')"
+    />
+    <x-ui.section class-attributes="editorial-divider">
         <x-list>
             @foreach($technologies as $entry)
                 <x-list-card
@@ -11,5 +15,5 @@
                         target="_blank"/>
             @endforeach
         </x-list>
-    </x-section>
+    </x-ui.section>
 </x-app-layout>

@@ -1,6 +1,9 @@
 @props(['href','label','target' => '_self','classAttributes' => "", 'title' => null])
 
-<a target="{{ $target }}" href="{{ $href }}" title="{{ $title ?? $label }}"
-   class="{{ $classAttributes }} hover:text-black hover:font-semibold transition">
-    {{ $label }}
-</a>
+<x-ui.link
+    :href="$href"
+    :label="$label"
+    :target="$target"
+    :title="$title"
+    class-attributes="{{ $classAttributes }}"
+/>
