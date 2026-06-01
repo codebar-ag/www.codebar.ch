@@ -15,13 +15,15 @@ class AppLayout extends Component
     public function render(): View
     {
         $locale = app()->getLocale();
+        $data = app(ViewDataAction::class);
 
         return view('layouts.app')->with([
             'locales' => LocaleEnum::cases(),
             'locale' => Str::slug($locale),
             'page' => $this->page,
-            'services' => (new ViewDataAction)->services($locale),
-            'products' => (new ViewDataAction)->products($locale),
+            'configuration' => $data->configuration($locale),
+            'services' => $data->services($locale),
+            'products' => $data->products($locale),
         ]);
     }
 }

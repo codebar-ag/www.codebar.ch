@@ -9,16 +9,15 @@ use Illuminate\View\View;
 
 class AboutUsIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $data): View
     {
         $locale = app()->getLocale();
 
         return view('app.about-us.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'about-us.index'))->default(),
-            'contacts' => (new ViewDataAction)->contacts($locale),
+            'page' => PageAction::for('about-us.index', $locale),
+            'contacts' => $data->contacts($locale),
+            'milestones' => $data->milestones($locale),
+            'pillars' => $data->pillars($locale),
         ]);
     }
 }

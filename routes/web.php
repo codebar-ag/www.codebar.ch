@@ -3,6 +3,7 @@
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\AboutUs\AboutUsIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
+use App\Http\Controllers\CoWorking\CoWorkingIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Jobs\JobsIndexController;
 use App\Http\Controllers\Legal\ImprintIndexController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Services\ServicesIndexController;
 use App\Http\Controllers\Services\ServicesShowController;
 use App\Http\Controllers\Sitemap\SitemapController;
 use App\Http\Controllers\Start\StartIndexController;
+use App\Http\Controllers\Styleguide\StyleguideIndexController;
 use App\Http\Controllers\Technologies\TechnologiesIndexController;
 use App\Http\Controllers\Technologies\TechnologiesShowController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +56,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('jobs', JobsIndexController::class)->name('jobs.index');
     Route::get('media', MediaIndexController::class)->name('media.index');
     Route::get('contact', ContactIndexController::class)->name('contact.index');
+
+    Route::get('co-working-en', CoWorkingIndexController::class)->name('co-working.index');
 });
 
 Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
@@ -82,8 +86,14 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('stellen', JobsIndexController::class)->name('jobs.index');
     Route::get('medien', MediaIndexController::class)->name('media.index');
     Route::get('kontakt', ContactIndexController::class)->name('contact.index');
+
+    Route::get('co-working-de', CoWorkingIndexController::class)->name('co-working.index');
 });
 
 Route::post('language/update', LocaleUpdateController::class)->name('language.update');
 
+Route::get('styleguide', StyleguideIndexController::class)->name('styleguide.index');
+
 Route::get('sitemap.xml', SitemapController::class);
+
+require __DIR__.'/well-known.php';

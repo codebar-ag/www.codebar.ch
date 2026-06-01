@@ -1,0 +1,133 @@
+/*
+ * Language switcher: text-only crossfade + sliding pill toggle.
+ *
+ * Crossfade: only <main> fades; nav/footer stay rock-still as the page reloads.
+ * Toggle: a single button shows EN | DE with a sliding "thumb" highlighting
+ * the active locale. Clicking submits and flips the thumb client-side
+ * (resources/js/lang-fade.js) so the slide is visible while <main> fades.
+ *
+ * In-phase fade-in is handled by the inline <head> script in
+ * resources/views/layouts/app.blade.php.
+ */
+
+/* ─────────────────────────── Page crossfade ─────────────────────────── */
+
+main {
+    transition: opacity 650ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.is-fading-out main {
+    opacity: 0;
+    transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.is-fading-in main {
+    opacity: 0;
+    transition: none;
+}
+
+/* ─────────────────────────── Toggle ─────────────────────────── */
+
+.lang-toggle {
+    --lang-toggle-cell-w: 36px;
+    --lang-toggle-cell-h: 24px;
+    --lang-toggle-pad: 2px;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: var(--lang-toggle-pad);
+    border-radius: 9999px;
+    background: rgb(244 244 245 / 0.85);     /* zinc-100/85 */
+    border: 1px solid rgb(228 228 231);       /* zinc-200 */
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgb(113 113 122);                  /* zinc-500 */
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.lang-toggle:hover {
+    background: rgb(228 228 231 / 0.9);       /* zinc-200/90 */
+    border-color: rgb(212 212 216);           /* zinc-300 */
+}
+
+.lang-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(80 4 114 / 0.25); /* brand */
+}
+
+.lang-toggle:active .lang-toggle-thumb {
+    transform-origin: center;
+}
+
+.lang-toggle-thumb {
+    position: absolute;
+    top: var(--lang-toggle-pad);
+    left: var(--lang-toggle-pad);
+    width: var(--lang-toggle-cell-w);
+    height: var(--lang-toggle-cell-h);
+    border-radius: 9999px;
+    background: white;
+    box-shadow:
+        0 1px 2px rgb(0 0 0 / 0.06),
+        0 0 0 1px rgb(228 228 231 / 0.6);
+    transition:
+        transform 450ms cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 200ms ease;
+}
+
+.lang-toggle:hover .lang-toggle-thumb {
+    box-shadow:
+        0 1px 3px rgb(80 4 114 / 0.12),       /* brand-tinted */
+        0 0 0 1px rgb(228 228 231 / 0.8);
+}
+
+.lang-toggle[data-lang-active="de"] .lang-toggle-thumb {
+    transform: translateX(var(--lang-toggle-cell-w));
+}
+
+.lang-toggle-label {
+    position: relative;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--lang-toggle-cell-w);
+    height: var(--lang-toggle-cell-h);
+    transition: color 250ms ease;
+}
+
+.lang-toggle[data-lang-active="en"] .lang-toggle-label[data-lang="en"],
+.lang-toggle[data-lang-active="de"] .lang-toggle-label[data-lang="de"] {
+    color: rgb(24 24 27);                     /* zinc-950 */
+}
+
+/* Larger variant for the mobile drawer (more thumb-friendly tap target) */
+.lang-toggle--lg {
+    --lang-toggle-cell-w: 48px;
+    --lang-toggle-cell-h: 30px;
+    --lang-toggle-pad: 3px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+}
+
+/* ─────────────────────── Reduced-motion guard ────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+    main {
+        transition: opacity 120ms linear !important;
+    }
+    html.is-fading-out main,
+    html.is-fading-in main {
+        opacity: 0 !important;
+        transition: none !important;
+    }
+    .lang-toggle-thumb {
+        transition: transform 80ms linear, box-shadow 0ms !important;
+    }
+}

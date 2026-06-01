@@ -12,10 +12,7 @@ use Illuminate\View\View;
 
 class StartIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $data): View
     {
         $locale = request()->routeIs(Str::slug(LocaleEnum::EN->value).'.start.index')
             ? LocaleEnum::EN->value
@@ -24,8 +21,9 @@ class StartIndexController extends Controller
         (new LocaleAction($locale))->setLocale();
 
         return view('app.start.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'start.index'))->default(),
-            'news' => (new ViewDataAction)->news($locale),
+            'page' => PageAction::for('start.index', $locale),
+            'configuration' => $data->configuration($locale),
+            'news' => $data->news($locale)->take(3),
         ]);
     }
 }

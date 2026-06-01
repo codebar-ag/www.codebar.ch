@@ -8,13 +8,11 @@ use Illuminate\View\View;
 
 class ContactIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function __invoke(): View
     {
         return view('app.contact.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'contact.index'))->default(),
+            'page' => PageAction::for('contact.index'),
+            'configuration' => site_configuration(),
         ]);
     }
 }

@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 120),
+    'lifetime' => (int) env('SESSION_LIFETIME', 120),
 
     'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
 
@@ -125,7 +125,6 @@ return [
     | the framework. Typically, you should not need to change this value
     | since doing so does not grant a meaningful security improvement.
     |
-    |
     */
 
     'cookie' => env(
@@ -157,7 +156,9 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN'),
+    'domain' => ($sessionDomain = env('SESSION_DOMAIN')) !== null && $sessionDomain !== ''
+        ? $sessionDomain
+        : null,
 
     /*
     |--------------------------------------------------------------------------

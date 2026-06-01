@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'paperflakes AG'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -59,13 +59,12 @@ return [
     | Application Timezone
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the default timezone for your application, which
-    | will be used by the PHP date and date-time functions. The timezone
-    | is set to "UTC" by default as it is suitable for most use cases.
+    | Default timezone for PHP date and date-time functions. Set here instead
+    | of APP_TIMEZONE in .env so every environment shares the same default.
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'Europe/Zurich'),
+    'timezone' => 'Europe/Zurich',
 
     /*
     |--------------------------------------------------------------------------

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \App\Helpers\HelperDevice
  *
- * @method static string isMobileDevice()
+ * @method static bool isMobileDevice()
  */
 class HelperDevice extends Facade
 {

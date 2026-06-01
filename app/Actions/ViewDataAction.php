@@ -2,102 +2,75 @@
 
 namespace App\Actions;
 
-use App\DTO\ContactDTO;
-use App\Enums\ContactSectionEnum;
-use App\Models\Configuration;
-use App\Models\Contact;
-use App\Models\News;
-use App\Models\OpenSource;
-use App\Models\Product;
-use App\Models\Service;
-use App\Models\Technology;
+use App\Content\MarkdownContentService;
+use App\Enums\LocaleEnum;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
 class ViewDataAction
 {
-    public function configuration(string $locale): ?Configuration
-    {
-        $key = Str::slug("configuration_{$locale}");
+    public function __construct(private readonly MarkdownContentService $content) {}
 
-        return Cache::rememberForever($key, function () {
-            return Configuration::first();
-        });
+    public function configuration(string $locale): object
+    {
+        return site_configuration();
     }
 
     public function products(string $locale): Collection
     {
-        $key = Str::slug("products_published_{$locale}");
-
-        return Cache::rememberForever($key, function () use ($locale) {
-            return Product::where('locale', $locale)->where('published', true)->orderBy('order')->get();
-        });
+        return $this->content->all('products', LocaleEnum::from($locale));
     }
 
     public function services(string $locale): Collection
     {
-        $key = Str::slug("services_published_{$locale}");
-
-        return Cache::rememberForever($key, function () use ($locale) {
-            return Service::where('locale', $locale)->where('published', true)->orderBy('order')->get();
-        });
+        return $this->content->all('services', LocaleEnum::from($locale));
     }
 
     public function news(string $locale): Collection
     {
-        $key = Str::slug("news_published_{$locale}");
-
-        return Cache::rememberForever($key, function () use ($locale) {
-            return News::where('locale', $locale)->whereNotNull('published_at')->orderByDesc('published_at')->get();
-        });
+        return $this->content->all('news', LocaleEnum::from($locale));
     }
 
     public function technologies(string $locale): Collection
     {
-        $key = Str::slug("technologies_published_{$locale}");
-
-        return Cache::rememberForever($key, function () use ($locale) {
-            return Technology::where('locale', $locale)->where('published', true)->orderBy('order')->get();
-        });
+        return $this->content->all('technologies', LocaleEnum::from($locale));
     }
 
     public function openSource(string $locale): Collection
     {
-        $key = Str::slug("open_source_published_{$locale}");
-
-        return Cache::rememberForever($key, function () use ($locale) {
-            return OpenSource::where('locale', $locale)->where('published', true)->orderByDesc('downloads')->get();
-        });
+        return $this->content->all('open-source', LocaleEnum::from($locale));
     }
 
     public function contacts(string $locale): object
     {
-        $key = Str::slug("contacts_published_{$locale}");
+        $build = fn (array $list) => collect($list)->map(fn (array $member) => (object) [
+            'name' => $member['name'],
+            'role' => is_array($member['role'] ?? null) ? ($member['role'][$locale] ?? null) : ($member['role'] ?? null),
+            'image' => $member['image'] ?? null,
+            'icons' => $member['icons'] ?? [],
+        ]);
 
-        return Cache::rememberForever($key, function () use ($locale) {
-            $publishedContacts = Contact::query()
-                ->where('published', true)
-                ->orderBy('name')
-                ->get();
+        return (object) [
+            'employees' => $build(config('team.employees', [])),
+            'collaborations' => $build(config('team.collaborations', [])),
+            'board_members' => $build(config('team.board_members', [])),
+        ];
+    }
 
-            return (object) collect([
-                ContactSectionEnum::SOFTWARE_ENGINERING,
-                ContactSectionEnum::DIGITAL_TRANSFORMATION,
-                ContactSectionEnum::SCANNING,
-                ContactSectionEnum::COLLABORATIONS,
-                ContactSectionEnum::BOARD_MEMBERS,
-            ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale): array {
-                $contacts = $publishedContacts
-                    ->filter(function (Contact $contact) use ($section): bool {
-                        $sections = $contact->sections ?? [];
+    public function milestones(string $locale): Collection
+    {
+        return collect(config('history.milestones', []))->map(fn (array $milestone) => (object) [
+            'year' => (int) $milestone['year'],
+            'title' => $milestone['title'] ?? '',
+            'body' => $milestone['body'] ?? '',
+        ]);
+    }
 
-                        return array_key_exists($section, $sections);
-                    })
-                    ->map(fn (Contact $contact) => ContactDTO::fromModel($contact, $section, $locale));
-
-                return [$section => $contacts->values()];
-            })->all();
-        });
+    public function pillars(string $locale): Collection
+    {
+        return collect(config('pillars.items', []))->map(fn (array $pillar) => (object) [
+            'eyebrow' => $pillar['eyebrow'] ?? null,
+            'title' => $pillar['title'] ?? '',
+            'teaser' => $pillar['teaser'] ?? null,
+        ]);
     }
 }

@@ -8,27 +8,50 @@ jobs:
     name: pull-request | ci pest coverage
 
     env:
-      PHP_VERSION: 8.4
-      NODE_VERSION: 22
-      PEST_MIN_COVERAGE: 1
-      PEST_MIN_TYPE_COVERAGE: 1
+      PHP_VERSION: 8.5
+      NODE_VERSION: 24
+      PEST_MIN_COVERAGE: 90
+      PEST_MIN_TYPE_COVERAGE: 90
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: laravel_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP Environment
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: dom, curl, fileinfo, mysql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, xdebug
+          extensions: dom, curl, fileinfo, pgsql, pdo_pgsql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, xdebug
           coverage: xdebug
 
       - name: Prepare the .env file
-        run: cp .env.ci .env
+        run: cp .env.testing.ci .env
+
+      - name: Prepare the .env file
+        run: cp -f .env.testing.ci .env.testing
+
+      - name: Configure Composer Credentials
+        run: |
+          composer config http-basic.composer.fluxui.dev ${{ secrets.FLUXUI_USERNAME }} ${{ secrets.FLUXUI_LICENSE_KEY }}
+          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
 
       - name: Cache Composer Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.composer/cache/files
@@ -43,11 +66,15 @@ jobs:
       - name: Publish Laravel assets
         run: php artisan vendor:publish --tag=laravel-assets --ansi --force
 
-      - name: Setup Database
+      - name: Publish Laravel Nova assets
+        run: php artisan vendor:publish --tag=nova-assets --ansi --force
+
+      - name: Setup PostgreSQL Database
         run: |
-          sudo systemctl start mysql
-          mysql --user="root" --password="root" -e "CREATE DATABASE laravel character set UTF8mb4 collate utf8mb4_bin;"
-          mysql --user="root" --password="root" -e "CREATE DATABASE logs character set UTF8mb4 collate utf8mb4_bin;"
+          # Database is already created by the service, just wait for it to be ready
+          until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
+          # Create additional database for logs
+          PGPASSWORD=postgres psql -h localhost -U postgres -c "CREATE DATABASE logs;"
 
       - name: Generate App Key & Run Migrations
         run: |
@@ -55,7 +82,7 @@ jobs:
           php artisan migrate:fresh
 
       - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
@@ -70,14 +97,14 @@ jobs:
         run: php -v
 
       - name: Execute Pest Coverage
-        run: XDEBUG_MODE=coverage ./vendor/bin/pest --coverage --min=${{ env.PEST_MIN_COVERAGE }}
+        run: XDEBUG_MODE=coverage ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit --coverage --min=${{ env.PEST_MIN_COVERAGE }}
 
       - name: Execute Pest Type Coverage
-        run: XDEBUG_MODE=coverage ./vendor/bin/pest --type-coverage --min=${{ env.PEST_MIN_TYPE_COVERAGE }}
+        run: XDEBUG_MODE=coverage ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit --type-coverage --min=${{ env.PEST_MIN_TYPE_COVERAGE }}
 
       - name: Store Log Artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: Store report artifacts
           path: ./storage/logs

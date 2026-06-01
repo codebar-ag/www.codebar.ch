@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Actions\LocaleAction;
 use App\Enums\LocaleEnum;
 use App\Enums\SessionKeyEnum;
 use Closure;
@@ -11,18 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SetLanguage
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
-    public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, Closure $next): Response
     {
         $locale = $request->session()->has(SessionKeyEnum::LANGUAGE->value)
-            ? $request->session()->get(SessionKeyEnum::LANGUAGE->value)
+            ? (string) $request->session()->get(SessionKeyEnum::LANGUAGE->value)
             : LocaleEnum::DE->value;
 
-        (new LocaleAction($locale))->setLocale();
+        app()->setLocale($locale);
 
         return $next($request);
     }

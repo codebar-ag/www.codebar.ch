@@ -1,5 +1,5 @@
-@props([])
+@props(['classAttributes' => ''])
 
-<div class="flex flex-col divide-y divide-gray-100">
+<x-ui.list :class-attributes="$classAttributes">
     {{ $slot }}
-</div>
+</x-ui.list>

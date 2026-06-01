@@ -37,10 +37,10 @@ return [
     'valid_from_field_name' => env('HONEYPOT_VALID_FROM', 'valid_from'),
 
     /*
-     * If the form is submitted faster than this amount of seconds
-     * the form submission will be considered invalid.
+     * Minimum seconds after the page is rendered before submit is accepted (encrypted timestamp).
+     * 0 allows immediate submit; higher values block very fast bots but can frustrate real users.
      */
-    'amount_of_seconds' => (int) env('HONEYPOT_SECONDS', 1),
+    'amount_of_seconds' => (int) env('HONEYPOT_SECONDS', 0),
 
     /*
      * This class is responsible for sending a response to requests that

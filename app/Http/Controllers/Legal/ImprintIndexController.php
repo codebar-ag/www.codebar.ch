@@ -8,13 +8,10 @@ use Illuminate\View\View;
 
 class ImprintIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function __invoke(): View
     {
         return view('app.legal.imprint.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'legal.imprint.index'))->default(),
+            'page' => PageAction::for('legal.imprint.index'),
         ]);
     }
 }

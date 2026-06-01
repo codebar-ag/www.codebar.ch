@@ -1,5 +1,8 @@
 <?php
 
+use Spatie\Health\Notifications\Notifiable;
+use Spatie\Health\ResultStores\CacheHealthResultStore;
+
 return [
     /*
      * A result store is responsible for saving the results of the checks. The
@@ -7,7 +10,7 @@ return [
      * can use multiple stores at the same time.
      */
     'result_stores' => [
-        Spatie\Health\ResultStores\CacheHealthResultStore::class => [
+        CacheHealthResultStore::class => [
             'store' => 'file',
         ],
     ],
@@ -18,49 +21,21 @@ return [
      */
     'notifications' => [
         /*
-         * Notifications will only get sent if this option is set to `true`.
+         * Mail is not used; configure Oh Dear to poll oh_dear_endpoint (below).
          */
-        'enabled' => true,
+        'enabled' => false,
 
-        'notifications' => [
-            Spatie\Health\Notifications\CheckFailedNotification::class => ['mail'],
-        ],
+        'notifications' => [],
 
-        /*
-         * Here you can specify the notifiable to which the notifications should be sent. The default
-         * notifiable will use the variables specified in this config file.
-         */
-        'notifiable' => Spatie\Health\Notifications\Notifiable::class,
+        'notifiable' => Notifiable::class,
 
-        /*
-         * When checks start failing, you could potentially end up getting
-         * a notification every minute.
-         *
-         * With this setting, notifications are throttled. By default, you'll
-         * only get one notification per hour.
-         */
         'throttle_notifications_for_minutes' => 60,
         'throttle_notifications_key' => 'health:latestNotificationSentAt:',
 
-        'mail' => [
-            'to' => 'your@example.com',
-
-            'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
-            ],
-        ],
-
         'slack' => [
             'webhook_url' => env('HEALTH_SLACK_WEBHOOK_URL', ''),
-
-            /*
-             * If this is set to null the default channel of the webhook will be used.
-             */
             'channel' => null,
-
             'username' => null,
-
             'icon' => null,
         ],
     ],
@@ -71,7 +46,7 @@ return [
      * Oh Dear, you can also have access to more advanced notification options.
      */
     'oh_dear_endpoint' => [
-        'enabled' => false,
+        'enabled' => env('OH_DEAR_HEALTH_CHECK_ENABLED', false),
 
         /*
          * When this option is enabled, the checks will run before sending a response.
@@ -85,9 +60,9 @@ return [
         'secret' => env('OH_DEAR_HEALTH_CHECK_SECRET'),
 
         /*
-         * The URL that should be configured in the Application health settings at Oh Dear.
+         * Path for the GET route. In Oh Dear, set the full health URL to APP_URL + this path.
          */
-        'url' => '/oh-dear-health-check-results',
+        'url' => env('OH_DEAR_HEALTH_CHECK_PATH', '/oh-dear-health-check-results'),
     ],
 
     /*

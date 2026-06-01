@@ -3,27 +3,27 @@
 namespace App\Http\Controllers\News;
 
 use App\Actions\PageAction;
+use App\Content\MarkdownContentService;
+use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
-use App\Models\News;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class NewsShowController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(string $locale, News $news): View
+    public function __invoke(MarkdownContentService $content, string $locale, string $news): View
     {
+        $localeEnum = LocaleEnum::from($locale);
+        $item = $content->find('news', $localeEnum, $news) ?? abort(404);
+
         return view('app.news.show')->with([
-            'page' => (new PageAction($locale))->news(news: $news),
-            'published_at' => $news->published_at?->format('d.m.Y'),
-            'last_updated_at' => $news->updated_at?->format('d.m.Y'),
-            'author' => $news->author,
-            'title' => $news->title,
-            'teaser' => $news->teaser,
-            'tags' => collect($news->tags),
-            'content' => Str::of($news->content)->markdown(),
+            'page' => PageAction::fromContent($item),
+            'published_at' => $item->publishedAt?->format('d.m.Y'),
+            'last_updated_at' => $item->publishedAt?->format('d.m.Y'),
+            'author' => $item->frontmatter['author'] ?? null,
+            'title' => $item->title,
+            'teaser' => $item->teaser,
+            'tags' => $item->tags(),
+            'content' => $item->body,
         ]);
     }
 }

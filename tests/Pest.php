@@ -1,23 +1,12 @@
 <?php
 
-use Database\Seeders\Paperflakes\RolesAndPermissionsSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Tests\TestCase;
 
-uses(TestCase::class, RefreshDatabase::class)
-    ->beforeEach(function () {
-        $this->seed(RolesAndPermissionsSeeder::class);
-    })
-    ->in(__DIR__);
+uses(TestCase::class)->in('Core', 'Feature', 'Helper', 'Unit');
 
-function createRequest($method, $uri): Request
+function createRequest(string $method, string $uri): Request
 {
-    $symfonyRequest = SymfonyRequest::create(
-        $uri,
-        $method
-    );
-
-    return Request::createFromBase($symfonyRequest);
+    return Request::createFromBase(SymfonyRequest::create($uri, $method));
 }

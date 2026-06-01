@@ -10,4 +10,6 @@ it('helper number: format', function () {
     $number = null;
     $formatted = HelperNumber::format($number);
     expect($formatted)->toBe('0.00');
+
+    expect(HelperNumber::format(0, 2, ',', '.'))->toBe('0,00');
 })->group('helper', 'number');

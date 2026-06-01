@@ -7,8 +7,7 @@ return [
 
         /*
          * Configure which command Lasso should run in its deployment
-         * phase. This will most likely be "npm run production" but
-         * you may choose what you would like to execute.
+         * phase. This template uses Vite (`npm run build`).
          */
         'script' => 'npm run build',
 
@@ -47,7 +46,7 @@ return [
 
         /*
          * Specify the filesystem Lasso should use to store
-         * and retrieve its files.
+         * and retrieve its files. Uses the same `s3` disk as the app.
          */
         'disk' => 's3',
 
@@ -94,9 +93,9 @@ return [
          * Specify which webhooks should be triggered after a successful
          * "php artisan lasso:publish" command execution.
          */
-        'publish' => [
-            //
-        ],
+        'publish' => array_values(array_filter([
+            env('LARAVEL_CLOUD_DEPLOY_WEBHOOK_URL'),
+        ])),
 
         /*
          * Specify which webhooks should be triggered after a successful

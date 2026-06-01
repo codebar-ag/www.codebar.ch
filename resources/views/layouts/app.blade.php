@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html
-        lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-        class="scroll-smooth"
+    lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    class="scroll-smooth [view-transition-name:root]"
 >
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-  
-    <!-- Resource hints for performance -->
+
     <link rel="preconnect" href="https://res.cloudinary.com">
     <link rel="dns-prefetch" href="https://res.cloudinary.com">
     <link rel="preconnect" href="https://cdn.usefathom.com">
     <link rel="dns-prefetch" href="https://cdn.usefathom.com">
 
-    <!-- Preload critical resources -->
-    <link rel="preload" href="{{ asset('fonts/poppins/poppins-regular.woff2') }}" as="font" type="font/woff2" crossorigin>
-
     @include('layouts._partials._seo')
     @include('layouts._partials._favicons')
 
+    {{-- Language-fade in-phase: runs synchronously before paint to avoid FOUC. --}}
+    <script>
+        (function () {
+            try {
+                var raw = sessionStorage.getItem('langFadeIn');
+                if (!raw) return;
+                sessionStorage.removeItem('langFadeIn');
+                var data = JSON.parse(raw);
+                if (Date.now() - (data.t || 0) > 3000) return;
+                var html = document.documentElement;
+                html.classList.add('is-fading-in');
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        html.classList.remove('is-fading-in');
+                    });
+                });
+            } catch (e) {}
+        })();
+    </script>
+
     @vite(['resources/js/app.js'])
-
 </head>
-<body class="font-sans antialiased">
-
-<main class="min-h-screen bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
+<body class="bg-white font-sans text-zinc-800 antialiased">
+    <div class="flex min-h-screen flex-col">
         @include('layouts._partials._navigation')
 
-        <section class="my-8">
-            <div class="text-lg leading-relaxed max-w-6xl mx-auto px-4 md:px-0">
-                {{ $slot }}
-            </div>
-        </section>
+        <main class="flex-1">
+            {{ $slot }}
+        </main>
 
         @include('layouts._partials._footer')
-
     </div>
-</main>
 
-@include('layouts._partials._fathom')
-
+    @include('layouts._partials._fathom')
 </body>
 </html>

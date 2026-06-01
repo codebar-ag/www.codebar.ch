@@ -7,7 +7,7 @@ return [
 
     /*
      * A policy will determine which Feature-Policy headers will be set.
-     * A valid policy extends `Mazedlx\FeaturePolicy\Policies\Policy`
+     * A valid policy extends `CodebarAg\LaravelFeaturePolicy\Policies\Policy`
      */
     'policy' => FeaturePolicyBasic::class,
 

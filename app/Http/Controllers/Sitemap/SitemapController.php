@@ -2,123 +2,102 @@
 
 namespace App\Http\Controllers\Sitemap;
 
-use App\Actions\PageAction;
+use App\Content\ContentItem;
+use App\Content\MarkdownContentService;
 use App\DTO\PageDTO;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
-use App\Models\News;
-use App\Models\Product;
-use App\Models\Service;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class SitemapController extends Controller
 {
-    protected ?SitemapBuilder $sitemap = null;
-
-    protected const array DEFAULT_ROUTES = [
+    private const array DEFAULT_ROUTES = [
         'start.index',
         'about-us.index',
         'products.index',
         'services.index',
+        'technologies.index',
+        'open-source.index',
         'contact.index',
         'legal.terms.index',
         'legal.imprint.index',
         'legal.privacy.index',
         'jobs.index',
+        'media.index',
+        'co-working.index',
     ];
 
-    protected const array DEFAULT_LOCALES = [
-        LocaleEnum::DE->value,
-        LocaleEnum::EN->value,
+    private const array CONTENT_TYPES = [
+        'news' => 'news.show',
+        'services' => 'services.show',
+        'products' => 'products.show',
+        'technologies' => 'technologies.show',
+        'open-source' => 'open-source.show',
     ];
 
-    public function __invoke(): Response
+    public function __invoke(MarkdownContentService $content): Response
     {
-        $content = Cache::rememberForever(key: 'sitemap_xml', callback: function (): string {
-            $this->sitemap = new SitemapBuilder;
-            $this->builder();
+        $body = Cache::remember('sitemap_xml', 3600, fn () => $this->build($content));
 
-            return $this->sitemap->toXml();
-        });
-
-        return response(content: $content)
+        return response($body)
             ->header('Content-Type', 'application/xml')
-            ->header('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+            ->header('Cache-Control', 'public, max-age=3600');
     }
 
-    private function builder(): void
+    private function build(MarkdownContentService $content): string
     {
-        $this->addDefaultRoutesToSitemap();
+        $sitemap = new SitemapBuilder;
 
-        // Use chunked queries to prevent memory issues
-        News::whereNotNull('published_at')
-            ->with('references')
-            ->chunk(100, function (Collection $news): void {
-                /** @var News $item */
-                foreach ($news as $item) {
-                    $this->addLocalizedPageSet(
-                        page: (new PageAction(locale: null, routeName: null))->news(news: $item, withReferences: true),
-                    );
-                }
-            });
+        foreach (self::DEFAULT_ROUTES as $routeName) {
+            foreach (LocaleEnum::cases() as $locale) {
+                $localeSlug = Str::slug($locale->value);
+                $sitemap->addItem(new PageDTO(
+                    locale: $locale->value,
+                    title: trans("pages.{$routeName}.title", [], $locale->value),
+                    url: route("{$localeSlug}.{$routeName}", absolute: true),
+                    lastModificationDate: now()->startOfMonth(),
+                ));
+            }
+        }
 
-        Service::where('published', true)
-            ->with('references')
-            ->chunk(100, function (Collection $services): void {
-                /** @var Service $item */
-                foreach ($services as $item) {
-                    $this->addLocalizedPageSet(
-                        page: (new PageAction(locale: null, routeName: null))->service(service: $item, withReferences: true),
-                    );
-                }
-            });
+        foreach (self::CONTENT_TYPES as $type => $routeName) {
+            foreach (LocaleEnum::cases() as $locale) {
+                $items = $content->all($type, $locale);
+                $localeSlug = Str::slug($locale->value);
+                $paramKey = $this->paramKey($routeName);
 
-        Product::where('published', true)
-            ->with('references')
-            ->chunk(100, function (Collection $products): void {
-                /** @var Product $item */
-                foreach ($products as $item) {
-                    $this->addLocalizedPageSet(
-                        page: (new PageAction(locale: null, routeName: null))->product(product: $item, withReferences: true),
-                    );
+                foreach ($items as $item) {
+                    /** @var ContentItem $item */
+                    $sitemap->addItem(new PageDTO(
+                        locale: $locale->value,
+                        title: $item->title,
+                        description: $item->teaser,
+                        image: $item->image,
+                        url: route("{$localeSlug}.{$routeName}", [
+                            'locale' => $locale->value,
+                            $paramKey => $item->slug,
+                        ], absolute: true),
+                        lastModificationDate: $item->publishedAt ?? now()->startOfMonth(),
+                    ));
                 }
-            });
+            }
+        }
+
+        return $sitemap->toXml();
     }
 
-    private function addDefaultRoutesToSitemap(): void
+    private function paramKey(string $routeName): string
     {
-        collect(value: self::DEFAULT_ROUTES)->each(function (string $routeName): void {
-            $pages = collect(self::DEFAULT_LOCALES)
-                ->map(function (string $locale) use ($routeName): ?PageDTO {
-                    return (new PageAction(locale: $locale, routeName: $routeName))->default();
-                })
-                ->filter();
-
-            $pages->each(function (PageDTO $page) use ($pages): void {
-                $page->referencePages = $pages;
-            });
-
-            $pages->each(function (PageDTO $page): void {
-                $this->sitemap->addItem(page: $page);
-            });
-        });
-    }
-
-    private function addLocalizedPageSet(PageDTO $page): void
-    {
-        $pages = collect(value: $page->referencePages)
-            ->prepend(value: $page)
-            ->unique(fn (PageDTO $p): string => $p->locale);
-
-        $pages->each(function (PageDTO $page) use ($pages): void {
-            $page->referencePages = collect(value: [$page])
-                ->merge($pages->reject(fn (PageDTO $ref): bool => $ref->locale === $page->locale))
-                ->values();
-
-            $this->sitemap->addItem(page: $page);
-        });
+        return match ($routeName) {
+            'news.show' => 'news',
+            'services.show' => 'service',
+            'products.show' => 'product',
+            'technologies.show' => 'technology',
+            'open-source.show' => 'openSource',
+            default => 'slug',
+        };
     }
 }

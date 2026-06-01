@@ -2,9 +2,9 @@
 
 namespace App\Security;
 
-use Mazedlx\FeaturePolicy\Directive;
-use Mazedlx\FeaturePolicy\Policies\Policy;
-use Mazedlx\FeaturePolicy\Value;
+use CodebarAg\LaravelFeaturePolicy\Directive;
+use CodebarAg\LaravelFeaturePolicy\Policies\Policy;
+use CodebarAg\LaravelFeaturePolicy\Value;
 
 class FeaturePolicyBasic extends Policy
 {

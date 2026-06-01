@@ -9,16 +9,13 @@ use Illuminate\View\View;
 
 class TechnologiesIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $data): View
     {
         $locale = app()->getLocale();
 
         return view('app.technologies.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'technologies.index'))->default(),
-            'technologies' => (new ViewDataAction)->technologies($locale),
+            'page' => PageAction::for('technologies.index', $locale),
+            'technologies' => $data->technologies($locale),
         ]);
     }
 }

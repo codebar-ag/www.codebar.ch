@@ -4,21 +4,19 @@ namespace App\Http\Controllers\Services;
 
 use App\Actions\PageAction;
 use App\Actions\ViewDataAction;
+use App\Content\ContentItem;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
 class ServicesIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $data): View
     {
         $locale = app()->getLocale();
 
         return view('app.services.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'services.index'))->default(),
-            'services' => (new ViewDataAction)->services($locale)->groupBy('group'),
+            'page' => PageAction::for('services.index', $locale),
+            'services' => $data->services($locale)->groupBy(fn (ContentItem $item) => $item->frontmatter['group'] ?? 'Services'),
         ]);
     }
 }

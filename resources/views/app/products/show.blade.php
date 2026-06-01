@@ -1,14 +1,9 @@
 <x-app-layout :page="$page">
+    <x-ui.hero :eyebrow="__('Product')" :title="$name" :teaser="$teaser" />
 
-    <x-h1 :title="$name"/>
-    <x-h1-teaser :teaser="$teaser"/>
-
-    <x-section>
-        <x-content :content="$content"/>
-    </x-section>
+    <x-content :content="$content" />
 
     @if(collect(['DMS/ECM', 'DocuWare'])->diff($tags)->isEmpty())
-        <x-docuware-showme/>
+        <x-docuware-showme />
     @endif
-
 </x-app-layout>

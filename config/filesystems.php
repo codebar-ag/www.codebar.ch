@@ -56,10 +56,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'root' => env('AWS_PATH', 'laravel-template').'/'.env('APP_ENV', 'unknown'),
+            'root' => '/',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION', 'fra1'),
+            'region' => env('AWS_DEFAULT_REGION') ?: 'fra1',
             'bucket' => env('AWS_BUCKET', 'srv-dev-space-fra-001'),
             'cdn_endpoint' => env('AWS_CDN_ENDPOINT', 'https://srv-dev-space-fra-001.fra1.digitaloceanspaces.com'),
             'endpoint' => env('AWS_ENDPOINT', 'https://fra1.digitaloceanspaces.com'),

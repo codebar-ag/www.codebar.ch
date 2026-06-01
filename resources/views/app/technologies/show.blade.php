@@ -1,10 +1,5 @@
 <x-app-layout :page="$page">
+    <x-ui.hero :eyebrow="__('Technology')" :title="$name" :teaser="$teaser" />
 
-    <x-h1 :title="$name"/>
-    <x-h1-teaser :teaser="$teaser"/>
-
-    <x-section>
-        <x-content :content="$content"/>
-    </x-section>
-
+    <x-content :content="$content" />
 </x-app-layout>

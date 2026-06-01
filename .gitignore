@@ -1,8 +1,8 @@
 /node_modules
+/.lasso
 /public/build/
 /public/hot
 /public/storage
-/public/sitemap.xml
 /public/css/
 /public/js/
 /public/vendor/*
@@ -26,6 +26,13 @@ storage/debugbar/
 /.idea
 /.vscode
 
+# Laravel Boost / editor agent outputs (regenerate after clone: php artisan boost:install && php artisan boost:update)
+/.claude/
+/.cursor/
+/.junie/
+/.mcp.json
+/CLAUDE.md
+
 # Environment files
 .env
 .env.backup
@@ -34,7 +41,6 @@ storage/debugbar/
 .env.dusk.local
 
 # PHP Unit
-phpunit.xml
 .phpunit.result.cache
 .phpunit.cache/
 
@@ -54,3 +60,24 @@ auth.json
 # Coverage
 /coverage/
 --cache-directory
+
+# Dusk
+/tests/Browser/screenshots
+/tests/Browser/console
+# Laravel storage (do not commit compiled views, cache, sessions)
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/app/public/*
+!/storage/app/public/.gitignore
+old/
+/old/
+
+

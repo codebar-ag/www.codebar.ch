@@ -8,20 +8,18 @@ use Illuminate\Support\Collection;
 class PageDTO
 {
     public function __construct(
-        public string $locale,
-        public string $routeKey,
-        public string $routeName,
-        public string $title,
-        public Carbon $lastModificationDate,
-        public string $robots = 'index,follow',
-        public mixed $routeParameters = [],
-        public ?string $description = null,
-        public ?string $image = null,
-        public ?Collection $referencePages = null,
+        public readonly string $locale,
+        public readonly string $title,
+        public readonly ?string $description = null,
+        public readonly ?string $image = null,
+        public readonly string $robots = 'index,follow',
+        public readonly ?string $url = null,
+        public readonly ?Carbon $lastModificationDate = null,
+        public ?Collection $alternates = null,
     ) {}
 
-    public function url(): string
+    public function url(): ?string
     {
-        return route($this->routeName, $this->routeParameters, true);
+        return $this->url;
     }
 }

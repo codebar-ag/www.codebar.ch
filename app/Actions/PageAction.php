@@ -2,108 +2,40 @@
 
 namespace App\Actions;
 
+use App\Content\ContentItem;
 use App\DTO\PageDTO;
-use App\Models\News;
-use App\Models\Page;
-use App\Models\Product;
-use App\Models\Reference;
-use App\Models\Service;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class PageAction
 {
-    public function __construct(
-        private ?string $locale = null,
-        private ?string $routeName = null,
-        private mixed $routeParameters = [],
-        private ?Collection $referencePages = null,
-    ) {
-        $this->locale = $locale ?? app()->getLocale();
-    }
-
-    public function default(): ?PageDTO
+    public static function for(string $routeName, ?string $locale = null): PageDTO
     {
-        $page = $this->findPage();
-
-        if (! $page) {
-            return null;
-        }
+        $locale ??= app()->getLocale();
 
         return new PageDTO(
-            locale: $page->locale,
-            routeKey: $page->key,
-            routeName: Str::slug($page->locale).'.'.$this->routeName,
-            title: $page->title,
-            description: $page->description,
-            image: $page->image,
-            lastModificationDate: $page->updated_at ?? now(),
-            routeParameters: $this->routeParameters,
-            referencePages: $this->referencePages
+            locale: $locale,
+            title: self::translate("pages.{$routeName}.title", $locale, default: config('site.company')),
+            description: self::translate("pages.{$routeName}.description", $locale),
+            url: request()->url(),
+            lastModificationDate: now()->startOfMonth(),
         );
     }
 
-    public function news(News $news, bool $withReferences = false, ?string $locale = null): PageDTO
+    public static function fromContent(ContentItem $item, ?string $locale = null): PageDTO
     {
         return new PageDTO(
-            locale: $locale ?? $news->locale->value,
-            routeKey: 'news.show',
-            routeName: Str::slug(title: $locale ?? $news->locale->value).'.news.show',
-            title: $news->title,
-            description: $news->teaser,
-            image: $news->image,
-            lastModificationDate: $news->updated_at ?? now(),
-            routeParameters: ['locale' => $news->locale, 'news' => $news],
-            referencePages: $withReferences ? $news->references->map(function (Reference $reference) {
-                $reference->load(['target']);
-
-                return self::news(news: $reference->target, withReferences: false, locale: $reference->reference_locale);
-            }) : null,
+            locale: $locale ?? $item->locale->value,
+            title: $item->title,
+            description: $item->teaser,
+            image: $item->image,
+            url: request()->url(),
+            lastModificationDate: $item->publishedAt ?? now()->startOfMonth(),
         );
     }
 
-    public function product(Product $product, bool $withReferences = false, ?string $locale = null): PageDTO
+    private static function translate(string $key, string $locale, ?string $default = null): ?string
     {
-        return new PageDTO(
-            locale: $locale ?? $product->locale->value,
-            routeKey: 'products.show',
-            routeName: Str::slug(title: $locale ?? $product->locale->value).'.products.show',
-            title: $product->name,
-            description: $product->teaser,
-            image: $product->image,
-            lastModificationDate: $product->updated_at ?? now(),
-            routeParameters: ['locale' => $product->locale, 'product' => $product],
-            referencePages: $withReferences ? $product->references->map(function (Reference $reference) {
-                $reference->load(['target']);
+        $translation = trans($key, [], $locale);
 
-                return self::product(product: $reference->target, withReferences: false, locale: $reference->reference_locale);
-            }) : null,
-        );
-    }
-
-    public function service(Service $service, bool $withReferences = false, ?string $locale = null): PageDTO
-    {
-        return new PageDTO(
-            locale: $locale ?? $service->locale->value,
-            routeKey: 'services.show',
-            routeName: Str::slug(title: $locale ?? $service->locale->value).'.services.show',
-            title: $service->name,
-            description: $service->teaser,
-            image: $service->image,
-            lastModificationDate: $service->updated_at ?? now(),
-            routeParameters: ['locale' => $service->locale, 'service' => $service],
-            referencePages: $withReferences ? $service->references->map(function (Reference $reference) {
-                $reference->load(['target']);
-
-                return self::service(service: $reference->target, withReferences: false, locale: $reference->reference_locale);
-            }) : null,
-        );
-    }
-
-    private function findPage(): ?Page
-    {
-        return Page::where('locale', $this->locale)
-            ->where('key', $this->routeName)
-            ->first();
+        return $translation === $key ? $default : $translation;
     }
 }

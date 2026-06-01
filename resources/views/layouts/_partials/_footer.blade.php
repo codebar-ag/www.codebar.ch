@@ -1,88 +1,82 @@
-<footer class="my-12 md:my-20 bg-white text-lg min-h-[200px]">
-    <div class="flex flex-col gap-8">
-
-        <div class="hidden md:flex flex-col items-start gap-4 md:gap-18 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
-            @if($configuration?->section_services)
-                <div>
-                    <h2 class="text-black font-semibold">{{ __('Services') }}</h2>
-                    <ul class="mt-1 list-none text-base">
-                        @if(!empty($services) && $services->count())
-                            @foreach($services as $service)
-                                <li>
-                                    <x-a :href="$service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service])"
-                                         label="{{ $service->name }}" :target="$service->url ? '_blank' : '_self'"
-                                         classAttributes="text-lg"/>
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
-                </div>
+<footer class="border-t border-zinc-200 bg-zinc-50">
+    <div class="mx-auto max-w-6xl px-6 py-20 lg:px-8">
+        {{-- Main nav grid --}}
+        <div class="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+            @if($configuration?->section_services && !empty($services) && $services->count())
+                <x-ui.footer-column :title="__('Services')">
+                    @foreach($services as $service)
+                        <x-ui.footer-link
+                            :href="$service->url ?? localized_route('services.show', ['locale' => app()->getLocale(), 'service' => $service])"
+                            :target="$service->url ? '_blank' : '_self'"
+                            :label="$service->name"
+                        />
+                    @endforeach
+                </x-ui.footer-column>
             @endif
 
-            @if($configuration?->section_products)
-                <div>
-                    <h2 class="text-black font-semibold">{{ __('Products') }}</h2>
-                    <ul class="mt-1 list-none text-base">
-                        @if(!empty($products) && $products->count())
-                            @foreach($products as $product)
-                                <li>
-                                    <x-a :href="$product->url ?? localized_route('products.show',['locale' => app()->getLocale(),'product' => $product])"
-                                         label="{{ $product->name }}" :target="$product->url ? '_blank' : '_self'"
-                                         classAttributes="text-lg"/>
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
-                </div>
+            @if($configuration?->section_products && !empty($products) && $products->count())
+                <x-ui.footer-column :title="__('Products')">
+                    @foreach($products as $product)
+                        <x-ui.footer-link
+                            :href="$product->url ?? localized_route('products.show', ['locale' => app()->getLocale(), 'product' => $product])"
+                            :target="$product->url ? '_blank' : '_self'"
+                            :label="$product->name"
+                        />
+                    @endforeach
+                </x-ui.footer-column>
             @endif
 
-            <div>
-                <h2 class="text-black font-semibold">{{ $configuration?->company }}</h2>
-                <ul class="mt-1 list-none text-base">
-                    <li>
-                        <x-a :href="localized_route('about-us.index')" label="{{ __('About us') }}"
-                             classAttributes="text-lg"/>
-                    </li>
-                    <li>
-                        <x-a :href="localized_route('contact.index')" label="{{ __('Contact') }}"
-                             classAttributes="text-lg"/>
-                    </li>
-                    <li>
-                        <x-a :href="localized_route('media.index')" label="{{ __('Media') }}"
-                             classAttributes="text-lg"/>
-                    </li>
-                    <li>
-                        <x-a :href="localized_route('jobs.index')" label="{{ __('Jobs') }}" classAttributes="text-lg"/>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="text-black font-semibold">{{ __('Legal') }}</h2>
-                <ul class="mt-1 list-none text-base">
-                    <li>
-                        <x-a :href="localized_route('legal.terms.index')" label="{{ __('Terms') }}"
-                             classAttributes="text-lg"/>
-                    </li>
-                    <li>
-                        <x-a :href="localized_route('legal.privacy.index')" label="{{ __('Privacy') }}"
-                             classAttributes="text-lg"/>
-                    </li>
-                    <li>
-                        <x-a :href="localized_route('legal.imprint.index')" label="{{ __('Imprint') }}"
-                             classAttributes="text-lg"/>
-                    </li>
-                </ul>
-            </div>
+            <x-ui.footer-column :title="__('Work')">
+                @if($configuration?->section_open_source)
+                    <x-ui.footer-link :href="localized_route('open-source.index')" :label="__('Open Source')" />
+                @endif
+                @if($configuration?->section_technologies)
+                    <x-ui.footer-link :href="localized_route('technologies.index')" :label="__('Technologies')" />
+                @endif
+                @if($configuration?->section_news)
+                    <x-ui.footer-link :href="localized_route('news.index')" :label="__('News')" />
+                @endif
+            </x-ui.footer-column>
+
+            <x-ui.footer-column :title="__('Company')">
+                <x-ui.footer-link :href="localized_route('about-us.index')" :label="__('About')" />
+                @if($configuration?->section_co_working ?? true)
+                    <x-ui.footer-link :href="localized_route('co-working.index')" :label="__('Co-Working')" />
+                @endif
+                <x-ui.footer-link :href="localized_route('jobs.index')" :label="__('Jobs')" />
+                <x-ui.footer-link :href="localized_route('media.index')" :label="__('Media')" />
+                <x-ui.footer-link :href="localized_route('contact.index')" :label="__('Contact')" />
+            </x-ui.footer-column>
+
+            <x-ui.footer-column :title="__('Legal')">
+                <x-ui.footer-link :href="localized_route('legal.terms.index')" :label="__('Terms')" />
+                <x-ui.footer-link :href="localized_route('legal.privacy.index')" :label="__('Privacy')" />
+                <x-ui.footer-link :href="localized_route('legal.imprint.index')" :label="__('Imprint')" />
+                <x-ui.footer-link href="{{ route('styleguide.index') }}" label="Styleguide" />
+            </x-ui.footer-column>
         </div>
 
-        <div>
+        {{-- Swiss Made trust strip --}}
+        <div class="mt-16 flex flex-col items-start gap-6 border-t border-zinc-200 pt-8 md:flex-row md:items-center md:gap-10">
             @include('layouts._partials._footer.labels')
         </div>
 
-        @if(filled($configuration?->company))
-            <div class="text-base text-gray-500 text-center md:text-left">
-                <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ $configuration?->company }}</span>
-            </div>
-        @endif
+        {{-- Bottom row --}}
+        <div class="mt-12 flex flex-col items-start justify-between gap-4 border-t border-zinc-200 pt-8 md:flex-row md:items-center">
+            <p class="text-xs text-zinc-500">
+                © {{ date('Y') }} {{ $configuration?->company ?? config('site.company') }}
+            </p>
+
+            @if(filled(config('site.links.linkedin')) || filled(config('site.links.github')))
+                <div class="flex items-center gap-5 text-xs text-zinc-500">
+                    @if(filled(config('site.links.linkedin')))
+                        <a href="{{ config('site.links.linkedin') }}" target="_blank" rel="noopener" class="hover:text-zinc-950">LinkedIn</a>
+                    @endif
+                    @if(filled(config('site.links.github')))
+                        <a href="{{ config('site.links.github') }}" target="_blank" rel="noopener" class="hover:text-zinc-950">GitHub</a>
+                    @endif
+                </div>
+            @endif
+        </div>
     </div>
 </footer>

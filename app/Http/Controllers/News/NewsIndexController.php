@@ -9,16 +9,13 @@ use Illuminate\View\View;
 
 class NewsIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $data): View
     {
         $locale = app()->getLocale();
 
         return view('app.news.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'news.index'))->default(),
-            'news' => (new ViewDataAction)->news($locale),
+            'page' => PageAction::for('news.index', $locale),
+            'news' => $data->news($locale),
         ]);
     }
 }
