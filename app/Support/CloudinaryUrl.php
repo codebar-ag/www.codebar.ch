@@ -4,9 +4,9 @@ namespace App\Support;
 
 class CloudinaryUrl
 {
-    private const CLOUDINARY_HOST = 'res.cloudinary.com';
+    private const string CLOUDINARY_HOST = 'res.cloudinary.com';
 
-    private const UPLOAD_MARKER = '/image/upload/';
+    private const string UPLOAD_MARKER = '/image/upload/';
 
     public static function src(string $url, int $width): string
     {
@@ -46,7 +46,7 @@ class CloudinaryUrl
         $segments = explode('/', $path);
 
         if (
-            isset($segments[0])
+            $segments[0] !== ''
             && preg_match('/^[a-z0-9_,.-]+$/', $segments[0])
             && preg_match('/[whcfq]_/', $segments[0])
         ) {
