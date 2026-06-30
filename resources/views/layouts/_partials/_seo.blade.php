@@ -8,6 +8,9 @@
 {{--<meta name="msapplication-config" content="{{ asset('browserconfig.xml') }}">--}}
 
 @if(!empty($page))
+    @php
+        $seoImage = $page->image ?: url(asset(config('seo.default_image')));
+    @endphp
     <title>{{ $page->title }}</title>
     <meta name="robots" content="{{ $page->robots }}">
     <meta name="description" content="{{ $page->description }}">
@@ -15,22 +18,19 @@
     <meta name="url" content="{{ request()->url() }}">
 
     <meta property="og:locale" content="{{ $page->locale }}">
-    <meta property="og:type" content="">
+    <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $page->title }}">
     <meta property="og:description" content="{{ $page->description }}">
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:url" content="{{ request()->url() }}">
-    <meta property="og:image"
-          content="{{ $page->image ?? 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp' }}">
+    <meta property="og:image" content="{{ $seoImage }}">
+    <meta property="og:image:width" content="{{ config('seo.image_width') }}">
+    <meta property="og:image:height" content="{{ config('seo.image_height') }}">
 
-    <meta name="twitter:site" content="'twitter_site'">
-    <meta name="twitter:site:id" content="twitter_site_id">
-    <meta name="twitter:card" content="twitter_card">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $page->title }}">
     <meta name="twitter:description" content="{{ $page->description }}">
-    <meta name="twitter:image"
-          content="{{ $page->image ?? 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp' }}">
+    <meta name="twitter:image" content="{{ $seoImage }}">
 @endif
-
 
 

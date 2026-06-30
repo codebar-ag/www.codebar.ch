@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLanguage;
 use App\Providers\AppServiceProvider;
 use App\Providers\EventServiceProvider;
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             AddCspHeaders::class,
             AddFeaturePolicyHeaders::class,
+            SecurityHeaders::class,
             SetLanguage::class,
             CacheResponse::class,
         ]);

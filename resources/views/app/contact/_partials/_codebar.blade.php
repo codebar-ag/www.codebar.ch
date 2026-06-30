@@ -23,8 +23,9 @@
                 <p class="font-light">CH-4455 Zunzgen</p>
             </address>
             <x-a-badge href="https://maps.app.goo.gl/d9iK5vCrHHAHUcvx6"
-                       label="{{ __('Google Maps') }}" class-attributes="mt-1" target="_blank"
-                       rel="noopener noreferrer">
+                       label="{{ __('Google Maps') }} — {{ __('Zunzgen') }}" class-attributes="mt-1" target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="{{ __('Google Maps') }} — {{ __('Zunzgen') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="ml-1 size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -40,8 +41,9 @@
                 <p class="font-light">CH-4104 Oberwil</p>
             </address>
             <x-a-badge href="https://maps.app.goo.gl/1ndrUgUvw2pxxekUA"
-                       label="{{ __('Google Maps') }}" class-attributes="mt-1" target="_blank"
-                       rel="noopener noreferrer">
+                       label="{{ __('Google Maps') }} — {{ __('Oberwil') }}" class-attributes="mt-1" target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="{{ __('Google Maps') }} — {{ __('Oberwil') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="ml-1 size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"

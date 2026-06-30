@@ -248,6 +248,17 @@ We have added some blade components which are located in the `resources/views/co
 
 You should include both the blade components in your blade layout files
 
+## Laravel Cloud deployment
+
+When deploying to Laravel Cloud, ensure these environment variables are set for Lighthouse Best Practices (security headers):
+
+- `CSP_ENABLED=true` — enables Content-Security-Policy enforcement via Spatie CSP middleware
+- `FPH_ENABLED=true` — enables Permissions-Policy headers
+
+Security headers (HSTS, COOP, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`) are applied automatically by `SecurityHeaders` middleware on all web responses.
+
+**Lighthouse note:** Deprecated API warnings for `/cdn-cgi/challenge-platform/scripts/jsd/main.js` come from Cloudflare bot protection injected by Laravel Cloud, not from application code. Run Lighthouse in incognito without browser extensions for accurate scores.
+
 ## Cloudinary
 
 Please refer to the respective documentation for the Cloudinary and Cloudinary Nova packages.
