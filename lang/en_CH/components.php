@@ -20,7 +20,7 @@ return [
             ],
             'development' => [
                 'title' => 'Individual software development',
-                'description' => 'Portal solutions, interfaces and open source for your processes.',
+                'description' => 'Portal solutions, interfaces and integrations – with a focus on open source.',
             ],
             'dms' => [
                 'title' => 'DMS/ECM consulting & implementation',

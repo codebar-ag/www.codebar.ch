@@ -81,31 +81,16 @@ class ViewDataAction
                 ->orderBy('name')
                 ->get();
 
-            $employeeIds = $publishedContacts
-                ->filter(fn (Contact $contact): bool => array_key_exists(
-                    ContactSectionEnum::EMPLOYEES,
-                    $contact->sections ?? []
-                ))
-                ->pluck('id');
-
             return (object) collect([
                 ContactSectionEnum::EMPLOYEES,
                 ContactSectionEnum::COLLABORATIONS,
                 ContactSectionEnum::BOARD_MEMBERS,
-            ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale, $employeeIds): array {
+            ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale): array {
                 $contacts = $publishedContacts
-                    ->filter(function (Contact $contact) use ($section, $employeeIds): bool {
+                    ->filter(function (Contact $contact) use ($section): bool {
                         $sections = $contact->sections ?? [];
 
-                        if (! array_key_exists($section, $sections)) {
-                            return false;
-                        }
-
-                        if ($section === ContactSectionEnum::BOARD_MEMBERS && $employeeIds->contains($contact->id)) {
-                            return false;
-                        }
-
-                        return true;
+                        return array_key_exists($section, $sections);
                     })
                     ->map(fn (Contact $contact) => ContactDTO::fromModel($contact, $section, $locale));
 

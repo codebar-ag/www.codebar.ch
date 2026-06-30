@@ -16,6 +16,7 @@ use App\Http\Controllers\OpenSource\OpenSoruceShowController;
 use App\Http\Controllers\OpenSource\OpenSourceIndexController;
 use App\Http\Controllers\Products\ProductsIndexController;
 use App\Http\Controllers\Products\ProductsShowController;
+use App\Http\Controllers\Robots\RobotsController;
 use App\Http\Controllers\Services\ServicesIndexController;
 use App\Http\Controllers\Services\ServicesShowController;
 use App\Http\Controllers\Sitemap\SitemapController;
@@ -86,6 +87,7 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 
 Route::post('language/update', LocaleUpdateController::class)->name('language.update');
 
+Route::get('robots.txt', RobotsController::class);
 Route::get('sitemap.xml', SitemapController::class);
 
 require __DIR__.'/well-known.php';

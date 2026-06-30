@@ -4,9 +4,9 @@
 -[ ] About Us
 -[ ] Breadcrumbs Website
 -[ ] Contact: Add Social Media LinkedIn
--[ ] Legal Privacy
+-[x] Legal Privacy
 -[ ] Legal Terms
--[ ] Media Page
+-[x] Media Page
 -[ ] Custom 404
 -[ ] Flash Notifications: Language Switcher
 

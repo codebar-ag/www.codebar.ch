@@ -95,6 +95,18 @@ class PagesTableSeeder extends Seeder
 
         Page::updateOrCreate(
             [
+                'key' => 'legal.privacy.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Privacy Policy – codebar',
+                'description' => 'How codebar Solutions AG processes personal data on this website under Swiss data protection law.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
                 'key' => 'contact.index',
                 'locale' => $locale,
             ],
@@ -191,6 +203,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Rechtliches',
                 'description' => 'Alle rechtlichen Informationen zur codebar solutions AG.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'legal.privacy.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Datenschutzerklärung – codebar',
+                'description' => 'Wie die codebar Solutions AG Personendaten auf dieser Website gemäss Schweizer Datenschutzrecht bearbeitet.',
             ]
         );
 

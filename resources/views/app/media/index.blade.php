@@ -11,9 +11,13 @@
         <x-list-grid class-attributes="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
             @foreach($logos as $logo)
                 <div class="flex flex-col gap-4 rounded-xl border border-gray-200 p-6">
-                    <div class="flex min-h-[80px] items-center justify-center rounded-lg bg-white p-4">
+                    <div @class([
+                        'flex min-h-[80px] items-center justify-center rounded-lg p-4',
+                        'bg-zinc-950' => $logo['slug'] === 'codebar-logo-colored-inverted',
+                        'bg-white' => $logo['slug'] !== 'codebar-logo-colored-inverted',
+                    ])>
                         <img
-                            src="{{ asset('images/logos/' . $logo['slug'] . '.svg') }}"
+                            src="{{ asset('images/logos/' . $logo['slug'] . '.png') }}"
                             alt="{{ $logo['label'] }}"
                             class="max-h-16 w-auto"
                         />
