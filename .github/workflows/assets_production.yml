@@ -12,14 +12,14 @@ jobs:
 
     env:
       PHP_VERSION: 8.4
-      NODE_VERSION: 22
+      NODE_VERSION: 24
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -33,7 +33,7 @@ jobs:
         run: cp .env.ci .env
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.composer/cache
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -43,7 +43,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --no-interaction --optimize-autoloader
 
       - name: Cache node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -76,7 +76,7 @@ jobs:
     name: production | deploy
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: '0'
 

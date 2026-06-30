@@ -9,13 +9,13 @@ jobs:
 
     env:
       PHP_VERSION: 8.4
-      NODE_VERSION: 22
+      NODE_VERSION: 24
       PEST_MIN_COVERAGE: 1
       PEST_MIN_TYPE_COVERAGE: 1
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP Environment
         uses: shivammathur/setup-php@v2
@@ -28,7 +28,7 @@ jobs:
         run: cp .env.ci .env
 
       - name: Cache Composer Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.composer/cache/files
@@ -55,7 +55,7 @@ jobs:
           php artisan migrate:fresh
 
       - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
@@ -77,7 +77,7 @@ jobs:
 
       - name: Store Log Artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Store report artifacts
           path: ./storage/logs

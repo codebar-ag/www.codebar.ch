@@ -15,6 +15,7 @@ it('returns the matrix client well-known response with CORS header', function ()
         ->assertOk()
         ->assertExactJson([
             'm.homeserver' => ['base_url' => 'https://connect.codebar.ch'],
+            'm.identity_server' => ['base_url' => 'https://vector.im'],
         ])
         ->assertHeader('Access-Control-Allow-Origin', '*');
 });
