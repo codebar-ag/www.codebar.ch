@@ -3,28 +3,28 @@
 <div x-show="open" x-transition x-cloak class="mt-4 text-xl space-y-2">
     <!-- Home -->
     <a @click.stop href="{{ localized_route('start.index') }}" title="{{ __('Home') }}"
-        class="block py-3 text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
+        class="block py-3 text-center bg-zinc-50/50 hover:text-brand hover:font-semibold transition rounded-t-lg">
         {{ __('News') }}
     </a>
 
     @if ($configuration?->section_news)
     <!-- News -->
     <a @click.stop href="{{ localized_route('news.index') }}" title="{{ __('News') }}"
-        class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
+        class="block py-3 text-center bg-zinc-50 hover:text-brand hover:font-semibold transition">
         {{ __('News') }}
     </a>
     @endif
 
-    <!-- About us -->
-    <a @click.stop href="{{ localized_route('about-us.index') }}" title="{{ __('About us') }}"
-        class="block py-3 text-center bg-gray-50 hover:text-black hover:font-semibold transition">
-        {{ __('About us') }}
+    <!-- Team -->
+    <a @click.stop href="{{ localized_route('about-us.index') }}" title="{{ __('Team') }}"
+        class="block py-3 text-center bg-zinc-50 hover:text-brand hover:font-semibold transition">
+        {{ __('Team') }}
     </a>
 
     @if ($configuration?->section_services)
-        <div @click.stop class="py-3 text-center bg-gray-50/50 transition">
+        <div @click.stop class="py-3 text-center bg-zinc-50/50 transition">
             <a @click.stop href="{{ localized_route('services.index') }}" title="{{ __('Services') }}"
-                class="block text-center bg-gray-50/25 hover:text-black hover:font-semibold transition rounded-t-lg">
+                class="block text-center bg-zinc-50/25 hover:text-brand hover:font-semibold transition rounded-t-lg">
                 {{ __('Services') }}
             </a>
             <div class="text-sm text-gray-600 space-y-1">
@@ -34,7 +34,7 @@
                         <a target="{{ $service->url ? '_blank' : '_self' }}"
                             href="{{ $service->url ?? localized_route('services.show', ['locale' => app()->getLocale(), 'service' => $service]) }}"
                             title="{{ $service->name }}"
-                            class="block text-base hover:text-black hover:font-semibold transition">
+                            class="block text-base hover:text-brand hover:font-semibold transition">
                             {{ $service->name }}
                         </a>
                     @endforeach
@@ -44,9 +44,9 @@
     @endif
 
     @if ($configuration?->section_products)
-        <div @click.stop class="py-3 text-center bg-gray-50 transition">
+        <div @click.stop class="py-3 text-center bg-zinc-50 transition">
             <a @click.stop href="{{ localized_route('products.index') }}" title="{{ __('Products') }}"
-                class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
+                class="block text-center bg-zinc-50/50 hover:text-brand hover:font-semibold transition rounded-t-lg">
                 {{ __('Products') }}
             </a>
             <div class="text-sm text-gray-600 space-y-1">
@@ -56,7 +56,7 @@
                         <a target="{{ $product->url ? '_blank' : '_self' }}"
                             href="{{ $product->url ?? localized_route('products.show', ['locale' => app()->getLocale(), 'product' => $product]) }}"
                             title="{{ $product->name }}"
-                            class="block text-base hover:text-black hover:font-semibold transition">
+                            class="block text-base hover:text-brand hover:font-semibold transition">
                             {{ $product->name }}
                         </a>
                     @endforeach
@@ -66,18 +66,18 @@
     @endif
 
     <!-- Contact -->
-    <div @click.stop class="py-3 text-center bg-gray-50/25 transition space-y-1">
+    <div @click.stop class="py-3 text-center bg-zinc-50/25 transition space-y-1">
         <a @click.stop href="{{ localized_route('contact.index') }}" title="{{ __('Contact') }}"
-            class="block text-center bg-gray-50/50 hover:text-black hover:font-semibold transition rounded-t-lg">
+            class="block text-center bg-zinc-50/50 hover:text-brand hover:font-semibold transition rounded-t-lg">
             {{ __('Contact') }}
         </a>
         <div class="mt-1 text-sm text-gray-600 space-y-1">
             <a href="tel:0041615156090" title="{{ __('Contact Phone number') }}"
-                class="block text-base hover:text-black hover:font-semibold transition">
+                class="block text-base hover:text-brand hover:font-semibold transition">
                 +41 61 515 60 90
             </a>
             <a href="mailto:info@paperflakes.ch" title="{{ __('Contact email address') }}"
-                class="block text-base hover:text-black hover:font-semibold transition">
+                class="block text-base hover:text-brand hover:font-semibold transition">
                 info@paperflakes.ch
             </a>
         </div>
@@ -85,7 +85,7 @@
 
     <!-- Language -->
     @if (!empty($locales))
-        <div @click.stop class="py-3 text-center bg-gray-50/50 transition space-y-1">
+        <div @click.stop class="py-3 text-center bg-zinc-50/50 transition space-y-1">
             <span>{{ __('Language') }}</span>
             <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
                 @foreach ($locales as $language)
@@ -93,7 +93,7 @@
                         @csrf
                         <input type="hidden" name="language" value="{{ $language->value }}">
                         <button type="submit"
-                            class="text-base hover:text-black hover:font-semibold transition cursor-pointer"
+                            class="text-base hover:text-brand hover:font-semibold transition cursor-pointer"
                             title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
                             {{ $language->getLabel() }}
                         </button>

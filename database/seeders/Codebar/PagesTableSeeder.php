@@ -111,6 +111,19 @@ class PagesTableSeeder extends Seeder
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-codebar-ch/seo/seo_codebar.webp',
             ]
         );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'media.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Media & Brand Assets – codebar',
+                'description' => 'Download official codebar logos and brand assets for press and partner use.',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-codebar-ch/seo/seo_codebar.webp',
+            ]
+        );
     }
 
     private function deCH()
@@ -204,6 +217,19 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Lass uns sprechen',
                 'description' => 'Hast du eine innovative Idee? Wir beginnen mit dem Zuhören, um deine Bedürfnisse zu verstehen, dann arbeiten wir gemeinsam daran, deine Vision zum Leben zu erwecken.',
+                'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-codebar-ch/seo/seo_codebar.webp',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'media.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Medien & Markenassets – codebar',
+                'description' => 'Offizielle codebar-Logos und Markenassets für Presse und Partner.',
                 'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-codebar-ch/seo/seo_codebar.webp',
             ]
         );

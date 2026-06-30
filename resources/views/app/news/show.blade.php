@@ -16,7 +16,7 @@
         <x-content :content="$content"/>
 
         <div class="mt-8">
-            <h2 class="mb-2 text-2xl font-semibold">{{ __('Meta information') }}</h2>
+            <x-h2 :title="__('Meta information')"/>
             <div class="mt-6 flex flex-col gap-y-2 md:flex-row md:items-center md:gap-x-2">
                 <x-badge :label="__('Published at: :date', ['date' => $published_at])"
                          :title="__('Published at')"

@@ -13,13 +13,13 @@
                     <form method="POST" action="{{ route('language.update') }}">
                         @csrf
                         <input type="hidden" name="language" value="{{ $language->value }}">
-                        <button type="submit" class="hover:text-black hover:font-semibold transition cursor-pointer"
+                        <button type="submit" class="hover:text-brand hover:font-semibold transition cursor-pointer"
                                 title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
                             {{ $language->getLabel() }}
                         </button>
                     </form>
                     @if (!$loop->last)
-                        <span class="text-gray-400 font-light">|</span>
+                        <span class="text-gray-300 font-light">|</span>
                     @endif
                 @endforeach
             </div>
@@ -30,7 +30,7 @@
         @include('layouts._partials._navigation_desktop')
 
         <button @click="toggle"
-                class="flex items-center gap-1 lg:hidden hover:text-black hover:font-semibold transition focus:outline-none">
+                class="flex items-center gap-1 lg:hidden hover:text-brand hover:font-semibold transition focus:outline-none">
             <span>{{ __('Menu') }}</span>
 
             <div class="transition-transform duration-300 ease-in-out" x-bind:class="icon_rotate">

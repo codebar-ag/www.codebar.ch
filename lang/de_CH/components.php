@@ -1,11 +1,6 @@
 <?php
 
 return [
-    'intro' => [
-        'buttons' => [
-            'more' => 'Mehr über uns',
-        ],
-    ],
     'docuware' => [
         'showme' => [
             'title' => 'Erleben Sie DocuWare in Aktion',
@@ -17,5 +12,26 @@ return [
                 'more' => 'Mehr über DocuWare',
             ],
         ],
+    ],
+    'what_we_do' => [
+        'title' => 'Was wir tun',
+        'items' => [
+            'concept' => [
+                'title' => 'Konzeption & Prototyping',
+                'description' => 'Von der ersten Idee über das Konzept zum klickbaren Prototyp.',
+            ],
+            'development' => [
+                'title' => 'Individuelle Softwareentwicklung',
+                'description' => 'Portallösungen, Schnittstellen und Open Source für Ihre Prozesse.',
+            ],
+            'dms' => [
+                'title' => 'DMS/ECM Consulting & Implementation',
+                'description' => 'Beratung und Umsetzung rund um digitales Dokumentenmanagement.',
+            ],
+        ],
+    ],
+    'contact_cta' => [
+        'title' => 'Interessiert?',
+        'teaser' => 'Lassen Sie uns sprechen.',
     ],
 ];
