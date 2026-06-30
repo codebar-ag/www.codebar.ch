@@ -14,9 +14,9 @@
 
 <x-section>
     <x-h2 :title="__('Office')"/>
-    <div class="grid grid-cols-2">
-        <div class="">
-            <address class="not-italic leading-relaxed ">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-4">
+        <div>
+            <address class="not-italic leading-relaxed text-gray-800">
                 <p class="font-semibold">paperflakes AG</p>
                 <p class="italic">{{ __('Headquarter') }}</p>
                 <p class="font-light">Haupstrasse 91</p>
@@ -32,8 +32,8 @@
                 </svg>
             </x-a-badge>
         </div>
-        <div class="">
-            <address class="not-italic leading-relaxed ">
+        <div>
+            <address class="not-italic leading-relaxed text-gray-800">
                 <p class="font-semibold">paperflakes AG</p>
                 <p class="italic">{{__('Branch office')}}</p>
                 <p class="font-light">Langegasse 39</p>

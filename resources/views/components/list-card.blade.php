@@ -3,7 +3,7 @@
 <a target="{{ $target }}" href="{{ $url }}"
    class="group block p-4 transition hover:bg-gray-50/50 hover:shadow-sm rounded min-h-[120px]">
     <div class="flex flex-col gap-1">
-        <div class="font-semibold text-gray-800 group-hover:text-primary">
+        <div class="font-semibold text-gray-800 group-hover:text-brand">
             {{ $title }}
         </div>
         <div class="text-gray-600">

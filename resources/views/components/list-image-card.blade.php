@@ -7,12 +7,12 @@
     </div>
 
     <div class="flex flex-col justify-center p-4 space-y-1">
-        <div class="text-base font-bold text-gray-900 leading-tight">
+        <div class="text-base font-bold text-gray-800 leading-tight">
             {{ $name }}
         </div>
 
         @if (!blank($role))
-            <div class="text-sm text-gray-500 leading-snug">
+            <div class="text-sm text-gray-600 leading-snug">
                 {{ $role }}
             </div>
         @endif
@@ -26,7 +26,7 @@
                         @switch($type)
                             @case('linkedin')
                                 <a href="{{ $url }}" target="_blank" title="LinkedIn" aria-label="LinkedIn"
-                                    class="text-gray-500 hover:text-gray-900">
+                                    class="text-gray-600 hover:text-gray-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" stroke="currentColor"
                                         stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                         <path
@@ -39,7 +39,7 @@
 
                             @case('github')
                                 <a href="{{ $url }}" target="_blank" title="GitHub" aria-label="GitHub"
-                                    class="text-gray-500 hover:text-gray-900">
+                                    class="text-gray-600 hover:text-gray-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" stroke="currentColor"
                                         stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                         <path
@@ -51,7 +51,7 @@
 
                             @case('email')
                                 <a href="mailto:{{ $url }}" title="E-Mail" aria-label="E-Mail"
-                                    class="text-gray-500 hover:text-gray-900">
+                                    class="text-gray-600 hover:text-gray-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" stroke="currentColor"
                                         stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                         <path
@@ -63,7 +63,7 @@
 
                             @case('website')
                                 <a href="{{ $url }}" target="_blank" title="Website" aria-label="Website"
-                                    class="text-gray-500 hover:text-gray-900">
+                                    class="text-gray-600 hover:text-gray-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" stroke="currentColor"
                                         stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />

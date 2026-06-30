@@ -1,6 +1,7 @@
-@props(['href','label','target' => '_self','classAttributes' => "", 'title' => null])
+@props(['href','label','target' => '_self','classAttributes' => "", 'title' => null, 'download' => null])
 
 <a target="{{ $target }}" href="{{ $href }}" title="{{ $title ?? $label }}"
-   class="{{ $classAttributes }} hover:text-black hover:font-semibold transition">
+   @if(filled($download)) download="{{ $download }}" @endif
+   class="{{ $classAttributes }} hover:text-brand hover:font-semibold transition">
     {{ $label }}
 </a>

@@ -2,6 +2,10 @@
 
     <x-intro/>
 
+    <x-what-we-do/>
+
+    <x-get-in-touch/>
+
     @if($configuration?->section_news)
     <x-section>
         <x-h1 :title="__('News')"/>

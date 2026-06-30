@@ -31,7 +31,7 @@
         @include('layouts._partials._navigation')
 
         <section class="my-8">
-            <div class="text-lg leading-relaxed max-w-6xl mx-auto px-4 md:px-0">
+            <div class="text-lg leading-relaxed">
                 {{ $slot }}
             </div>
         </section>
