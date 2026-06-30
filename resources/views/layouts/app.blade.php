@@ -9,7 +9,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
   
     <!-- Resource hints for performance -->
-    <link rel="preconnect" href="https://res.cloudinary.com">
+    @if (! empty($preconnectCloudinary))
+        <link rel="preconnect" href="https://res.cloudinary.com">
+    @endif
     <link rel="dns-prefetch" href="https://res.cloudinary.com">
     <link rel="preconnect" href="https://cdn.usefathom.com">
     <link rel="dns-prefetch" href="https://cdn.usefathom.com">

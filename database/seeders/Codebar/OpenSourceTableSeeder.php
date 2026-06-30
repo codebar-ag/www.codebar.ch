@@ -19,14 +19,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Zendesk',
                     'teaser' => 'Nahtlose Integration von Zendesk-Supportfunktionen in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel', 'Zendesk'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Zendesk',
                     'teaser' => 'Seamless integration of Zendesk support features into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel', 'Zendesk'],
                 ],
@@ -43,14 +41,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Prerender',
                     'teaser' => '',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel', 'Prerender'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Prerender',
                     'teaser' => '',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel', 'Prerender'],
                 ],
@@ -65,14 +61,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'packagist',
                     'teaser' => '',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel flysystem cloudinary\ncloudinary flysystem v1 integration with laravel'],
                 ],
                 'en_CH' => [
                     'title' => 'packagist',
                     'teaser' => '',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel flysystem cloudinary\ncloudinary flysystem v1 integration with laravel'],
                 ],
@@ -87,14 +81,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Default',
                     'teaser' => 'Integration von Laravel Default in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv12.2.0\ndownloads\n14.4k\nlaravel', 'Laravel-default', 'Codebar-ag'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Default',
                     'teaser' => 'Integrate Laravel Default into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv12.2.0\ndownloads\n14.4k\nlaravel', 'Laravel-default', 'Codebar-ag'],
                 ],
@@ -109,14 +101,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integration von packagist in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel default nova\nboilerplate integration for laravel nova projects at codebar solutions ag.'],
                 ],
                 'en_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integrate packagist into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel default nova\nboilerplate integration for laravel nova projects at codebar solutions ag.'],
                 ],
@@ -131,14 +121,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Flysystem Cloudinary Nova',
                     'teaser' => 'Integration von Laravel Flysystem Cloudinary Nova in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv1.0\ndownloads\n10.4k\nlaravel', 'Laravel-flysystem-cloudinary-nova', 'Codebar-ag'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Flysystem Cloudinary Nova',
                     'teaser' => 'Integrate Laravel Flysystem Cloudinary Nova into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv1.0\ndownloads\n10.4k\nlaravel', 'Laravel-flysystem-cloudinary-nova', 'Codebar-ag'],
                 ],
@@ -153,14 +141,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integration von packagist in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel filament json field\na laravel filament json field integration with codemirror support'],
                 ],
                 'en_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integrate packagist into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel filament json field\na laravel filament json field integration with codemirror support'],
                 ],
@@ -175,14 +161,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Zammad',
                     'teaser' => 'Integration von Laravel Zammad in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Zammad', 'Packagist\nv13.0.1\ndownloads\n5.1k\nlaravel', 'Codebar-ag', 'Laravel-zammad'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Zammad',
                     'teaser' => 'Integrate Laravel Zammad into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Zammad', 'Packagist\nv13.0.1\ndownloads\n5.1k\nlaravel', 'Codebar-ag', 'Laravel-zammad'],
                 ],
@@ -197,14 +181,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integration von packagist in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel auth\nthis is my package laravel-auth'],
                 ],
                 'en_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integrate packagist into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel auth\nthis is my package laravel-auth'],
                 ],
@@ -219,14 +201,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Bexio',
                     'teaser' => 'Integration von Laravel Bexio in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv11.0\ndownloads\n2.8k\nlaravel', 'Bexio', 'Laravel-bexio', 'Codebar-ag'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Bexio',
                     'teaser' => 'Integrate Laravel Bexio into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv11.0\ndownloads\n2.8k\nlaravel', 'Bexio', 'Laravel-bexio', 'Codebar-ag'],
                 ],
@@ -241,14 +221,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integration von packagist in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel twilio verify\ntwilio verify integration with laravel'],
                 ],
                 'en_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integrate packagist into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel twilio verify\ntwilio verify integration with laravel'],
                 ],
@@ -263,14 +241,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Microsoft Planner',
                     'teaser' => 'Integration von Laravel Microsoft Planner in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel-microsoft-planner', 'Packagist\nv13.0.1\ndownloads\n1k\nlaravel', 'Codebar-ag'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Microsoft Planner',
                     'teaser' => 'Integrate Laravel Microsoft Planner into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel-microsoft-planner', 'Packagist\nv13.0.1\ndownloads\n1k\nlaravel', 'Codebar-ag'],
                 ],
@@ -285,14 +261,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integration von packagist in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel zendesk\nzendesk integration with laravel'],
                 ],
                 'en_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integrate packagist into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel zendesk\nzendesk integration with laravel'],
                 ],
@@ -307,14 +281,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Instagram',
                     'teaser' => 'Integration von Laravel Instagram in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv12.0.1\ndownloads\n336\nlaravel', 'Codebar solutions ag', 'Laravel-instagram'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Instagram',
                     'teaser' => 'Integrate Laravel Instagram into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv12.0.1\ndownloads\n336\nlaravel', 'Codebar solutions ag', 'Laravel-instagram'],
                 ],
@@ -329,14 +301,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integration von packagist in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Filament revealable field\nthis is my package laravel-filament-revealable-field'],
                 ],
                 'en_CH' => [
                     'title' => 'packagist',
                     'teaser' => 'Integrate packagist into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Filament revealable field\nthis is my package laravel-filament-revealable-field'],
                 ],
@@ -351,14 +321,12 @@ class OpenSourceTableSeeder extends Seeder
                 'de_CH' => [
                     'title' => 'Laravel Beekeeper',
                     'teaser' => 'Integration von Laravel Beekeeper in deine Laravel-Anwendung.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Packagist\nv12.1.0\ndownloads\n1\nlaravel', 'Laravel-beekeeper', 'Codebar solutions ag'],
                 ],
                 'en_CH' => [
                     'title' => 'Laravel Beekeeper',
                     'teaser' => 'Integrate Laravel Beekeeper into your Laravel application.',
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                     'content' => null,
                     'tags' => ['Laravel-beekeeper', 'Codebar solutions ag'],
                 ],
@@ -381,7 +349,7 @@ class OpenSourceTableSeeder extends Seeder
                     'published' => true,
                     'title' => Arr::get($data, 'title'),
                     'teaser' => Arr::get($data, 'teaser'),
-                    'image' => Arr::get($data, 'image'),
+                    'image' => Arr::get($data, 'image', ''),
                     'tags' => Arr::get($data, 'tags', []),
                     'content' => Arr::get($data, 'content'),
                 ]

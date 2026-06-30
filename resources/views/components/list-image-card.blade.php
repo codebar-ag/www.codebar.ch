@@ -1,8 +1,18 @@
 @props(['image', 'imageContainerClassAttributes' => null, 'name', 'role' => null, 'icons' => []])
 
+@php
+    use App\Support\CloudinaryUrl;
+@endphp
+
 <div class="flex flex-row rounded-xl overflow-hidden transition group">
     <div class="{{ $imageContainerClassAttributes ?? 'h-32 w-32 flex-shrink-0 overflow-hidden' }}">
-        <img src="{{ $image }}" alt="{{ $name }}"
+        <img src="{{ CloudinaryUrl::src($image, 256) }}"
+            srcset="{{ CloudinaryUrl::srcset($image, 256) }}"
+            sizes="128px"
+            width="128"
+            height="128"
+            alt="{{ $name }}"
+            loading="lazy"
             class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105" />
     </div>
 

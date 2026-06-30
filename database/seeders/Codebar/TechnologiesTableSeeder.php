@@ -22,14 +22,12 @@ class TechnologiesTableSeeder extends Seeder
                     'teaser' => '',
                     'tags' => ['PHP'],
                     'content' => null,
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                 ],
                 LocaleEnum::EN->value => [
                     'title' => 'Laravel',
                     'teaser' => '',
                     'tags' => ['PHP'],
                     'content' => null,
-                    'image' => 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp',
                 ],
             ],
             link: 'https://laravel.com/',
@@ -55,7 +53,7 @@ class TechnologiesTableSeeder extends Seeder
                     'teaser' => Arr::get($data, 'teaser'),
                     'tags' => Arr::get($data, 'tags', []),
                     'content' => Arr::get($data, 'content'),
-                    'image' => Arr::get($data, 'image'),
+                    'image' => Arr::get($data, 'image', ''),
                     'link' => $link,
                 ]
             );
