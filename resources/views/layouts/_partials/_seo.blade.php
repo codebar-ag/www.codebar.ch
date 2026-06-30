@@ -24,6 +24,8 @@
     <meta property="og:site_name" content="{{ config('app.name') }}">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:image" content="{{ $seoImage }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="{{ config('app.name') }}">
     <meta property="og:image:width" content="{{ config('seo.image_width') }}">
     <meta property="og:image:height" content="{{ config('seo.image_height') }}">
 

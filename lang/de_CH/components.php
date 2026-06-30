@@ -22,7 +22,7 @@ return [
             ],
             'development' => [
                 'title' => 'Individuelle Softwareentwicklung',
-                'description' => 'Portallösungen, Schnittstellen und Open Source für Ihre Prozesse.',
+                'description' => 'Portallösungen, Schnittstellen und Integrationen – mit Open Source im Fokus.',
             ],
             'dms' => [
                 'title' => 'DMS/ECM Consulting & Implementation',

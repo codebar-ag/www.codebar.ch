@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center">
 
         @if(filled($configuration?->key))
-            <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block">
+            <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block max-w-1/2">
                 @include("layouts._logos.{$configuration->key}")
             </a>
         @endif

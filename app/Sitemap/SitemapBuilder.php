@@ -26,7 +26,10 @@ class SitemapBuilder
         $url->setPriority(priority: 1.0);
         $url->setChangeFrequency(changeFrequency: Url::CHANGE_FREQUENCY_WEEKLY);
         $url->setLastModificationDate(lastModificationDate: $this->lastModificationDate);
-        $url->addImage(url: $page->image, caption: $page->title);
+
+        if (filled($page->image)) {
+            $url->addImage(url: $page->image, caption: $page->title);
+        }
 
         if (! empty($page->referencePages) && $page->referencePages->count()) {
             $page->referencePages->each(function (PageDTO $page) use ($url): void {

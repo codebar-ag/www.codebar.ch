@@ -21,13 +21,13 @@ class SitemapController extends Controller
     protected const array DEFAULT_ROUTES = [
         'start.index',
         'about-us.index',
+        'news.index',
         'products.index',
         'services.index',
         'contact.index',
-        'legal.terms.index',
+        'media.index',
         'legal.imprint.index',
         'legal.privacy.index',
-        'jobs.index',
     ];
 
     protected const array DEFAULT_LOCALES = [
@@ -37,12 +37,16 @@ class SitemapController extends Controller
 
     public function __invoke(): Response
     {
-        $content = Cache::rememberForever(key: 'sitemap_xml', callback: function (): string {
-            $this->sitemap = new SitemapBuilder;
-            $this->builder();
+        $content = Cache::remember(
+            key: 'sitemap_xml',
+            ttl: now()->addHours(24),
+            callback: function (): string {
+                $this->sitemap = new SitemapBuilder;
+                $this->builder();
 
-            return $this->sitemap->toXml();
-        });
+                return $this->sitemap->toXml();
+            }
+        );
 
         return response(content: $content)
             ->header('Content-Type', 'application/xml')
@@ -55,6 +59,7 @@ class SitemapController extends Controller
 
         // Use chunked queries to prevent memory issues
         News::whereNotNull('published_at')
+            ->where('published_at', '<=', now())
             ->with('references')
             ->chunk(100, function (Collection $news): void {
                 /** @var News $item */
