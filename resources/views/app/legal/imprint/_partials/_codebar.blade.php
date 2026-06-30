@@ -27,20 +27,12 @@
 
 <x-section>
     <x-h2 :title="__('Authorized representatives')"/>
-    <div class="space-y-6 text-gray-800">
-        <div>
-            <p class="font-semibold">Sebastian Bürgin</p>
-            <p class="font-light">{{ __('Imprint Sebastian Burgin residence') }}</p>
-            <p class="font-light">{{ __('Imprint Sebastian Burgin role') }}</p>
-            <p class="font-light text-gray-600">{{ __('Imprint individual signature') }}</p>
-        </div>
-        <div>
-            <p class="font-semibold">Melanie Sabrina Bürgin</p>
-            <p class="font-light">{{ __('Imprint Melanie Burgin residence') }}</p>
-            <p class="font-light">{{ __('Imprint Melanie Burgin role') }}</p>
-            <p class="font-light text-gray-600">{{ __('Imprint individual signature') }}</p>
-        </div>
-    </div>
+    <x-legal.prose>
+        <ul>
+            <li>Sebastian Bürgin</li>
+            <li>Melanie Sabrina Bürgin</li>
+        </ul>
+    </x-legal.prose>
 </x-section>
 
 <x-section>
