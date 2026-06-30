@@ -54,7 +54,7 @@
                 </ul>
             </div>
             <div>
-                <h2 class="text-base font-semibold text-gray-800">{{ __('Media') }}</h2>
+                <h2 class="text-base font-semibold text-gray-800">{{ __('Resources') }}</h2>
                 <ul class="mt-1 list-none text-base">
                     <li>
                         <x-a :href="localized_route('media.index')" label="{{ __('Media') }}"
