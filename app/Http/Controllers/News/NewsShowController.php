@@ -23,7 +23,7 @@ class NewsShowController extends Controller
             'title' => $news->title,
             'teaser' => $news->teaser,
             'tags' => collect($news->tags),
-            'content' => Str::of($news->content)->markdown(),
+            'content' => Str::of($news->content ?? '')->markdown(),
         ]);
     }
 }

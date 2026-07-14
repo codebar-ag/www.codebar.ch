@@ -49,6 +49,12 @@ class SitemapBuilder
         $dom->formatOutput = true;
         $dom->loadXML(source: $xml);
 
-        return $dom->saveXML();
+        $formatted = $dom->saveXML();
+
+        if ($formatted === false) {
+            throw new \RuntimeException('Unable to generate sitemap XML.');
+        }
+
+        return $formatted;
     }
 }

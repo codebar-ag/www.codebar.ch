@@ -19,7 +19,7 @@ class OpenSoruceShowController extends Controller
             'page' => (new PageAction(locale: $locale))->product(product: $product),
             'name' => $product->name,
             'teaser' => $product->teaser,
-            'content' => Str::of($product->content)->markdown(),
+            'content' => Str::of($product->content ?? '')->markdown(),
             'tags' => $product->tags,
         ]);
     }

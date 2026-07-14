@@ -13,6 +13,7 @@ use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
@@ -34,15 +35,18 @@ class AppServiceProvider extends ServiceProvider
         Model::unguard();
         Model::shouldBeStrict($this->app->isLocal());
 
+        $environmentCheck = EnvironmentCheck::new();
+        $environmentCheck->if(app()->isProduction());
+
         Health::checks([
             DebugModeCheck::new(),
             CacheCheck::new(),
             OptimizedAppCheck::new(),
-            EnvironmentCheck::new()->if(app()->isProduction()),
-            FilesystemsDefaultCheck::new()->everyFiveMinutes(),
-            JobsCheck::new()->everyFiveMinutes(),
+            $environmentCheck,
+            self::asCheck(FilesystemsDefaultCheck::new()->everyFiveMinutes()),
+            self::asCheck(JobsCheck::new()->everyFiveMinutes()),
             FailedJobsCheck::new(),
-            SecurityAdvisoriesCheck::new()->lastDayOfMonth(),
+            self::asCheck(SecurityAdvisoriesCheck::new()->lastDayOfMonth()),
         ]);
 
         View::share('configuration', $this->getConfiguration());
@@ -62,5 +66,10 @@ class AppServiceProvider extends ServiceProvider
         } catch (\Throwable) {
             return null;
         }
+    }
+
+    private static function asCheck(Check $check): Check
+    {
+        return $check;
     }
 }

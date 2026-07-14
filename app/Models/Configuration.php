@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Database\Factories\ConfigurationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Configuration extends Model
 {
+    /** @use HasFactory<ConfigurationFactory> */
     use HasFactory;
 
     protected $casts = [

@@ -5,12 +5,15 @@ namespace App\Models;
 use App\Enums\LocaleEnum;
 use App\Traits\HasLocalizedReferences;
 use App\Traits\HasLocalizedRouteBinding;
+use Database\Factories\OpenSourceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class OpenSource extends Model
 {
+    /** @use HasFactory<OpenSourceFactory> */
     use HasFactory;
+
     use HasLocalizedReferences;
     use HasLocalizedRouteBinding;
 

@@ -19,7 +19,7 @@ class ServicesShowController extends Controller
             'page' => (new PageAction(locale: $locale, routeName: null))->service(service: $service),
             'name' => $service->name,
             'teaser' => $service->teaser,
-            'content' => Str::of($service->content)->markdown(),
+            'content' => Str::of($service->content ?? '')->markdown(),
             'tags' => $service->tags,
         ]);
     }

@@ -9,7 +9,7 @@ class RobotsController extends Controller
 {
     public function __invoke(): Response
     {
-        $sitemapUrl = rtrim(config('app.url'), '/').'/sitemap.xml';
+        $sitemapUrl = rtrim(config()->string('app.url'), '/').'/sitemap.xml';
 
         $content = implode("\n", [
             'User-agent: *',

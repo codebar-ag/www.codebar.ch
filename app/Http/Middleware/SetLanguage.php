@@ -18,9 +18,11 @@ class SetLanguage
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $locale = $request->session()->has(SessionKeyEnum::LANGUAGE->value)
-            ? $request->session()->get(SessionKeyEnum::LANGUAGE->value)
-            : LocaleEnum::DE->value;
+        $locale = $request->session()->get(SessionKeyEnum::LANGUAGE->value);
+
+        if (! is_string($locale)) {
+            $locale = LocaleEnum::DE->value;
+        }
 
         (new LocaleAction($locale))->setLocale();
 

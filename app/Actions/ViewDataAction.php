@@ -26,6 +26,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, Product>
+     */
     public function products(string $locale): Collection
     {
         $key = Str::slug("products_published_{$locale}");
@@ -35,6 +38,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, Service>
+     */
     public function services(string $locale): Collection
     {
         $key = Str::slug("services_published_{$locale}");
@@ -44,6 +50,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, News>
+     */
     public function news(string $locale): Collection
     {
         $key = Str::slug("news_published_{$locale}");
@@ -53,6 +62,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, Technology>
+     */
     public function technologies(string $locale): Collection
     {
         $key = Str::slug("technologies_published_{$locale}");
@@ -62,6 +74,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, OpenSource>
+     */
     public function openSource(string $locale): Collection
     {
         $key = Str::slug("open_source_published_{$locale}");

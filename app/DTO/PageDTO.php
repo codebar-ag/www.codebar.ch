@@ -7,6 +7,9 @@ use Illuminate\Support\Collection;
 
 class PageDTO
 {
+    /**
+     * @param  Collection<int, self>|null  $referencePages
+     */
     public function __construct(
         public string $locale,
         public string $routeKey,
