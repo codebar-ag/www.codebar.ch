@@ -22,6 +22,7 @@ class Product extends Model
         'published' => 'boolean',
         'locale' => LocaleEnum::class,
         'tags' => 'json',
+        'deployment_options' => 'json',
     ];
 
     public function getRouteKeyName(): string

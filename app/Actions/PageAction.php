@@ -4,9 +4,11 @@ namespace App\Actions;
 
 use App\DTO\PageDTO;
 use App\Models\News;
+use App\Models\OpenSource;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\Technology;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -91,6 +93,36 @@ class PageAction
         );
     }
 
+    public function technology(Technology $technology, bool $withReferences = false, ?string $locale = null): PageDTO
+    {
+        return new PageDTO(
+            locale: $locale ?? $technology->locale->value,
+            routeKey: 'technologies.show',
+            routeName: Str::slug(title: $locale ?? $technology->locale->value).'.technologies.show',
+            title: $technology->title,
+            description: $technology->teaser,
+            image: $technology->image,
+            lastModificationDate: Carbon::parse($technology->updated_at ?? now()),
+            routeParameters: ['locale' => $technology->locale, 'technology' => $technology],
+            referencePages: $withReferences ? $this->technologyReferencePages($technology) : null,
+        );
+    }
+
+    public function openSource(OpenSource $openSource, bool $withReferences = false, ?string $locale = null): PageDTO
+    {
+        return new PageDTO(
+            locale: $locale ?? $openSource->locale->value,
+            routeKey: 'open-source.show',
+            routeName: Str::slug(title: $locale ?? $openSource->locale->value).'.open-source.show',
+            title: $openSource->title,
+            description: $openSource->teaser,
+            image: $openSource->image,
+            lastModificationDate: Carbon::parse($openSource->updated_at ?? now()),
+            routeParameters: ['locale' => $openSource->locale, 'openSource' => $openSource],
+            referencePages: $withReferences ? $this->openSourceReferencePages($openSource) : null,
+        );
+    }
+
     /**
      * @return Collection<int, PageDTO>
      */
@@ -146,6 +178,46 @@ class PageAction
             }
 
             $pages[] = $this->service(service: $reference->target, withReferences: false, locale: $reference->reference_locale);
+        }
+
+        return collect($pages);
+    }
+
+    /**
+     * @return Collection<int, PageDTO>
+     */
+    private function technologyReferencePages(Technology $technology): Collection
+    {
+        $pages = [];
+
+        foreach ($technology->references as $reference) {
+            $reference->load(['target']);
+
+            if (! $reference->target instanceof Technology) {
+                continue;
+            }
+
+            $pages[] = $this->technology(technology: $reference->target, withReferences: false, locale: $reference->reference_locale);
+        }
+
+        return collect($pages);
+    }
+
+    /**
+     * @return Collection<int, PageDTO>
+     */
+    private function openSourceReferencePages(OpenSource $openSource): Collection
+    {
+        $pages = [];
+
+        foreach ($openSource->references as $reference) {
+            $reference->load(['target']);
+
+            if (! $reference->target instanceof OpenSource) {
+                continue;
+            }
+
+            $pages[] = $this->openSource(openSource: $reference->target, withReferences: false, locale: $reference->reference_locale);
         }
 
         return collect($pages);

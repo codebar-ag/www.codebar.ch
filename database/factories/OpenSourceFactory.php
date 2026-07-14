@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\LocaleEnum;
 use App\Models\OpenSource;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,8 +18,20 @@ class OpenSourceFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->unique()->words(3, true);
+
         return [
-            //
+            'published' => true,
+            'locale' => fake()->randomElement(LocaleEnum::cases())->value,
+            'title' => $title,
+            'slug' => str($title)->slug(),
+            'teaser' => fake()->sentence(),
+            'content' => fake()->paragraphs(3, true),
+            'image' => fake()->imageUrl(),
+            'tags' => fake()->words(2),
+            'link' => fake()->url(),
+            'downloads' => fake()->numberBetween(0, 1000),
+            'version' => 'v'.fake()->numerify('#.#.#'),
         ];
     }
 }

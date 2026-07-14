@@ -18,9 +18,15 @@ class ProductsShowController extends Controller
         return view('app.products.show')->with([
             'page' => (new PageAction(locale: $locale))->product(product: $product),
             'name' => $product->name,
+            'headline' => $product->headline,
             'teaser' => $product->teaser,
             'content' => Str::of($product->content ?? '')->markdown(),
             'tags' => $product->tags,
+            'deploymentHeading' => $product->deployment_heading,
+            'deploymentIntro' => $product->deployment_intro,
+            'deploymentOptions' => $product->deployment_options,
+            'ctaHeading' => $product->cta_heading,
+            'ctaBody' => $product->cta_body,
         ]);
     }
 }

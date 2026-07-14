@@ -8,8 +8,10 @@ use App\Checks\FilesystemsDefaultCheck;
 use App\Checks\JobsCheck;
 use App\Models\Configuration;
 use App\Models\News;
+use App\Models\OpenSource;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\Technology;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -57,6 +59,8 @@ class AppServiceProvider extends ServiceProvider
         News::registerLocalizedBinding('news');
         Service::registerLocalizedBinding('service');
         Product::registerLocalizedBinding('product');
+        Technology::registerLocalizedBinding('technology');
+        OpenSource::registerLocalizedBinding('openSource');
     }
 
     private function getConfiguration(): ?Configuration
