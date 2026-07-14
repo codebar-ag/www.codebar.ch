@@ -4,20 +4,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cross-Origin Resource Sharing (CORS) Configuration
+    | Cross-Origin Resource Sharing (CORS) overrides
     |--------------------------------------------------------------------------
     |
-    | Here you may configure your settings for cross-origin resource sharing
-    | or "CORS". This determines what cross-origin operations may execute
-    | in web browsers. You are free to adjust these settings as needed.
-    |
-    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    | Every option not listed here falls back to Laravel's internal default
+    | config (vendor/laravel/framework/config/cors.php).
     |
     */
-
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
-
-    'allowed_methods' => ['*'],
 
     'allowed_origins' => [
         env('APP_URL'),
@@ -28,15 +21,5 @@ return [
         'srv-prod-space-fra-001.fra1.digitaloceanspaces.com/',
         'srv-prod-space-fra-001.fra1.cdn.digitaloceanspaces.com/',
     ],
-
-    'allowed_origins_patterns' => [],
-
-    'allowed_headers' => ['*'],
-
-    'exposed_headers' => [],
-
-    'max_age' => 0,
-
-    'supports_credentials' => false,
 
 ];
