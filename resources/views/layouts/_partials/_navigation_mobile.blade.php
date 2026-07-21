@@ -7,63 +7,11 @@
         {{ __('Home') }}
     </a>
 
-    @if ($configuration?->section_news)
-    <!-- News -->
-    <a @click.stop href="{{ localized_route('news.index') }}" title="{{ __('News') }}"
-        class="block py-3 text-center bg-zinc-50 hover:text-brand hover:font-semibold transition">
-        {{ __('News') }}
-    </a>
-    @endif
-
     <!-- Team -->
     <a @click.stop href="{{ localized_route('about-us.index') }}" title="{{ __('Team') }}"
         class="block py-3 text-center bg-zinc-50 hover:text-brand hover:font-semibold transition">
         {{ __('Team') }}
     </a>
-
-    @if ($configuration?->section_services)
-        <div @click.stop class="py-3 text-center bg-zinc-50/50 transition">
-            <a @click.stop href="{{ localized_route('services.index') }}" title="{{ __('Services') }}"
-                class="block text-center bg-zinc-50/25 hover:text-brand hover:font-semibold transition rounded-t-lg">
-                {{ __('Services') }}
-            </a>
-            <div class="text-sm text-gray-600 space-y-1">
-
-                @if (!empty($services) && $services->count())
-                    @foreach ($services as $service)
-                        <a target="{{ $service->url ? '_blank' : '_self' }}"
-                            href="{{ $service->url ?? localized_route('services.show', ['locale' => app()->getLocale(), 'service' => $service]) }}"
-                            title="{{ $service->name }}"
-                            class="block text-base hover:text-brand hover:font-semibold transition">
-                            {{ $service->name }}
-                        </a>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    @endif
-
-    @if ($configuration?->section_products)
-        <div @click.stop class="py-3 text-center bg-zinc-50 transition">
-            <a @click.stop href="{{ localized_route('products.index') }}" title="{{ __('Products') }}"
-                class="block text-center bg-zinc-50/50 hover:text-brand hover:font-semibold transition rounded-t-lg">
-                {{ __('Products') }}
-            </a>
-            <div class="text-sm text-gray-600 space-y-1">
-
-                @if (!empty($products) && $products->count())
-                    @foreach ($products as $product)
-                        <a target="{{ $product->url ? '_blank' : '_self' }}"
-                            href="{{ $product->url ?? localized_route('products.show', ['locale' => app()->getLocale(), 'product' => $product]) }}"
-                            title="{{ $product->name }}"
-                            class="block text-base hover:text-brand hover:font-semibold transition">
-                            {{ $product->name }}
-                        </a>
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    @endif
 
     <!-- AI -->
     <a @click.stop href="{{ localized_route('ai.index') }}" title="{{ __('AI') }}"
@@ -82,12 +30,9 @@
                 class="block text-base hover:text-brand hover:font-semibold transition">
                 +41 61 515 60 90
             </a>
-            @php
-                $contactEmail = $configuration?->key === '_paperflakes' ? 'info@paperflakes.ch' : 'info@codebar.ch';
-            @endphp
-            <a href="mailto:{{ $contactEmail }}" title="{{ __('Contact email address') }}"
+            <a href="mailto:info@codebar.ch" title="{{ __('Contact email address') }}"
                 class="block text-base hover:text-brand hover:font-semibold transition">
-                {{ $contactEmail }}
+                info@codebar.ch
             </a>
         </div>
     </div>

@@ -5,9 +5,7 @@ namespace Database\Seeders;
 use App\Enums\LocaleEnum;
 use App\Enums\RoleEnum;
 use App\Models\User;
-use Database\Seeders\Paperflakes\RolesAndPermissionsSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Config;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -31,14 +29,6 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole(RoleEnum::ADMINISTRATOR, RoleEnum::USER);
 
-        if (Config::get('seeder.seeder.paperflakes')) {
-            // php artisan db:seed --class=Database\\Seeders\\PaperflakesSeeder --force
-            $this->call(PaperflakesSeeder::class);
-        }
-        if (Config::get('seeder.seeder.codebar')) {
-            // php artisan db:seed --class=Database\\Seeders\\CodebarSeeder --force
-            $this->call(CodebarSeeder::class);
-        }
-
+        $this->call(CodebarSeeder::class);
     }
 }
