@@ -152,6 +152,18 @@ class PagesTableSeeder extends Seeder
                 'description' => 'These are the local open-source models we currently rely on — all of them run on our own infrastructure, in our very own office basement.',
             ]
         );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'ai.llm.analytics.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'LLM usage analytics',
+                'description' => 'Token usage and request statistics of our locally hosted LLMs — aggregated per month and per model.',
+            ]
+        );
     }
 
     private function deCH()
@@ -287,6 +299,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Unsere lokalen LLMs im Einsatz',
                 'description' => 'Auf diese lokalen Open-Source-Modelle setzen wir aktuell — sie laufen alle auf unserer eigenen Infrastruktur, im hauseigenen Bürokeller.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'ai.llm.analytics.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'LLM-Nutzungsstatistik',
+                'description' => 'Token-Verbrauch und Anfrage-Statistiken unserer lokal betriebenen LLMs — aggregiert pro Monat und Modell.',
             ]
         );
     }

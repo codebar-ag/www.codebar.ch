@@ -1,6 +1,5 @@
 <?php
 
-use Database\Seeders\Codebar\ConfigurationsTableSeeder;
 use Database\Seeders\Codebar\PagesTableSeeder;
 use Illuminate\Support\Facades\Cache;
 
@@ -31,10 +30,7 @@ it('serves cached sitemap without rebuilding', function () {
 })->group('sitemap');
 
 it('includes live legal and media pages in the sitemap', function () {
-    $this->seed([
-        ConfigurationsTableSeeder::class,
-        PagesTableSeeder::class,
-    ]);
+    $this->seed(PagesTableSeeder::class);
 
     Cache::flush();
 
@@ -53,10 +49,7 @@ it('includes live legal and media pages in the sitemap', function () {
 })->group('sitemap');
 
 it('includes the AI pages in the sitemap', function () {
-    $this->seed([
-        ConfigurationsTableSeeder::class,
-        PagesTableSeeder::class,
-    ]);
+    $this->seed(PagesTableSeeder::class);
 
     Cache::flush();
 
@@ -68,6 +61,8 @@ it('includes the AI pages in the sitemap', function () {
 
     expect($content)->toContain('/ai<');
     expect($content)->toContain('/ai/llm');
+    expect($content)->toContain('/ai/llm-analytics');
     expect($content)->toContain('/ki<');
     expect($content)->toContain('/ki/llm');
+    expect($content)->toContain('/ki/llm-analytics');
 })->group('sitemap');

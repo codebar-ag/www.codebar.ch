@@ -1,11 +1,9 @@
 <nav class="mt-12 text-xl md:text-2xl px-4 md:px-0" x-data="navigation">
     <div class="flex justify-between items-center">
 
-        @if(filled($configuration?->key))
-            <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block max-w-1/2">
-                @include("layouts._logos.{$configuration->key}")
-            </a>
-        @endif
+        <a href="{{ localized_route('start.index') }}" title="Start page" class="group inline-block max-w-1/2">
+            @include('layouts._logos._codebar')
+        </a>
 
         @if(!empty($locales))
             <div class="hidden lg:flex gap-2 text-lg items-center">

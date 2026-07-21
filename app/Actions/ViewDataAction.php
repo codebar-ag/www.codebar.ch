@@ -6,7 +6,6 @@ use App\DTO\ContactDTO;
 use App\Enums\AiModelCategoryEnum;
 use App\Enums\ContactSectionEnum;
 use App\Models\AiModel;
-use App\Models\Configuration;
 use App\Models\Contact;
 use App\Models\News;
 use App\Models\OpenSource;
@@ -19,15 +18,6 @@ use Illuminate\Support\Str;
 
 class ViewDataAction
 {
-    public function configuration(string $locale): ?Configuration
-    {
-        $key = Str::slug("configuration_{$locale}");
-
-        return Cache::rememberForever($key, function () {
-            return Configuration::first();
-        });
-    }
-
     public function products(string $locale): Collection
     {
         $key = Str::slug("products_published_{$locale}");

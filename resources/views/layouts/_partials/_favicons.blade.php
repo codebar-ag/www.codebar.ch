@@ -1,15 +1,7 @@
 @props(['manifest' => asset('manifest.json'), 'path' => asset('favicons'), 'color' => '#ffffff'])
 
 @php
-    $prefix = match ($configuration?->key) {
-        '_paperflakes' => 'paperflakes',
-        '_codebar' => 'codebar',
-        default => filled($configuration?->key)
-            ? ltrim((string) $configuration->key, '_')
-            : 'codebar',
-    };
-
-    $faviconPath = rtrim($path, '/')."/{$prefix}";
+    $faviconPath = rtrim($path, '/').'/codebar';
 @endphp
 
 <link rel="icon" type="image/png" href="{{ "{$faviconPath}/favicon-96x96.png" }}" sizes="96x96"/>

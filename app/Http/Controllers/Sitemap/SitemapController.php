@@ -30,6 +30,7 @@ class SitemapController extends Controller
         'legal.privacy.index',
         'ai.index',
         'ai.llm.index',
+        'ai.llm.analytics.index',
     ];
 
     protected const array DEFAULT_LOCALES = [
