@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\AiModelCategoryEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AiModel extends Model
 {
@@ -17,6 +18,11 @@ class AiModel extends Model
     public function replacedBy(): BelongsTo
     {
         return $this->belongsTo(AiModel::class, 'replaced_by_id');
+    }
+
+    public function dailyUsages(): HasMany
+    {
+        return $this->hasMany(AiModelDailyUsage::class);
     }
 
     public function localizedRole(): ?string

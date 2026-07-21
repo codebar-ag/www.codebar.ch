@@ -19,4 +19,18 @@ class HelperDate
     {
         return $date->format('d.m.Y');
     }
+
+    public function monthLabel(string $yearMonth): string
+    {
+        return Carbon::createFromFormat('!Y-m', $yearMonth)
+            ->locale(app()->getLocale())
+            ->translatedFormat('F Y');
+    }
+
+    public function monthName(int $month): string
+    {
+        return Carbon::create(month: $month)
+            ->locale(app()->getLocale())
+            ->translatedFormat('F');
+    }
 }

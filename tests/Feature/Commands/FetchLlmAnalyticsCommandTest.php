@@ -1,0 +1,41 @@
+<?php
+
+use App\Jobs\FetchLlmUsageJob;
+use Illuminate\Support\Facades\Queue;
+
+it('dispatches one job per day for the default range', function () {
+    Queue::fake();
+
+    $this->artisan('llm:fetch-analytics')->assertSuccessful();
+
+    Queue::assertPushed(FetchLlmUsageJob::class, 4);
+})->group('llm-analytics');
+
+it('dispatches one job per day for a custom range', function () {
+    Queue::fake();
+
+    $this->artisan('llm:fetch-analytics', ['--from' => '2026-01-01', '--to' => '2026-01-05'])
+        ->assertSuccessful();
+
+    Queue::assertPushed(FetchLlmUsageJob::class, 5);
+
+    Queue::assertPushed(fn (FetchLlmUsageJob $job) => $job->date->toDateString() === '2026-01-01');
+    Queue::assertPushed(fn (FetchLlmUsageJob $job) => $job->date->toDateString() === '2026-01-05');
+})->group('llm-analytics');
+
+it('fails on an invalid date', function () {
+    Queue::fake();
+
+    $this->artisan('llm:fetch-analytics', ['--from' => 'not-a-date'])->assertFailed();
+
+    Queue::assertNothingPushed();
+})->group('llm-analytics');
+
+it('fails when from is after to', function () {
+    Queue::fake();
+
+    $this->artisan('llm:fetch-analytics', ['--from' => '2026-02-01', '--to' => '2026-01-01'])
+        ->assertFailed();
+
+    Queue::assertNothingPushed();
+})->group('llm-analytics');

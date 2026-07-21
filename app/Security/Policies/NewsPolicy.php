@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace App\Security\Policies;
 
 use App\Models\News;
 use App\Models\User;

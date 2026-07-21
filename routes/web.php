@@ -3,6 +3,7 @@
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\AboutUs\AboutUsIndexController;
 use App\Http\Controllers\Ai\AiIndexController;
+use App\Http\Controllers\Ai\AiLlmAnalyticsIndexController;
 use App\Http\Controllers\Ai\AiLlmIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
@@ -44,14 +45,15 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('products', ProductsIndexController::class)->name('products.index');
     Route::get('products/{locale}/{product}', ProductsShowController::class)->name('products.show');
 
-    Route::get('technologies', TechnologiesIndexController::class)->name('technologies.index');
-    Route::get('technologies/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
+    // Route::get('technologies', TechnologiesIndexController::class)->name('technologies.index');
+    // Route::get('technologies/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
     Route::get('open-source-contributions', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-contributions/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
     Route::get('ai', AiIndexController::class)->name('ai.index');
     Route::get('ai/llm', AiLlmIndexController::class)->name('ai.llm.index');
+    Route::get('ai/llm-analytics', AiLlmAnalyticsIndexController::class)->name('ai.llm.analytics.index');
 
     Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('legal/imprint', ImprintIndexController::class)->name('legal.imprint.index');
@@ -75,14 +77,15 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('produkte', ProductsIndexController::class)->name('products.index');
     Route::get('produkte/{locale}/{product}', ProductsShowController::class)->name('products.show');
 
-    Route::get('technologien', TechnologiesIndexController::class)->name('technologies.index');
-    Route::get('technologien/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
+    // Route::get('technologien', TechnologiesIndexController::class)->name('technologies.index');
+    // Route::get('technologien/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
     Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-beitraege/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
     Route::get('ki', AiIndexController::class)->name('ai.index');
     Route::get('ki/llm', AiLlmIndexController::class)->name('ai.llm.index');
+    Route::get('ki/llm-analytics', AiLlmAnalyticsIndexController::class)->name('ai.llm.analytics.index');
 
     Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');

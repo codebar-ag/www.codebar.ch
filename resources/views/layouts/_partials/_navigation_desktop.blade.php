@@ -9,9 +9,9 @@
 
         <x-a :href="localized_route('about-us.index')" label="{{ __('Team') }}" classAttributes="text-xl md:text-2xl" />
 
-        <span class="text-gray-300">|</span>
+        {{-- <span class="text-gray-300">|</span>
 
-        <x-a :href="localized_route('technologies.index')" label="{{ __('Technologies') }}" classAttributes="text-xl md:text-2xl" />
+        <x-a :href="localized_route('technologies.index')" label="{{ __('Technologies') }}" classAttributes="text-xl md:text-2xl" /> --}}
 
         <span class="text-gray-300">|</span>
 
