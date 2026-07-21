@@ -5,12 +5,14 @@ namespace App\Console\Commands;
 use App\Jobs\FetchLlmUsageJob;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
-use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Console\Command;
 
 class FetchLlmAnalyticsCommand extends Command
 {
+    private const string INITIAL_SYNC_START = '2026-01-01';
+
     protected $signature = 'llm:fetch-analytics
+        {--full : Full sync from the very beginning ('.self::INITIAL_SYNC_START.')}
         {--from= : Start date (YYYY-MM-DD), defaults to 3 days ago}
         {--to= : End date (YYYY-MM-DD), defaults to today}';
 
@@ -18,14 +20,9 @@ class FetchLlmAnalyticsCommand extends Command
 
     public function handle(): int
     {
-        try {
-            $to = $this->date($this->option('to')) ?? CarbonImmutable::today();
-            $from = $this->date($this->option('from')) ?? $to->subDays(3);
-        } catch (InvalidFormatException) {
-            $this->error('Invalid date format, expected YYYY-MM-DD.');
-
-            return self::FAILURE;
-        }
+        $to = $this->date($this->option('to')) ?? CarbonImmutable::today();
+        $from = $this->date($this->option('from'))
+            ?? ($this->option('full') ? $this->date(self::INITIAL_SYNC_START) : $to->subDays(3));
 
         if ($from->greaterThan($to)) {
             $this->error('The --from date must not be after the --to date.');
