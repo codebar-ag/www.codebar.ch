@@ -16,7 +16,7 @@ class HelperNumber
     public function abbreviate(int|float|null $number, int $maxPrecision = 1): string
     {
         return $number >= 1_000_000
-            ? Number::abbreviate($number ?? 0, maxPrecision: $maxPrecision)
+            ? Number::abbreviate($number, maxPrecision: $maxPrecision)
             : $this->format($number, 0);
     }
 

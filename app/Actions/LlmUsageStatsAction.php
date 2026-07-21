@@ -4,15 +4,17 @@ namespace App\Actions;
 
 use App\Models\AiModelDailyUsage;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class LlmUsageStatsAction
 {
-    public const VERSION_CACHE_KEY = 'llm_usage_version';
+    public const string VERSION_CACHE_KEY = 'llm_usage_version';
 
-    public const OTHER_MODEL = 'other';
+    public const string OTHER_MODEL = 'other';
 
     /**
      * @return Collection<int, string>
@@ -44,7 +46,7 @@ class LlmUsageStatsAction
             return AiModelDailyUsage::query()
                 ->orderBy('date')
                 ->pluck('date')
-                ->map(fn ($date) => $date->format('Y'))
+                ->map(fn (Carbon $date) => $date->format('Y'))
                 ->unique()
                 ->values();
         });
@@ -59,10 +61,10 @@ class LlmUsageStatsAction
 
         return $this->remember($suffix, function () use ($year, $month, $model) {
             return AiModelDailyUsage::query()
-                ->when($model === self::OTHER_MODEL, fn ($query) => $query->whereNull('ai_model_id'))
-                ->when($model && $model !== self::OTHER_MODEL, fn ($query) => $query->where('model', $model))
-                ->when($year, fn ($query) => $query->whereYear('date', $year))
-                ->when($month, fn ($query) => $query->whereMonth('date', $month))
+                ->when($model === self::OTHER_MODEL, fn (Builder $query) => $query->whereNull('ai_model_id'))
+                ->when($model && $model !== self::OTHER_MODEL, fn (Builder $query) => $query->where('model', $model))
+                ->when($year, fn (Builder $query) => $query->whereYear('date', $year))
+                ->when($month, fn (Builder $query) => $query->whereMonth('date', $month))
                 ->orderBy('date')
                 ->get()
                 ->groupBy(fn (AiModelDailyUsage $row) => $row->date->format('Y-m'))
@@ -108,9 +110,9 @@ class LlmUsageStatsAction
     {
         return $this->remember($suffix.'_'.($model ?? 'all'), function () use ($from, $model) {
             $rows = AiModelDailyUsage::query()
-                ->when($from, fn ($query) => $query->where('date', '>=', $from))
-                ->when($model === self::OTHER_MODEL, fn ($query) => $query->whereNull('ai_model_id'))
-                ->when($model && $model !== self::OTHER_MODEL, fn ($query) => $query->where('model', $model))
+                ->when($from, fn (Builder $query) => $query->where('date', '>=', $from))
+                ->when($model === self::OTHER_MODEL, fn (Builder $query) => $query->whereNull('ai_model_id'))
+                ->when($model && $model !== self::OTHER_MODEL, fn (Builder $query) => $query->where('model', $model))
                 ->get();
 
             return [
