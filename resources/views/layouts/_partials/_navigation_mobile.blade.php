@@ -4,7 +4,7 @@
     <!-- Home -->
     <a @click.stop href="{{ localized_route('start.index') }}" title="{{ __('Home') }}"
         class="block py-3 text-center bg-zinc-50/50 hover:text-brand hover:font-semibold transition rounded-t-lg">
-        {{ __('News') }}
+        {{ __('Home') }}
     </a>
 
     @if ($configuration?->section_news)
@@ -65,6 +65,12 @@
         </div>
     @endif
 
+    <!-- AI -->
+    <a @click.stop href="{{ localized_route('ai.index') }}" title="{{ __('AI') }}"
+        class="block py-3 text-center bg-zinc-50/50 hover:text-brand hover:font-semibold transition">
+        {{ __('AI') }}
+    </a>
+
     <!-- Contact -->
     <div @click.stop class="py-3 text-center bg-zinc-50/25 transition space-y-1">
         <a @click.stop href="{{ localized_route('contact.index') }}" title="{{ __('Contact') }}"
@@ -76,9 +82,12 @@
                 class="block text-base hover:text-brand hover:font-semibold transition">
                 +41 61 515 60 90
             </a>
-            <a href="mailto:info@paperflakes.ch" title="{{ __('Contact email address') }}"
+            @php
+                $contactEmail = $configuration?->key === '_paperflakes' ? 'info@paperflakes.ch' : 'info@codebar.ch';
+            @endphp
+            <a href="mailto:{{ $contactEmail }}" title="{{ __('Contact email address') }}"
                 class="block text-base hover:text-brand hover:font-semibold transition">
-                info@paperflakes.ch
+                {{ $contactEmail }}
             </a>
         </div>
     </div>

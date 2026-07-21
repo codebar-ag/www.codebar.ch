@@ -36,6 +36,10 @@
             <span class="text-gray-300">|</span>
         @endif
 
+        <x-a :href="localized_route('ai.index')" label="{{ __('AI') }}" classAttributes="text-xl md:text-2xl" />
+
+        <span class="text-gray-300">|</span>
+
         <x-a :href="localized_route('contact.index')" label="{{ __('Contact') }}" classAttributes="text-xl md:text-2xl" />
 
     </div>

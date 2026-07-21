@@ -128,6 +128,30 @@ class PagesTableSeeder extends Seeder
                 'description' => 'Download official codebar logos and brand assets for press and partner use.',
             ]
         );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'ai.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'AI at codebar',
+                'description' => 'How we use artificial intelligence in our own work — from the local models we run to the infrastructure behind them.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'ai.llm.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Our local LLMs in action',
+                'description' => 'These are the local open-source models we currently rely on — all of them run on our own infrastructure, in our very own office basement.',
+            ]
+        );
     }
 
     private function deCH()
@@ -239,6 +263,30 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Medien & Markenassets – codebar',
                 'description' => 'Offizielle codebar-Logos und Markenassets für Presse und Partner.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'ai.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'KI bei codebar',
+                'description' => 'Wie wir künstliche Intelligenz in unserer eigenen Arbeit einsetzen — von den lokalen Modellen, die wir betreiben, bis zur Infrastruktur dahinter.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'ai.llm.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Unsere lokalen LLMs im Einsatz',
+                'description' => 'Auf diese lokalen Open-Source-Modelle setzen wir aktuell — sie laufen alle auf unserer eigenen Infrastruktur, im hauseigenen Bürokeller.',
             ]
         );
     }

@@ -12,7 +12,7 @@ class MyCspPreset implements Preset
 {
     public function configure(Policy $policy): void
     {
-        $cdnHost = parse_url((string) env('AWS_CDN_ENDPOINT', ''), PHP_URL_HOST);
+        $cdnHost = parse_url((string) config('filesystems.disks.s3.cdn_endpoint', ''), PHP_URL_HOST);
 
         $scriptSources = array_filter([
             Keyword::SELF,

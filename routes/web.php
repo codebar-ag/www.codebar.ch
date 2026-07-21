@@ -2,6 +2,8 @@
 
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\AboutUs\AboutUsIndexController;
+use App\Http\Controllers\Ai\AiIndexController;
+use App\Http\Controllers\Ai\AiLlmIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Jobs\JobsIndexController;
@@ -48,6 +50,9 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('open-source-contributions', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-contributions/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
+    Route::get('ai', AiIndexController::class)->name('ai.index');
+    Route::get('ai/llm', AiLlmIndexController::class)->name('ai.llm.index');
+
     Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('legal/imprint', ImprintIndexController::class)->name('legal.imprint.index');
     Route::get('legal/terms', TermsIndexController::class)->name('legal.terms.index');
@@ -75,6 +80,9 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 
     Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-beitraege/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
+
+    Route::get('ki', AiIndexController::class)->name('ai.index');
+    Route::get('ki/llm', AiLlmIndexController::class)->name('ai.llm.index');
 
     Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');

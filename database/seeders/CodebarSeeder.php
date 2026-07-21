@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Codebar\AiModelsTableSeeder;
 use Database\Seeders\Codebar\ConfigurationsTableSeeder;
 use Database\Seeders\Codebar\ContactsTableSeeder;
 use Database\Seeders\Codebar\OpenSourceTableSeeder;
@@ -23,6 +24,7 @@ class CodebarSeeder extends Seeder
         $this->call(ContactsTableSeeder::class);
         // $this->call(OpenSourceTableSeeder::class);
         $this->call(TechnologiesTableSeeder::class);
+        $this->call(AiModelsTableSeeder::class);
 
         if (app()->isLocal()) {
             Artisan::call(ClearCommand::class);
