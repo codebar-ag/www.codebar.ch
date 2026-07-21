@@ -23,6 +23,7 @@ class Product extends Model
         'locale' => LocaleEnum::class,
         'tags' => 'json',
         'deployment_options' => 'json',
+        'features' => 'json',
     ];
 
     public function getRouteKeyName(): string

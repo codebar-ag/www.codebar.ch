@@ -1,13 +1,13 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Archived;
 
-use Database\Seeders\Paperflakes\ConfigurationsTableSeeder;
-use Database\Seeders\Paperflakes\ContactsTableSeeder;
-use Database\Seeders\Paperflakes\NewsTableSeeder;
-use Database\Seeders\Paperflakes\PagesTableSeeder;
-use Database\Seeders\Paperflakes\ProductsTableSeeder;
-use Database\Seeders\Paperflakes\ServicesTableSeeder;
+use Database\Seeders\Archived\Paperflakes\ConfigurationsTableSeeder;
+use Database\Seeders\Archived\Paperflakes\ContactsTableSeeder;
+use Database\Seeders\Archived\Paperflakes\NewsTableSeeder;
+use Database\Seeders\Archived\Paperflakes\PagesTableSeeder;
+use Database\Seeders\Archived\Paperflakes\ProductsTableSeeder;
+use Database\Seeders\Archived\Paperflakes\ServicesTableSeeder;
 use Illuminate\Cache\Console\ClearCommand;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;

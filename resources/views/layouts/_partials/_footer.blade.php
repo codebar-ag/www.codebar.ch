@@ -1,41 +1,22 @@
 <footer class="my-12 md:my-20 bg-white text-lg min-h-[200px]">
     <div class="flex flex-col gap-8">
 
-        @if($configuration?->section_services || $configuration?->section_products)
+        @if($configuration?->section_services)
             <div class="hidden md:flex flex-col items-start gap-4 md:gap-18 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
-                @if($configuration?->section_services)
-                    <div>
-                        <h2 class="text-base font-semibold text-gray-800">{{ __('Services') }}</h2>
-                        <ul class="mt-1 list-none text-base">
-                            @if(!empty($services) && $services->count())
-                                @foreach($services as $service)
-                                    <li>
-                                        <x-a :href="$service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service])"
-                                             label="{{ $service->name }}" :target="$service->url ? '_blank' : '_self'"
-                                             classAttributes="text-lg"/>
-                                    </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                @endif
-
-                @if($configuration?->section_products)
-                    <div>
-                        <h2 class="text-base font-semibold text-gray-800">{{ __('Products') }}</h2>
-                        <ul class="mt-1 list-none text-base">
-                            @if(!empty($products) && $products->count())
-                                @foreach($products as $product)
-                                    <li>
-                                        <x-a :href="$product->url ?? localized_route('products.show',['locale' => app()->getLocale(),'product' => $product])"
-                                             label="{{ $product->name }}" :target="$product->url ? '_blank' : '_self'"
-                                             classAttributes="text-lg"/>
-                                    </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                @endif
+                <div>
+                    <h2 class="text-base font-semibold text-gray-800">{{ __('Services') }}</h2>
+                    <ul class="mt-1 list-none text-base">
+                        @if(!empty($services) && $services->count())
+                            @foreach($services as $service)
+                                <li>
+                                    <x-a :href="$service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service])"
+                                         label="{{ $service->name }}" :target="$service->url ? '_blank' : '_self'"
+                                         classAttributes="text-lg"/>
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
             </div>
         @endif
 

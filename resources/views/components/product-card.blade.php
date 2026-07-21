@@ -1,21 +1,8 @@
-@props(['url', 'image', 'title', 'teaser', 'tags' => []])
+@props(['url', 'title', 'teaser', 'tags' => []])
 
-@php
-    use App\Support\CloudinaryUrl;
-@endphp
-
-<a href="{{ $url }}" class="group flex flex-col rounded-xl overflow-hidden ring-1 ring-gray-200 transition hover:shadow-md hover:ring-gray-300">
-    <div class="aspect-video w-full overflow-hidden bg-gray-100">
-        <img src="{{ CloudinaryUrl::src($image, 640) }}"
-             srcset="{{ CloudinaryUrl::srcset($image, 640) }}"
-             sizes="(min-width: 1024px) 50vw, 100vw"
-             alt="{{ $title }}"
-             loading="lazy"
-             class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105" />
-    </div>
-
-    <div class="flex flex-col gap-1 p-4">
-        <div class="font-semibold text-gray-800 group-hover:text-brand">
+<a href="{{ $url }}" class="group block py-4 transition hover:bg-gray-50/50 rounded">
+    <div class="flex flex-col gap-1">
+        <div class="text-xl font-semibold text-gray-800 group-hover:text-brand">
             {{ $title }}
         </div>
         <div class="text-gray-600">
@@ -33,5 +20,13 @@
                 @endforeach
             </div>
         @endif
+
+        <span class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-brand">
+            {{ __('Learn more') }}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                 stroke="currentColor" class="w-4 h-4 transition-transform group-hover:translate-x-1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+            </svg>
+        </span>
     </div>
 </a>

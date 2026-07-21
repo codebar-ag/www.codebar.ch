@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Paperflakes;
+namespace Database\Seeders\Archived\Paperflakes;
 
 use App\Enums\LocaleEnum;
 use App\Models\Product;

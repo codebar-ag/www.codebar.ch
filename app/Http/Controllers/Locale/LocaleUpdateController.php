@@ -38,6 +38,10 @@ class LocaleUpdateController extends Controller
         $routeName = Str::after((string) $route->getName(), '.');
         $routeParameters = $route->parameters();
 
+        if (array_key_exists('locale', $routeParameters)) {
+            $routeParameters['locale'] = $locale;
+        }
+
         $localeSlug = Str::slug($locale);
 
         Artisan::call(ClearCommand::class);

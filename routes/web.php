@@ -3,6 +3,7 @@
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\AboutUs\AboutUsIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
+use App\Http\Controllers\Demo\FlowsLayoutDemoController;
 use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Jobs\JobsIndexController;
 use App\Http\Controllers\Legal\ImprintIndexController;
@@ -86,6 +87,13 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 });
 
 Route::post('language/update', LocaleUpdateController::class)->name('language.update');
+
+if (! app()->isProduction()) {
+    Route::get('demo/flows', [FlowsLayoutDemoController::class, 'index'])->name('demo.flows.index');
+    Route::get('demo/flows/v2', [FlowsLayoutDemoController::class, 'indexV2'])->name('demo.flows.v2.index');
+    Route::get('demo/flows/v2/{variant}', [FlowsLayoutDemoController::class, 'showV2'])->name('demo.flows.v2.show');
+    Route::get('demo/flows/{variant}', [FlowsLayoutDemoController::class, 'show'])->name('demo.flows.show');
+}
 
 Route::get('robots.txt', RobotsController::class);
 Route::get('sitemap.xml', SitemapController::class);

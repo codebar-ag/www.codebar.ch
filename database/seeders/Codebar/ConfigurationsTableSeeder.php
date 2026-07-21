@@ -2,39 +2,34 @@
 
 namespace Database\Seeders\Codebar;
 
-use App\Enums\LocaleEnum;
 use App\Models\Configuration;
+use Database\Seeders\Concerns\ReadsCsv;
 use Illuminate\Database\Seeder;
 
 class ConfigurationsTableSeeder extends Seeder
 {
+    use ReadsCsv;
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Configuration::updateOrCreate([], [
-
-            'company' => 'codebar Solutions AG',
-            'company_primary_color' => '#500472',
-
-            'component_intro' => [
-                LocaleEnum::DE->value => file_get_contents(database_path('files/intro/codebar_intro_de.md')),
-                LocaleEnum::EN->value => file_get_contents(database_path('files/intro/codebar_intro_en.md')),
-            ],
-
-            'section_news' => false,
-            'section_services' => false,
-            'section_products' => true,
-            'section_technologies' => false,
-            'section_open_source' => false,
-
-            'key' => '_codebar',
-
-            'links' => [
-                'linkedin' => 'https://www.linkedin.com/company/codebarag',
-                'github' => 'https://github.com/orgs/codebar-ag',
-            ],
-        ]);
+        foreach ($this->readCsv('configurations.csv') as $row) {
+            Configuration::updateOrCreate(
+                ['key' => $row['key']],
+                [
+                    'company' => $row['company'],
+                    'company_primary_color' => $row['company_primary_color'],
+                    'component_intro' => $this->decodeJson($row['component_intro']),
+                    'section_news' => filter_var($row['section_news'], FILTER_VALIDATE_BOOLEAN),
+                    'section_services' => filter_var($row['section_services'], FILTER_VALIDATE_BOOLEAN),
+                    'section_products' => filter_var($row['section_products'], FILTER_VALIDATE_BOOLEAN),
+                    'section_technologies' => filter_var($row['section_technologies'], FILTER_VALIDATE_BOOLEAN),
+                    'section_open_source' => filter_var($row['section_open_source'], FILTER_VALIDATE_BOOLEAN),
+                    'links' => $this->decodeJson($row['links']),
+                ]
+            );
+        }
     }
 }

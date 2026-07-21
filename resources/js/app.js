@@ -15,4 +15,16 @@ Alpine.data('navigation', () => ({
     },
 }))
 
+Alpine.data('tabs', () => ({
+    active: 0,
+
+    select(index) {
+        this.active = index
+    },
+
+    isActive(index) {
+        return this.active === index
+    },
+}))
+
 Alpine.start()
