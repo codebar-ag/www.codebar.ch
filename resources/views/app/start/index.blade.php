@@ -4,6 +4,15 @@
 
     <x-what-we-do/>
 
+    <x-section>
+        <x-list>
+            <x-list-card
+                    :url="localized_route('ai.llm.index')"
+                    :title="__('components.ai_llm.title')"
+                    :teaser="__('components.ai_llm.intro')"/>
+        </x-list>
+    </x-section>
+
     @if($configuration?->section_news)
     <x-section>
         <x-h1 :title="__('News')"/>

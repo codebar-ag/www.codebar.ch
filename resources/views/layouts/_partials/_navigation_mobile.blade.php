@@ -65,6 +65,12 @@
         </div>
     @endif
 
+    <!-- AI -->
+    <a @click.stop href="{{ localized_route('ai.index') }}" title="{{ __('AI') }}"
+        class="block py-3 text-center bg-zinc-50 hover:text-brand hover:font-semibold transition">
+        {{ __('AI') }}
+    </a>
+
     <!-- Contact -->
     <div @click.stop class="py-3 text-center bg-zinc-50/25 transition space-y-1">
         <a @click.stop href="{{ localized_route('contact.index') }}" title="{{ __('Contact') }}"

@@ -3,7 +3,9 @@
 namespace App\Actions;
 
 use App\DTO\ContactDTO;
+use App\Enums\AiModelCategoryEnum;
 use App\Enums\ContactSectionEnum;
+use App\Models\AiModel;
 use App\Models\Configuration;
 use App\Models\Contact;
 use App\Models\News;
@@ -59,6 +61,33 @@ class ViewDataAction
 
         return Cache::rememberForever($key, function () use ($locale) {
             return Technology::where('locale', $locale)->where('published', true)->orderBy('order')->get();
+        });
+    }
+
+    public function aiModelGroups(): Collection
+    {
+        return Cache::rememberForever('ai_models_active', function () {
+            $categoryOrder = array_column(AiModelCategoryEnum::cases(), 'value');
+
+            return AiModel::whereNull('archived_at')
+                ->orderBy('order')
+                ->get()
+                ->sortBy(fn (AiModel $model) => array_search($model->category->value, $categoryOrder))
+                ->groupBy(fn (AiModel $model) => $model->category->value);
+        });
+    }
+
+    public function aiModelArchive(): Collection
+    {
+        return Cache::rememberForever('ai_models_archived', function () {
+            $categoryOrder = array_column(AiModelCategoryEnum::cases(), 'value');
+
+            return AiModel::whereNotNull('archived_at')
+                ->with('replacedBy')
+                ->orderBy('order')
+                ->get()
+                ->sortBy(fn (AiModel $model) => array_search($model->category->value, $categoryOrder))
+                ->groupBy(fn (AiModel $model) => $model->category->value);
         });
     }
 
