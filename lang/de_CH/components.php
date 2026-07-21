@@ -60,10 +60,8 @@ return [
         'tooltips' => [
             'provider' => 'Wer dieses Modell entwickelt',
             'ram' => 'Arbeitsspeicher, den das Modell auf unserem Server benötigt',
-            'status' => 'Dieses Modell testen wir derzeit',
             'link' => 'Woher wir das Modell beziehen',
         ],
-        'status_label' => 'in Evaluation',
         'licenses' => [
             'mit' => [
                 'label' => 'MIT',

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('ram')->nullable();
             $table->string('license')->nullable();
             $table->json('role')->nullable();
-            $table->boolean('in_evaluation')->default(false);
             $table->string('link_label')->nullable();
             $table->string('link_url')->nullable();
             $table->date('archived_at')->nullable();

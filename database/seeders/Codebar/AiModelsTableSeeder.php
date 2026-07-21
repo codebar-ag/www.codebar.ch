@@ -154,7 +154,7 @@ class AiModelsTableSeeder extends Seeder
         foreach ($models as $model) {
             AiModel::updateOrCreate(
                 ['name' => $model['name']],
-                array_merge(['in_evaluation' => false, 'archived_at' => null, 'replaced_by_id' => null], $model)
+                array_merge(['archived_at' => null, 'replaced_by_id' => null], $model)
             );
         }
     }

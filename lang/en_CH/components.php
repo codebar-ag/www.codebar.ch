@@ -58,10 +58,8 @@ return [
         'tooltips' => [
             'provider' => 'Who develops this model',
             'ram' => 'Memory the model needs on our server',
-            'status' => 'We are currently evaluating this model',
             'link' => 'Where we get the model from',
         ],
-        'status_label' => 'evaluating',
         'licenses' => [
             'mit' => [
                 'label' => 'MIT',

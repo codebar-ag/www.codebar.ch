@@ -11,10 +11,7 @@
         <div class="flex flex-wrap gap-2">
             <x-badge :label="$model->provider" :title="__('components.ai_llm.tooltips.provider')" class-attributes="text-xs"/>
             <x-badge :label="$model->ram" :title="__('components.ai_llm.tooltips.ram')" class-attributes="text-xs"/>
-            <x-badge :label="$model->license->label($locale)" :title="$model->license->tooltip($locale)" class-attributes="text-xs"/>
-            @if($model->in_evaluation)
-                <x-badge-transparent :label="__('components.ai_llm.status_label')" :title="__('components.ai_llm.tooltips.status')" class-attributes="text-xs"/>
-            @endif
+            <x-badge :label="$model->licenseLabel($locale)" :title="$model->licenseTooltip($locale)" class-attributes="text-xs"/>
         </div>
     </div>
     <div class="sm:justify-self-end">
