@@ -143,8 +143,8 @@ class AiModelsTableSeeder extends Seeder
                 'ram' => '4,7 GB RAM',
                 'license' => 'Apache-2.0',
                 'role' => [
-                    'de' => 'Vektoren für Ähnlichkeitssuche (4096 Dimensionen)',
-                    'en' => 'Vectors for similarity search (4096 dimensions)',
+                    'de' => 'Vektoren für Ähnlichkeitssuche',
+                    'en' => 'Vectors for similarity search',
                 ],
                 'link_label' => 'Ollama',
                 'link_url' => 'https://ollama.com/library/qwen3-embedding',
