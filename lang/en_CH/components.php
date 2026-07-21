@@ -76,7 +76,7 @@ return [
         ],
         'infrastructure' => [
             'title' => 'Our infrastructure',
-            'intro' => 'Our models run entirely on our own local infrastructure — in our office, not in the cloud. All data stays in-house.',
+            'intro' => 'This is where our local models run.',
             'items' => [
                 'hardware' => [
                     'label' => 'Hardware',
@@ -84,11 +84,11 @@ return [
                 ],
                 'management' => [
                     'label' => 'Model management',
-                    'text' => 'LiteLLM Studio for management and authorization, Ollama runs the models.',
+                    'text' => 'LiteLLM for management and authorization, Ollama runs the models.',
                 ],
                 'access' => [
                     'label' => 'Access & security',
-                    'text' => 'Cloudinary tunnel to the local MacBook.',
+                    'text' => 'Cloudflare Tunnel to the local MacBook.',
                 ],
                 'power' => [
                     'label' => 'Power',

@@ -1,26 +1,21 @@
-@php
-    $locale = app()->getLocale();
-@endphp
-
 <x-app-layout :page="$page">
     <x-h1 :title="__('components.ai_llm.title')"/>
     <p class="text-gray-800">{{ __('components.ai_llm.intro') }}</p>
 
-    @foreach ($groups as $category => $models)
-        @php
-            $categoryEnum = \App\Enums\AiModelCategoryEnum::from($category);
-        @endphp
-        <x-ai-llm.card>
-            <x-h2 :title="$categoryEnum->title($locale)"/>
-            <p class="text-gray-600 mb-4">{{ $categoryEnum->description($locale) }}</p>
+    @foreach ($groups as $group)
+        <x-section>
+            <x-ai-llm.card>
+                <x-h2 :title="$group['category']->title()"/>
+                <p class="text-gray-600 mb-4">{{ $group['category']->description() }}</p>
 
-            @foreach ($models as $model)
-                <x-ai-llm.model-row :model="$model"/>
-            @endforeach
-        </x-ai-llm.card>
+                @foreach ($group['models'] as $model)
+                    <x-ai-llm.model-row :model="$model"/>
+                @endforeach
+            </x-ai-llm.card>
+        </x-section>
     @endforeach
 
-    <div class="mt-8">
+    <x-section>
         <x-h2 :title="__('components.ai_llm.infrastructure.title')"/>
         <p class="text-gray-600 mb-4">{{ __('components.ai_llm.infrastructure.intro') }}</p>
 
@@ -46,20 +41,19 @@
         <x-ai-llm.infra-row
                 :label="__('components.ai_llm.infrastructure.items.power.label')"
                 :text="__('components.ai_llm.infrastructure.items.power.text')"/>
-    </div>
+    </x-section>
 
-    <x-ai-llm.card id="archiv">
-        <x-h2 :title="__('components.ai_llm.archive.title')"/>
-        <p class="text-gray-600 mb-4">{{ __('components.ai_llm.archive.intro') }}</p>
+    <x-section>
+        <x-ai-llm.card id="archiv">
+            <x-h2 :title="__('components.ai_llm.archive.title')"/>
+            <p class="text-gray-600 mb-4">{{ __('components.ai_llm.archive.intro') }}</p>
 
-        @foreach ($archive as $category => $models)
-            @php
-                $categoryEnum = \App\Enums\AiModelCategoryEnum::from($category);
-            @endphp
-            <div class="{{ $loop->first ? '' : 'mt-8' }}">
-                <x-h3 :title="$categoryEnum->title($locale)"/>
-                <x-ai-llm.archive-table :models="$models"/>
-            </div>
-        @endforeach
-    </x-ai-llm.card>
+            @foreach ($archive as $group)
+                <div class="{{ $loop->first ? '' : 'mt-8' }}">
+                    <x-h3 :title="$group['category']->title()"/>
+                    <x-ai-llm.archive-table :models="$group['models']"/>
+                </div>
+            @endforeach
+        </x-ai-llm.card>
+    </x-section>
 </x-app-layout>

@@ -51,3 +51,23 @@ it('includes live legal and media pages in the sitemap', function () {
     expect($content)->toContain('rechtlichtes/datenschutz');
     expect($content)->toContain('medien');
 })->group('sitemap');
+
+it('includes the AI pages in the sitemap', function () {
+    $this->seed([
+        ConfigurationsTableSeeder::class,
+        PagesTableSeeder::class,
+    ]);
+
+    Cache::flush();
+
+    $response = get('sitemap.xml');
+
+    $response->assertOk();
+
+    $content = $response->getContent();
+
+    expect($content)->toContain('/ai<');
+    expect($content)->toContain('/ai/llm');
+    expect($content)->toContain('/ki<');
+    expect($content)->toContain('/ki/llm');
+})->group('sitemap');

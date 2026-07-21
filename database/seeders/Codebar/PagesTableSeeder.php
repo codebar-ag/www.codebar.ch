@@ -149,7 +149,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Our local LLMs in action',
-                'description' => 'These are the local open-source models we currently rely on — all of them run on our own infrastructure, in our office.',
+                'description' => 'These are the local open-source models we currently rely on — all of them run on our own infrastructure, in our very own office basement.',
             ]
         );
     }

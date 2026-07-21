@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\AiLlm;
+namespace App\Http\Controllers\Ai;
 
 use App\Actions\PageAction;
 use App\Actions\ViewDataAction;
@@ -13,7 +13,7 @@ class AiLlmIndexController extends Controller
     {
         $viewData = new ViewDataAction;
 
-        return view('app.ai-llm.index')->with([
+        return view('app.ai.llm.index')->with([
             'page' => (new PageAction(locale: null, routeName: 'ai.llm.index'))->default(),
             'groups' => $viewData->aiModelGroups(),
             'archive' => $viewData->aiModelArchive(),

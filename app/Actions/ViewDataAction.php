@@ -67,28 +67,30 @@ class ViewDataAction
     public function aiModelGroups(): Collection
     {
         return Cache::rememberForever('ai_models_active', function () {
-            $categoryOrder = array_column(AiModelCategoryEnum::cases(), 'value');
-
-            return AiModel::whereNull('archived_at')
-                ->orderBy('order')
-                ->get()
-                ->sortBy(fn (AiModel $model) => array_search($model->category->value, $categoryOrder))
-                ->groupBy(fn (AiModel $model) => $model->category->value);
+            return $this->groupAiModelsByCategory(
+                AiModel::whereNull('archived_at')->orderBy('order')->get()
+            );
         });
     }
 
     public function aiModelArchive(): Collection
     {
         return Cache::rememberForever('ai_models_archived', function () {
-            $categoryOrder = array_column(AiModelCategoryEnum::cases(), 'value');
-
-            return AiModel::whereNotNull('archived_at')
-                ->with('replacedBy')
-                ->orderBy('order')
-                ->get()
-                ->sortBy(fn (AiModel $model) => array_search($model->category->value, $categoryOrder))
-                ->groupBy(fn (AiModel $model) => $model->category->value);
+            return $this->groupAiModelsByCategory(
+                AiModel::whereNotNull('archived_at')->with('replacedBy')->orderBy('order')->get()
+            );
         });
+    }
+
+    private function groupAiModelsByCategory(Collection $models): Collection
+    {
+        return collect(AiModelCategoryEnum::cases())
+            ->map(fn (AiModelCategoryEnum $category) => [
+                'category' => $category,
+                'models' => $models->where('category', $category)->values(),
+            ])
+            ->filter(fn (array $group) => $group['models']->isNotEmpty())
+            ->values();
     }
 
     public function openSource(string $locale): Collection

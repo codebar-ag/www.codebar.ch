@@ -8,13 +8,13 @@ enum AiModelCategoryEnum: string
     case VISION_DOCUMENTS = 'vision_documents';
     case RETRIEVAL_SEARCH = 'retrieval_search';
 
-    public function title(string $locale): string
+    public function title(): string
     {
-        return __('components.ai_llm.categories.'.$this->value.'.title', locale: $locale);
+        return __('components.ai_llm.categories.'.$this->value.'.title');
     }
 
-    public function description(string $locale): string
+    public function description(): string
     {
-        return __('components.ai_llm.categories.'.$this->value.'.description', locale: $locale);
+        return __('components.ai_llm.categories.'.$this->value.'.description');
     }
 }

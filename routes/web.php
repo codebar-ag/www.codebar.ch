@@ -3,7 +3,7 @@
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\AboutUs\AboutUsIndexController;
 use App\Http\Controllers\Ai\AiIndexController;
-use App\Http\Controllers\AiLlm\AiLlmIndexController;
+use App\Http\Controllers\Ai\AiLlmIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Jobs\JobsIndexController;
