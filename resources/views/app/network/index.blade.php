@@ -38,6 +38,10 @@
                                 @endif
                             </div>
 
+                            @if($network->tier_label)
+                                <x-ui.badge :label="$network->tier_label" class="w-fit"/>
+                            @endif
+
                             @if($network->excerpt)
                                 <span class="text-sm text-muted">{{ $network->excerpt }}</span>
                             @endif

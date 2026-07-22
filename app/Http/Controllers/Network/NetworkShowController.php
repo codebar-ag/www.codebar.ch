@@ -14,6 +14,7 @@ class NetworkShowController extends Controller
         $network = Network::query()
             ->where('locale', app()->getLocale())
             ->published()
+            ->active()
             ->where('page_slug', $slug)
             ->first();
 

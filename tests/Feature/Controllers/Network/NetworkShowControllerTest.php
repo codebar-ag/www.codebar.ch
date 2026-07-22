@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\LocaleEnum;
+use App\Enums\NetworkStatusEnum;
 use App\Enums\SessionKeyEnum;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -67,6 +68,20 @@ it('returns 404 when the network is unpublished', function () {
         'name' => 'BaselHack',
         'page_slug' => 'baselhack',
         'published' => false,
+    ]);
+
+    get(route('de-ch.network.show', ['slug' => 'baselhack']))
+        ->assertNotFound();
+})->group('network');
+
+it('returns 404 when the network has ended, even when accessed directly', function () {
+    Network::factory()->create([
+        'key' => 'baselhack',
+        'locale' => LocaleEnum::DE->value,
+        'name' => 'BaselHack',
+        'page_slug' => 'baselhack',
+        'published' => true,
+        'status' => NetworkStatusEnum::ENDED->value,
     ]);
 
     get(route('de-ch.network.show', ['slug' => 'baselhack']))

@@ -38,6 +38,20 @@ it('shows a published network with its excerpt and a website icon link, but not 
         ->assertSee(NetworkCategoryEnum::SOFTWARE->getLabel());
 })->group('network');
 
+it('shows the drawing illustration when no logo is set but a drawing exists', function () {
+    Network::factory()->create([
+        'key' => 'docuware',
+        'locale' => LocaleEnum::DE->value,
+        'name' => 'DocuWare',
+        'logo' => null,
+    ]);
+
+    get(route('de-ch.network.index'))
+        ->assertOk()
+        ->assertSee('images/network/docuware.svg', escape: false)
+        ->assertDontSee('images/placeholders/network-company.svg', escape: false);
+})->group('network');
+
 it('shows the placeholder illustration instead of the name when no logo is set', function () {
     Network::factory()->create([
         'locale' => LocaleEnum::DE->value,
