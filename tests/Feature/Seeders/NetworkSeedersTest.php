@@ -4,8 +4,8 @@ use App\Enums\LocaleEnum;
 use App\Enums\NetworkCategoryEnum;
 use App\Models\Network;
 use App\Models\NetworkUser;
-use Database\Seeders\Codebar\NetworksTableSeeder;
-use Database\Seeders\Codebar\NetworkUsersTableSeeder;
+use Database\Seeders\NetworksTableSeeder;
+use Database\Seeders\NetworkUsersTableSeeder;
 
 it('seeds every company in both locales', function () {
     $this->seed(NetworksTableSeeder::class);

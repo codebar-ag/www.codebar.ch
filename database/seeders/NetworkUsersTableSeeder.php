@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Codebar;
+namespace Database\Seeders;
 
 use App\Models\NetworkUser;
 use Illuminate\Database\Seeder;

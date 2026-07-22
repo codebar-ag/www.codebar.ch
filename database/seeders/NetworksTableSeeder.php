@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Codebar;
+namespace Database\Seeders;
 
 use App\Enums\LocaleEnum;
 use App\Enums\NetworkCategoryEnum;

@@ -2,8 +2,8 @@
 
 use App\Models\AiModel;
 use App\Models\AiModelDailyUsage;
-use Database\Seeders\Codebar\AiModelDailyUsagesTableSeeder;
-use Database\Seeders\Codebar\AiModelsTableSeeder;
+use Database\Seeders\AiModelDailyUsagesTableSeeder;
+use Database\Seeders\AiModelsTableSeeder;
 
 it('seeds demo usage rows linked to the active models', function () {
     $this->seed(AiModelsTableSeeder::class);

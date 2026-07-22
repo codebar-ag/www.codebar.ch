@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Codebar;
+namespace Database\Seeders;
 
 use App\Enums\AiModelCategoryEnum;
 use App\Models\AiModel;

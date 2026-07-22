@@ -1,6 +1,6 @@
 <?php
 
-use Database\Seeders\Codebar\PagesTableSeeder;
+use Database\Seeders\PagesTableSeeder;
 use Illuminate\Support\Facades\Cache;
 
 use function Pest\Laravel\get;

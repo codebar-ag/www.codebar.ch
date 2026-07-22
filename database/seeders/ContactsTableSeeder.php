@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Codebar;
+namespace Database\Seeders;
 
 use App\Models\Contact;
 use Database\Seeders\Concerns\ReadsCsv;
