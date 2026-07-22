@@ -20,21 +20,27 @@
                 {{ __('Home') }}
             </a>
 
+            <!-- Services -->
+            <a href="{{ localized_route('services.index') }}" title="{{ __('Services') }}"
+                class="block py-3 text-center bg-gray-50 hover:text-brand hover:font-semibold transition">
+                {{ __('Services') }}
+            </a>
+
             <!-- Team -->
             <a href="{{ localized_route('about-us.index') }}" title="{{ __('Team') }}"
-                class="block py-3 text-center bg-gray-50 hover:text-brand hover:font-semibold transition">
+                class="block py-3 text-center bg-gray-50/50 hover:text-brand hover:font-semibold transition">
                 {{ __('Team') }}
             </a>
 
             <!-- AI -->
             <a href="{{ localized_route('ai.index') }}" title="{{ __('AI') }}"
-                class="block py-3 text-center bg-gray-50/50 hover:text-brand hover:font-semibold transition">
+                class="block py-3 text-center bg-gray-50 hover:text-brand hover:font-semibold transition">
                 {{ __('AI') }}
             </a>
 
             <!-- Network -->
             <a href="{{ localized_route('network.index') }}" title="{{ __('Network') }}"
-                class="block py-3 text-center bg-gray-50 hover:text-brand hover:font-semibold transition">
+                class="block py-3 text-center bg-gray-50/50 hover:text-brand hover:font-semibold transition">
                 {{ __('Network') }}
             </a>
 

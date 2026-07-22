@@ -1,24 +1,33 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Manage my profile')"/>
+    <x-layout.page-header
+            :title="__('Manage my profile')"
+            :intro="__('This link is valid for 48 hours and only applies to your own profile. For anything else, please contact codebar.')"/>
 
     <x-layout.section>
-        <p class="max-w-2xl text-gray-800">
-            {{ __('This link is valid for 48 hours and only applies to your own profile. For anything else, please contact codebar.') }}
-        </p>
-
         @if(session('status'))
             <p class="mt-6 max-w-2xl rounded-panel bg-gray-400/10 px-4 py-3 text-gray-800 ring-1 ring-gray-400/20 ring-inset">
                 {{ session('status') }}
             </p>
         @endif
 
-        <form method="POST" action="{{ request()->fullUrl() }}" class="mt-6 max-w-md">
+        <form method="POST" action="{{ request()->fullUrl() }}" enctype="multipart/form-data" class="mt-6 max-w-md">
             @csrf
             @method('PUT')
 
             <div class="rounded-panel border border-gray-200 p-4">
                 <div class="flex items-center justify-between gap-4">
-                    <p class="font-bold text-gray-800">{{ $networkUser->name }}</p>
+                    <div class="flex min-w-0 items-center gap-3">
+                        @if($networkUser->avatar)
+                            <img src="{{ \App\Support\CloudinaryUrl::src($networkUser->avatar, 96) }}"
+                                 alt="{{ $networkUser->name }}"
+                                 class="size-12 shrink-0 rounded-full object-cover">
+                        @else
+                            <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-medium text-white">
+                                {{ $networkUser->initials() }}
+                            </span>
+                        @endif
+                        <p class="truncate font-bold text-gray-800">{{ $networkUser->name }}</p>
+                    </div>
 
                     <label for="published" class="flex items-center gap-2 text-sm text-muted">
                         <input type="hidden" name="published" value="0">
@@ -52,6 +61,14 @@
                        placeholder="+41 ..."
                        class="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 text-gray-800 placeholder-gray-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand">
                 @error('phone')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+
+                <label for="avatar" class="mt-4 block text-sm font-medium text-gray-800">{{ __('Avatar') }}</label>
+                <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png,image/webp"
+                       class="mt-1 w-full text-sm text-gray-800 file:mr-3 file:rounded-pill file:border-0 file:bg-brand file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-brand-strong">
+                <p class="mt-1 text-sm text-muted">{{ __('JPG, PNG or WebP, max. 2 MB — codebar prepares it for the CDN.') }}</p>
+                @error('avatar')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>

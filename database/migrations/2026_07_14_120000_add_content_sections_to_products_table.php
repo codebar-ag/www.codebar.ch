@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->string('headline')->nullable()->after('name');
-            $table->string('deployment_heading')->nullable()->after('content');
+
+            $table->string('features_heading')->nullable()->after('content');
+            $table->text('features_intro')->nullable()->after('features_heading');
+            $table->json('features')->nullable()->after('features_intro');
+
+            $table->string('deployment_heading')->nullable()->after('features');
             $table->text('deployment_intro')->nullable()->after('deployment_heading');
             $table->json('deployment_options')->nullable()->after('deployment_intro');
+
             $table->string('cta_heading')->nullable()->after('deployment_options');
             $table->text('cta_body')->nullable()->after('cta_heading');
         });
@@ -29,6 +35,9 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn([
                 'headline',
+                'features_heading',
+                'features_intro',
+                'features',
                 'deployment_heading',
                 'deployment_intro',
                 'deployment_options',

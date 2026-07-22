@@ -12,7 +12,7 @@
     @if(!empty($features))
         <x-layout.section>
             <x-layout.section-header :title="$featuresHeading" :intro="$featuresIntro"/>
-            <x-layout.grid :cols="2" gap="gap-x-8 gap-y-6" class="mt-6">
+            <x-layout.grid :cols="2" gap="gap-x-8 gap-y-6" class="mt-4">
                 @foreach($features as $feature)
                     <x-feature-block :title="$feature['title']" :description="$feature['description']"/>
                 @endforeach
@@ -23,7 +23,7 @@
     @if(!empty($deploymentOptions))
         <x-layout.section>
             <x-layout.section-header :title="$deploymentHeading" :intro="$deploymentIntro"/>
-            <x-layout.grid :cols="3" gap="gap-8" class="mt-6">
+            <x-layout.grid :cols="3" gap="gap-8" class="mt-4">
                 @foreach($deploymentOptions as $option)
                     <x-feature-block :title="$option['title']" :description="$option['description']"/>
                 @endforeach

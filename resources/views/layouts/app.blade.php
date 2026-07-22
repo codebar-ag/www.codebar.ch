@@ -41,6 +41,8 @@
     <main id="main" class="my-8">
         <div class="text-lg leading-relaxed">
             {{ $slot }}
+
+            <x-next-page/>
         </div>
     </main>
 

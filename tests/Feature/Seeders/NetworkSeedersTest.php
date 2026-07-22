@@ -45,12 +45,31 @@ it('seeds the tiers, categories and the baselhack subpage', function () {
         ->and($baselhack->page_slug)->toBe('baselhack');
 })->group('network', 'seeders');
 
-it('seeds the contact persons unpublished until they consent', function () {
+it('seeds published contact persons with example channels', function () {
     $this->seed(NetworkUsersTableSeeder::class);
 
+    $vincenzo = NetworkUser::where('network_key', 'docuware')->first();
+    $dario = NetworkUser::where('network_key', 'wieland-business-solutions')->first();
+    $domenik = NetworkUser::where('network_key', 'odoo')->first();
+    $patrick = NetworkUser::where('network_key', 'iway')->first();
+
     expect(NetworkUser::count())->toBe(5)
-        ->and(NetworkUser::where('published', true)->count())->toBe(0)
-        ->and(NetworkUser::where('network_key', 'docuware')->first()->name)->toBe('Vincenzo Carbone');
+        ->and(NetworkUser::where('published', true)->count())->toBe(5)
+        ->and($vincenzo->name)->toBe('Vincenzo Carbone')
+        ->and($vincenzo->role)->toBe('DocuWare Schweiz')
+        ->and($vincenzo->avatar)->toBe('/images/placeholders/avatar-sample.svg')
+        ->and($dario->email)->toBe('dario.wieland@example.com')
+        ->and($dario->linkedin)->not->toBeNull()
+        ->and($dario->phone)->not->toBeNull()
+        ->and($domenik->email)->not->toBeNull()
+        ->and($domenik->linkedin)->toBeNull()
+        ->and($patrick->linkedin)->not->toBeNull()
+        ->and($patrick->phone)->not->toBeNull();
+
+    // Example data only — every seeded email must be an obvious fake.
+    NetworkUser::all()->each(function (NetworkUser $user) {
+        expect($user->email)->toEndWith('@example.com');
+    });
 })->group('network', 'seeders');
 
 it('is idempotent', function () {

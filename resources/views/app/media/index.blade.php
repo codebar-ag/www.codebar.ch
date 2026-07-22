@@ -1,9 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Media')"/>
-
-    <x-layout.section>
-        <p>{{ __('Media intro') }}</p>
-    </x-layout.section>
+    <x-layout.page-header :title="__('Media')" :intro="__('Media intro')"/>
 
     <x-layout.section>
         <x-h2 :title="__('Logos')"/>

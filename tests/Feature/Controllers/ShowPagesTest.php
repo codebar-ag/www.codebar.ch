@@ -26,7 +26,7 @@ it('redirects a product to the start page while products are disabled', function
         ->assertRedirect($startRoute());
 })->group('products', 'show');
 
-it('redirects a service to the start page while services are disabled', function () use ($startRoute) {
+it('redirects a service to the start page while service detail pages are disabled', function () use ($startRoute) {
     $service = Service::factory()->create(['locale' => 'de_CH']);
 
     get(route('de-ch.services.show', ['locale' => 'de_CH', 'service' => $service->slug]))

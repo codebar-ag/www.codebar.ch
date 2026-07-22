@@ -1,6 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('components.ai_llm_analytics.title')"/>
-    <p class="text-gray-800">{{ __('components.ai_llm_analytics.intro') }}</p>
+    <x-layout.page-header :title="__('components.ai_llm_analytics.title')" :intro="__('components.ai_llm_analytics.intro')"/>
 
     <x-layout.section>
         <form method="GET" action="{{ url()->current() }}" x-data="autoSubmit" x-on:change="submit"

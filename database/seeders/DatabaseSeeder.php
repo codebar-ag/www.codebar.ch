@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactsTableSeeder::class);
         // $this->call(OpenSourceTableSeeder::class);
         $this->call(TechnologiesTableSeeder::class);
+        $this->call(ServicesTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
         $this->call(AiModelsTableSeeder::class);
         $this->call(NetworksTableSeeder::class);

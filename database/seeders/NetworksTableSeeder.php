@@ -20,8 +20,8 @@ class NetworksTableSeeder extends Seeder
             category: NetworkCategoryEnum::COLLABORATION,
             sort: 10,
             localizedData: [
-                'de_CH' => ['name' => 'Wieland Business Solutions AG'],
-                'en_CH' => ['name' => 'Wieland Business Solutions AG'],
+                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner', 'excerpt' => 'Gemeinsame Projekte'],
+                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner', 'excerpt' => 'Joint projects'],
             ],
         );
 

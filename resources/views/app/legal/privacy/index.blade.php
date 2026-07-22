@@ -1,5 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Privacy')"/>
+    <x-layout.page-header :title="__('Privacy')" :page="$page"/>
 
     <p class="mb-2 text-muted">{{ __('Last updated at: :date', ['date' => '2026-06-30']) }}</p>
 

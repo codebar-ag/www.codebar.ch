@@ -13,6 +13,11 @@
         <li>{{ __('Phone') }}: {{ $networkUser->phone ?? '—' }}</li>
         <li>{{ __('Published') }}: {{ $networkUser->published ? __('Yes') : __('No') }}</li>
         <li>{{ __('Website') }}: {{ $networkUser->network()?->website ?? '—' }}</li>
+        <li>{{ __('Avatar') }}: {{ $networkUser->avatar ?? '—' }}</li>
     </ul>
+
+    @if($networkUser->avatar && ! str_contains($networkUser->avatar, 'res.cloudinary.com'))
+        <p>{{ __('The avatar is a raw upload — please convert it to Cloudinary.') }}</p>
+    @endif
 </body>
 </html>

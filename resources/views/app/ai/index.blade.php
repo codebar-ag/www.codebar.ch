@@ -1,6 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('components.ai.title')"/>
-    <p class="text-gray-800">{{ __('components.ai.intro') }}</p>
+    <x-layout.page-header :title="__('components.ai.title')" :intro="__('components.ai.intro')"/>
 
     <x-layout.section>
         <x-layout.section-header :title="__('components.ai_llm.title')" :intro="__('components.ai.llm_teaser')"/>

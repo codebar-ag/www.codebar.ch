@@ -1,6 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('components.ai_llm.title')"/>
-    <p class="text-gray-800">{{ __('components.ai_llm.intro') }}</p>
+    <x-layout.page-header :title="__('components.ai_llm.title')" :intro="__('components.ai_llm.intro')"/>
 
     @foreach ($groups as $group)
         <x-layout.section>
@@ -44,6 +43,29 @@
                 :label="__('components.ai_llm.infrastructure.items.power.label')"
                 :text="__('components.ai_llm.infrastructure.items.power.text')"/>
     </x-layout.section>
+
+    @if ($llmSummary['requests'] > 0)
+        <x-layout.section>
+            <x-layout.section-header :title="__('components.ai_llm.stats.title')" :intro="__('components.ai_llm.stats.intro')"/>
+
+            <x-layout.grid :cols="2" class="mt-4">
+                <x-card.stat-card
+                        :label="__('components.ai.stats.tokens_month')"
+                        :value="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['total_tokens'])"
+                        :input="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['prompt_tokens'])"
+                        :output="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['completion_tokens'])"/>
+                <x-card.stat-card
+                        :label="__('components.ai.stats.requests_month')"
+                        :value="\App\Helpers\Facades\HelperNumber::format($llmSummary['requests'], 0)"/>
+            </x-layout.grid>
+
+            <div class="mt-4">
+                <x-ui.link :href="localized_route('ai.llm.analytics.index')" class="inline-block text-base">
+                    {{ __('components.ai.to_analytics') }} <span aria-hidden="true">→</span>
+                </x-ui.link>
+            </div>
+        </x-layout.section>
+    @endif
 
     <x-layout.section>
         <x-ui.panel id="archiv" class="px-6 pt-6 pb-4">

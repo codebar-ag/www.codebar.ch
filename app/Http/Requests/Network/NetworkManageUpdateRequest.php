@@ -23,6 +23,7 @@ class NetworkManageUpdateRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:50'],
             'website' => ['nullable', 'url', 'max:255'],
             'published' => ['nullable', 'boolean'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,webp', 'max:2048'],
         ];
     }
 }

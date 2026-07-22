@@ -1,5 +1,5 @@
 <x-app-layout :page="$page" :preconnect-cloudinary="true">
-    <x-h1 :title="__('Team')"/>
+    <x-layout.page-header :title="__('Team')" :page="$page"/>
 
     <x-layout.section>
         <x-h2 :title="__('Employees')"/>

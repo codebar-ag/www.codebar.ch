@@ -17,7 +17,7 @@ it('returns 200 for both locales', function (string $locale) {
         ->assertOk();
 })->with([LocaleEnum::DE->value, LocaleEnum::EN->value])->group('network');
 
-it('shows a published network with tier label, excerpt and website host', function () {
+it('shows a published network with tier label, excerpt and a website icon link', function () {
     Network::factory()->create([
         'key' => 'docuware',
         'locale' => LocaleEnum::DE->value,
@@ -33,8 +33,34 @@ it('shows a published network with tier label, excerpt and website host', functi
         ->assertSee('DocuWare')
         ->assertSee('Silver Partner')
         ->assertSee('DMS/ECM')
-        ->assertSee('start.docuware.com')
+        ->assertSee('href="https://start.docuware.com"', escape: false)
+        ->assertSee('title="start.docuware.com"', escape: false)
         ->assertSee(NetworkCategoryEnum::SOFTWARE->getLabel());
+})->group('network');
+
+it('shows the placeholder illustration instead of the name when no logo is set', function () {
+    Network::factory()->create([
+        'locale' => LocaleEnum::DE->value,
+        'name' => 'Placeholder AG',
+        'logo' => null,
+    ]);
+
+    get(route('de-ch.network.index'))
+        ->assertOk()
+        ->assertSee('images/placeholders/network-company.svg', escape: false);
+})->group('network');
+
+it('shows the logo image instead of the placeholder when a logo is set', function () {
+    Network::factory()->create([
+        'locale' => LocaleEnum::DE->value,
+        'name' => 'Logo AG',
+        'logo' => 'https://res.cloudinary.com/codebar/image/upload/logo-ag.webp',
+    ]);
+
+    get(route('de-ch.network.index'))
+        ->assertOk()
+        ->assertSee('logo-ag.webp', escape: false)
+        ->assertDontSee('images/placeholders/network-company.svg', escape: false);
 })->group('network');
 
 it('does not show unpublished networks', function () {

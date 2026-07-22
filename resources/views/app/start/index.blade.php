@@ -2,6 +2,6 @@
 
     <x-intro/>
 
-    <x-what-we-do/>
+    <x-explore/>
 
 </x-app-layout>

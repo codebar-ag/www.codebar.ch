@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ai;
 
+use App\Actions\LlmUsageStatsAction;
 use App\Actions\PageAction;
 use App\Actions\ViewDataAction;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,7 @@ use Illuminate\View\View;
 
 class AiLlmIndexController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke(LlmUsageStatsAction $stats): View
     {
         $viewData = new ViewDataAction;
 
@@ -17,6 +18,7 @@ class AiLlmIndexController extends Controller
             'page' => (new PageAction(locale: null, routeName: 'ai.llm.index'))->default(),
             'groups' => $viewData->aiModelGroups(),
             'archive' => $viewData->aiModelArchive(),
+            'llmSummary' => $stats->currentMonthSummary(),
         ]);
     }
 }

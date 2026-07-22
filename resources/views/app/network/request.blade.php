@@ -1,11 +1,9 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Update network profile')"/>
+    <x-layout.page-header
+            :title="__('Update network profile')"
+            :intro="__('Enter the email address stored in your network profile. If it is registered, we will send you a personal link — valid for 48 hours — to update your profile.')"/>
 
     <x-layout.section>
-        <p class="max-w-2xl text-gray-800">
-            {{ __('Enter the email address stored in your network profile. If it is registered, we will send you a personal link — valid for 48 hours — to update your profile.') }}
-        </p>
-
         @if(session('status'))
             <p class="mt-6 max-w-2xl rounded-panel bg-gray-400/10 px-4 py-3 text-gray-800 ring-1 ring-gray-400/20 ring-inset">
                 {{ session('status') }}

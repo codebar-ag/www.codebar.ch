@@ -5,7 +5,9 @@ use App\Enums\NetworkStatusEnum;
 use App\Jobs\Mail\NetworkProfileUpdatedMail;
 use App\Models\Network;
 use App\Models\NetworkUser;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 use function Pest\Laravel\get;
@@ -182,4 +184,64 @@ it('validates linkedin and website urls', function () {
     ])->assertSessionHasErrors(['linkedin', 'website']);
 
     Mail::assertNothingSent();
+})->group('network');
+
+it('stores an uploaded avatar on s3 and saves its url', function () {
+    Mail::fake();
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'email' => 'vincenzo@example.com',
+        'avatar' => UploadedFile::fake()->image('avatar.jpg', 200, 200),
+    ])->assertRedirect();
+
+    $files = Storage::disk('s3')->files('network/avatars');
+
+    expect($files)->toHaveCount(1)
+        ->and($files[0])->toStartWith('network/avatars/'.$networkUser->id.'-')
+        ->and($networkUser->refresh()->avatar)->toContain('network/avatars/');
+})->group('network');
+
+it('rejects a non-image avatar upload', function () {
+    Mail::fake();
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'avatar' => UploadedFile::fake()->create('document.pdf', 100, 'application/pdf'),
+    ])->assertSessionHasErrors('avatar');
+
+    expect(Storage::disk('s3')->files('network/avatars'))->toBeEmpty();
+
+    Mail::assertNothingSent();
+})->group('network');
+
+it('rejects an avatar upload above 2 MB', function () {
+    Mail::fake();
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'avatar' => UploadedFile::fake()->image('big.jpg')->size(3000),
+    ])->assertSessionHasErrors('avatar');
+
+    expect(Storage::disk('s3')->files('network/avatars'))->toBeEmpty();
+})->group('network');
+
+it('keeps the existing avatar when no file is uploaded', function () {
+    Mail::fake();
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+    $networkUser->update(['avatar' => '/images/placeholders/avatar-sample.svg']);
+
+    put(signedManageUrl($networkUser), [
+        'email' => 'vincenzo@example.com',
+    ])->assertRedirect();
+
+    expect($networkUser->refresh()->avatar)->toBe('/images/placeholders/avatar-sample.svg');
 })->group('network');

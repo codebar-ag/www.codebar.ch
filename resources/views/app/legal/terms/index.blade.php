@@ -1,3 +1,3 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Terms')"/>
+    <x-layout.page-header :title="__('Terms')" :page="$page"/>
 </x-app-layout>

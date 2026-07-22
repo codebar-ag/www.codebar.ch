@@ -1,6 +1,6 @@
 @props(['title', 'body', 'brandColor' => null])
 
-<div class="mt-6" @if(filled($brandColor)) style="--color-brand: {{ $brandColor }};" @endif>
+<div @if(filled($brandColor)) style="--color-brand: {{ $brandColor }};" @endif>
     <x-layout.section class="relative isolate bg-gray-100 overflow-hidden">
         <div aria-hidden="true"
              class="absolute -top-32 -left-20 -z-10 h-[30rem] w-[30rem] rounded-full bg-brand opacity-10 blur-[120px]">

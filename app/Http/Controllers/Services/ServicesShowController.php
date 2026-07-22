@@ -19,7 +19,7 @@ class ServicesShowController extends Controller
         return redirect()->route(Str::slug(app()->getLocale()).'.start.index');
 
         /*        return view('app.services.show')->with([
-                    'page' => (new PageAction(locale: $locale, routeName: null))->service(service: $service),
+                    'page' => (new PageAction(locale: $locale, routeName: null))->service(service: $service, withReferences: true),
                     'name' => $service->name,
                     'teaser' => $service->teaser,
                     'content' => Str::of($service->content ?? '')->markdown(),

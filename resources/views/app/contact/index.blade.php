@@ -1,5 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Contact')"/>
+    <x-layout.page-header :title="__('Contact')" :page="$page"/>
 
     <x-layout.section class="flex flex-wrap gap-12">
         <div>

@@ -1,5 +1,5 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Imprint')"/>
+    <x-layout.page-header :title="__('Imprint')" :page="$page"/>
 
     <x-layout.section>
         <x-h2 :title="__('Company')"/>

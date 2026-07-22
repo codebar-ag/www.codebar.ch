@@ -25,6 +25,15 @@
                     </li>
                 </ul>
             </div>
+            <div>
+                <h2 class="text-base font-semibold text-gray-800">{{ __('Network') }}</h2>
+                <ul class="mt-1 list-none text-base">
+                    <li>
+                        <x-ui.link :href="localized_route('network.request.index')" label="{{ __('Manage my profile') }}"
+                                   class="text-lg"/>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
         <div>
