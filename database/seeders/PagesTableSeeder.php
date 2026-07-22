@@ -111,7 +111,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Terms & Conditions – codebar Solutions AG',
-                'description' => 'The general terms and conditions of codebar Solutions AG.',
+                'description' => 'The general terms and conditions of codebar Solutions AG: offers, project delivery, rights of use, liability and support.',
             ]
         );
 
@@ -260,7 +260,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'AGB – codebar Solutions AG',
-                'description' => 'Die Allgemeinen Geschäftsbedingungen der codebar Solutions AG.',
+                'description' => 'Die Allgemeinen Geschäftsbedingungen der codebar Solutions AG: Angebote, Projektabwicklung, Nutzungsrechte, Haftung und Support.',
             ]
         );
 
