@@ -18,7 +18,8 @@ class ServiceFactory extends Factory
      */
     public function definition(): array
     {
-        $name = (string) fake()->unique()->words(3, true);
+        /** @var string $name words() returns a string when $asText is true */
+        $name = fake()->unique()->words(3, true);
 
         return [
             'published' => true,

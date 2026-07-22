@@ -9,7 +9,7 @@ test('create a Service model', function () {
 
 test('delete a Service model', function () {
     $model = Service::factory()->create();
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('resolves the route key name to slug', function () {
@@ -28,5 +28,5 @@ it('has a references relation', function () {
     ]);
 
     expect($service->references()->count())->toBe(1);
-    expect($service->references->first()->target)->toBeInstanceOf(Service::class);
+    expect($service->references->firstOrFail()->target)->toBeInstanceOf(Service::class);
 })->group('unit', 'models');

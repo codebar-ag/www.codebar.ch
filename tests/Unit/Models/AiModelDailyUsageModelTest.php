@@ -14,7 +14,7 @@ test('create an AiModelDailyUsage model', function () {
 test('delete an AiModelDailyUsage model', function () {
     $model = AiModelDailyUsage::factory()->create();
 
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('belongs to an AiModel', function () {
@@ -27,5 +27,5 @@ it('belongs to an AiModel', function () {
     $usage = AiModelDailyUsage::factory()->create(['ai_model_id' => $aiModel->id]);
 
     expect($usage->aiModel())->toBeInstanceOf(BelongsTo::class)
-        ->and($usage->aiModel->is($aiModel))->toBeTrue();
+        ->and($usage->aiModel?->is($aiModel))->toBeTrue();
 })->group('unit', 'models');

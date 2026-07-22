@@ -68,7 +68,7 @@ it('includes only same-type reference pages when requested', function () {
     $page = (new PageAction)->news($news, withReferences: true);
 
     expect($page->referencePages)->toHaveCount(1);
-    expect($page->referencePages->first()->locale)->toBe('en_CH');
+    expect($page->referencePages?->firstOrFail()->locale)->toBe('en_CH');
 });
 
 it('skips reference pages pointing at a different model type', function () {

@@ -40,7 +40,7 @@ class AiModelsTableSeeder extends Seeder
             }
 
             $models->firstWhere('id', $idsByCsvId->get($row['id']))
-                ->update(['replaced_by_id' => $idsByCsvId->get($row['replaced_by_id'])]);
+                ?->update(['replaced_by_id' => $idsByCsvId->get($row['replaced_by_id'])]);
         });
     }
 }

@@ -9,7 +9,7 @@ test('create a Technology model', function () {
 
 test('delete a Technology model', function () {
     $model = Technology::factory()->create();
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('resolves the route key name to slug', function () {
@@ -28,5 +28,5 @@ it('has a references relation', function () {
     ]);
 
     expect($technology->references()->count())->toBe(1);
-    expect($technology->references->first()->target)->toBeInstanceOf(Technology::class);
+    expect($technology->references->firstOrFail()->target)->toBeInstanceOf(Technology::class);
 })->group('unit', 'models');

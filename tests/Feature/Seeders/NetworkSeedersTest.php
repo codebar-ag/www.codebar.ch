@@ -7,8 +7,10 @@ use App\Models\NetworkUser;
 use Database\Seeders\NetworksTableSeeder;
 use Database\Seeders\NetworkUsersTableSeeder;
 
+use function Pest\Laravel\seed;
+
 it('seeds every company in both locales', function () {
-    $this->seed(NetworksTableSeeder::class);
+    seed(NetworksTableSeeder::class);
 
     $expectedKeys = [
         'wieland-business-solutions',
@@ -32,11 +34,11 @@ it('seeds every company in both locales', function () {
 })->group('network', 'seeders');
 
 it('seeds the tiers and categories', function () {
-    $this->seed(NetworksTableSeeder::class);
+    seed(NetworksTableSeeder::class);
 
-    $docuware = Network::where('key', 'docuware')->where('locale', LocaleEnum::DE->value)->first();
-    $odoo = Network::where('key', 'odoo')->where('locale', LocaleEnum::DE->value)->first();
-    $baselhack = Network::where('key', 'baselhack')->where('locale', LocaleEnum::DE->value)->first();
+    $docuware = Network::where('key', 'docuware')->where('locale', LocaleEnum::DE->value)->firstOrFail();
+    $odoo = Network::where('key', 'odoo')->where('locale', LocaleEnum::DE->value)->firstOrFail();
+    $baselhack = Network::where('key', 'baselhack')->where('locale', LocaleEnum::DE->value)->firstOrFail();
 
     expect($docuware->tier_label)->toBeNull()
         ->and($docuware->category)->toBe(NetworkCategoryEnum::SOFTWARE)
@@ -46,14 +48,14 @@ it('seeds the tiers and categories', function () {
 })->group('network', 'seeders');
 
 it('seeds unpublished contact persons with real channels where known', function () {
-    $this->seed(NetworkUsersTableSeeder::class);
+    seed(NetworkUsersTableSeeder::class);
 
-    $vincenzo = NetworkUser::where('network_key', 'docuware')->first();
-    $dario = NetworkUser::where('network_key', 'wieland-business-solutions')->first();
-    $sarah = NetworkUser::where('network_key', 'pst')->first();
-    $domenik = NetworkUser::where('network_key', 'odoo')->first();
-    $patrick = NetworkUser::where('network_key', 'iway')->first();
-    $baselhack = NetworkUser::where('network_key', 'baselhack')->first();
+    $vincenzo = NetworkUser::where('network_key', 'docuware')->firstOrFail();
+    $dario = NetworkUser::where('network_key', 'wieland-business-solutions')->firstOrFail();
+    $sarah = NetworkUser::where('network_key', 'pst')->firstOrFail();
+    $domenik = NetworkUser::where('network_key', 'odoo')->firstOrFail();
+    $patrick = NetworkUser::where('network_key', 'iway')->firstOrFail();
+    $baselhack = NetworkUser::where('network_key', 'baselhack')->firstOrFail();
 
     expect(NetworkUser::count())->toBe(6)
         ->and(NetworkUser::where('published', true)->count())->toBe(0)
@@ -72,10 +74,10 @@ it('seeds unpublished contact persons with real channels where known', function 
 })->group('network', 'seeders');
 
 it('is idempotent', function () {
-    $this->seed(NetworksTableSeeder::class);
-    $this->seed(NetworksTableSeeder::class);
-    $this->seed(NetworkUsersTableSeeder::class);
-    $this->seed(NetworkUsersTableSeeder::class);
+    seed(NetworksTableSeeder::class);
+    seed(NetworksTableSeeder::class);
+    seed(NetworkUsersTableSeeder::class);
+    seed(NetworkUsersTableSeeder::class);
 
     expect(Network::count())->toBe(18)
         ->and(NetworkUser::count())->toBe(6);

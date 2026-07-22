@@ -9,7 +9,7 @@ test('create a OpenSource model', function () {
 
 test('delete a OpenSource model', function () {
     $model = OpenSource::factory()->create();
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('resolves the route key name to slug', function () {
@@ -28,5 +28,5 @@ it('has a references relation', function () {
     ]);
 
     expect($openSource->references()->count())->toBe(1);
-    expect($openSource->references->first()->target)->toBeInstanceOf(OpenSource::class);
+    expect($openSource->references->firstOrFail()->target)->toBeInstanceOf(OpenSource::class);
 })->group('unit', 'models');

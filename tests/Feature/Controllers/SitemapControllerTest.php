@@ -4,6 +4,7 @@ use Database\Seeders\PagesTableSeeder;
 use Illuminate\Support\Facades\Cache;
 
 use function Pest\Laravel\get;
+use function Pest\Laravel\seed;
 
 it('generates and caches the sitemap XML', function () {
     Cache::flush();
@@ -30,7 +31,7 @@ it('serves cached sitemap without rebuilding', function () {
 })->group('sitemap');
 
 it('includes live legal and media pages in the sitemap', function () {
-    $this->seed(PagesTableSeeder::class);
+    seed(PagesTableSeeder::class);
 
     Cache::flush();
 
@@ -49,7 +50,7 @@ it('includes live legal and media pages in the sitemap', function () {
 })->group('sitemap');
 
 it('does not include disabled pages in the sitemap', function () {
-    $this->seed(PagesTableSeeder::class);
+    seed(PagesTableSeeder::class);
 
     Cache::flush();
 
@@ -68,7 +69,7 @@ it('does not include disabled pages in the sitemap', function () {
 })->group('sitemap');
 
 it('includes the AI pages in the sitemap', function () {
-    $this->seed(PagesTableSeeder::class);
+    seed(PagesTableSeeder::class);
 
     Cache::flush();
 

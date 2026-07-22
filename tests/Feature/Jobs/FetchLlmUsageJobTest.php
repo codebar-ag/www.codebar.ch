@@ -9,11 +9,16 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
+use function Pest\Laravel\assertDatabaseHas;
+
 beforeEach(function () {
     config()->set('services.litellm.url', 'https://llm.codebar.net');
     config()->set('services.litellm.master_key', 'test-master-key');
 });
 
+/**
+ * @return array<int, array<string, mixed>>
+ */
 function spendLogsPayload(int $promptTokens): array
 {
     return [
@@ -35,7 +40,7 @@ it('stores the fetched usage and updates existing rows idempotently', function (
 
     expect(AiModelDailyUsage::count())->toBe(1);
 
-    $this->assertDatabaseHas('ai_model_daily_usages', [
+    assertDatabaseHas('ai_model_daily_usages', [
         'model' => 'qwen3.6:35b',
         'prompt_tokens' => 100,
         'requests' => 1,
@@ -48,7 +53,7 @@ it('stores the fetched usage and updates existing rows idempotently', function (
 
     expect(AiModelDailyUsage::count())->toBe(1);
 
-    $this->assertDatabaseHas('ai_model_daily_usages', [
+    assertDatabaseHas('ai_model_daily_usages', [
         'model' => 'qwen3.6:35b',
         'prompt_tokens' => 200,
     ]);
@@ -60,6 +65,7 @@ it('invalidates the stats cache after storing', function () {
     ]);
 
     $versionBefore = Cache::get(LlmUsageStatsAction::VERSION_CACHE_KEY, 0);
+    assert(is_int($versionBefore));
 
     (new FetchLlmUsageJob(CarbonImmutable::parse('2026-07-20')))->handle(
         app(FetchLlmUsageAction::class),

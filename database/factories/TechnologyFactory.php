@@ -18,7 +18,8 @@ class TechnologyFactory extends Factory
      */
     public function definition(): array
     {
-        $title = (string) fake()->unique()->words(3, true);
+        /** @var string $title words() returns a string when $asText is true */
+        $title = fake()->unique()->words(3, true);
 
         return [
             'published' => true,

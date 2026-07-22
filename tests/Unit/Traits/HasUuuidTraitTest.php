@@ -10,7 +10,7 @@ it('find by uuid', function () {
         'uuid' => $uuid,
     ]);
 
-    expect($model->uuid)->toBe(User::findByUuid($uuid)->uuid);
+    expect($model->uuid)->toBe(User::findByUuid($uuid)?->uuid);
 })->group('unit', 'traits', 'uuid');
 
 it('find by uuid or fail', function () {
@@ -32,7 +32,7 @@ it('scope with uuid', function () {
 
     User::factory(3)->create();
 
-    expect($model->uuid)->toBe(User::withUuid($uuid)->first()->uuid);
+    expect($model->uuid)->toBe(User::withUuid($uuid)->firstOrFail()->uuid);
 })->group('unit', 'traits', 'uuid');
 
 it('scope with uuids', function () {

@@ -17,9 +17,9 @@ test('create and delete a Reference model', function () {
 
     expect($reference)->toBeInstanceOf(Reference::class);
     expect($reference->source)->toBeInstanceOf(News::class);
-    expect($reference->source->is($news))->toBeTrue();
+    expect($reference->source?->is($news))->toBeTrue();
     expect($reference->target)->toBeInstanceOf(News::class);
-    expect($reference->target->is($other))->toBeTrue();
+    expect($reference->target?->is($other))->toBeTrue();
 
-    $this->assertTrue($reference->delete());
+    expect($reference->delete())->toBeTrue();
 })->group('unit', 'models');

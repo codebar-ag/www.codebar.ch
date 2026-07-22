@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class SeoImageCleanupSeeder extends Seeder
 {
-    private const BROKEN_IMAGE_PATTERN = '%seo_codebar.webp%';
+    private const string BROKEN_IMAGE_PATTERN = '%seo_codebar.webp%';
 
-    private const LEGACY_IMAGE_PATTERN = '%seo_paperflakes.webp%';
+    private const string LEGACY_IMAGE_PATTERN = '%seo_paperflakes.webp%';
 
     /**
      * Clears out references to two SEO images that were replaced — a broken
@@ -19,7 +20,7 @@ class SeoImageCleanupSeeder extends Seeder
     public function run(): void
     {
         DB::table('pages')
-            ->where(function ($query) {
+            ->where(function (Builder $query) {
                 $query->where('image', 'like', self::BROKEN_IMAGE_PATTERN)
                     ->orWhere('image', 'like', self::LEGACY_IMAGE_PATTERN);
             })
@@ -27,7 +28,7 @@ class SeoImageCleanupSeeder extends Seeder
 
         foreach (['news', 'technologies', 'open_sources'] as $table) {
             DB::table($table)
-                ->where(function ($query) {
+                ->where(function (Builder $query) {
                     $query->where('image', 'like', self::BROKEN_IMAGE_PATTERN)
                         ->orWhere('image', 'like', self::LEGACY_IMAGE_PATTERN);
                 })

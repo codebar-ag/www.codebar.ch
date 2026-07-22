@@ -62,10 +62,13 @@ class NewsTableSeeder extends Seeder
 
     }
 
+    /**
+     * @param  array<string, array<string, mixed>>  $localizedData
+     */
     private function seed(Carbon $publishedAt, string $author, array $localizedData): void
     {
-        $entries = collect($localizedData)->map(function ($data, $locale) use ($author, $publishedAt) {
-            $slug = Str::slug(Arr::get($data, 'slug'), '-', $locale);
+        $entries = collect($localizedData)->map(function (array $data, string $locale) use ($author, $publishedAt) {
+            $slug = Str::slug(Arr::string($data, 'slug'), '-', $locale);
 
             return News::updateOrCreate(
                 [
