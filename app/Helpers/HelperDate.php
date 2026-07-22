@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Carbon\Carbon;
+use InvalidArgumentException;
 
 class HelperDate
 {
@@ -18,5 +19,31 @@ class HelperDate
     public function formatDate(Carbon $date): string
     {
         return $date->format('d.m.Y');
+    }
+
+    public function monthLabel(string $yearMonth): string
+    {
+        $date = Carbon::createFromFormat('!Y-m', $yearMonth);
+
+        if ($date === null) {
+            throw new InvalidArgumentException("Invalid year-month value: {$yearMonth}");
+        }
+
+        $date->locale(app()->getLocale());
+
+        return $date->translatedFormat('F Y');
+    }
+
+    public function monthName(int $month): string
+    {
+        $date = Carbon::create(month: $month);
+
+        if ($date === null) {
+            throw new InvalidArgumentException("Invalid month value: {$month}");
+        }
+
+        $date->locale(app()->getLocale());
+
+        return $date->translatedFormat('F');
     }
 }

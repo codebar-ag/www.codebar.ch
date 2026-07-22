@@ -2,21 +2,12 @@
 
 use App\Actions\ViewDataAction;
 use App\Enums\ContactSectionEnum;
-use App\Models\Configuration;
 use App\Models\Contact;
 use App\Models\News;
 use App\Models\OpenSource;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Technology;
-
-it('returns the first configuration', function () {
-    $configuration = Configuration::factory()->create();
-
-    $result = (new ViewDataAction)->configuration('de_CH');
-
-    expect($result->is($configuration))->toBeTrue();
-})->group('unit', 'actions');
 
 it('only returns published products for the given locale, ordered', function () {
     Product::factory()->create(['locale' => 'de_CH', 'published' => true, 'order' => 2]);

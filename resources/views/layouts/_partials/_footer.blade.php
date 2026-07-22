@@ -1,25 +1,6 @@
 <footer class="my-12 md:my-20 bg-white text-lg min-h-[200px]">
     <div class="flex flex-col gap-8">
 
-        @if($configuration?->section_services)
-            <div class="hidden md:flex flex-col items-start gap-4 md:gap-18 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
-                <div>
-                    <h2 class="text-base font-semibold text-gray-800">{{ __('Services') }}</h2>
-                    <ul class="mt-1 list-none text-base">
-                        @if(!empty($services) && $services->count())
-                            @foreach($services as $service)
-                                <li>
-                                    <x-a :href="$service->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $service])"
-                                         label="{{ $service->name }}" :target="$service->url ? '_blank' : '_self'"
-                                         classAttributes="text-lg"/>
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        @endif
-
         <div class="flex flex-col items-start gap-4 md:gap-18 md:flex-row md:items-start md:justify-start mx-auto md:mx-0">
             <div>
                 <h2 class="text-base font-semibold text-gray-800">{{ __('Legal') }}</h2>
@@ -49,10 +30,8 @@
             @include('layouts._partials._footer.labels')
         </div>
 
-        @if(filled($configuration?->company))
-            <div class="text-base text-gray-500 text-center md:text-left">
-                <span title="{{ app()->getLocale() }}">© {{ date('Y') }} {{ $configuration?->company }}</span>
-            </div>
-        @endif
+        <div class="text-base text-gray-500 text-center md:text-left">
+            <span title="{{ app()->getLocale() }}">© {{ date('Y') }} codebar Solutions AG</span>
+        </div>
     </div>
 </footer>

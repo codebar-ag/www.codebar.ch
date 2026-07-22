@@ -1,6 +1,6 @@
 @props(['title', 'body', 'buttonLabel' => null, 'buttonHref' => null])
 
-<div class="mt-6" style="--brand: {{ $configuration?->company_primary_color }};">
+<div class="mt-6" style="--brand: var(--color-brand);">
     <x-section class-attributes="relative isolate bg-gray-100 overflow-hidden">
         <div
             class="absolute -top-32 -left-20 -z-10 h-[30rem] w-[30rem] rounded-full bg-(--brand) opacity-10 blur-[120px]">

@@ -3,8 +3,9 @@
 namespace App\Actions;
 
 use App\DTO\ContactDTO;
+use App\Enums\AiModelCategoryEnum;
 use App\Enums\ContactSectionEnum;
-use App\Models\Configuration;
+use App\Models\AiModel;
 use App\Models\Contact;
 use App\Models\News;
 use App\Models\OpenSource;
@@ -17,15 +18,6 @@ use Illuminate\Support\Str;
 
 class ViewDataAction
 {
-    public function configuration(string $locale): ?Configuration
-    {
-        $key = Str::slug("configuration_{$locale}");
-
-        return Cache::rememberForever($key, function () {
-            return Configuration::first();
-        });
-    }
-
     /**
      * @return Collection<int, Product>
      */
@@ -72,6 +64,45 @@ class ViewDataAction
         return Cache::rememberForever($key, function () use ($locale) {
             return Technology::where('locale', $locale)->where('published', true)->orderBy('order')->get();
         });
+    }
+
+    /**
+     * @return Collection<int, array{category: AiModelCategoryEnum, models: Collection<int, AiModel>}>
+     */
+    public function aiModelGroups(): Collection
+    {
+        return Cache::rememberForever('ai_models_active', function () {
+            return $this->groupAiModelsByCategory(
+                AiModel::whereNull('archived_at')->orderBy('order')->get()
+            );
+        });
+    }
+
+    /**
+     * @return Collection<int, array{category: AiModelCategoryEnum, models: Collection<int, AiModel>}>
+     */
+    public function aiModelArchive(): Collection
+    {
+        return Cache::rememberForever('ai_models_archived', function () {
+            return $this->groupAiModelsByCategory(
+                AiModel::whereNotNull('archived_at')->with('replacedBy')->orderBy('order')->get()
+            );
+        });
+    }
+
+    /**
+     * @param  Collection<int, AiModel>  $models
+     * @return Collection<int, array{category: AiModelCategoryEnum, models: Collection<int, AiModel>}>
+     */
+    private function groupAiModelsByCategory(Collection $models): Collection
+    {
+        return collect(AiModelCategoryEnum::cases())
+            ->map(fn (AiModelCategoryEnum $category) => [
+                'category' => $category,
+                'models' => $models->where('category', $category)->values(),
+            ])
+            ->filter(fn (array $group) => $group['models']->isNotEmpty())
+            ->values();
     }
 
     /**

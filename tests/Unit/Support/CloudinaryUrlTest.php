@@ -11,10 +11,10 @@ it('transforms cloudinary urls with sizing parameters', function () {
 });
 
 it('replaces existing cloudinary transforms', function () {
-    $url = 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-paperflakes-ch/people/alexander_boll.webp';
+    $url = 'https://res.cloudinary.com/codebar/image/upload/w_400,h_400,f_auto,q_auto/www-codebar-ch/people/alexander_boll.webp';
 
     expect(CloudinaryUrl::src($url, 256))->toBe(
-        'https://res.cloudinary.com/codebar/image/upload/w_256,h_256,c_fill,f_auto,q_auto/www-paperflakes-ch/people/alexander_boll.webp'
+        'https://res.cloudinary.com/codebar/image/upload/w_256,h_256,c_fill,f_auto,q_auto/www-codebar-ch/people/alexander_boll.webp'
     );
 });
 

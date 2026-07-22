@@ -26,6 +26,9 @@ class SitemapController extends Controller
         'media.index',
         'legal.imprint.index',
         'legal.privacy.index',
+        'ai.index',
+        'ai.llm.index',
+        'ai.llm.analytics.index',
     ];
 
     protected const array DEFAULT_LOCALES = [

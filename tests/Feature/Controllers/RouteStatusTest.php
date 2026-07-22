@@ -22,6 +22,9 @@ dataset('routes', function () {
         [LocaleEnum::EN->value, 'legal.privacy.index'],
         [LocaleEnum::EN->value, 'media.index'],
         [LocaleEnum::EN->value, 'contact.index'],
+        [LocaleEnum::EN->value, 'ai.index'],
+        [LocaleEnum::EN->value, 'ai.llm.index'],
+        [LocaleEnum::EN->value, 'ai.llm.analytics.index'],
 
         // DE-CH
         [LocaleEnum::DE->value, 'start.index'],
@@ -37,6 +40,9 @@ dataset('routes', function () {
         [LocaleEnum::DE->value, 'legal.privacy.index'],
         [LocaleEnum::DE->value, 'media.index'],
         [LocaleEnum::DE->value, 'contact.index'],
+        [LocaleEnum::DE->value, 'ai.index'],
+        [LocaleEnum::DE->value, 'ai.llm.index'],
+        [LocaleEnum::DE->value, 'ai.llm.analytics.index'],
     ];
 });
 

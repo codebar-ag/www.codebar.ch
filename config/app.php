@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'paperflakes AG'),
+    'name' => env('APP_NAME', 'codebar Solutions AG'),
 
     'timezone' => env('APP_TIMEZONE', 'Europe/Zurich'),
 

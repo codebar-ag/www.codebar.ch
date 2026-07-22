@@ -4,9 +4,9 @@ use App\Models\News;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\User;
-use App\Policies\NewsPolicy;
-use App\Policies\ProductPolicy;
-use App\Policies\ServicePolicy;
+use App\Security\Policies\NewsPolicy;
+use App\Security\Policies\ProductPolicy;
+use App\Security\Policies\ServicePolicy;
 
 it('denies every ability on the NewsPolicy', function () {
     $policy = new NewsPolicy;

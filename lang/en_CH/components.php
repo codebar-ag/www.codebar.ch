@@ -1,16 +1,6 @@
 <?php
 
 return [
-    'docuware' => [
-        'showme' => [
-            'title' => 'Experience DocuWare in Action',
-            'teaser' => 'Discover interactive tours focused on intelligent document processing, invoice approval, and contract management. See how DocuWare streamlines processes, reduces errors, and makes your business more efficient.',
-            'buttons' => [
-                'discover_now' => 'Discover Now',
-                'more' => 'More about DocuWare',
-            ],
-        ],
-    ],
     'what_we_do' => [
         'title' => 'What we do',
         'items' => [
@@ -31,5 +21,110 @@ return [
     'contact_cta' => [
         'title' => 'Interested?',
         'teaser' => 'Let\'s talk.',
+    ],
+    'ai' => [
+        'title' => 'AI at codebar',
+        'intro' => 'How we use artificial intelligence in our own work — from the local models we run to the infrastructure behind them.',
+        'llm_teaser' => 'The local open-source language models we rely on and the infrastructure that runs them.',
+        'to_models' => 'View the models',
+        'to_analytics' => 'View usage analytics',
+        'stats' => [
+            'tokens_month' => 'Tokens this month',
+            'requests_month' => 'Requests this month',
+            'input' => 'Input',
+            'output' => 'Output',
+        ],
+    ],
+    'ai_llm_analytics' => [
+        'title' => 'LLM usage analytics',
+        'intro' => 'Token usage and request statistics of our locally hosted LLMs — aggregated per month and per model.',
+        'filter' => [
+            'year_label' => 'Year',
+            'all_years' => 'All years',
+            'month_label' => 'Month',
+            'all_months' => 'All months',
+            'model_label' => 'Model',
+            'all_models' => 'All models',
+            'other_models' => 'Other',
+            'apply' => 'Apply',
+        ],
+        'table' => [
+            'title' => 'Details',
+            'period' => 'Period',
+            'prompt_tokens' => 'Prompt tokens',
+            'completion_tokens' => 'Completion tokens',
+            'total_tokens' => 'Total tokens',
+            'requests' => 'Requests',
+            'total' => 'Total',
+        ],
+        'empty' => 'No usage data available yet.',
+        'back' => 'Back to our LLMs',
+    ],
+    'ai_llm' => [
+        'title' => 'Our local LLMs in action',
+        'intro' => 'These are the local open-source models we currently rely on. We aim to cover as much of our AI work as possible with local models — all of them run on our own infrastructure, in our very own office basement.',
+        'categories' => [
+            'reasoning_coding' => [
+                'title' => 'Reasoning & coding',
+                'description' => 'The thinkers: complex analysis, business logic and help with programming.',
+            ],
+            'vision_documents' => [
+                'title' => 'Vision & documents',
+                'description' => 'The eyes: understanding images and turning scanned documents into usable text.',
+            ],
+            'retrieval_search' => [
+                'title' => 'Retrieval & search',
+                'description' => 'The memory: finds the right content in large data sets.',
+            ],
+        ],
+        'tooltips' => [
+            'provider' => 'Who develops this model',
+            'ram' => 'Memory the model needs on our server',
+            'link' => 'Where we get the model from',
+        ],
+        'licenses' => [
+            'mit' => [
+                'label' => 'MIT',
+                'tooltip' => 'MIT license: very permissive open source — free to use, including commercially',
+            ],
+            'apache' => [
+                'label' => 'Apache 2.0',
+                'tooltip' => 'Apache 2.0: open source with patent grant — free to use, including commercially',
+            ],
+            'gemma' => [
+                'label' => 'Gemma license',
+                'tooltip' => 'Google\'s own license with usage terms',
+            ],
+        ],
+        'infrastructure' => [
+            'title' => 'Our infrastructure',
+            'intro' => 'This is where our local models run.',
+            'items' => [
+                'hardware' => [
+                    'label' => 'Hardware',
+                    'text' => 'MacBook Pro 16" M5 Max, 128 GB RAM.',
+                ],
+                'management' => [
+                    'label' => 'Model management',
+                    'text' => 'LiteLLM for management and authorization, Ollama runs the models.',
+                ],
+                'access' => [
+                    'label' => 'Access & security',
+                    'text' => 'Cloudflare Tunnel to the local MacBook.',
+                ],
+                'power' => [
+                    'label' => 'Power',
+                    'text' => 'UPS Ubiquiti UniFi.',
+                ],
+            ],
+        ],
+        'archive' => [
+            'title' => 'Archive',
+            'intro' => 'Models we have since replaced — kept here for the record.',
+            'columns' => [
+                'model' => 'Old model',
+                'replaced_by' => 'Replaced by',
+            ],
+        ],
     ],
 ];

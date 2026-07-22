@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'litellm' => [
+        'url' => env('LITELLM_URL', 'https://llm.codebar.net'),
+        'master_key' => env('LITELLM_MASTER_KEY'),
+    ],
+
     'microsoft' => [
         'client_id' => env('MICROSOFT_CLIENT_ID'),
         'client_secret' => env('MICROSOFT_CLIENT_SECRET'),

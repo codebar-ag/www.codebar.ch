@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Actions\ViewDataAction;
 use App\Enums\LocaleEnum;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
@@ -24,8 +23,6 @@ class AppLayout extends Component
             'locale' => Str::slug($locale),
             'page' => $this->page,
             'preconnectCloudinary' => $this->preconnectCloudinary,
-            'services' => (new ViewDataAction)->services($locale),
-            'products' => (new ViewDataAction)->products($locale),
         ]);
     }
 }

@@ -11,48 +11,58 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class FlowsLayoutDemoController extends Controller
 {
     /**
-     * @return array<string, array{title: string, description: string}>
+     * @return array<string, array{title: string, description: string, view: view-string}>
      */
     public static function variants(): array
     {
         return [
             'saas-landing' => [
+                'view' => 'demo.flows.variants.saas-landing',
                 'title' => 'Klassische SaaS-Landingpage',
                 'description' => 'Grosser Gradient-Hero, Feature-Grid, sticky CTA-Leiste — vertraute Marketing-Rhythmik.',
             ],
             'editorial' => [
+                'view' => 'demo.flows.variants.editorial',
                 'title' => 'Editorial / Long-Form',
                 'description' => 'Magazin-artige einspaltige Leseerfahrung mit Initiale, Zwischentiteln und viel Weissraum.',
             ],
             'bento' => [
+                'view' => 'demo.flows.variants.bento',
                 'title' => 'Bento-Grid',
                 'description' => 'Asymmetrisches Kachelraster im Stil moderner Produktseiten (Apple/Linear).',
             ],
             'terminal' => [
+                'view' => 'demo.flows.variants.terminal',
                 'title' => 'Terminal / Dev-Konsole',
                 'description' => 'Dunkles, monospace-geprägtes Layout mit Terminal-Fenster-Chrome — technische Zielgruppe.',
             ],
             'big-statement' => [
+                'view' => 'demo.flows.variants.big-statement',
                 'title' => 'Grosse Aussagen / Scroll-Story',
                 'description' => 'Überdimensionierte Typografie, eine Kernaussage pro Abschnitt, filmisches Scrollen.',
             ],
             'docs-split' => [
+                'view' => 'demo.flows.variants.docs-split',
                 'title' => 'Split Sticky Docs',
                 'description' => 'Linke fixierte Mini-Navigation, rechts scrollender Inhalt — wie moderne Doku-Seiten.',
             ],
             'journey' => [
+                'view' => 'demo.flows.variants.journey',
                 'title' => 'Nummerierte Reise',
                 'description' => 'Alles als durchnummerierte Schritte mit verbindender Zeitlinie erzählt.',
             ],
             'before-after' => [
+                'view' => 'demo.flows.variants.before-after',
                 'title' => 'Vorher / Nachher',
                 'description' => 'Kontrastreiche Zweispalten-Gegenüberstellung als Erzählprinzip.',
             ],
             'swiss-grid' => [
+                'view' => 'demo.flows.variants.swiss-grid',
                 'title' => 'Swiss Minimalist Grid',
                 'description' => 'Strenges Raster, feine Linien, Kapitälchen-Labels — reduziert und hochwertig.',
             ],
             'tabs-dashboard' => [
+                'view' => 'demo.flows.variants.tabs-dashboard',
                 'title' => 'Interaktives Tab-Dashboard',
                 'description' => 'Abschnitte als Tabs/Accordion erkundbar — produkttour-artiges Gefühl.',
             ],
@@ -116,55 +126,65 @@ class FlowsLayoutDemoController extends Controller
             throw new NotFoundHttpException;
         }
 
-        return view("demo.flows.variants.{$variant}", [
+        return view(self::variants()[$variant]['view'], [
             'content' => self::content(),
             'variantTitle' => self::variants()[$variant]['title'],
         ]);
     }
 
     /**
-     * @return array<string, array{title: string, description: string}>
+     * @return array<string, array{title: string, description: string, view: view-string}>
      */
     public static function v2Variants(): array
     {
         return [
             'flow-diagram' => [
+                'view' => 'demo.flows.v2.variants.flow-diagram',
                 'title' => 'Fluss-Diagramm',
                 'description' => 'Dokument → Agent → geprüftes Ergebnis als technisches Node-Diagramm im Hero.',
             ],
             'line-icons' => [
+                'view' => 'demo.flows.v2.variants.line-icons',
                 'title' => 'Line-Icon-Set',
                 'description' => 'Ein eigenes, konsistentes Strich-Icon für jedes Feature und jede Deployment-Option.',
             ],
             'blueprint' => [
+                'view' => 'demo.flows.v2.variants.blueprint',
                 'title' => 'Blueprint',
                 'description' => 'Millimeterpapier-Textur, Massketten und Eckmarken — technische Zeichnung.',
             ],
             'isometric' => [
+                'view' => 'demo.flows.v2.variants.isometric',
                 'title' => 'Isometrisch',
                 'description' => 'Isometrische Dokumentenstapel- und Server-Illustrationen für Hero & Deployment.',
             ],
             'organic-blobs' => [
+                'view' => 'demo.flows.v2.variants.organic-blobs',
                 'title' => 'Organische Blobs',
                 'description' => 'Weiche Verlaufsflächen in Markenfarben hinter den nummerierten Sektionen.',
             ],
             'dot-halftone' => [
+                'view' => 'demo.flows.v2.variants.dot-halftone',
                 'title' => 'Halbton-Raster',
                 'description' => 'Punktraster-Illustration im Hero, Plakat-artige Druck-Ästhetik.',
             ],
             'network-nodes' => [
+                'view' => 'demo.flows.v2.variants.network-nodes',
                 'title' => 'Netzwerk-Knoten',
                 'description' => 'Verbundene Knoten als Sinnbild für Multi-Agenten-Orchestrierung.',
             ],
             'stamp-seal' => [
+                'view' => 'demo.flows.v2.variants.stamp-seal',
                 'title' => 'Stempel/Siegel',
                 'description' => 'Kreisrunde Stempelmarken mit perforiertem Rand markieren jede Sektion.',
             ],
             'data-bars' => [
+                'view' => 'demo.flows.v2.variants.data-bars',
                 'title' => 'Daten-Balken',
                 'description' => 'Abstrakte Balken-/Wellenformen als Sinnbild für Dokumentenverarbeitung.',
             ],
             'doc-stack' => [
+                'view' => 'demo.flows.v2.variants.doc-stack',
                 'title' => 'Dokumentenstapel',
                 'description' => 'Stilisierte Dokumente mit Eselsohr als durchgehendes Bildmotiv.',
             ],
@@ -190,7 +210,7 @@ class FlowsLayoutDemoController extends Controller
             ? (new PageAction)->product(product: $product)
             : (new PageAction(locale: null, routeName: 'products.index'))->default();
 
-        return view("demo.flows.v2.variants.{$variant}", [
+        return view(self::v2Variants()[$variant]['view'], [
             'content' => self::content(),
             'variantTitle' => self::v2Variants()[$variant]['title'],
             'page' => $page,
