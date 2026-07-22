@@ -53,4 +53,7 @@ auth.json
 
 # Coverage
 /coverage/
+
+# Lighthouse audit reports (regenerate via tests/lighthouse/run.sh)
+/tests/lighthouse/reports/
 --cache-directory
