@@ -3,16 +3,22 @@
 namespace App\Actions;
 
 use App\DTO\PageDTO;
+use App\Models\Network;
 use App\Models\News;
+use App\Models\OpenSource;
 use App\Models\Page;
 use App\Models\Product;
-use App\Models\Reference;
 use App\Models\Service;
+use App\Models\Technology;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class PageAction
 {
+    /**
+     * @param  Collection<int, PageDTO>|null  $referencePages
+     */
     public function __construct(
         private ?string $locale = null,
         private ?string $routeName = null,
@@ -35,9 +41,10 @@ class PageAction
             routeKey: $page->key,
             routeName: Str::slug($page->locale).'.'.$this->routeName,
             title: $page->title,
+            robots: $page->robots,
             description: $page->description,
             image: $page->image,
-            lastModificationDate: $page->updated_at ?? now(),
+            lastModificationDate: Carbon::parse($page->updated_at ?? now()),
             routeParameters: $this->routeParameters,
             referencePages: $this->referencePages
         );
@@ -52,13 +59,24 @@ class PageAction
             title: $news->title,
             description: $news->teaser,
             image: $news->image,
-            lastModificationDate: $news->updated_at ?? now(),
+            lastModificationDate: Carbon::parse($news->updated_at ?? now()),
             routeParameters: ['locale' => $news->locale, 'news' => $news],
-            referencePages: $withReferences ? $news->references->map(function (Reference $reference) {
-                $reference->load(['target']);
+            referencePages: $withReferences ? $this->newsReferencePages($news) : null,
+        );
+    }
 
-                return self::news(news: $reference->target, withReferences: false, locale: $reference->reference_locale);
-            }) : null,
+    public function network(Network $network, ?string $locale = null): PageDTO
+    {
+        return new PageDTO(
+            locale: $locale ?? $network->locale->value,
+            routeKey: 'network.show',
+            routeName: Str::slug(title: $locale ?? $network->locale->value).'.network.show',
+            title: $network->name,
+            description: $network->excerpt,
+            image: $network->logo,
+            lastModificationDate: Carbon::parse($network->updated_at ?? now()),
+            routeParameters: ['slug' => $network->page_slug],
+            referencePages: null,
         );
     }
 
@@ -71,13 +89,9 @@ class PageAction
             title: $product->name,
             description: $product->teaser,
             image: $product->image,
-            lastModificationDate: $product->updated_at ?? now(),
+            lastModificationDate: Carbon::parse($product->updated_at ?? now()),
             routeParameters: ['locale' => $product->locale, 'product' => $product],
-            referencePages: $withReferences ? $product->references->map(function (Reference $reference) {
-                $reference->load(['target']);
-
-                return self::product(product: $reference->target, withReferences: false, locale: $reference->reference_locale);
-            }) : null,
+            referencePages: $withReferences ? $this->productReferencePages($product) : null,
         );
     }
 
@@ -90,14 +104,140 @@ class PageAction
             title: $service->name,
             description: $service->teaser,
             image: $service->image,
-            lastModificationDate: $service->updated_at ?? now(),
+            lastModificationDate: Carbon::parse($service->updated_at ?? now()),
             routeParameters: ['locale' => $service->locale, 'service' => $service],
-            referencePages: $withReferences ? $service->references->map(function (Reference $reference) {
-                $reference->load(['target']);
-
-                return self::service(service: $reference->target, withReferences: false, locale: $reference->reference_locale);
-            }) : null,
+            referencePages: $withReferences ? $this->serviceReferencePages($service) : null,
         );
+    }
+
+    public function technology(Technology $technology, bool $withReferences = false, ?string $locale = null): PageDTO
+    {
+        return new PageDTO(
+            locale: $locale ?? $technology->locale->value,
+            routeKey: 'technologies.show',
+            routeName: Str::slug(title: $locale ?? $technology->locale->value).'.technologies.show',
+            title: $technology->title,
+            description: $technology->teaser,
+            image: $technology->image,
+            lastModificationDate: Carbon::parse($technology->updated_at ?? now()),
+            routeParameters: ['locale' => $technology->locale, 'technology' => $technology],
+            referencePages: $withReferences ? $this->technologyReferencePages($technology) : null,
+        );
+    }
+
+    public function openSource(OpenSource $openSource, bool $withReferences = false, ?string $locale = null): PageDTO
+    {
+        return new PageDTO(
+            locale: $locale ?? $openSource->locale->value,
+            routeKey: 'open-source.show',
+            routeName: Str::slug(title: $locale ?? $openSource->locale->value).'.open-source.show',
+            title: $openSource->title,
+            description: $openSource->teaser,
+            image: $openSource->image,
+            lastModificationDate: Carbon::parse($openSource->updated_at ?? now()),
+            routeParameters: ['locale' => $openSource->locale, 'openSource' => $openSource],
+            referencePages: $withReferences ? $this->openSourceReferencePages($openSource) : null,
+        );
+    }
+
+    /**
+     * @return Collection<int, PageDTO>
+     */
+    private function newsReferencePages(News $news): Collection
+    {
+        $pages = [];
+
+        foreach ($news->references as $reference) {
+            $reference->load(['target']);
+
+            if (! $reference->target instanceof News) {
+                continue;
+            }
+
+            $pages[] = $this->news(news: $reference->target, withReferences: false, locale: $reference->reference_locale);
+        }
+
+        return collect($pages);
+    }
+
+    /**
+     * @return Collection<int, PageDTO>
+     */
+    private function productReferencePages(Product $product): Collection
+    {
+        $pages = [];
+
+        foreach ($product->references as $reference) {
+            $reference->load(['target']);
+
+            if (! $reference->target instanceof Product) {
+                continue;
+            }
+
+            $pages[] = $this->product(product: $reference->target, withReferences: false, locale: $reference->reference_locale);
+        }
+
+        return collect($pages);
+    }
+
+    /**
+     * @return Collection<int, PageDTO>
+     */
+    private function serviceReferencePages(Service $service): Collection
+    {
+        $pages = [];
+
+        foreach ($service->references as $reference) {
+            $reference->load(['target']);
+
+            if (! $reference->target instanceof Service) {
+                continue;
+            }
+
+            $pages[] = $this->service(service: $reference->target, withReferences: false, locale: $reference->reference_locale);
+        }
+
+        return collect($pages);
+    }
+
+    /**
+     * @return Collection<int, PageDTO>
+     */
+    private function technologyReferencePages(Technology $technology): Collection
+    {
+        $pages = [];
+
+        foreach ($technology->references as $reference) {
+            $reference->load(['target']);
+
+            if (! $reference->target instanceof Technology) {
+                continue;
+            }
+
+            $pages[] = $this->technology(technology: $reference->target, withReferences: false, locale: $reference->reference_locale);
+        }
+
+        return collect($pages);
+    }
+
+    /**
+     * @return Collection<int, PageDTO>
+     */
+    private function openSourceReferencePages(OpenSource $openSource): Collection
+    {
+        $pages = [];
+
+        foreach ($openSource->references as $reference) {
+            $reference->load(['target']);
+
+            if (! $reference->target instanceof OpenSource) {
+                continue;
+            }
+
+            $pages[] = $this->openSource(openSource: $reference->target, withReferences: false, locale: $reference->reference_locale);
+        }
+
+        return collect($pages);
     }
 
     private function findPage(): ?Page

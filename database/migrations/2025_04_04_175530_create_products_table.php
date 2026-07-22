@@ -17,9 +17,18 @@ return new class extends Migration
             $table->string('locale');
             $table->integer('order');
             $table->string('name');
+            $table->string('headline')->nullable();
             $table->string('teaser');
             $table->string('slug');
             $table->longText('content')->nullable();
+            $table->string('features_heading')->nullable();
+            $table->text('features_intro')->nullable();
+            $table->json('features')->nullable();
+            $table->string('deployment_heading')->nullable();
+            $table->text('deployment_intro')->nullable();
+            $table->json('deployment_options')->nullable();
+            $table->string('cta_heading')->nullable();
+            $table->text('cta_body')->nullable();
             $table->string('image');
             $table->string('url')->nullable();
             $table->json('tags')->nullable();

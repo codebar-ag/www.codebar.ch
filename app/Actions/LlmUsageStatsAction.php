@@ -4,8 +4,9 @@ namespace App\Actions;
 
 use App\Models\AiModelDailyUsage;
 use Carbon\CarbonImmutable;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -26,7 +27,8 @@ class LlmUsageStatsAction
                 ->whereNotNull('ai_model_id')
                 ->distinct()
                 ->orderBy('model')
-                ->pluck('model');
+                ->get(['model'])
+                ->map(fn (AiModelDailyUsage $row): string => $row->model);
         });
     }
 
@@ -38,22 +40,22 @@ class LlmUsageStatsAction
     }
 
     /**
-     * @return Collection<int, string>
+     * @return Collection<int, numeric-string>
      */
     public function years(): Collection
     {
         return $this->remember('years', function () {
             return AiModelDailyUsage::query()
                 ->orderBy('date')
-                ->pluck('date')
-                ->map(fn (Carbon $date) => $date->format('Y'))
+                ->get(['date'])
+                ->map(fn (AiModelDailyUsage $row): string => $row->date->format('Y'))
                 ->unique()
                 ->values();
         });
     }
 
     /**
-     * @return Collection<int, array{label: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int}>
+     * @return Collection<int, array{label: string, prompt_tokens: int<0, max>, completion_tokens: int<0, max>, total_tokens: int<0, max>, requests: int<0, max>}>
      */
     public function monthlyBreakdown(?string $year, ?string $month, ?string $model): Collection
     {
@@ -68,13 +70,16 @@ class LlmUsageStatsAction
                 ->orderBy('date')
                 ->get()
                 ->groupBy(fn (AiModelDailyUsage $row) => $row->date->format('Y-m'))
-                ->map(fn (Collection $rows, string $label) => [
-                    'label' => $label,
-                    'prompt_tokens' => (int) $rows->sum('prompt_tokens'),
-                    'completion_tokens' => (int) $rows->sum('completion_tokens'),
-                    'total_tokens' => (int) $rows->sum('total_tokens'),
-                    'requests' => (int) $rows->sum('requests'),
-                ])
+                ->map(
+                    /** @param EloquentCollection<int, AiModelDailyUsage> $rows */
+                    fn (EloquentCollection $rows, string $label) => [
+                        'label' => $label,
+                        'prompt_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->prompt_tokens),
+                        'completion_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->completion_tokens),
+                        'total_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->total_tokens),
+                        'requests' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->requests),
+                    ]
+                )
                 ->values();
         });
     }
@@ -116,17 +121,24 @@ class LlmUsageStatsAction
                 ->get();
 
             return [
-                'prompt_tokens' => (int) $rows->sum('prompt_tokens'),
-                'completion_tokens' => (int) $rows->sum('completion_tokens'),
-                'total_tokens' => (int) $rows->sum('total_tokens'),
-                'requests' => (int) $rows->sum('requests'),
+                'prompt_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->prompt_tokens),
+                'completion_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->completion_tokens),
+                'total_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->total_tokens),
+                'requests' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->requests),
             ];
         });
     }
 
-    private function remember(string $suffix, callable $callback): mixed
+    /**
+     * @template TValue
+     *
+     * @param  Closure(): TValue  $callback
+     * @return TValue
+     */
+    private function remember(string $suffix, Closure $callback): mixed
     {
         $version = Cache::get(self::VERSION_CACHE_KEY, 0);
+        $version = is_int($version) ? $version : 0;
         $key = Str::slug("llm_usage_{$version}_{$suffix}", '_');
 
         return Cache::remember($key, now()->addHour(), $callback);

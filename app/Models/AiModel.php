@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property array<string, string>|null $role
+ */
 class AiModel extends Model
 {
     protected $casts = [
@@ -15,11 +18,17 @@ class AiModel extends Model
         'archived_at' => 'date',
     ];
 
+    /**
+     * @return BelongsTo<AiModel, $this>
+     */
     public function replacedBy(): BelongsTo
     {
         return $this->belongsTo(AiModel::class, 'replaced_by_id');
     }
 
+    /**
+     * @return HasMany<AiModelDailyUsage, $this>
+     */
     public function dailyUsages(): HasMany
     {
         return $this->hasMany(AiModelDailyUsage::class);
@@ -34,14 +43,22 @@ class AiModel extends Model
     {
         $key = $this->licenseKey();
 
-        return $key ? __('components.ai_llm.licenses.'.$key.'.label') : $this->license;
+        if ($key === null) {
+            return $this->license;
+        }
+
+        return __('components.ai_llm.licenses.'.$key.'.label');
     }
 
     public function licenseTooltip(): ?string
     {
         $key = $this->licenseKey();
 
-        return $key ? __('components.ai_llm.licenses.'.$key.'.tooltip') : null;
+        if ($key === null) {
+            return null;
+        }
+
+        return __('components.ai_llm.licenses.'.$key.'.tooltip');
     }
 
     private function licenseKey(): ?string

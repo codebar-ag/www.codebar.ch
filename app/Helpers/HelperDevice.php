@@ -9,6 +9,8 @@ class HelperDevice
 {
     public function isMobileDevice(): bool
     {
-        return Arr::has($_SERVER, 'HTTP_USER_AGENT') && Str::contains($_SERVER['HTTP_USER_AGENT'], ['mobile', 'Mobile']);
+        $userAgent = Arr::get($_SERVER, 'HTTP_USER_AGENT');
+
+        return is_string($userAgent) && Str::contains($userAgent, ['mobile', 'Mobile']);
     }
 }

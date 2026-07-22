@@ -4,7 +4,7 @@ parameters:
         - app
 
     # Level 9 is the highest level
-    level: 4
+    level: 10
 
     ignoreErrors:
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Technologies;
 use App\Actions\PageAction;
 use App\Actions\ViewDataAction;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class TechnologiesIndexController extends Controller
@@ -12,13 +14,15 @@ class TechnologiesIndexController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function __invoke(): View
+    public function __invoke(): View|RedirectResponse
     {
-        $locale = app()->getLocale();
+        return redirect()->route(Str::slug(app()->getLocale()).'.start.index');
 
-        return view('app.technologies.index')->with([
-            'page' => (new PageAction(locale: null, routeName: 'technologies.index'))->default(),
-            'technologies' => (new ViewDataAction)->technologies($locale),
-        ]);
+        /*        $locale = app()->getLocale();
+
+                return view('app.technologies.index')->with([
+                    'page' => (new PageAction(locale: null, routeName: 'technologies.index'))->default(),
+                    'technologies' => (new ViewDataAction)->technologies($locale),
+                ]);*/
     }
 }

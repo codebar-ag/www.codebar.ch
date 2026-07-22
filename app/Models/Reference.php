@@ -15,11 +15,17 @@ class Reference extends Model
         'reference_locale',
     ];
 
+    /**
+     * @return MorphTo<Model, $this>
+     */
     public function source(): MorphTo
     {
         return $this->morphTo('source');
     }
 
+    /**
+     * @return MorphTo<Model, $this>
+     */
     public function target(): MorphTo
     {
         return $this->morphTo('target', 'reference_type', 'reference_id');

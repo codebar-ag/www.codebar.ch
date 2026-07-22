@@ -15,9 +15,15 @@ class HelperNumber
 
     public function abbreviate(int|float|null $number, int $maxPrecision = 1): string
     {
-        return $number >= 1_000_000
-            ? Number::abbreviate($number, maxPrecision: $maxPrecision)
-            : $this->format($number, 0);
+        if ($number >= 1_000_000) {
+            $abbreviated = Number::abbreviate($number, maxPrecision: $maxPrecision);
+
+            if ($abbreviated !== false) {
+                return $abbreviated;
+            }
+        }
+
+        return $this->format($number, 0);
     }
 
     protected static function defaultValue(int $decimals = 0): string

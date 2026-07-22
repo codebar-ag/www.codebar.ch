@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" role="img" aria-hidden="true">
+    <!-- Flat drawing: community of people with heart — community support -->
+    <g>
+        <!-- ground line -->
+        <rect x="8" y="86" width="144" height="2" rx="1" fill="#e5e7eb"/>
+
+        <!-- person left -->
+        <circle cx="52" cy="48" r="8" fill="#d1d5db"/>
+        <path d="M38 86 v-10 a14 14 0 0 1 28 0 v10 Z" fill="#d1d5db"/>
+
+        <!-- person middle (brand) -->
+        <circle cx="80" cy="42" r="9" fill="#500472" opacity="0.75"/>
+        <path d="M64 86 v-11 a16 16 0 0 1 32 0 v11 Z" fill="#500472" opacity="0.75"/>
+
+        <!-- person right -->
+        <circle cx="108" cy="48" r="8" fill="#e5e7eb"/>
+        <path d="M94 86 v-10 a14 14 0 0 1 28 0 v10 Z" fill="#e5e7eb"/>
+
+        <!-- heart above -->
+        <path d="M80 28 C77 21 68 21 68 15.5 C68 11.5 71.5 9 75 9 C77.5 9 79.5 10.5 80 12 C80.5 10.5 82.5 9 85 9 C88.5 9 92 11.5 92 15.5 C92 21 83 21 80 28 Z" fill="#500472" opacity="0.5"/>
+
+        <!-- shrub accents -->
+        <circle cx="18" cy="82" r="5" fill="#500472" opacity="0.35"/>
+        <circle cx="144" cy="83" r="4" fill="#500472" opacity="0.25"/>
+    </g>
+</svg>

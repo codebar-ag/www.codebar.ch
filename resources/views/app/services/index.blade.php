@@ -1,28 +1,26 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Services')"/>
+    <x-layout.page-header :title="__('Services')" :page="$page"/>
 
-    @foreach($services as $key => $group)
-        <x-section>
-            <x-h2 :title="__($key)"/>
-            <x-section>
-                <x-list>
-                    @foreach($group as $entry)
-                        <x-list-card
-                                :url="$entry->url ?? localized_route('services.show',['locale' => app()->getLocale(),'service' => $entry])"
-                                :title="$entry->name"
-                                :teaser="$entry->teaser"
-                                :tags="$entry->tags"
-                                target="{{ $entry->url ? '_blank' : '_self' }}"/>
-                    @endforeach
-                </x-list>
-            </x-section>
-        </x-section>
-    @endforeach
+    <x-layout.section>
+        <x-layout.list>
+            @foreach($services as $entry)
+                <div class="py-4">
+                    <div class="flex flex-col gap-1">
+                        <h2 class="text-xl font-semibold text-gray-800">
+                            {{ $entry->name }}
+                        </h2>
 
+                        @if(filled($entry->teaser))
+                            <div class="text-muted">
+                                {{ $entry->teaser }}
+                            </div>
+                        @endif
 
-
-
-    @include('app.services._parials.partnerships')
-
+                        <x-data.tag-list :tags="$entry->tags" class="mt-1"/>
+                    </div>
+                </div>
+            @endforeach
+        </x-layout.list>
+    </x-layout.section>
 
 </x-app-layout>

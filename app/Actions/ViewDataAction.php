@@ -18,6 +18,9 @@ use Illuminate\Support\Str;
 
 class ViewDataAction
 {
+    /**
+     * @return Collection<int, Product>
+     */
     public function products(string $locale): Collection
     {
         $key = Str::slug("products_published_{$locale}");
@@ -27,6 +30,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, Service>
+     */
     public function services(string $locale): Collection
     {
         $key = Str::slug("services_published_{$locale}");
@@ -36,6 +42,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, News>
+     */
     public function news(string $locale): Collection
     {
         $key = Str::slug("news_published_{$locale}");
@@ -45,6 +54,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, Technology>
+     */
     public function technologies(string $locale): Collection
     {
         $key = Str::slug("technologies_published_{$locale}");
@@ -54,6 +66,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, array{category: AiModelCategoryEnum, models: Collection<int, AiModel>}>
+     */
     public function aiModelGroups(): Collection
     {
         return Cache::rememberForever('ai_models_active', function () {
@@ -63,6 +78,9 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @return Collection<int, array{category: AiModelCategoryEnum, models: Collection<int, AiModel>}>
+     */
     public function aiModelArchive(): Collection
     {
         return Cache::rememberForever('ai_models_archived', function () {
@@ -72,6 +90,10 @@ class ViewDataAction
         });
     }
 
+    /**
+     * @param  Collection<int, AiModel>  $models
+     * @return Collection<int, array{category: AiModelCategoryEnum, models: Collection<int, AiModel>}>
+     */
     private function groupAiModelsByCategory(Collection $models): Collection
     {
         return collect(AiModelCategoryEnum::cases())
@@ -83,6 +105,9 @@ class ViewDataAction
             ->values();
     }
 
+    /**
+     * @return Collection<int, OpenSource>
+     */
     public function openSource(string $locale): Collection
     {
         $key = Str::slug("open_source_published_{$locale}");

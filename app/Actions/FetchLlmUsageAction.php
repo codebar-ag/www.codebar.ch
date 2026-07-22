@@ -22,13 +22,15 @@ class FetchLlmUsageAction
             'summarize' => 'false',
         ])->throw();
 
-        return $this->parseSpendLogs($date, $response->json() ?? []);
+        $logs = $response->json();
+
+        return $this->parseSpendLogs($date, is_array($logs) ? $logs : []);
     }
 
     private function client(): PendingRequest
     {
-        return Http::baseUrl(config('services.litellm.url'))
-            ->withToken(config('services.litellm.master_key'))
+        return Http::baseUrl(config()->string('services.litellm.url'))
+            ->withToken(config()->string('services.litellm.master_key'))
             ->acceptJson()
             ->connectTimeout(10)
             ->timeout(120)
@@ -36,6 +38,7 @@ class FetchLlmUsageAction
     }
 
     /**
+     * @param  array<mixed>  $logs
      * @return Collection<int, array{date: string, model: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int, spend: float}>
      */
     private function parseSpendLogs(CarbonImmutable $date, array $logs): Collection
@@ -43,18 +46,39 @@ class FetchLlmUsageAction
         // The end_date bound is inclusive, so the response can contain rows of
         // the following day — keep only rows that started on the requested day.
         return collect($logs)
-            ->filter(fn (mixed $log): bool => filled(data_get($log, 'model_group')))
-            ->filter(fn (mixed $log): bool => str_starts_with((string) data_get($log, 'startTime'), $date->toDateString()))
-            ->groupBy(fn (mixed $log): string => data_get($log, 'model_group'))
+            ->filter(fn (mixed $log): bool => filled($this->stringValue($log, 'model_group')))
+            ->filter(fn (mixed $log): bool => str_starts_with($this->stringValue($log, 'startTime'), $date->toDateString()))
+            ->groupBy(fn (mixed $log): string => $this->stringValue($log, 'model_group'))
             ->map(fn (Collection $rows, string $model): array => [
                 'date' => $date->toDateString(),
                 'model' => $model,
-                'prompt_tokens' => (int) $rows->sum(fn (mixed $log): int => (int) data_get($log, 'prompt_tokens', 0)),
-                'completion_tokens' => (int) $rows->sum(fn (mixed $log): int => (int) data_get($log, 'completion_tokens', 0)),
-                'total_tokens' => (int) $rows->sum(fn (mixed $log): int => (int) data_get($log, 'total_tokens', 0)),
+                'prompt_tokens' => $rows->sum(fn (mixed $log): int => $this->intValue($log, 'prompt_tokens')),
+                'completion_tokens' => $rows->sum(fn (mixed $log): int => $this->intValue($log, 'completion_tokens')),
+                'total_tokens' => $rows->sum(fn (mixed $log): int => $this->intValue($log, 'total_tokens')),
                 'requests' => $rows->count(),
-                'spend' => round($rows->sum(fn (mixed $log): float => (float) data_get($log, 'spend', 0)), 6),
+                'spend' => round($rows->sum(fn (mixed $log): float => $this->floatValue($log, 'spend')), 6),
             ])
             ->values();
+    }
+
+    private function stringValue(mixed $log, string $key): string
+    {
+        $value = data_get($log, $key);
+
+        return is_string($value) ? $value : '';
+    }
+
+    private function intValue(mixed $log, string $key): int
+    {
+        $value = data_get($log, $key);
+
+        return is_numeric($value) ? (int) $value : 0;
+    }
+
+    private function floatValue(mixed $log, string $key): float
+    {
+        $value = data_get($log, $key);
+
+        return is_numeric($value) ? (float) $value : 0.0;
     }
 }

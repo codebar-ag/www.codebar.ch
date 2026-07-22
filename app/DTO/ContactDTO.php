@@ -7,6 +7,9 @@ use Illuminate\Support\Arr;
 
 class ContactDTO
 {
+    /**
+     * @param  array<array-key, mixed>  $icons
+     */
     public function __construct(
         public readonly string $locale,
         public readonly string $section,
@@ -18,11 +21,11 @@ class ContactDTO
 
     public static function fromModel(Contact $contact, string $section, string $locale): self
     {
-        $role = Arr::get($contact->sections, "$section.role.$locale");
+        $role = Arr::get($contact->sections ?? [], "$section.role.$locale");
 
         return new self(
             name: $contact->name,
-            role: $role,
+            role: is_string($role) ? $role : null,
             locale: $locale,
             image: $contact->image,
             icons: $contact->icons ?? [],

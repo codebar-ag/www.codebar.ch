@@ -4,36 +4,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Third Party Services
+    | Third Party Services overrides
     |--------------------------------------------------------------------------
     |
-    | This file is for storing the credentials for third party services such
-    | as Mailgun, Postmark, AWS and more. This file provides the de facto
-    | location for this type of information, allowing packages to have
-    | a conventional file to locate the various service credentials.
+    | Every service not listed here falls back to Laravel's internal default
+    | config (vendor/laravel/framework/config/services.php) — e.g. postmark,
+    | ses, resend, slack. "microsoft" is added here since it isn't a Laravel
+    | default.
     |
     */
-
-    'postmark' => [
-        'token' => env('POSTMARK_TOKEN'),
-    ],
-
-    'ses' => [
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-    ],
-
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-        ],
-    ],
 
     'litellm' => [
         'url' => env('LITELLM_URL', 'https://llm.codebar.net'),
         'master_key' => env('LITELLM_MASTER_KEY'),
+    ],
+
+    'github' => [
+        'token' => env('GITHUB_TOKEN'),
     ],
 
     'microsoft' => [
@@ -43,4 +30,5 @@ return [
         'tenant' => env('MICROSOFT_TENANT_ID'),
         'include_tenant_info' => true,
     ],
+
 ];

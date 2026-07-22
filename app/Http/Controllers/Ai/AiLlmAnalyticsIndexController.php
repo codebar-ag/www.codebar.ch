@@ -53,10 +53,10 @@ class AiLlmAnalyticsIndexController extends Controller
             'totalSummary' => $stats->totalSummary($model),
             'periods' => $periods,
             'grandTotal' => [
-                'prompt_tokens' => (int) $breakdown->sum('prompt_tokens'),
-                'completion_tokens' => (int) $breakdown->sum('completion_tokens'),
-                'total_tokens' => (int) $breakdown->sum('total_tokens'),
-                'requests' => (int) $breakdown->sum('requests'),
+                'prompt_tokens' => $breakdown->sum(fn (array $row): int => $row['prompt_tokens']),
+                'completion_tokens' => $breakdown->sum(fn (array $row): int => $row['completion_tokens']),
+                'total_tokens' => $breakdown->sum(fn (array $row): int => $row['total_tokens']),
+                'requests' => $breakdown->sum(fn (array $row): int => $row['requests']),
             ],
             'modelOptions' => $modelOptions,
             'years' => $years,
@@ -68,6 +68,9 @@ class AiLlmAnalyticsIndexController extends Controller
         ]);
     }
 
+    /**
+     * @param  Collection<int, string>  $models
+     */
     private function resolveModel(Collection $models, string $otherLabel, string $input, bool $hasOther): ?string
     {
         if ($hasOther && (strcasecmp($input, $otherLabel) === 0 || strcasecmp($input, LlmUsageStatsAction::OTHER_MODEL) === 0)) {
@@ -77,6 +80,9 @@ class AiLlmAnalyticsIndexController extends Controller
         return $models->first(fn (string $option) => strcasecmp($option, $input) === 0);
     }
 
+    /**
+     * @param  Collection<string, string>  $monthOptions
+     */
     private function resolveMonth(Collection $monthOptions, string $input): ?string
     {
         if ($monthOptions->has($input)) {

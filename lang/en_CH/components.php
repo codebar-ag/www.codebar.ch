@@ -1,22 +1,28 @@
 <?php
 
 return [
-    'what_we_do' => [
-        'title' => 'What we do',
-        'items' => [
-            'concept' => [
-                'title' => 'Concept design & prototyping',
-                'description' => 'From the first idea and concept to a clickable prototype.',
-            ],
-            'development' => [
-                'title' => 'Individual software development',
-                'description' => 'Portal solutions, interfaces and integrations – with a focus on open source.',
-            ],
-            'dms' => [
-                'title' => 'DMS/ECM consulting & implementation',
-                'description' => 'Consulting and implementation for digital document management.',
-            ],
+    'intro' => [
+        'who_we_are' => [
+            'title' => 'Who we are',
+            'text' => 'We are codebar – a team that brings innovative ideas to life using digital tools. We think economically, work conceptually and consistently rely on open technologies and standards. The result: digital solutions built around the needs of their users – whether we advise on them, design them, develop them or roll them out. And that deliver real value to you.',
         ],
+        'what_we_do' => [
+            'title' => 'What we do',
+            'text' => 'Our expertise covers the entire journey of a digital solution. It starts with concept design: we capture and sharpen requirements until they form a well-thought-out concept – and make ideas tangible early on with clickable prototypes. Individual software development builds on that: portal solutions, interfaces and integrations, with a strong focus on open source. The same open approach shapes our newest area of expertise, open-source ERP systems: we support companies through evaluation, rollout and customisation – flexible, transparent and free of licence lock-in. And in document management, we bring years of experience: from consulting all the way to a fully implemented DMS or ECM solution.',
+        ],
+        'how_we_work' => [
+            'title' => 'How we work',
+            'text' => 'We start by listening. Because whether it\'s new software, an ERP rollout or document management: you first need to understand in detail what it\'s about and what the solution needs to deliver. Next, we work with you to develop a concept based on your processes and the needs of future users. If the approach falls within our expertise, we\'re happy to support you all the way to implementation – and beyond. If not, we\'re just as pleased when others turn our plans into reality.',
+        ],
+    ],
+    'explore' => [
+        'title' => 'Discover more',
+        'home' => 'Back to the start page.',
+        'services' => 'Concept, software, ERP and DMS/ECM.',
+        'team' => 'The people behind codebar.',
+        'ai' => 'AI on our own infrastructure.',
+        'network' => 'Our partners and communities.',
+        'contact' => 'Let\'s talk.',
     ],
     'contact_cta' => [
         'title' => 'Interested?',
@@ -117,6 +123,10 @@ return [
                     'text' => 'UPS Ubiquiti UniFi.',
                 ],
             ],
+        ],
+        'stats' => [
+            'title' => 'Usage',
+            'intro' => 'How intensively our local models are currently in use.',
         ],
         'archive' => [
             'title' => 'Archive',

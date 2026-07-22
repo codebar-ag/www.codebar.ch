@@ -1,9 +1,9 @@
 @props(['label', 'text'])
 
-<div class="grid grid-cols-1 sm:grid-cols-[12rem_1fr] gap-2 sm:gap-6 border-t border-gray-100 py-4 px-2">
+<x-ui.row class="sm:grid-cols-[12rem_1fr]">
     <div class="font-semibold text-gray-800">{{ $label }}</div>
-    <div class="text-gray-600">
+    <div class="text-muted">
         {{ $text }}
         {{ $slot }}
     </div>
-</div>
+</x-ui.row>

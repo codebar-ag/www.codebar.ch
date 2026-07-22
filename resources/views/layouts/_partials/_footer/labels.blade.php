@@ -1,10 +1,10 @@
-<div class="my-2 flex flex-col items-center gap-6 md:flex-row sm:justify-start">
-    <a target="_blank" href="https://www.swissmadesoftware.org/en/about/swiss-made-software.html"
-       title="{{ __('Swiss Made Software') }}">
+<div class="my-2 flex flex-col items-center gap-6 md:flex-row md:justify-start">
+    <a target="_blank" rel="noopener noreferrer" href="https://www.swissmadesoftware.org/en/about/swiss-made-software.html"
+       title="{{ __('Swiss Made Software') }}" aria-label="{{ __('Swiss Made Software') }}">
         <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 370.39999 68.026665"
-             class="h-8 w-auto transition-transform duration-700 animate-[lava_8s_ease-in-out_infinite]"
-             fill="none">
+             class="h-8 w-auto"
+             fill="none" aria-hidden="true">
             <defs
                     id="defs6">
                 <clipPath
@@ -131,12 +131,12 @@
             </g>
         </svg>
     </a>
-    <a target="_blank" href="https://www.swissmadesoftware.org/en/about/swiss-digital-services.html"
-       title="{{ __('Swiss Digital Services') }}">
+    <a target="_blank" rel="noopener noreferrer" href="https://www.swissmadesoftware.org/en/about/swiss-digital-services.html"
+       title="{{ __('Swiss Digital Services') }}" aria-label="{{ __('Swiss Digital Services') }}">
         <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 370.39999 68.026665"
-             class="h-8 w-auto transition-transform duration-700 animate-[lava_8s_ease-in-out_infinite]"
-             fill="none">
+             class="h-8 w-auto"
+             fill="none" aria-hidden="true">
             <defs
                     id="defs6">
                 <clipPath

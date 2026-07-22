@@ -1,22 +1,28 @@
 <?php
 
 return [
-    'what_we_do' => [
-        'title' => 'Was wir tun',
-        'items' => [
-            'concept' => [
-                'title' => 'Konzeption & Prototyping',
-                'description' => 'Von der ersten Idee über das Konzept zum klickbaren Prototyp.',
-            ],
-            'development' => [
-                'title' => 'Individuelle Softwareentwicklung',
-                'description' => 'Portallösungen, Schnittstellen und Integrationen – mit Open Source im Fokus.',
-            ],
-            'dms' => [
-                'title' => 'DMS/ECM Consulting & Implementation',
-                'description' => 'Beratung und Umsetzung rund um digitales Dokumentenmanagement.',
-            ],
+    'intro' => [
+        'who_we_are' => [
+            'title' => 'Wer wir sind',
+            'text' => 'Wir sind codebar – ein Team, das innovative Ideen mit digitalen Hilfsmitteln zum Leben erweckt. Wir denken wirtschaftlich, arbeiten konzeptionell und setzen konsequent auf offene Technologien und Standards. So entstehen digitale Lösungen, die sich an den Bedürfnissen ihrer Nutzer:innen orientieren – ob wir sie beraten, konzipieren, entwickeln oder einführen. Und die dir echten Mehrwert bieten.',
         ],
+        'what_we_do' => [
+            'title' => 'Was wir machen',
+            'text' => 'Unsere Expertise deckt den ganzen Weg einer digitalen Lösung ab. Am Anfang steht die Konzeption: Wir erfassen und schärfen Anforderungen, bis daraus ein durchdachtes Konzept entsteht – und machen Ideen mit klickbaren Prototypen früh erlebbar. Darauf baut die individuelle Softwareentwicklung auf: Portallösungen, Schnittstellen und Integrationen, mit starkem Fokus auf Open Source. Derselbe offene Ansatz prägt unseren neusten Kompetenzbereich, die Open-Source-ERP-Systeme: Wir begleiten Unternehmen bei Evaluation, Einführung und Anpassung – flexibel, transparent und ohne Lizenz-Lock-in. Und im Dokumentenmanagement bringen wir langjährige Erfahrung mit: von der Beratung bis zur umgesetzten DMS- und ECM-Lösung.',
+        ],
+        'how_we_work' => [
+            'title' => 'Wie wir arbeiten',
+            'text' => 'Am Anfang hören wir dir zu. Denn ob neue Software, ERP-Einführung oder Dokumentenmanagement: Zuerst muss man im Detail verstehen, worum es geht und was die Lösung leisten soll. Anschliessend erarbeiten wir gemeinsam ein Konzept, das sich an deinen Prozessen und den Anforderungen der künftigen Nutzer:innen orientiert. Liegt der Lösungsansatz in unserer Expertise, begleiten wir dich gerne bis zur Umsetzung – und darüber hinaus. Andernfalls freuen wir uns, wenn andere unsere Pläne in die Tat umsetzen.',
+        ],
+    ],
+    'explore' => [
+        'title' => 'Mehr entdecken',
+        'home' => 'Zurück zur Startseite.',
+        'services' => 'Konzeption, Software, ERP und DMS/ECM.',
+        'team' => 'Die Menschen hinter codebar.',
+        'ai' => 'KI auf eigener Infrastruktur.',
+        'network' => 'Unsere Partner und Communities.',
+        'contact' => 'Lass uns sprechen.',
     ],
     'contact_cta' => [
         'title' => 'Interessiert?',
@@ -117,6 +123,10 @@ return [
                     'text' => 'USV Ubiquiti UniFi.',
                 ],
             ],
+        ],
+        'stats' => [
+            'title' => 'Nutzung',
+            'intro' => 'So intensiv sind unsere lokalen Modelle aktuell im Einsatz.',
         ],
         'archive' => [
             'title' => 'Archiv',

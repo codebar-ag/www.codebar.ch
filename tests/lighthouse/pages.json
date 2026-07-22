@@ -1,0 +1,23 @@
+[
+  { "name": "home", "path": "/en-ch" },
+  { "name": "services_index", "path": "/services" },
+  { "name": "services_show", "path": "/services/en/konzeption-prototyping", "note": "ServicesShowController currently redirects to start.index (WIP) - re-enable once implemented" },
+  { "name": "products_index", "path": "/products" },
+  { "name": "products_show", "path": "/products/en/flows", "note": "ProductsShowController currently redirects to start.index (WIP) - re-enable once implemented" },
+  { "name": "technologies_index", "path": "/technologies" },
+  { "name": "technologies_show", "path": "/technologies/en/laravel-framework", "note": "TechnologiesShowController currently redirects to start.index (WIP) - re-enable once implemented" },
+  { "name": "network_index", "path": "/network" },
+  { "name": "network_request", "path": "/network/request" },
+  { "name": "jobs", "path": "/jobs", "note": "currently redirects to start.index (WIP)" },
+  { "name": "media", "path": "/media" },
+  { "name": "contact", "path": "/contact" },
+  { "name": "about_us", "path": "/about-us" },
+  { "name": "ai_index", "path": "/ai" },
+  { "name": "ai_llm", "path": "/ai/llm" },
+  { "name": "ai_llm_analytics", "path": "/ai/llm-analytics" },
+  { "name": "legal_privacy", "path": "/legal/privacy" },
+  { "name": "legal_imprint", "path": "/legal/imprint" },
+  { "name": "legal_terms", "path": "/legal/terms", "note": "currently redirects to start.index (WIP)" },
+  { "name": "news", "path": "/news", "note": "currently redirects to start.index (WIP) - no News records seeded" },
+  { "name": "open_source", "path": "/open-source-contributions", "note": "currently redirects to start.index (WIP) - no OpenSource records seeded" }
+]

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\FetchLlmUsageJob;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Illuminate\Console\Command;
 
@@ -30,15 +31,18 @@ class FetchLlmAnalyticsCommand extends Command
             return self::FAILURE;
         }
 
-        $days = collect(CarbonPeriod::create($from, $to));
+        $days = collect(CarbonPeriod::create($from, $to)->toArray());
 
-        $days->each(fn (mixed $day) => FetchLlmUsageJob::dispatch(CarbonImmutable::instance($day)));
+        $days->each(fn (CarbonInterface $day) => FetchLlmUsageJob::dispatch(CarbonImmutable::instance($day)));
 
         $this->info("Dispatched {$days->count()} job(s) for {$from->toDateString()} to {$to->toDateString()}.");
 
         return self::SUCCESS;
     }
 
+    /**
+     * @return ($value is null ? null : CarbonImmutable)
+     */
     private function date(?string $value): ?CarbonImmutable
     {
         return $value === null

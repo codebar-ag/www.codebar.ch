@@ -1,31 +1,31 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('components.ai.title')"/>
-    <p class="text-gray-800">{{ __('components.ai.intro') }}</p>
+    <x-layout.page-header :title="__('components.ai.title')" :intro="__('components.ai.intro')"/>
 
-    <x-section>
-        <x-h2 :title="__('components.ai_llm.title')"/>
-        <p class="text-gray-600">{{ __('components.ai.llm_teaser') }}</p>
+    <x-layout.section>
+        <x-layout.section-header :title="__('components.ai_llm.title')" :intro="__('components.ai.llm_teaser')"/>
 
         @if ($llmSummary['requests'] > 0)
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <x-llm-analytics.stat-card
+            <x-layout.grid :cols="2" class="mt-4">
+                <x-card.stat-card
                         :label="__('components.ai.stats.tokens_month')"
                         :value="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['total_tokens'])"
                         :input="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['prompt_tokens'])"
                         :output="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['completion_tokens'])"/>
-                <x-llm-analytics.stat-card
+                <x-card.stat-card
                         :label="__('components.ai.stats.requests_month')"
                         :value="\App\Helpers\Facades\HelperNumber::format($llmSummary['requests'], 0)"/>
-            </div>
+            </x-layout.grid>
         @endif
 
         <div class="mt-4 flex flex-wrap gap-x-8 gap-y-2">
-            <x-a :href="localized_route('ai.llm.index')" label="{{ __('components.ai.to_models') }} →"
-                 class-attributes="inline-block text-base"/>
+            <x-ui.link :href="localized_route('ai.llm.index')" class="inline-block text-base">
+                {{ __('components.ai.to_models') }} <span aria-hidden="true">→</span>
+            </x-ui.link>
             @if ($llmSummary['requests'] > 0)
-                <x-a :href="localized_route('ai.llm.analytics.index')" label="{{ __('components.ai.to_analytics') }} →"
-                     class-attributes="inline-block text-base"/>
+                <x-ui.link :href="localized_route('ai.llm.analytics.index')" class="inline-block text-base">
+                    {{ __('components.ai.to_analytics') }} <span aria-hidden="true">→</span>
+                </x-ui.link>
             @endif
         </div>
-    </x-section>
+    </x-layout.section>
 </x-app-layout>

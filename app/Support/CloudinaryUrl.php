@@ -46,7 +46,8 @@ class CloudinaryUrl
         $segments = explode('/', $path);
 
         if (
-            preg_match('/^[a-z0-9_,.-]+$/', $segments[0])
+            $segments[0] !== ''
+            && preg_match('/^[a-z0-9_,.-]+$/', $segments[0])
             && preg_match('/[whcfq]_/', $segments[0])
         ) {
             array_shift($segments);

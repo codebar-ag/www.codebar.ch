@@ -12,7 +12,7 @@ class MyCspPreset implements Preset
 {
     public function configure(Policy $policy): void
     {
-        $cdnHost = parse_url((string) config('filesystems.disks.s3.cdn_endpoint', ''), PHP_URL_HOST);
+        $cdnHost = parse_url(config()->string('filesystems.disks.s3.cdn_endpoint', ''), PHP_URL_HOST);
 
         $scriptSources = array_filter([
             Keyword::SELF,
@@ -47,6 +47,7 @@ class MyCspPreset implements Preset
             Keyword::SELF,
             'data:',
             'res.cloudinary.com',
+            'www.gravatar.com',
         ]);
 
         $fontSources = array_filter([

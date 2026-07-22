@@ -1,14 +1,17 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Products')"/>
-    <x-section>
-        <x-list>
+    <x-layout.page-header
+            :title="__('Products')"
+            :intro="__('Products born out of real project work: developed by us, in daily use, and continuously improved.')"/>
+    <x-layout.section>
+        <x-layout.list>
             @foreach($products as $entry)
-                <x-list-card
+                <x-card.item-card
                         :url="localized_route('products.show', ['locale' => app()->getLocale(),'product' => $entry])"
                         :title="$entry->name"
                         :teaser="$entry->teaser"
-                        :tags="$entry->tags"/>
+                        :tags="$entry->tags"
+                        :level="2"/>
             @endforeach
-        </x-list>
-    </x-section>
+        </x-layout.list>
+    </x-layout.section>
 </x-app-layout>

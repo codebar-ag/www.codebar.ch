@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" role="img" aria-hidden="true">
+    <!-- Flat drawing: cloud with verified checkmark seal — digital services label -->
+    <g>
+        <!-- ground line -->
+        <rect x="8" y="86" width="144" height="2" rx="1" fill="#e5e7eb"/>
+
+        <!-- cloud -->
+        <circle cx="62" cy="46" r="16" fill="#d1d5db"/>
+        <circle cx="84" cy="38" r="20" fill="#d1d5db"/>
+        <circle cx="104" cy="48" r="14" fill="#d1d5db"/>
+        <rect x="50" y="46" width="66" height="16" rx="8" fill="#d1d5db"/>
+
+        <!-- data dots rising to cloud -->
+        <circle cx="62" cy="72" r="3" fill="#500472" opacity="0.3"/>
+        <circle cx="80" cy="76" r="3" fill="#500472" opacity="0.45"/>
+        <circle cx="98" cy="72" r="3" fill="#500472" opacity="0.3"/>
+
+        <!-- check seal -->
+        <circle cx="108" cy="62" r="13" fill="#500472"/>
+        <path d="M101 62 L106 67 L115 57" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- shrub accents -->
+        <circle cx="18" cy="82" r="5" fill="#500472" opacity="0.35"/>
+        <circle cx="146" cy="83" r="4" fill="#500472" opacity="0.25"/>
+    </g>
+</svg>

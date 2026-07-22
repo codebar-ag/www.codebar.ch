@@ -1,45 +1,45 @@
 <x-app-layout :page="$page" :preconnect-cloudinary="true">
-    <x-h1 :title="__('Team')"/>
+    <x-layout.page-header :title="__('Team')" :page="$page"/>
 
-    <x-section>
+    <x-layout.section>
         <x-h2 :title="__('Employees')"/>
         @if(!empty($contacts->employees) && $contacts->employees->count())
-            <x-list-grid>
+            <x-layout.grid :cols="2" class="mt-2">
                 @foreach($contacts->employees as $contact)
-                    <x-list-image-card
+                    <x-card.person-card
                             :name="$contact->name"
                             :role="$contact->role"
                             :icons="$contact->icons"
                             :image="$contact->image"/>
                 @endforeach
-            </x-list-grid>
+            </x-layout.grid>
         @endif
-    </x-section>
+    </x-layout.section>
 
     @if(!empty($contacts->collaborations) && $contacts->collaborations->count())
-        <x-section>
+        <x-layout.section>
             <x-h2 :title="__('Collaboration')"/>
-            <x-list-grid>
+            <x-layout.grid :cols="2" class="mt-2">
                 @foreach($contacts->collaborations as $contact)
-                    <x-list-image-card
+                    <x-card.person-card
                             :name="$contact->name"
                             :role="$contact->role"
                             :icons="$contact->icons"
                             :image="$contact->image"/>
                 @endforeach
-            </x-list-grid>
-        </x-section>
+            </x-layout.grid>
+        </x-layout.section>
     @endif
 
-    <x-section>
+    <x-layout.section>
         <x-h2 :title="__('Board of directors')"/>
-        <x-list-grid class-attributes="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <x-layout.grid :cols="2" class="mt-2">
             @foreach($contacts->board_members as $contact)
-                <x-list-image-card
+                <x-card.person-card
                         :name="$contact->name"
                         :icons="$contact->icons"
                         :image="$contact->image"/>
             @endforeach
-        </x-list-grid>
-    </x-section>
+        </x-layout.grid>
+    </x-layout.section>
 </x-app-layout>

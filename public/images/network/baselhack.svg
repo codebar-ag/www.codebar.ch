@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" role="img" aria-hidden="true">
+    <!-- Flat drawing: laptop with code and trophy — hackathon -->
+    <g>
+        <!-- ground line -->
+        <rect x="8" y="86" width="144" height="2" rx="1" fill="#e5e7eb"/>
+
+        <!-- laptop screen -->
+        <rect x="34" y="30" width="62" height="42" rx="4" fill="#d1d5db"/>
+        <rect x="40" y="36" width="50" height="30" rx="2" fill="#ffffff"/>
+        <!-- code brackets < / > -->
+        <path d="M54 44 L47 51 L54 58" fill="none" stroke="#500472" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M76 44 L83 51 L76 58" fill="none" stroke="#500472" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="61" y="43" width="4" height="16" rx="2" fill="#500472" opacity="0.45" transform="rotate(18 63 51)"/>
+        <!-- laptop base -->
+        <rect x="26" y="72" width="78" height="6" rx="3" fill="#e5e7eb"/>
+
+        <!-- trophy -->
+        <path d="M116 34 h24 v10 a12 12 0 0 1 -24 0 Z" fill="#500472" opacity="0.75"/>
+        <path d="M112 36 a7 7 0 0 0 8 9" fill="none" stroke="#500472" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+        <path d="M144 36 a7 7 0 0 1 -8 9" fill="none" stroke="#500472" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+        <rect x="125" y="56" width="6" height="10" rx="1" fill="#d1d5db"/>
+        <rect x="118" y="66" width="20" height="6" rx="2" fill="#d1d5db"/>
+
+        <!-- shrub accent -->
+        <circle cx="16" cy="82" r="5" fill="#500472" opacity="0.35"/>
+        <circle cx="148" cy="83" r="4" fill="#500472" opacity="0.25"/>
+    </g>
+</svg>
