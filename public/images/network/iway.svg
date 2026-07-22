@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" role="img" aria-hidden="true">
+    <!-- Flat drawing: server rack with signal waves — hosting & connectivity -->
+    <g>
+        <!-- ground line -->
+        <rect x="8" y="86" width="144" height="2" rx="1" fill="#e5e7eb"/>
+
+        <!-- server rack -->
+        <rect x="48" y="30" width="44" height="56" rx="3" fill="#d1d5db"/>
+        <rect x="54" y="37" width="32" height="12" rx="2" fill="#ffffff"/>
+        <circle cx="60" cy="43" r="2.5" fill="#500472"/>
+        <rect x="68" y="41" width="14" height="4" rx="2" fill="#e5e7eb"/>
+        <rect x="54" y="53" width="32" height="12" rx="2" fill="#ffffff"/>
+        <circle cx="60" cy="59" r="2.5" fill="#500472" opacity="0.55"/>
+        <rect x="68" y="57" width="14" height="4" rx="2" fill="#e5e7eb"/>
+        <rect x="54" y="69" width="32" height="12" rx="2" fill="#ffffff"/>
+        <circle cx="60" cy="75" r="2.5" fill="#500472" opacity="0.3"/>
+        <rect x="68" y="73" width="14" height="4" rx="2" fill="#e5e7eb"/>
+
+        <!-- antenna mast -->
+        <rect x="110" y="46" width="4" height="40" rx="2" fill="#d1d5db"/>
+        <circle cx="112" cy="42" r="5" fill="#500472"/>
+
+        <!-- signal waves -->
+        <path d="M120 34 A14 14 0 0 1 120 50" fill="none" stroke="#500472" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        <path d="M126 28 A22 22 0 0 1 126 56" fill="none" stroke="#500472" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+        <path d="M104 34 A14 14 0 0 0 104 50" fill="none" stroke="#500472" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+
+        <!-- shrub accents -->
+        <circle cx="18" cy="82" r="5" fill="#500472" opacity="0.35"/>
+        <circle cx="146" cy="83" r="4" fill="#500472" opacity="0.25"/>
+    </g>
+</svg>

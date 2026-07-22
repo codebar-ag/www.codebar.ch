@@ -11,17 +11,17 @@
                 @foreach($networks as $network)
                     <div class="flex flex-col overflow-hidden rounded-panel border border-gray-200">
                         <div class="relative hidden sm:flex h-20 items-center justify-center border-b border-gray-100 bg-gray-50 px-4">
+                            @php
+                                $drawing = 'images/network/'.$network->key.'.svg';
+                            @endphp
                             @if($network->logo)
                                 <img src="{{ $network->logo }}" alt="{{ $network->name }}" loading="lazy" width="160" height="48" class="max-h-12 w-auto">
+                            @elseif(file_exists(public_path($drawing)))
+                                <img src="{{ asset($drawing) }}" alt="" aria-hidden="true"
+                                     loading="lazy" width="160" height="96" class="max-h-16 w-auto">
                             @else
                                 <img src="{{ asset('images/placeholders/network-company.svg') }}" alt="" aria-hidden="true"
                                      loading="lazy" width="160" height="96" class="max-h-12 w-auto opacity-70">
-                            @endif
-
-                            @if($network->tier_label)
-                                <span class="absolute bottom-2 right-2 inline-flex items-center rounded-pill bg-white/90 px-2 py-1 text-sm font-medium text-muted ring-1 ring-gray-400/20 ring-inset">
-                                    {{ $network->tier_label }}
-                                </span>
                             @endif
                         </div>
 
@@ -38,17 +38,8 @@
                                 @endif
                             </div>
 
-                            @if($network->tier_label || $network->excerpt)
-                                <div class="flex flex-wrap items-center gap-2">
-                                    @if($network->tier_label)
-                                        <span class="sm:hidden">
-                                            <x-ui.badge :label="$network->tier_label"/>
-                                        </span>
-                                    @endif
-                                    @if($network->excerpt)
-                                        <span class="text-sm text-muted">{{ $network->excerpt }}</span>
-                                    @endif
-                                </div>
+                            @if($network->excerpt)
+                                <span class="text-sm text-muted">{{ $network->excerpt }}</span>
                             @endif
 
                             @if($network->publishedUsers->isNotEmpty())

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" role="img" aria-hidden="true">
+    <!-- Flat drawing: connected app modules — open source ERP -->
+    <g>
+        <!-- ground line -->
+        <rect x="8" y="86" width="144" height="2" rx="1" fill="#e5e7eb"/>
+
+        <!-- connections -->
+        <rect x="58" y="38" width="44" height="3" rx="1.5" fill="#e5e7eb"/>
+        <rect x="58" y="62" width="44" height="3" rx="1.5" fill="#e5e7eb"/>
+        <rect x="78" y="30" width="3" height="44" rx="1.5" fill="#e5e7eb"/>
+
+        <!-- module tiles -->
+        <rect x="36" y="26" width="26" height="26" rx="6" fill="#d1d5db"/>
+        <rect x="43" y="33" width="12" height="3" rx="1.5" fill="#ffffff"/>
+        <rect x="43" y="40" width="9" height="3" rx="1.5" fill="#ffffff"/>
+
+        <rect x="98" y="26" width="26" height="26" rx="6" fill="#500472" opacity="0.75"/>
+        <rect x="105" y="33" width="12" height="3" rx="1.5" fill="#ffffff"/>
+        <rect x="105" y="40" width="9" height="3" rx="1.5" fill="#ffffff"/>
+
+        <rect x="36" y="52" width="26" height="26" rx="6" fill="#e5e7eb"/>
+        <circle cx="49" cy="65" r="6" fill="#ffffff"/>
+
+        <rect x="98" y="52" width="26" height="26" rx="6" fill="#d1d5db"/>
+        <rect x="104" y="66" width="4" height="7" rx="1" fill="#ffffff"/>
+        <rect x="110" y="61" width="4" height="12" rx="1" fill="#ffffff"/>
+        <rect x="116" y="57" width="4" height="16" rx="1" fill="#ffffff"/>
+
+        <!-- center hub -->
+        <circle cx="80" cy="52" r="9" fill="#500472"/>
+        <circle cx="80" cy="52" r="3.5" fill="#ffffff"/>
+
+        <!-- shrub accents -->
+        <circle cx="18" cy="82" r="5" fill="#500472" opacity="0.35"/>
+        <circle cx="144" cy="83" r="4" fill="#500472" opacity="0.25"/>
+    </g>
+</svg>
