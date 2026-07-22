@@ -9,6 +9,7 @@ use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\CoWorking\CoWorkingIndexController;
 use App\Http\Controllers\Demo\FlowsLayoutDemoController;
 use App\Http\Controllers\Entry\EntryIndexController;
+use App\Http\Controllers\Gki\GkiIndexController;
 use App\Http\Controllers\Jobs\JobsIndexController;
 use App\Http\Controllers\Legal\ImprintIndexController;
 use App\Http\Controllers\Legal\PrivacyIndexController;
@@ -60,6 +61,9 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     // Not yet linked in navigation — built but inactive, same as Technologies above.
     Route::get('co-working', CoWorkingIndexController::class)->name('co-working.index');
 
+    // Not yet linked in navigation — built but inactive, same as Co-Working above.
+    Route::get('gki-consulting', GkiIndexController::class)->name('gki.index');
+
     Route::get('open-source-contributions', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-contributions/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
@@ -101,6 +105,9 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 
     // Not yet linked in navigation — built but inactive, same as Technologies above.
     Route::get('co-working', CoWorkingIndexController::class)->name('co-working.index');
+
+    // Not yet linked in navigation — built but inactive, same as Co-Working above.
+    Route::get('gki-beratung', GkiIndexController::class)->name('gki.index');
 
     Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-beitraege/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');

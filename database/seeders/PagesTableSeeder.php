@@ -81,6 +81,18 @@ class PagesTableSeeder extends Seeder
 
         Page::updateOrCreate(
             [
+                'key' => 'gki.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Generative AI Consulting',
+                'description' => 'Three GKI offerings for generative AI: strategy, prototype sprint and productive integration — by codebar Solutions AG.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
                 'key' => 'open-source.index',
                 'locale' => $locale,
             ],
@@ -225,6 +237,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Co-Working bei codebar',
                 'description' => 'Ein professioneller Arbeitsplatz in Oberwil — ruhig, gut ausgestattet und Teil eines Tech-Teams.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'gki.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'GKI-Beratung – Generative KI',
+                'description' => 'Drei GKI-Angebote für generative KI: Strategie, Prototyp-Sprint und produktive Integration — von der codebar Solutions AG.',
             ]
         );
 

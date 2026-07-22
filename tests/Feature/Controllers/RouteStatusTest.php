@@ -22,6 +22,7 @@ dataset('routes', function () {
         [LocaleEnum::EN->value, 'network.index'],
         [LocaleEnum::EN->value, 'network.request.index'],
         [LocaleEnum::EN->value, 'services.index'],
+        [LocaleEnum::EN->value, 'gki.index'],
 
         // DE-CH
         [LocaleEnum::DE->value, 'start.index'],
@@ -38,6 +39,7 @@ dataset('routes', function () {
         [LocaleEnum::DE->value, 'network.index'],
         [LocaleEnum::DE->value, 'network.request.index'],
         [LocaleEnum::DE->value, 'services.index'],
+        [LocaleEnum::DE->value, 'gki.index'],
     ];
 });
 
@@ -53,14 +55,10 @@ dataset('disabled-routes', function () {
         [LocaleEnum::EN->value, 'products.index'],
         [LocaleEnum::EN->value, 'technologies.index'],
         [LocaleEnum::EN->value, 'open-source.index'],
-        [LocaleEnum::EN->value, 'jobs.index'],
-        [LocaleEnum::EN->value, 'legal.terms.index'],
         [LocaleEnum::DE->value, 'news.index'],
         [LocaleEnum::DE->value, 'products.index'],
         [LocaleEnum::DE->value, 'technologies.index'],
         [LocaleEnum::DE->value, 'open-source.index'],
-        [LocaleEnum::DE->value, 'jobs.index'],
-        [LocaleEnum::DE->value, 'legal.terms.index'],
     ];
 });
 
