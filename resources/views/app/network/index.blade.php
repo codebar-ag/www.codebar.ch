@@ -23,6 +23,12 @@
                                 <img src="{{ asset('images/placeholders/network-company.svg') }}" alt="" aria-hidden="true"
                                      loading="lazy" width="160" height="96" class="max-h-12 w-auto opacity-70">
                             @endif
+
+                            @if($network->tier_label)
+                                <span class="absolute bottom-2 right-2 inline-flex items-center rounded-pill bg-white/90 px-2 py-1 text-sm font-medium text-muted ring-1 ring-gray-400/20 ring-inset">
+                                    {{ $network->tier_label }}
+                                </span>
+                            @endif
                         </div>
 
                         <div class="flex flex-1 flex-col gap-2 p-4">
@@ -37,10 +43,6 @@
                                     </a>
                                 @endif
                             </div>
-
-                            @if($network->tier_label)
-                                <x-ui.badge :label="$network->tier_label" class="w-fit"/>
-                            @endif
 
                             @if($network->excerpt)
                                 <span class="text-sm text-muted">{{ $network->excerpt }}</span>
