@@ -53,14 +53,10 @@ dataset('disabled-routes', function () {
         [LocaleEnum::EN->value, 'products.index'],
         [LocaleEnum::EN->value, 'technologies.index'],
         [LocaleEnum::EN->value, 'open-source.index'],
-        [LocaleEnum::EN->value, 'jobs.index'],
-        [LocaleEnum::EN->value, 'legal.terms.index'],
         [LocaleEnum::DE->value, 'news.index'],
         [LocaleEnum::DE->value, 'products.index'],
         [LocaleEnum::DE->value, 'technologies.index'],
         [LocaleEnum::DE->value, 'open-source.index'],
-        [LocaleEnum::DE->value, 'jobs.index'],
-        [LocaleEnum::DE->value, 'legal.terms.index'],
     ];
 });
 

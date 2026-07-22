@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken as Middleware;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery as Middleware;
 
-class ValidateCsrfToken extends Middleware
+class PreventRequestForgery extends Middleware
 {
     /**
      * No JavaScript reads the XSRF-TOKEN cookie (forms use the @csrf field),
