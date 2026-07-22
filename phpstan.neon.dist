@@ -12,3 +12,7 @@ parameters:
     ignoreErrors:
 
     excludePaths:
+        # Vendor-published migration (spatie/laravel-permission) — not our code.
+        - database/migrations/2024_06_06_100452_create_permission_tables.php
+        # Nova is not installed; this config references Laravel\Nova classes.
+        - config/nova.php

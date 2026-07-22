@@ -18,11 +18,11 @@ class OpenSourceFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->unique()->words(3, true);
+        $title = (string) fake()->unique()->words(3, true);
 
         return [
             'published' => true,
-            'locale' => fake()->randomElement(LocaleEnum::cases())->value,
+            'locale' => collect(LocaleEnum::cases())->random()->value,
             'title' => $title,
             'slug' => str($title)->slug(),
             'teaser' => fake()->sentence(),

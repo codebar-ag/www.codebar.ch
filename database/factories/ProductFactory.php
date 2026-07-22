@@ -18,11 +18,11 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(3, true);
+        $name = (string) fake()->unique()->words(3, true);
 
         return [
             'published' => true,
-            'locale' => fake()->randomElement(LocaleEnum::cases())->value,
+            'locale' => collect(LocaleEnum::cases())->random()->value,
             'order' => fake()->numberBetween(1, 100),
             'name' => $name,
             'teaser' => fake()->sentence(),

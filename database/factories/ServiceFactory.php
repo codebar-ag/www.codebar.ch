@@ -18,11 +18,11 @@ class ServiceFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(3, true);
+        $name = (string) fake()->unique()->words(3, true);
 
         return [
             'published' => true,
-            'locale' => fake()->randomElement(LocaleEnum::cases())->value,
+            'locale' => collect(LocaleEnum::cases())->random()->value,
             'group' => fake()->word(),
             'order' => fake()->numberBetween(1, 100),
             'name' => $name,
