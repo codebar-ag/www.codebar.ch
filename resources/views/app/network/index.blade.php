@@ -31,22 +31,24 @@
                             @endif
                         </div>
 
-                        <div class="flex flex-1 flex-col gap-1 p-4">
-                            <div class="flex min-w-0 items-center justify-between gap-2">
-                                <span class="truncate whitespace-nowrap text-base font-bold text-gray-800">{{ $network->name }}</span>
-                                @if($network->website)
-                                    <a href="{{ $network->website }}" target="_blank" rel="noopener noreferrer"
-                                       aria-label="{{ $network->websiteHost() }}"
-                                       title="{{ $network->websiteHost() }}"
-                                       class="flex size-7 shrink-0 items-center justify-center text-muted hover:text-gray-800">
-                                        <x-icon.website class="size-5"/>
-                                    </a>
+                        <div class="flex flex-1 flex-col gap-2 p-4">
+                            <div class="flex flex-col gap-0">
+                                <div class="flex min-w-0 items-center justify-between gap-2">
+                                    <span class="truncate whitespace-nowrap text-base font-bold text-gray-800">{{ $network->name }}</span>
+                                    @if($network->website)
+                                        <a href="{{ $network->website }}" target="_blank" rel="noopener noreferrer"
+                                           aria-label="{{ $network->websiteHost() }}"
+                                           title="{{ $network->websiteHost() }}"
+                                           class="flex size-7 shrink-0 items-center justify-center text-muted hover:text-gray-800">
+                                            <x-icon.website class="size-5"/>
+                                        </a>
+                                    @endif
+                                </div>
+
+                                @if($network->excerpt)
+                                    <span class="-mt-0.5 text-sm leading-tight text-muted">{{ $network->excerpt }}</span>
                                 @endif
                             </div>
-
-                            @if($network->excerpt)
-                                <span class="text-sm text-muted">{{ $network->excerpt }}</span>
-                            @endif
 
                             @if($network->publishedUsers->isNotEmpty())
                                 <div class="mt-auto">
