@@ -10,7 +10,11 @@
             </p>
         @endif
 
-        <form method="POST" action="{{ request()->fullUrl() }}" enctype="multipart/form-data" class="mt-6">
+        <p class="mt-6 text-sm text-muted" title="{{ __('Contact codebar to change your email address.') }}">
+            {{ __('Assigned email') }}: {{ $networkUser->email }}
+        </p>
+
+        <form method="POST" action="{{ request()->fullUrl() }}" enctype="multipart/form-data" class="mt-4">
             @csrf
             @method('PUT')
 
@@ -24,9 +28,6 @@
                         @if($networkUser->role)
                             <p class="text-sm text-muted">{{ $networkUser->role }}</p>
                         @endif
-                        <p class="truncate text-sm text-muted" title="{{ __('Contact codebar to change your email address.') }}">
-                            {{ __('Assigned email') }}: {{ $networkUser->email }}
-                        </p>
                     </div>
                 </div>
 
@@ -132,6 +133,10 @@
                 <div class="mt-2">
                     <p class="block text-sm font-medium text-gray-800">{{ __('Cover URL') }}</p>
                     @if($network?->cover_url)
+                        <div class="mt-1 flex h-20 items-center rounded-md border border-gray-200 bg-gray-50 px-4">
+                            <img src="{{ $network->cover_url }}" alt="{{ $network->name }}" loading="lazy"
+                                 class="max-h-14 w-auto">
+                        </div>
                         <a href="{{ $network->cover_url }}" target="_blank" rel="noopener noreferrer"
                            class="mt-1 block truncate text-sm text-brand underline">{{ $network->cover_url }}</a>
                     @else

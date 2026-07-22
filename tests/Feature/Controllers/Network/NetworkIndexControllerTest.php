@@ -43,7 +43,7 @@ it('shows the drawing illustration when no logo is set but a drawing exists', fu
         'key' => 'docuware',
         'locale' => LocaleEnum::DE->value,
         'name' => 'DocuWare',
-        'logo' => null,
+        'cover_url' => null,
     ]);
 
     get(route('de-ch.network.index'))
@@ -56,7 +56,7 @@ it('shows the placeholder illustration instead of the name when no logo is set',
     Network::factory()->create([
         'locale' => LocaleEnum::DE->value,
         'name' => 'Placeholder AG',
-        'logo' => null,
+        'cover_url' => null,
     ]);
 
     get(route('de-ch.network.index'))
@@ -68,7 +68,7 @@ it('shows the logo image instead of the placeholder when a logo is set', functio
     Network::factory()->create([
         'locale' => LocaleEnum::DE->value,
         'name' => 'Logo AG',
-        'logo' => 'https://res.cloudinary.com/codebar/image/upload/logo-ag.webp',
+        'cover_url' => 'https://res.cloudinary.com/codebar/image/upload/logo-ag.webp',
     ]);
 
     get(route('de-ch.network.index'))
