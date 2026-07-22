@@ -26,11 +26,11 @@
                 {{ __('Services') }}
             </a>
 
-            <!-- Team -->
+            {{-- <!-- Team -->
             <a href="{{ localized_route('about-us.index') }}" title="{{ __('Team') }}"
                 class="block py-3 text-center bg-gray-50/50 hover:text-brand hover:font-semibold transition">
                 {{ __('Team') }}
-            </a>
+            </a> --}}
 
             <!-- AI -->
             <a href="{{ localized_route('ai.index') }}" title="{{ __('AI') }}"

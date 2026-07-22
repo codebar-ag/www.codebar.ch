@@ -2,7 +2,7 @@
 
 return [
     // Error page headings (4xx vs 5xx)
-    'title_client' => 'Request could not be completed',
+    'title_client' => 'Request failed',
     'title_server' => 'Something went wrong',
 
     // Shown when the framework message is empty or generic
@@ -11,4 +11,7 @@ return [
 
     // Primary CTA on error pages
     'back_home' => 'Back to home',
+
+    // Muted status line under the page header
+    'status_label' => 'Error code: :code',
 ];

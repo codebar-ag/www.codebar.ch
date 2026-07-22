@@ -74,7 +74,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Co-Working at codebar',
+                'title' => 'Co-Working at codebar Solutions AG',
                 'description' => 'A professional workspace in Oberwil — quiet, well-equipped, and embedded in a tech team.',
             ]
         );
@@ -98,8 +98,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Jobs at codebar',
-                'description' => 'Join codebar Solutions AG – open positions and how we work as a team building software with open technologies.',
+                'title' => 'Jobs – Working at codebar Solutions AG',
+                'description' => 'Small by conviction: responsibility from day one, open technologies and internships inside real projects. This is what working at codebar is like.',
             ]
         );
 
@@ -110,7 +110,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Terms & Conditions',
+                'title' => 'Terms & Conditions – codebar Solutions AG',
                 'description' => 'The general terms and conditions of codebar Solutions AG.',
             ]
         );
@@ -122,8 +122,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Privacy Policy – codebar',
-                'description' => 'How codebar Solutions AG processes personal data on this website under Swiss data protection law.',
+                'title' => 'Privacy – codebar Solutions AG',
+                'description' => 'How we process personal data on codebar.ch: what we collect, why, how long we keep it – and the rights you have.',
             ]
         );
 
@@ -134,7 +134,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Media & Brand Assets – codebar',
+                'title' => 'Media & Brand Assets – codebar Solutions AG',
                 'description' => 'Official codebar logos for press and partners – colour, inverted, black and white, as PNG and SVG.',
             ]
         );
@@ -146,7 +146,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'AI at codebar – Local Models, Own Infrastructure',
+                'title' => 'AI at codebar Solutions AG – Local Models, Own Infrastructure',
                 'description' => 'Transparency over buzzwords: an open look at how we use AI in our own work – with local open-source models and real usage figures.',
             ]
         );
@@ -158,7 +158,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Network – Partners & Community | codebar',
+                'title' => 'Network – Partners & Community | codebar Solutions AG',
                 'description' => 'Who we work with: project, software and infrastructure partners, our community engagement – and the labels behind it.',
             ]
         );
@@ -182,7 +182,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Our Local LLMs in Action – codebar',
+                'title' => 'Our Local LLMs in Action – codebar Solutions AG',
                 'description' => 'The local open-source models we currently run – on our own hardware, in our own office basement. Models, infrastructure and usage.',
             ]
         );
@@ -194,7 +194,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'LLM Usage Analytics – codebar',
+                'title' => 'LLM Usage Analytics – codebar Solutions AG',
                 'description' => 'Token consumption and requests of our locally run models – transparently broken down per month and model.',
             ]
         );
@@ -223,7 +223,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Co-Working bei codebar',
+                'title' => 'Co-Working bei codebar Solutions AG',
                 'description' => 'Ein professioneller Arbeitsplatz in Oberwil — ruhig, gut ausgestattet und Teil eines Tech-Teams.',
             ]
         );
@@ -247,8 +247,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Stellen bei codebar',
-                'description' => 'Werde Teil der codebar Solutions AG – offene Stellen und wie wir als Team Software mit offenen Technologien entwickeln.',
+                'title' => 'Stellen – arbeiten bei codebar Solutions AG',
+                'description' => 'Klein aus Überzeugung: Verantwortung ab Tag eins, offene Technologien und Praktika mitten im Projektalltag. So arbeitest du bei codebar.',
             ]
         );
 
@@ -259,8 +259,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Allgemeine Geschäftsbedingungen',
-                'description' => 'Die allgemeinen Geschäftsbedingungen der codebar Solutions AG.',
+                'title' => 'AGB – codebar Solutions AG',
+                'description' => 'Die Allgemeinen Geschäftsbedingungen der codebar Solutions AG.',
             ]
         );
 
@@ -271,8 +271,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Datenschutzerklärung – codebar',
-                'description' => 'Wie die codebar Solutions AG Personendaten auf dieser Website gemäss Schweizer Datenschutzrecht bearbeitet.',
+                'title' => 'Datenschutz – codebar Solutions AG',
+                'description' => 'Wie wir Personendaten auf codebar.ch bearbeiten: welche Daten anfallen, wofür wir sie nutzen, wie lange wir sie aufbewahren – und welche Rechte du hast.',
             ]
         );
 
@@ -283,7 +283,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Medien & Markenassets – codebar',
+                'title' => 'Medien & Markenassets – codebar Solutions AG',
                 'description' => 'Offizielle codebar-Logos für Presse und Partner – farbig, invertiert, schwarz-weiss, als PNG und SVG.',
             ]
         );
@@ -295,7 +295,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'KI bei codebar – lokale Modelle, eigene Infrastruktur',
+                'title' => 'KI bei codebar Solutions AG – lokale Modelle, eigene Infrastruktur',
                 'description' => 'Transparenz statt Buzzwords: Wir zeigen offen, wie wir KI in der eigenen Arbeit einsetzen – mit lokalen Open-Source-Modellen und echten Nutzungszahlen.',
             ]
         );
@@ -307,7 +307,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Unsere lokalen LLMs im Einsatz – codebar',
+                'title' => 'Unsere lokalen LLMs im Einsatz – codebar Solutions AG',
                 'description' => 'Diese lokalen Open-Source-Modelle betreiben wir aktuell – auf eigener Hardware im hauseigenen Bürokeller. Modelle, Infrastruktur und Nutzung.',
             ]
         );
@@ -319,7 +319,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'LLM-Nutzungsstatistik – codebar',
+                'title' => 'LLM-Nutzungsstatistik – codebar Solutions AG',
                 'description' => 'Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle – transparent aufgeschlüsselt pro Monat und Modell.',
             ]
         );
@@ -331,7 +331,7 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Netzwerk – Partner & Community | codebar',
+                'title' => 'Netzwerk – Partner & Community | codebar Solutions AG',
                 'description' => 'Mit wem wir arbeiten: Projekt-, Software- und Infrastrukturpartner, unser Engagement in der Community – und die Labels, die dahinterstehen.',
             ]
         );

@@ -16,12 +16,13 @@ class SitemapController extends Controller
 {
     protected const array DEFAULT_ROUTES = [
         'start.index',
-        'about-us.index',
         'services.index',
         'contact.index',
         'media.index',
         'legal.imprint.index',
         'legal.privacy.index',
+        'legal.terms.index',
+        'jobs.index',
         'ai.index',
         'ai.llm.index',
         'ai.llm.analytics.index',

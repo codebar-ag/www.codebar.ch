@@ -1,7 +1,7 @@
 <x-app-layout :page="$page">
     <x-layout.page-header :title="__('Terms page heading')" :page="$page"/>
 
-    <p class="mb-2 text-muted">{{ __('Last updated at: :date', ['date' => '2026-07-23']) }}</p>
+    <p class="mb-2 text-muted">{{ __('Last updated at: :date', ['date' => __('Terms last updated date')]) }}</p>
 
     <x-layout.section>
         <x-h2 :title="__('Terms 1 heading')"/>

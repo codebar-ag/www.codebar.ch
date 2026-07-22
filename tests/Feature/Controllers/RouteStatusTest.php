@@ -9,7 +9,6 @@ dataset('routes', function () {
     return [
         // EN-CH
         [LocaleEnum::EN->value, 'start.index'],
-        [LocaleEnum::EN->value, 'about-us.index'],
         [LocaleEnum::EN->value, 'legal.imprint.index'],
         [LocaleEnum::EN->value, 'legal.privacy.index'],
         [LocaleEnum::EN->value, 'legal.terms.index'],
@@ -25,7 +24,6 @@ dataset('routes', function () {
 
         // DE-CH
         [LocaleEnum::DE->value, 'start.index'],
-        [LocaleEnum::DE->value, 'about-us.index'],
         [LocaleEnum::DE->value, 'legal.imprint.index'],
         [LocaleEnum::DE->value, 'legal.privacy.index'],
         [LocaleEnum::DE->value, 'legal.terms.index'],
@@ -53,10 +51,13 @@ dataset('disabled-routes', function () {
         [LocaleEnum::EN->value, 'products.index'],
         [LocaleEnum::EN->value, 'technologies.index'],
         [LocaleEnum::EN->value, 'open-source.index'],
+        [LocaleEnum::EN->value, 'about-us.index'],
         [LocaleEnum::DE->value, 'news.index'],
         [LocaleEnum::DE->value, 'products.index'],
         [LocaleEnum::DE->value, 'technologies.index'],
         [LocaleEnum::DE->value, 'open-source.index'],
+        [LocaleEnum::DE->value, 'about-us.index'],
+        [LocaleEnum::DE->value, 'co-working.index'],
     ];
 });
 

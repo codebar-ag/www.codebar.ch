@@ -120,12 +120,6 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('rechtliches/impressum', ImprintIndexController::class)->name('legal.imprint.index');
     Route::get('rechtliches/geschaeftsbedingungen', TermsIndexController::class)->name('legal.terms.index');
 
-    // The legal section shipped with a typo in the URL segment — keep the old
-    // URLs alive with permanent redirects so links and search entries carry over.
-    Route::permanentRedirect('rechtlichtes/datenschutz', '/rechtliches/datenschutz');
-    Route::permanentRedirect('rechtlichtes/impressum', '/rechtliches/impressum');
-    Route::permanentRedirect('rechtlichtes/geschaeftsbedingungen', '/rechtliches/geschaeftsbedingungen');
-
     Route::get('stellen', JobsIndexController::class)->name('jobs.index');
     Route::get('medien', MediaIndexController::class)->name('media.index');
     Route::get('kontakt', ContactIndexController::class)->name('contact.index');
