@@ -20,6 +20,7 @@ class NetworkManageUpdateController extends Controller
         // change it, so it's never read from the request even if submitted.
         $attributes = [
             'name' => $request->validated('name'),
+            'public_email' => $request->validated('public_email'),
             'linkedin' => $request->validated('linkedin'),
             'phone' => $request->validated('phone'),
             'published' => $request->boolean('published'),

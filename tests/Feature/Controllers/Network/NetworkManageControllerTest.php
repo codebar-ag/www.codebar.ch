@@ -72,6 +72,7 @@ it('updates the own profile and the company website via a signed link', function
 
     put(signedManageUrl($networkUser), [
         'name' => 'Vincenzo Carbone-Rossi',
+        'public_email' => 'vincenzo.public@example.com',
         'linkedin' => 'https://www.linkedin.com/in/vincenzo',
         'phone' => '+41 44 000 00 00',
         'published' => '1',
@@ -81,6 +82,7 @@ it('updates the own profile and the company website via a signed link', function
     $networkUser->refresh();
 
     expect($networkUser->name)->toBe('Vincenzo Carbone-Rossi')
+        ->and($networkUser->public_email)->toBe('vincenzo.public@example.com')
         ->and($networkUser->linkedin)->toBe('https://www.linkedin.com/in/vincenzo')
         ->and($networkUser->phone)->toBe('+41 44 000 00 00')
         ->and($networkUser->published)->toBeTrue();

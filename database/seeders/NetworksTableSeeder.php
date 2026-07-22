@@ -19,7 +19,7 @@ class NetworksTableSeeder extends Seeder
             key: 'wieland-business-solutions',
             category: NetworkCategoryEnum::COLLABORATION,
             sort: 10,
-            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/wieland-business-solutions-3x1-black.svg',
+            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/wieland-3x1-black.svg',
             website: 'https://www.business-solutions.gmbh',
             localizedData: [
                 'de_CH' => ['name' => 'Wieland Business Solutions AG', 'excerpt' => 'Sparringspartner DMS/ECM'],
@@ -31,7 +31,7 @@ class NetworksTableSeeder extends Seeder
             key: 'pst',
             category: NetworkCategoryEnum::COLLABORATION,
             sort: 20,
-            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/pst-gmbh-3x1-black_1.svg',
+            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/pst-3x1-black.svg',
             website: 'https://www.pstgmbh.ch',
             localizedData: [
                 'de_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Finanzen & Buchhaltung'],
@@ -43,7 +43,7 @@ class NetworksTableSeeder extends Seeder
             key: 'docuware',
             category: NetworkCategoryEnum::SOFTWARE,
             sort: 30,
-            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/docuware-silver-cloud-partner-2026-3x1-black.svg',
+            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/docuware-3x1-black.svg',
             website: 'https://start.docuware.com',
             localizedData: [
                 'de_CH' => ['name' => 'DocuWare', 'excerpt' => 'DMS/ECM'],
@@ -55,7 +55,7 @@ class NetworksTableSeeder extends Seeder
             key: 'odoo',
             category: NetworkCategoryEnum::SOFTWARE,
             sort: 40,
-            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/odoo-learning-partner-3x1-black.svg',
+            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/odoo-3x1-black.svg',
             website: 'https://www.odoo.com',
             localizedData: [
                 'de_CH' => ['name' => 'Odoo', 'excerpt' => 'Open Source ERP'],
@@ -79,6 +79,7 @@ class NetworksTableSeeder extends Seeder
             key: 'baselhack',
             category: NetworkCategoryEnum::SPONSORING,
             sort: 60,
+            logo: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/baselhack-3x1-black.svg',
             website: 'https://www.baselhack.ch',
             localizedData: [
                 'de_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Hackathon Nordwestschweiz'],

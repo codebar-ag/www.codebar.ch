@@ -82,6 +82,7 @@ class NetworkUsersTableSeeder extends Seeder
             [
                 'role' => $role,
                 'email' => $email,
+                'public_email' => $email,
                 'linkedin' => $linkedin,
                 'phone' => $phone,
                 'avatar_url' => $avatarUrl,

@@ -24,6 +24,9 @@
                         @if($networkUser->role)
                             <p class="text-sm text-muted">{{ $networkUser->role }}</p>
                         @endif
+                        <p class="truncate text-sm text-muted" title="{{ __('Contact codebar to change your email address.') }}">
+                            {{ __('Assigned email') }}: {{ $networkUser->email }}
+                        </p>
                     </div>
                 </div>
 
@@ -40,10 +43,15 @@
                 </div>
 
                 <div class="mt-4">
-                    <label for="email" class="block text-sm font-medium text-gray-800">{{ __('Email') }}</label>
-                    <input type="email" id="email" value="{{ $networkUser->email }}" disabled
-                           class="mt-1 w-full cursor-not-allowed rounded-md border border-gray-300 bg-gray-100 px-4 py-2 text-gray-500">
-                    <p class="mt-1 text-sm text-muted">{{ __('Contact codebar to change your email address.') }}</p>
+                    <label for="public_email" class="block text-sm font-medium text-gray-800">{{ __('Public email') }}</label>
+                    <input type="email" id="public_email" name="public_email"
+                           value="{{ old('public_email', $networkUser->public_email) }}"
+                           placeholder="{{ $networkUser->email }}"
+                           class="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 text-gray-800 placeholder-gray-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand">
+                    <p class="mt-1 text-sm text-muted">{{ __('Shown publicly on the network page. Leave empty to hide it.') }}</p>
+                    @error('public_email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mt-4">

@@ -125,6 +125,7 @@ it('shows published contact persons with their channels', function () {
         'name' => 'Patrick Baumeler',
         'linkedin' => 'https://www.linkedin.com/in/example',
         'email' => 'patrick@example.com',
+        'public_email' => 'patrick@example.com',
         'phone' => '+41 44 000 00 00',
         'published' => true,
     ]);

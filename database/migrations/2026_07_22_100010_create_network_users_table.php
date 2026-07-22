@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('avatar_path')->nullable();
             $table->string('avatar_url')->nullable();
             $table->string('email')->nullable()->index();
+            $table->string('public_email')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('phone')->nullable();
             $table->boolean('published')->default(false);

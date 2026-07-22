@@ -24,7 +24,7 @@
             @endif
         </span>
 
-        @if($user->linkedin || $user->email || $user->phone)
+        @if($user->linkedin || $user->public_email || $user->phone)
             <span class="flex shrink-0 items-center gap-3">
                 @if($user->linkedin)
                     <a href="{{ $user->linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
@@ -33,9 +33,9 @@
                         <x-icon.linkedin/>
                     </a>
                 @endif
-                @if($user->email)
-                    <a href="mailto:{{ $user->email }}" aria-label="E-Mail"
-                       title="{{ $user->email }}"
+                @if($user->public_email)
+                    <a href="mailto:{{ $user->public_email }}" aria-label="E-Mail"
+                       title="{{ $user->public_email }}"
                        class="text-muted hover:text-gray-800">
                         <x-icon.email/>
                     </a>
