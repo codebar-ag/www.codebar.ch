@@ -20,8 +20,8 @@ class NetworksTableSeeder extends Seeder
             category: NetworkCategoryEnum::COLLABORATION,
             sort: 10,
             localizedData: [
-                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner DMS/ECM', 'excerpt' => 'Sparring Partner DMS/ECM'],
-                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner DMS/ECM', 'excerpt' => 'Sparring Partner DMS/ECM'],
+                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner DMS/ECM', 'excerpt' => 'Gemeinsame Projekte'],
+                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner DMS/ECM', 'excerpt' => 'Joint projects'],
             ],
         );
 
