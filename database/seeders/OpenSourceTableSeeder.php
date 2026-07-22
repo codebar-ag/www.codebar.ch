@@ -335,9 +335,18 @@ class OpenSourceTableSeeder extends Seeder
         );
     }
 
-    private function seed(string $sharedSlug, array $localizedData): void
-    {
-        $entries = collect($localizedData)->map(function ($data, $locale) use ($sharedSlug) {
+    /**
+     * @param  array<string, array<string, mixed>>  $localizedData
+     */
+    private function seed(
+        string $sharedSlug,
+        array $localizedData,
+        ?string $link = null,
+        int $downloads = 0,
+        string $version = '',
+        ?string $identifier = null,
+    ): void {
+        $entries = collect($localizedData)->map(function (array $data, string $locale) use ($sharedSlug, $link, $downloads, $version) {
             $slug = Str::slug($sharedSlug, '-', $locale);
 
             return OpenSource::updateOrCreate(
@@ -352,6 +361,9 @@ class OpenSourceTableSeeder extends Seeder
                     'image' => Arr::get($data, 'image', ''),
                     'tags' => Arr::get($data, 'tags', []),
                     'content' => Arr::get($data, 'content'),
+                    'link' => $link,
+                    'downloads' => $downloads,
+                    'version' => $version,
                 ]
             );
         });

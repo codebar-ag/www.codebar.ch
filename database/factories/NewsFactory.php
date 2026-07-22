@@ -21,7 +21,7 @@ class NewsFactory extends Factory
         $title = fake()->unique()->sentence();
 
         return [
-            'locale' => fake()->randomElement(LocaleEnum::cases())->value,
+            'locale' => collect(LocaleEnum::cases())->random()->value,
             'title' => $title,
             'slug' => str($title)->slug(),
             'teaser' => fake()->sentence(),

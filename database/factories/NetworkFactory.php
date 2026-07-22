@@ -27,7 +27,7 @@ class NetworkFactory extends Factory
             'key' => Str::slug($name),
             'locale' => LocaleEnum::DE->value,
             'name' => $name,
-            'category' => $this->faker->randomElement(NetworkCategoryEnum::cases())->value,
+            'category' => collect(NetworkCategoryEnum::cases())->random()->value,
             'status' => NetworkStatusEnum::ACTIVE->value,
             'cover_url' => null,
             'tier_label' => null,
