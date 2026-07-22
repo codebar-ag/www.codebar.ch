@@ -24,6 +24,7 @@
     "spatie/laravel-responsecache": "^8.0",
     "spatie/laravel-sitemap": "^8.0",
     "spatie/security-advisories-health-check": "^1.2",
+    "symfony/http-client": "^8.1",
     "symfony/postmark-mailer": "^8.1"
   },
   "require-dev": {
