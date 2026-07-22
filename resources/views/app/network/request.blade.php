@@ -14,7 +14,7 @@
             @csrf
 
             <label for="email" class="block text-sm font-medium text-gray-800">{{ __('Email') }}</label>
-            <input type="email" id="email" name="email" value="{{ old('email') }}" required
+            <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus
                    class="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 text-gray-800 placeholder-gray-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand">
 
             @error('email')

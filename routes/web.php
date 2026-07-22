@@ -6,6 +6,7 @@ use App\Http\Controllers\Ai\AiIndexController;
 use App\Http\Controllers\Ai\AiLlmAnalyticsIndexController;
 use App\Http\Controllers\Ai\AiLlmIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
+use App\Http\Controllers\CoWorking\CoWorkingIndexController;
 use App\Http\Controllers\Demo\FlowsLayoutDemoController;
 use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Jobs\JobsIndexController;
@@ -55,6 +56,9 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('technologies', TechnologiesIndexController::class)->name('technologies.index');
     Route::get('technologies/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
+    // Not yet linked in navigation — built but inactive, same as Technologies above.
+    Route::get('co-working', CoWorkingIndexController::class)->name('co-working.index');
+
     Route::get('open-source-contributions', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-contributions/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
@@ -94,6 +98,9 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('technologien', TechnologiesIndexController::class)->name('technologies.index');
     Route::get('technologien/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
+    // Not yet linked in navigation — built but inactive, same as Technologies above.
+    Route::get('co-working', CoWorkingIndexController::class)->name('co-working.index');
+
     Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-beitraege/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
 
@@ -128,5 +135,3 @@ if (! app()->isProduction()) {
 
 Route::get('robots.txt', RobotsController::class);
 Route::get('sitemap.xml', SitemapController::class);
-
-require __DIR__.'/well-known.php';

@@ -41,6 +41,7 @@ class PageAction
             routeKey: $page->key,
             routeName: Str::slug($page->locale).'.'.$this->routeName,
             title: $page->title,
+            robots: $page->robots,
             description: $page->description,
             image: $page->image,
             lastModificationDate: Carbon::parse($page->updated_at ?? now()),

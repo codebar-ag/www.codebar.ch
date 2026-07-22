@@ -6,9 +6,9 @@
             @foreach($services as $entry)
                 <div class="py-4">
                     <div class="flex flex-col gap-1">
-                        <h3 class="text-xl font-semibold text-gray-800">
+                        <h2 class="text-xl font-semibold text-gray-800">
                             {{ $entry->name }}
-                        </h3>
+                        </h2>
 
                         @if(filled($entry->teaser))
                             <div class="text-muted">

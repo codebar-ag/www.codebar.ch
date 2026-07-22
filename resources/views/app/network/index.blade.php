@@ -12,10 +12,10 @@
                     <div class="flex flex-col overflow-hidden rounded-panel border border-gray-200">
                         <div class="relative hidden sm:flex h-20 items-center justify-center border-b border-gray-100 bg-gray-50 px-4">
                             @if($network->logo)
-                                <img src="{{ $network->logo }}" alt="{{ $network->name }}" loading="lazy" class="max-h-12 w-auto">
+                                <img src="{{ $network->logo }}" alt="{{ $network->name }}" loading="lazy" width="160" height="48" class="max-h-12 w-auto">
                             @else
                                 <img src="{{ asset('images/placeholders/network-company.svg') }}" alt="" aria-hidden="true"
-                                     loading="lazy" class="max-h-12 w-auto opacity-70">
+                                     loading="lazy" width="160" height="96" class="max-h-12 w-auto opacity-70">
                             @endif
 
                             @if($network->tier_label)

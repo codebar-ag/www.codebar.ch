@@ -6,7 +6,7 @@
         'bg-gray-950' => $inverted,
         'bg-white' => ! $inverted,
     ])>
-        <img src="{{ $image }}" alt="{{ $label }}" class="max-h-16 w-auto"/>
+        <img src="{{ $image }}" alt="{{ $label }}" width="200" height="64" class="max-h-16 w-auto"/>
     </div>
     <div class="flex flex-col gap-2">
         <span class="font-semibold text-gray-800">{{ $label }}</span>

@@ -17,7 +17,7 @@ it('seeds every company in both locales', function () {
         'odoo',
         'iway',
         'baselhack',
-        'laravel-meetups',
+        'swiss-laravel-association',
         'swiss-made-software',
         'swiss-digital-services',
     ];

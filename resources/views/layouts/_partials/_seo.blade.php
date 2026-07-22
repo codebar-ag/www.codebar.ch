@@ -1,6 +1,4 @@
-<!-- Manifest and Browser Configuration -->
-<link rel="manifest" href="{{ asset('manifest.json') }}">
-<meta name="theme-color" content="#ffffff">
+<!-- Browser Configuration (manifest + theme-color come from _favicons.blade.php) -->
 <meta name="application-name" content="{{ config('app.name') }}">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="{{ config('app.name') }}">
@@ -10,12 +8,30 @@
 @if(!empty($page))
     @php
         $seoImage = $page->image ?: url(asset(config('seo.default_image')));
+
+        $hreflangAlternates = collect(\App\Enums\LocaleEnum::cases())
+            ->mapWithKeys(function ($locale) use ($page) {
+                try {
+                    $url = route(\Illuminate\Support\Str::slug($locale->value).'.'.$page->routeKey, $page->routeParameters, true);
+                } catch (\Throwable) {
+                    return [];
+                }
+
+                return [str_replace('_', '-', $locale->value) => $url];
+            });
     @endphp
     <title>{{ $page->title }}</title>
     <meta name="robots" content="{{ $page->robots }}">
     <meta name="description" content="{{ $page->description }}">
     <meta name="language" Content="{{ $page->locale }}">
     <meta name="url" content="{{ request()->url() }}">
+    <link rel="canonical" href="{{ request()->url() }}">
+    @foreach($hreflangAlternates as $hreflang => $url)
+        <link rel="alternate" hreflang="{{ $hreflang }}" href="{{ $url }}">
+    @endforeach
+    @if($hreflangAlternates->isNotEmpty())
+        <link rel="alternate" hreflang="x-default" href="{{ $hreflangAlternates->first() }}">
+    @endif
 
     <meta property="og:locale" content="{{ $page->locale }}">
     <meta property="og:type" content="website">

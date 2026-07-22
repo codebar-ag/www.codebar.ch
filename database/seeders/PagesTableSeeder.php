@@ -67,6 +67,18 @@ class PagesTableSeeder extends Seeder
 
         Page::updateOrCreate(
             [
+                'key' => 'co-working.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Co-Working at codebar',
+                'description' => 'A professional workspace in Oberwil — quiet, well-equipped, and embedded in a tech team.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
                 'key' => 'open-source.index',
                 'locale' => $locale,
             ],
@@ -199,6 +211,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Offene Technologien & Standards',
                 'description' => 'Die offenen Technologien und Standards, auf denen unsere Software basiert – bewährt, transparent und herstellerunabhängig.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'co-working.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Co-Working bei codebar',
+                'description' => 'Ein professioneller Arbeitsplatz in Oberwil — ruhig, gut ausgestattet und Teil eines Tech-Teams.',
             ]
         );
 

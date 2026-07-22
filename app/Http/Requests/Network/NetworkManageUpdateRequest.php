@@ -18,12 +18,14 @@ class NetworkManageUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['nullable', 'email', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'linkedin' => ['nullable', 'url', 'max:255'],
             'phone' => ['nullable', 'string', 'max:50'],
             'website' => ['nullable', 'url', 'max:255'],
             'published' => ['nullable', 'boolean'],
-            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,webp', 'max:2048'],
+            // "image" isn't used here — its hardcoded mime whitelist has no avif entry,
+            // so it would reject avif uploads even though the "mimes" rule below allows them.
+            'avatar' => ['nullable', 'file', 'mimes:jpeg,png,webp,avif', 'max:2048', 'dimensions:ratio=1/1'],
         ];
     }
 }

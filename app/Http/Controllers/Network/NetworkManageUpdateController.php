@@ -19,9 +19,11 @@ class NetworkManageUpdateController extends Controller
     public function __invoke(NetworkManageUpdateRequest $request, NetworkUser $networkUser): RedirectResponse
     {
         // Hard whitelist: a signed link may only ever touch the person's own
-        // contact channels, avatar, their own visibility and the company website.
+        // name, contact channels, avatar, their own visibility and the
+        // company website. Email is deliberately excluded — only codebar can
+        // change it, so it's never read from the request even if submitted.
         $attributes = [
-            'email' => $request->validated('email'),
+            'name' => $request->validated('name'),
             'linkedin' => $request->validated('linkedin'),
             'phone' => $request->validated('phone'),
             'published' => $request->boolean('published'),

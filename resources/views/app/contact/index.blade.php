@@ -14,6 +14,10 @@
     </x-layout.section>
 
     <x-layout.section>
+        <x-opening-hours :hours="$openingHours"/>
+    </x-layout.section>
+
+    <x-layout.section>
         <x-h2 :title="__('Locations')"/>
         <x-layout.grid :cols="2" gap="gap-6 sm:gap-4">
             <x-card.address-card

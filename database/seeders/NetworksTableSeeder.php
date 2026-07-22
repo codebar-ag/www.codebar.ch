@@ -81,12 +81,13 @@ class NetworksTableSeeder extends Seeder
         );
 
         $this->seed(
-            key: 'laravel-meetups',
+            key: 'swiss-laravel-association',
             category: NetworkCategoryEnum::SPONSORING,
             sort: 70,
+            website: 'https://laravel.swiss',
             localizedData: [
-                'de_CH' => ['name' => 'Laravel Meetups', 'excerpt' => 'Community-Support'],
-                'en_CH' => ['name' => 'Laravel Meetups', 'excerpt' => 'Community support'],
+                'de_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Community-Support'],
+                'en_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Community support'],
             ],
         );
 
