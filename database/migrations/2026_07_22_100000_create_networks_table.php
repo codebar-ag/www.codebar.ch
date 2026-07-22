@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('category');
             $table->string('status')->default('active');
             $table->string('logo')->nullable();
+            $table->string('cover_disk')->nullable();
+            $table->string('cover_path')->nullable();
+            $table->string('cover_url')->nullable();
             $table->string('tier_label')->nullable();
             $table->string('excerpt')->nullable();
             $table->string('website')->nullable();

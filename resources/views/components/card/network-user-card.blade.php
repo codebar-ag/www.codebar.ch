@@ -6,16 +6,16 @@
 
 <div class="{{ $divided ? 'border-t border-dashed border-gray-200 pt-3 mt-3' : '' }}">
     <div class="flex items-center gap-2 min-w-0">
-        @if($user->avatar)
-            <img src="{{ CloudinaryUrl::src($user->avatar, 64) }}"
-                 srcset="{{ CloudinaryUrl::srcset($user->avatar, 64) }}"
+        @if($user->avatar_url)
+            <img src="{{ CloudinaryUrl::src($user->avatar_url, 64) }}"
+                 srcset="{{ CloudinaryUrl::srcset($user->avatar_url, 64) }}"
                  sizes="32px"
                  alt="{{ $user->name }}" loading="lazy"
                  class="size-8 shrink-0 rounded-full object-cover">
         @else
-            <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-medium text-white">
-                {{ $user->initials() }}
-            </span>
+            <img src="{{ $user->avatarDisplayUrl(64) }}"
+                 alt="{{ $user->name }}" loading="lazy"
+                 class="size-8 shrink-0 rounded-full bg-gray-100 object-cover">
         @endif
         <span class="min-w-0 flex-1 leading-tight">
             <span class="block truncate whitespace-nowrap text-base font-bold text-gray-800">{{ $user->name }}</span>

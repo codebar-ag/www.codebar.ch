@@ -25,7 +25,14 @@
                             @endif
 
                             @if($network->tier_label)
-                                <span class="absolute bottom-2 right-2 inline-flex items-center rounded-pill bg-white/90 px-2 py-1 text-sm font-medium text-muted ring-1 ring-gray-400/20 ring-inset">
+                                @php
+                                    $tierBadge = match (true) {
+                                        str_contains($network->tier_label, 'Silver') => 'bg-linear-to-b from-gray-100 via-white to-gray-300 text-gray-700 ring-gray-400/40',
+                                        str_contains($network->tier_label, 'Learning') => 'bg-[#714B67] text-white ring-[#714B67]/30',
+                                        default => 'bg-white/90 text-muted ring-gray-400/20',
+                                    };
+                                @endphp
+                                <span class="absolute bottom-2 right-2 inline-flex items-center rounded-pill px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset {{ $tierBadge }}">
                                     {{ $network->tier_label }}
                                 </span>
                             @endif

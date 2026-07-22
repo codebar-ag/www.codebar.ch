@@ -3,13 +3,13 @@
 namespace App\Jobs\Network;
 
 use App\Models\NetworkUser;
-use App\Notifications\NetworkManageLinkNotification;
+use App\Notifications\NetworkInviteNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
-class SendNetworkManageLinkJob implements ShouldQueue
+class SendNetworkInviteJob implements ShouldQueue
 {
     use Queueable;
 
@@ -30,12 +30,15 @@ class SendNetworkManageLinkJob implements ShouldQueue
 
         $url = URL::temporarySignedRoute(
             Str::slug($this->locale).'.network.manage.show',
-            now()->addHour(),
+            now()->addHours(96),
             ['networkUser' => $networkUser],
         );
 
         $networkUser->notify(
-            (new NetworkManageLinkNotification($url))->locale($this->locale),
+            (new NetworkInviteNotification(
+                $url,
+                $networkUser->network($this->locale)->name ?? $networkUser->network_key,
+            ))->locale($this->locale),
         );
     }
 }

@@ -31,10 +31,12 @@ class SitemapBuilder
             $url->addImage(url: $page->image, caption: $page->title);
         }
 
-        if (! empty($page->referencePages) && $page->referencePages->count()) {
+        if ($page->referencePages && ($firstReference = $page->referencePages->first())) {
             $page->referencePages->each(function (PageDTO $page) use ($url): void {
-                $url->addAlternate(url: $page->url(), locale: $page->locale);
+                $url->addAlternate(url: $page->url(), locale: str_replace('_', '-', $page->locale));
             });
+
+            $url->addAlternate(url: $firstReference->url(), locale: 'x-default');
         }
 
         $this->sitemap->add($url);

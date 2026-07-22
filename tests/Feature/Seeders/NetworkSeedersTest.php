@@ -59,7 +59,7 @@ it('seeds unpublished contact persons with real channels where known', function 
         ->and($vincenzo->name)->toBe('Vincenzo Carbone')
         ->and($vincenzo->role)->toBe('DocuWare Schweiz')
         ->and($vincenzo->email)->toBe('vincenzo.carbone@docuware.com')
-        ->and($vincenzo->avatar)->toBe('/images/placeholders/avatar-sample.svg')
+        ->and($vincenzo->avatar_url)->toBe('/images/placeholders/avatar-sample.svg')
         ->and($dario->email)->toBe('dario.wieland@business-solutions.gmbh')
         ->and($sarah->email)->toBe('sarah.faessler@pstgmbh.ch')
         ->and($domenik->name)->toBe('Domenik Friedrich')

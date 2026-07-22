@@ -47,4 +47,7 @@ it('adds alternate locale links for reference pages', function () {
     $xml = $builder->toXml();
 
     expect($xml)->toContain($reference->url());
+    expect($xml)->toContain('hreflang="en-CH"');
+    expect($xml)->toContain('hreflang="x-default"');
+    expect($xml)->not->toContain('hreflang="en_CH"');
 })->group('unit', 'sitemap');

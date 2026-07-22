@@ -37,7 +37,7 @@ class NetworkUsersTableSeeder extends Seeder
             sort: 10,
             role: 'DocuWare Schweiz',
             email: 'vincenzo.carbone@docuware.com',
-            avatar: '/images/placeholders/avatar-sample.svg',
+            avatarUrl: '/images/placeholders/avatar-sample.svg',
         );
 
         $this->seed(
@@ -65,7 +65,7 @@ class NetworkUsersTableSeeder extends Seeder
         ?string $email = null,
         ?string $linkedin = null,
         ?string $phone = null,
-        ?string $avatar = null,
+        ?string $avatarUrl = null,
     ): void {
         NetworkUser::updateOrCreate(
             [
@@ -77,7 +77,7 @@ class NetworkUsersTableSeeder extends Seeder
                 'email' => $email,
                 'linkedin' => $linkedin,
                 'phone' => $phone,
-                'avatar' => $avatar,
+                'avatar_url' => $avatarUrl,
                 'published' => false,
                 'sort' => $sort,
             ]

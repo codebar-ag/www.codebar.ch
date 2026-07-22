@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('network_key')->index();
             $table->string('name');
             $table->string('role')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('avatar_disk')->nullable();
+            $table->string('avatar_path')->nullable();
+            $table->string('avatar_url')->nullable();
             $table->string('email')->nullable()->index();
             $table->string('linkedin')->nullable();
             $table->string('phone')->nullable();

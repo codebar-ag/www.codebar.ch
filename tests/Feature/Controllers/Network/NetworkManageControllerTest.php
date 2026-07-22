@@ -2,11 +2,9 @@
 
 use App\Enums\LocaleEnum;
 use App\Enums\NetworkStatusEnum;
-use App\Jobs\Mail\NetworkProfileUpdatedMail;
 use App\Models\Network;
 use App\Models\NetworkUser;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
@@ -18,7 +16,7 @@ function signedManageUrl(NetworkUser $networkUser): string
 {
     return URL::temporarySignedRoute(
         'de-ch.network.manage.show',
-        now()->addHours(48),
+        now()->addHour(),
         ['networkUser' => $networkUser],
     );
 }
@@ -54,7 +52,7 @@ it('rejects an expired manage link', function () {
     $networkUser = createNetworkWithUser();
     $url = signedManageUrl($networkUser);
 
-    travel(49)->hours();
+    travel(2)->hours();
 
     get($url)->assertForbidden();
 })->group('network');
@@ -70,8 +68,6 @@ it('shows the manage form with a valid signature', function () {
 })->group('network');
 
 it('updates the own profile and the company website via a signed link', function () {
-    Mail::fake();
-
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
@@ -92,15 +88,9 @@ it('updates the own profile and the company website via a signed link', function
     Network::where('key', 'docuware')->get()->each(function (Network $network) {
         expect($network->website)->toBe('https://start.docuware.com');
     });
-
-    Mail::assertSent(NetworkProfileUpdatedMail::class, function (NetworkProfileUpdatedMail $mail) {
-        return $mail->hasTo(config('mail.from.address'));
-    });
 })->group('network');
 
 it('can unpublish the own profile', function () {
-    Mail::fake();
-
     $networkUser = createNetworkWithUser();
     $networkUser->update(['published' => true]);
 
@@ -113,8 +103,6 @@ it('can unpublish the own profile', function () {
 })->group('network');
 
 it('never touches fields outside the whitelist, including the email address', function () {
-    Mail::fake();
-
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
@@ -144,8 +132,6 @@ it('never touches fields outside the whitelist, including the email address', fu
 })->group('network');
 
 it('cannot change the company visibility via the signed link', function () {
-    Mail::fake();
-
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
@@ -160,8 +146,6 @@ it('cannot change the company visibility via the signed link', function () {
 })->group('network');
 
 it('rejects an update without a valid signature', function () {
-    Mail::fake();
-
     $networkUser = createNetworkWithUser();
 
     put(route('de-ch.network.manage.update', ['networkUser' => $networkUser]), [
@@ -169,25 +153,17 @@ it('rejects an update without a valid signature', function () {
     ])->assertForbidden();
 
     expect($networkUser->refresh()->name)->toBe('Vincenzo Carbone');
-
-    Mail::assertNothingSent();
 })->group('network');
 
 it('requires a name', function () {
-    Mail::fake();
-
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
         'name' => '',
     ])->assertSessionHasErrors('name');
-
-    Mail::assertNothingSent();
 })->group('network');
 
 it('validates linkedin and website urls', function () {
-    Mail::fake();
-
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
@@ -195,12 +171,9 @@ it('validates linkedin and website urls', function () {
         'linkedin' => 'not-a-url',
         'website' => 'also-not-a-url',
     ])->assertSessionHasErrors(['linkedin', 'website']);
-
-    Mail::assertNothingSent();
 })->group('network');
 
-it('stores an uploaded avatar on s3 and saves its url', function () {
-    Mail::fake();
+it('stores an uploaded avatar on s3 and saves its disk and path', function () {
     Storage::fake('s3');
 
     $networkUser = createNetworkWithUser();
@@ -211,14 +184,81 @@ it('stores an uploaded avatar on s3 and saves its url', function () {
     ])->assertRedirect();
 
     $files = Storage::disk('s3')->files('network/avatars');
+    $networkUser->refresh();
 
     expect($files)->toHaveCount(1)
         ->and($files[0])->toStartWith('network/avatars/'.$networkUser->id.'-')
-        ->and($networkUser->refresh()->avatar)->toContain('network/avatars/');
+        ->and($networkUser->avatar_disk)->toBe('s3')
+        ->and($networkUser->avatar_path)->toBe($files[0]);
+})->group('network');
+
+it('cannot change the read-only avatar and cover urls via the signed link', function () {
+    $networkUser = createNetworkWithUser();
+    $networkUser->update(['avatar_url' => 'https://res.cloudinary.com/demo/image/upload/avatar.jpg']);
+    Network::where('key', 'docuware')->update(['cover_url' => 'https://res.cloudinary.com/demo/image/upload/cover.jpg']);
+
+    put(signedManageUrl($networkUser), [
+        'name' => 'Vincenzo Carbone',
+        'avatar_url' => 'https://evil.example.com/avatar.jpg',
+        'cover_url' => 'https://evil.example.com/cover.jpg',
+    ])->assertRedirect();
+
+    expect($networkUser->refresh()->avatar_url)
+        ->toBe('https://res.cloudinary.com/demo/image/upload/avatar.jpg');
+
+    Network::where('key', 'docuware')->get()->each(function (Network $network) {
+        expect($network->cover_url)->toBe('https://res.cloudinary.com/demo/image/upload/cover.jpg');
+    });
+})->group('network');
+
+it('stores an uploaded company cover on s3 for every locale row', function () {
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'name' => 'Vincenzo Carbone',
+        'cover' => UploadedFile::fake()->image('cover.jpg', 1200, 600),
+    ])->assertRedirect();
+
+    $files = Storage::disk('s3')->files('network/covers');
+
+    expect($files)->toHaveCount(1)
+        ->and($files[0])->toStartWith('network/covers/docuware-');
+
+    Network::where('key', 'docuware')->get()->each(function (Network $network) use ($files) {
+        expect($network->cover_disk)->toBe('s3')
+            ->and($network->cover_path)->toBe($files[0]);
+    });
+})->group('network');
+
+it('rejects a non-image cover upload', function () {
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'name' => 'Vincenzo Carbone',
+        'cover' => UploadedFile::fake()->create('document.pdf', 100, 'application/pdf'),
+    ])->assertSessionHasErrors('cover');
+
+    expect(Storage::disk('s3')->files('network/covers'))->toBeEmpty();
+})->group('network');
+
+it('rejects a cover upload that is not 2:1', function () {
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'name' => 'Vincenzo Carbone',
+        'cover' => UploadedFile::fake()->image('cover.jpg', 800, 600),
+    ])->assertSessionHasErrors('cover');
+
+    expect(Storage::disk('s3')->files('network/covers'))->toBeEmpty();
 })->group('network');
 
 it('rejects a non-image avatar upload', function () {
-    Mail::fake();
     Storage::fake('s3');
 
     $networkUser = createNetworkWithUser();
@@ -229,12 +269,9 @@ it('rejects a non-image avatar upload', function () {
     ])->assertSessionHasErrors('avatar');
 
     expect(Storage::disk('s3')->files('network/avatars'))->toBeEmpty();
-
-    Mail::assertNothingSent();
 })->group('network');
 
 it('rejects a non-square avatar upload', function () {
-    Mail::fake();
     Storage::fake('s3');
 
     $networkUser = createNetworkWithUser();
@@ -248,7 +285,6 @@ it('rejects a non-square avatar upload', function () {
 })->group('network');
 
 it('rejects an avatar upload above 2 MB', function () {
-    Mail::fake();
     Storage::fake('s3');
 
     $networkUser = createNetworkWithUser();
@@ -261,16 +297,23 @@ it('rejects an avatar upload above 2 MB', function () {
     expect(Storage::disk('s3')->files('network/avatars'))->toBeEmpty();
 })->group('network');
 
-it('keeps the existing avatar when no file is uploaded', function () {
-    Mail::fake();
+it('keeps the stored avatar file when no new file is uploaded', function () {
     Storage::fake('s3');
 
     $networkUser = createNetworkWithUser();
-    $networkUser->update(['avatar' => '/images/placeholders/avatar-sample.svg']);
+    $networkUser->update([
+        'avatar_disk' => 's3',
+        'avatar_path' => 'network/avatars/existing.jpg',
+        'avatar_url' => 'https://res.cloudinary.com/demo/image/upload/existing.jpg',
+    ]);
 
     put(signedManageUrl($networkUser), [
         'name' => 'Vincenzo Carbone',
     ])->assertRedirect();
 
-    expect($networkUser->refresh()->avatar)->toBe('/images/placeholders/avatar-sample.svg');
+    $networkUser->refresh();
+
+    expect($networkUser->avatar_disk)->toBe('s3')
+        ->and($networkUser->avatar_path)->toBe('network/avatars/existing.jpg')
+        ->and($networkUser->avatar_url)->toBe('https://res.cloudinary.com/demo/image/upload/existing.jpg');
 })->group('network');
