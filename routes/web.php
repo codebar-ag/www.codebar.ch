@@ -116,9 +116,15 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::put('netzwerk/verwalten/{networkUser}', NetworkManageUpdateController::class)->middleware('signed')->name('network.manage.update');
     Route::get('netzwerk/{slug}', NetworkShowController::class)->name('network.show');
 
-    Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
-    Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');
-    Route::get('rechtlichtes/geschaeftsbedingungen', TermsIndexController::class)->name('legal.terms.index');
+    Route::get('rechtliches/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
+    Route::get('rechtliches/impressum', ImprintIndexController::class)->name('legal.imprint.index');
+    Route::get('rechtliches/geschaeftsbedingungen', TermsIndexController::class)->name('legal.terms.index');
+
+    // The legal section shipped with a typo in the URL segment — keep the old
+    // URLs alive with permanent redirects so links and search entries carry over.
+    Route::permanentRedirect('rechtlichtes/datenschutz', '/rechtliches/datenschutz');
+    Route::permanentRedirect('rechtlichtes/impressum', '/rechtliches/impressum');
+    Route::permanentRedirect('rechtlichtes/geschaeftsbedingungen', '/rechtliches/geschaeftsbedingungen');
 
     Route::get('stellen', JobsIndexController::class)->name('jobs.index');
     Route::get('medien', MediaIndexController::class)->name('media.index');

@@ -35,13 +35,13 @@ class SeoImageCleanupSeeder extends Seeder
         }
 
         $pageDescriptions = [
-            ['key' => 'start.index', 'locale' => 'de_CH', 'description' => 'Wir hören zu, denken konzeptionell und entwickeln nutzerzentrierte Software mit offenen Technologien und Standards.'],
-            ['key' => 'about-us.index', 'locale' => 'de_CH', 'description' => 'Lerne codebar solutions AG kennen – dein Schweizer Partner für konzeptionelle Softwareentwicklung mit offenen Technologien.'],
-            ['key' => 'services.index', 'locale' => 'de_CH', 'description' => 'Wir hören zu, erarbeiten Konzepte für künftige Nutzer:innen und setzen sie um – von der Idee bis zur Software.'],
+            ['key' => 'start.index', 'locale' => 'de_CH', 'description' => 'Wir hören zu, verstehen dein Problem und begleiten dich von der ersten Idee bis zur Software im täglichen Einsatz. Ein kleines Team aus der Region Basel.'],
+            ['key' => 'about-us.index', 'locale' => 'de_CH', 'description' => 'Klein aus Überzeugung: kurze Wege, direkte Ansprechpersonen – und Ausbildung als Teil unserer Kultur. Lerne die Menschen hinter codebar kennen.'],
+            ['key' => 'services.index', 'locale' => 'de_CH', 'description' => 'Vier Bereiche, ein Weg: von der ersten Idee bis zum laufenden Betrieb – Konzeption, Softwareentwicklung, Dokumentenmanagement und ERP.'],
             ['key' => 'products.index', 'locale' => 'de_CH', 'description' => 'Nutzerzentrierte Softwarelösungen mit echtem Mehrwert – entwickelt mit offenen Technologien und Standards.'],
-            ['key' => 'contact.index', 'locale' => 'de_CH', 'description' => 'Hast du eine innovative Idee? Wir hören zu, verstehen deine Bedürfnisse und erwecken deine Vision zum Leben.'],
+            ['key' => 'contact.index', 'locale' => 'de_CH', 'description' => 'Erzähl uns von deiner Idee oder deinem Projekt – wir hören zu. Telefon, E-Mail und unsere zwei Standorte in der Region Basel.'],
             ['key' => 'news.index', 'locale' => 'en_CH', 'description' => 'Latest news and expert insights on software development, open technologies and digital innovation from codebar.'],
-            ['key' => 'about-us.index', 'locale' => 'en_CH', 'description' => 'Meet codebar solutions AG – your Swiss partner for conceptual software development with open technologies.'],
+            ['key' => 'about-us.index', 'locale' => 'en_CH', 'description' => 'Small by conviction: short paths, direct contacts – and training as part of our culture. Meet the people behind codebar.'],
         ];
 
         foreach ($pageDescriptions as $page) {

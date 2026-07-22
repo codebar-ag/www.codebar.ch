@@ -25,7 +25,9 @@ class NetworkManageUpdateRequest extends FormRequest
             'published' => ['nullable', 'boolean'],
             // "image" isn't used here — its hardcoded mime whitelist has no avif entry,
             // so it would reject avif uploads even though the "mimes" rule below allows them.
+            'public_email' => ['nullable', 'email', 'max:255'],
             'avatar' => ['nullable', 'file', 'mimes:jpeg,png,webp,avif', 'max:2048', 'dimensions:ratio=1/1'],
+            'cover' => ['nullable', 'file', 'mimes:jpeg,png,webp,avif', 'max:4096', 'dimensions:ratio=3/1'],
         ];
     }
 }

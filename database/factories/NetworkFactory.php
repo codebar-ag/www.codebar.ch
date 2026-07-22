@@ -29,7 +29,7 @@ class NetworkFactory extends Factory
             'name' => $name,
             'category' => $this->faker->randomElement(NetworkCategoryEnum::cases())->value,
             'status' => NetworkStatusEnum::ACTIVE->value,
-            'logo' => null,
+            'cover_url' => null,
             'tier_label' => null,
             'excerpt' => null,
             'website' => null,

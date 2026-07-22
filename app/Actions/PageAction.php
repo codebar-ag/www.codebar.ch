@@ -73,7 +73,7 @@ class PageAction
             routeName: Str::slug(title: $locale ?? $network->locale->value).'.network.show',
             title: $network->name,
             description: $network->excerpt,
-            image: $network->logo,
+            image: $network->cover_url,
             lastModificationDate: Carbon::parse($network->updated_at ?? now()),
             routeParameters: ['slug' => $network->page_slug],
             referencePages: null,

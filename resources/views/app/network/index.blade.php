@@ -10,12 +10,12 @@
             <x-layout.grid gap="gap-6" class="mt-4">
                 @foreach($networks as $network)
                     <div class="flex flex-col overflow-hidden rounded-panel border border-gray-200">
-                        <div class="relative hidden sm:flex h-20 items-center justify-center border-b border-gray-100 bg-gray-50 px-4">
+                        <div class="relative hidden sm:flex h-20 items-center {{ $network->cover_url ? 'justify-start' : 'justify-center' }} border-b border-gray-100 bg-gray-50 px-4">
                             @php
                                 $drawing = 'images/network/'.$network->key.'.svg';
                             @endphp
-                            @if($network->logo)
-                                <img src="{{ $network->logo }}" alt="{{ $network->name }}" loading="lazy" width="160" height="48" class="max-h-12 w-auto">
+                            @if($network->cover_url)
+                                <img src="{{ $network->cover_url }}" alt="{{ $network->name }}" loading="lazy" width="128" height="64" class="max-h-16 w-auto">
                             @elseif(file_exists(public_path($drawing)))
                                 <img src="{{ asset($drawing) }}" alt="" aria-hidden="true"
                                      loading="lazy" width="160" height="96" class="max-h-16 w-auto">
@@ -25,7 +25,12 @@
                             @endif
 
                             @if($network->tier_label)
-                                <span class="absolute bottom-2 right-2 inline-flex items-center rounded-pill bg-white/90 px-2 py-1 text-sm font-medium text-muted ring-1 ring-gray-400/20 ring-inset">
+                                @php
+                                    $tierBadge = str_contains($network->tier_label, 'Silver')
+                                        ? 'bg-linear-to-b from-gray-100 via-white to-gray-300 text-gray-700 ring-gray-400/40'
+                                        : 'bg-white/90 text-muted ring-gray-400/20';
+                                @endphp
+                                <span class="absolute bottom-2 right-2 inline-flex items-center rounded-pill px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset {{ $tierBadge }}">
                                     {{ $network->tier_label }}
                                 </span>
                             @endif

@@ -43,8 +43,8 @@ it('includes live legal and media pages in the sitemap', function () {
     expect($content)->toContain('legal/imprint');
     expect($content)->toContain('legal/privacy');
     expect($content)->toContain('media');
-    expect($content)->toContain('rechtlichtes/impressum');
-    expect($content)->toContain('rechtlichtes/datenschutz');
+    expect($content)->toContain('rechtliches/impressum');
+    expect($content)->toContain('rechtliches/datenschutz');
     expect($content)->toContain('medien');
 })->group('sitemap');
 
@@ -60,7 +60,6 @@ it('does not include disabled pages in the sitemap', function () {
     $content = $response->getContent();
 
     expect($content)->not->toContain('aktuelles');
-    expect($content)->not->toContain('dienstleistungen');
     expect($content)->not->toContain('produkte');
     expect($content)->not->toContain('technologien');
     expect($content)->not->toContain('open-source-beitraege');

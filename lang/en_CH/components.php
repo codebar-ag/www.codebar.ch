@@ -2,27 +2,43 @@
 
 return [
     'intro' => [
+        'title' => 'Bringing innovative ideas to life',
         'who_we_are' => [
             'title' => 'Who we are',
-            'text' => 'We are codebar – a team that brings innovative ideas to life using digital tools. We think economically, work conceptually and consistently rely on open technologies and standards. The result: digital solutions built around the needs of their users – whether we advise on them, design them, develop them or roll them out. And that deliver real value to you.',
+            'text' => 'We are codebar – a small team based in the Basel region. We bring ideas to life: from the first sketch to software in daily use. We see ourselves as the link between business and technology – we listen, think economically on your behalf, and build on open technologies.',
         ],
         'what_we_do' => [
             'title' => 'What we do',
-            'text' => 'Our expertise covers the entire journey of a digital solution. It starts with concept design: we capture and sharpen requirements until they form a well-thought-out concept – and make ideas tangible early on with clickable prototypes. Individual software development builds on that: portal solutions, interfaces and integrations, with a strong focus on open source. The same open approach shapes our newest area of expertise, open-source ERP systems: we support companies through evaluation, rollout and customisation – flexible, transparent and free of licence lock-in. And in document management, we bring years of experience: from consulting all the way to a fully implemented DMS or ECM solution.',
+            'text' => 'Our work covers the entire journey of a digital solution:',
+            'items' => [
+                '<b>Concept design</b> – we sharpen your requirements and make ideas tangible early with clickable prototypes.',
+                '<b>Software development</b> – portals, interfaces and automation, built with open technologies such as Laravel.',
+                '<b>DMS/ECM</b> – as a DocuWare Silver & Cloud Partner, we take you into the paperless office and automate your processes.',
+                '<b>Open-source ERP</b> – we run Odoo ourselves and, as an Odoo partner, guide you step by step through the rollout.',
+            ],
         ],
         'how_we_work' => [
             'title' => 'How we work',
-            'text' => 'We start by listening. Because whether it\'s new software, an ERP rollout or document management: you first need to understand in detail what it\'s about and what the solution needs to deliver. Next, we work with you to develop a concept based on your processes and the needs of future users. If the approach falls within our expertise, we\'re happy to support you all the way to implementation – and beyond. If not, we\'re just as pleased when others turn our plans into reality.',
+            'text' => 'We start by listening. Because a good solution begins with understanding the problem – and honestly checking whether it pays off for you. We then shape a concept together, guided by your processes and by the people who will work with it every day. If the implementation is within our expertise, we stay with you into daily operations. If it isn\'t, we say so openly – and are glad when others turn our plans into reality.',
         ],
     ],
     'explore' => [
         'title' => 'Discover more',
         'home' => 'Back to the start page.',
-        'services' => 'Concept, software, ERP and DMS/ECM.',
+        'services' => 'Four areas, one path.',
         'team' => 'The people behind codebar.',
         'ai' => 'AI on our own infrastructure.',
         'network' => 'Our partners and communities.',
         'contact' => 'Let\'s talk.',
+    ],
+    'services' => [
+        'header' => 'Four areas, one path: from the first idea to day-to-day operations.',
+    ],
+    'team' => [
+        'header' => 'Small by conviction: you work directly with the people who understand your solution – and build it.',
+    ],
+    'contact' => [
+        'header' => 'Got an idea or a project? Tell us about it – we\'ll listen.',
     ],
     'contact_cta' => [
         'title' => 'Interested?',
@@ -30,8 +46,8 @@ return [
     ],
     'ai' => [
         'title' => 'AI at codebar',
-        'intro' => 'How we use artificial intelligence in our own work — from the local models we run to the infrastructure behind them.',
-        'llm_teaser' => 'The local open-source language models we rely on and the infrastructure that runs them.',
+        'intro' => 'We\'re at the beginning of our AI journey – and open about what\'s already running: local open-source models on our own infrastructure.',
+        'llm_teaser' => 'For a few months now, we\'ve been working our way into the topic, use case by use case. Here we keep track of which models we run – and how intensively.',
         'to_models' => 'View the models',
         'to_analytics' => 'View usage analytics',
         'stats' => [
@@ -43,7 +59,7 @@ return [
     ],
     'ai_llm_analytics' => [
         'title' => 'LLM usage analytics',
-        'intro' => 'Token usage and request statistics of our locally hosted LLMs — aggregated per month and per model.',
+        'intro' => 'Token consumption and requests of our locally run models – per month and model.',
         'filter' => [
             'year_label' => 'Year',
             'all_years' => 'All years',
@@ -52,7 +68,7 @@ return [
             'model_label' => 'Model',
             'all_models' => 'All models',
             'other_models' => 'Other',
-            'apply' => 'Apply',
+            'apply' => 'Show',
         ],
         'table' => [
             'title' => 'Details',
@@ -68,7 +84,7 @@ return [
     ],
     'ai_llm' => [
         'title' => 'Our local LLMs in action',
-        'intro' => 'These are the local open-source models we currently rely on. We aim to cover as much of our AI work as possible with local models — all of them run on our own infrastructure, in our very own office basement.',
+        'intro' => 'These are the local open-source models we currently rely on. We cover as much of our AI work as possible with local models – all running on our own infrastructure, in the basement of our own office.',
         'categories' => [
             'reasoning_coding' => [
                 'title' => 'Reasoning & coding',
@@ -76,7 +92,7 @@ return [
             ],
             'vision_documents' => [
                 'title' => 'Vision & documents',
-                'description' => 'The eyes: understanding images and turning scanned documents into usable text.',
+                'description' => 'The eyes: understanding images and turning scans into usable text.',
             ],
             'retrieval_search' => [
                 'title' => 'Retrieval & search',
@@ -126,11 +142,11 @@ return [
         ],
         'stats' => [
             'title' => 'Usage',
-            'intro' => 'How intensively our local models are currently in use.',
+            'intro' => 'How intensively our models are currently in use.',
         ],
         'archive' => [
             'title' => 'Archive',
-            'intro' => 'Models we have since replaced — kept here for the record.',
+            'intro' => 'Models we\'ve replaced – for the record.',
             'columns' => [
                 'model' => 'Old model',
                 'replaced_by' => 'Replaced by',

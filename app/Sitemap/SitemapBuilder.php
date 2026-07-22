@@ -3,7 +3,6 @@
 namespace App\Sitemap;
 
 use App\DTO\PageDTO;
-use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -11,12 +10,8 @@ class SitemapBuilder
 {
     private Sitemap $sitemap;
 
-    private Carbon $lastModificationDate;
-
     public function __construct()
     {
-        $this->lastModificationDate = now()->startOfMonth();
-
         $this->sitemap = Sitemap::create();
     }
 
@@ -25,16 +20,18 @@ class SitemapBuilder
         $url = Url::create(url: $page->url());
         $url->setPriority(priority: 1.0);
         $url->setChangeFrequency(changeFrequency: Url::CHANGE_FREQUENCY_WEEKLY);
-        $url->setLastModificationDate(lastModificationDate: $this->lastModificationDate);
+        $url->setLastModificationDate(lastModificationDate: $page->lastModificationDate);
 
         if (filled($page->image)) {
             $url->addImage(url: $page->image, caption: $page->title);
         }
 
-        if (! empty($page->referencePages) && $page->referencePages->count()) {
+        if ($page->referencePages && ($firstReference = $page->referencePages->first())) {
             $page->referencePages->each(function (PageDTO $page) use ($url): void {
-                $url->addAlternate(url: $page->url(), locale: $page->locale);
+                $url->addAlternate(url: $page->url(), locale: str_replace('_', '-', $page->locale));
             });
+
+            $url->addAlternate(url: $firstReference->url(), locale: 'x-default');
         }
 
         $this->sitemap->add($url);

@@ -19,9 +19,11 @@ class NetworksTableSeeder extends Seeder
             key: 'wieland-business-solutions',
             category: NetworkCategoryEnum::COLLABORATION,
             sort: 10,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/wieland-3x1-black.svg',
+            website: 'https://www.business-solutions.gmbh',
             localizedData: [
-                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'excerpt' => 'Gemeinsame Projekte'],
-                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'excerpt' => 'Joint projects'],
+                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'excerpt' => 'Sparringspartner DMS/ECM'],
+                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'excerpt' => 'DMS/ECM sparring partner'],
             ],
         );
 
@@ -29,9 +31,11 @@ class NetworksTableSeeder extends Seeder
             key: 'pst',
             category: NetworkCategoryEnum::COLLABORATION,
             sort: 20,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/pst-3x1-black.svg',
+            website: 'https://www.pstgmbh.ch',
             localizedData: [
                 'de_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Finanzen & Buchhaltung'],
-                'en_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Accounting'],
+                'en_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Finance & accounting'],
             ],
         );
 
@@ -39,10 +43,11 @@ class NetworksTableSeeder extends Seeder
             key: 'docuware',
             category: NetworkCategoryEnum::SOFTWARE,
             sort: 30,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/docuware-3x1-black.svg',
             website: 'https://start.docuware.com',
             localizedData: [
-                'de_CH' => ['name' => 'DocuWare', 'tier_label' => 'Silver Partner', 'excerpt' => 'DMS/ECM'],
-                'en_CH' => ['name' => 'DocuWare', 'tier_label' => 'Silver Partner', 'excerpt' => 'DMS/ECM'],
+                'de_CH' => ['name' => 'DocuWare', 'excerpt' => 'DMS/ECM'],
+                'en_CH' => ['name' => 'DocuWare', 'excerpt' => 'DMS/ECM'],
             ],
         );
 
@@ -50,10 +55,11 @@ class NetworksTableSeeder extends Seeder
             key: 'odoo',
             category: NetworkCategoryEnum::SOFTWARE,
             sort: 40,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/odoo-3x1-black.svg',
             website: 'https://www.odoo.com',
             localizedData: [
-                'de_CH' => ['name' => 'Odoo', 'tier_label' => 'Learning Partner', 'excerpt' => 'Open Source ERP'],
-                'en_CH' => ['name' => 'Odoo', 'tier_label' => 'Learning Partner', 'excerpt' => 'Open Source ERP'],
+                'de_CH' => ['name' => 'Odoo', 'excerpt' => 'Open Source ERP'],
+                'en_CH' => ['name' => 'Odoo', 'excerpt' => 'Open-source ERP'],
             ],
         );
 
@@ -61,10 +67,11 @@ class NetworksTableSeeder extends Seeder
             key: 'iway',
             category: NetworkCategoryEnum::INFRASTRUCTURE,
             sort: 50,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/iway-3x1-black.svg',
             website: 'https://www.iway.ch',
             localizedData: [
                 'de_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & Telefonie'],
-                'en_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & Telephony'],
+                'en_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & telephony'],
             ],
         );
 
@@ -72,10 +79,11 @@ class NetworksTableSeeder extends Seeder
             key: 'baselhack',
             category: NetworkCategoryEnum::SPONSORING,
             sort: 60,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/baselhack-3x1-black.svg',
             website: 'https://www.baselhack.ch',
             localizedData: [
                 'de_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Hackathon Nordwestschweiz'],
-                'en_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Basel Region Hackathon'],
+                'en_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Hackathon in the Basel region'],
             ],
         );
 
@@ -85,8 +93,8 @@ class NetworksTableSeeder extends Seeder
             sort: 70,
             website: 'https://laravel.swiss',
             localizedData: [
-                'de_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel Community'],
-                'en_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel Community'],
+                'de_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel-Community'],
+                'en_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel community'],
             ],
         );
 
@@ -94,6 +102,7 @@ class NetworksTableSeeder extends Seeder
             key: 'swiss-made-software',
             category: NetworkCategoryEnum::CERTIFICATION,
             sort: 80,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/swiss-made-software-3x1-black.svg',
             website: 'https://www.swissmadesoftware.org/en/about/swiss-made-software.html',
             localizedData: [
                 'de_CH' => ['name' => 'Swiss Made Software'],
@@ -105,6 +114,7 @@ class NetworksTableSeeder extends Seeder
             key: 'swiss-digital-services',
             category: NetworkCategoryEnum::CERTIFICATION,
             sort: 90,
+            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/swiss-digital-services-3x1-black.svg',
             website: 'https://www.swissmadesoftware.org/en/about/swiss-digital-services.html',
             localizedData: [
                 'de_CH' => ['name' => 'Swiss Digital Services'],
@@ -121,6 +131,7 @@ class NetworksTableSeeder extends Seeder
         NetworkCategoryEnum $category,
         int $sort,
         array $localizedData,
+        ?string $coverUrl = null,
         ?string $website = null,
         ?string $pageSlug = null,
         NetworkStatusEnum $status = NetworkStatusEnum::ACTIVE,
@@ -143,7 +154,7 @@ class NetworksTableSeeder extends Seeder
                     'name' => $data['name'],
                     'category' => $category->value,
                     'status' => $status->value,
-                    'logo' => $data['logo'] ?? null,
+                    'cover_url' => $data['cover_url'] ?? $coverUrl,
                     'tier_label' => $data['tier_label'] ?? null,
                     'excerpt' => $data['excerpt'] ?? null,
                     'website' => $website,

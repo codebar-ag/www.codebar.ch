@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Support\CloudinaryUrl;
+use App\Support\GravatarUrl;
 use Database\Factories\NetworkUserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 
 class NetworkUser extends Model
 {
@@ -50,12 +51,20 @@ class NetworkUser extends Model
         return $query->where('published', true);
     }
 
-    public function initials(): string
+    /**
+     * The image to display for this person: avatar_url first,
+     * then Gravatar, then the neutral placeholder.
+     */
+    public function avatarDisplayUrl(int $size): string
     {
-        return Str::of($this->name)
-            ->explode(' ')
-            ->map(fn (string $part): string => Str::upper(Str::substr($part, 0, 1)))
-            ->take(2)
-            ->implode('');
+        if ($this->avatar_url) {
+            return CloudinaryUrl::src($this->avatar_url, $size);
+        }
+
+        if ($this->email) {
+            return GravatarUrl::src($this->email, $size);
+        }
+
+        return '/images/placeholders/avatar-sample.svg';
     }
 }

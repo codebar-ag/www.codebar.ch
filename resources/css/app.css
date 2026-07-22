@@ -24,6 +24,19 @@
     display: none !important;
 }
 
+/* Tailwind v4 preflight no longer sets a pointer cursor on interactive elements */
+@layer base {
+    button:not(:disabled),
+    [role='button']:not(:disabled),
+    input[type='checkbox']:not(:disabled),
+    input[type='radio']:not(:disabled),
+    select:not(:disabled),
+    input[type='file']:not(:disabled),
+    input[type='file']:not(:disabled)::file-selector-button {
+        cursor: pointer;
+    }
+}
+
 /* Optimize font loading */
 @font-face {
     font-family: 'Poppins';

@@ -61,6 +61,14 @@ class Network extends Model
         return $query->where('status', NetworkStatusEnum::ACTIVE);
     }
 
+    /**
+     * The company image to display: cover_url or the placeholder — no Gravatar.
+     */
+    public function coverDisplayUrl(): string
+    {
+        return $this->cover_url ?? '/images/placeholders/network-company.svg';
+    }
+
     public function websiteHost(): ?string
     {
         if (! $this->website) {

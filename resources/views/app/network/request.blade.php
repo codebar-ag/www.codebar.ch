@@ -1,7 +1,7 @@
 <x-app-layout :page="$page">
     <x-layout.page-header
             :title="__('Update network profile')"
-            :intro="__('Enter the email address stored in your network profile. If it is registered, we will send you a personal link — valid for 48 hours — to update your profile.')"/>
+            :intro="__('Enter the email address stored in your network profile. If it is registered, we will send you a personal link — valid for one hour — to update your profile.')"/>
 
     <x-layout.section>
         @if(session('status'))
