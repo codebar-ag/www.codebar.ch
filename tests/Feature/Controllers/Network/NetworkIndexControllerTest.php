@@ -17,7 +17,7 @@ it('returns 200 for both locales', function (string $locale) {
         ->assertOk();
 })->with([LocaleEnum::DE->value, LocaleEnum::EN->value])->group('network');
 
-it('shows a published network with tier label, excerpt and a website icon link', function () {
+it('shows a published network with its excerpt and a website icon link, but not the tier label', function () {
     Network::factory()->create([
         'key' => 'docuware',
         'locale' => LocaleEnum::DE->value,
@@ -31,8 +31,8 @@ it('shows a published network with tier label, excerpt and a website icon link',
     get(route('de-ch.network.index'))
         ->assertOk()
         ->assertSee('DocuWare')
-        ->assertSee('Silver Partner')
         ->assertSee('DMS/ECM')
+        ->assertDontSee('Silver Partner')
         ->assertSee('href="https://start.docuware.com"', escape: false)
         ->assertSee('title="start.docuware.com"', escape: false)
         ->assertSee(NetworkCategoryEnum::SOFTWARE->getLabel());
