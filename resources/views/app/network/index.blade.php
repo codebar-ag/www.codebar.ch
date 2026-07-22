@@ -31,7 +31,7 @@
                             @endif
                         </div>
 
-                        <div class="flex flex-1 flex-col gap-2 p-4">
+                        <div class="flex flex-1 flex-col gap-1 p-4">
                             <div class="flex min-w-0 items-center justify-between gap-2">
                                 <span class="truncate whitespace-nowrap text-base font-bold text-gray-800">{{ $network->name }}</span>
                                 @if($network->website)
