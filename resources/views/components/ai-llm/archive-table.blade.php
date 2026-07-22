@@ -1,12 +1,23 @@
-@props(['models'])
+@props(['models', 'caption' => null])
 
-<div class="bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-    <div class="hidden sm:grid grid-cols-[1fr_1.5fr] gap-4 text-sm font-medium text-gray-500">
-        <div>{{ __('components.ai_llm.archive.columns.model') }}</div>
-        <div>{{ __('components.ai_llm.archive.columns.replaced_by') }}</div>
-    </div>
-
-    @foreach ($models as $model)
-        <x-ai-llm.archive-row :model="$model"/>
-    @endforeach
-</div>
+<x-ui.panel variant="plain" class="p-3 sm:p-4 overflow-x-auto">
+    <table class="w-full text-sm">
+        @if(filled($caption))
+            <caption class="sr-only">{{ $caption }}</caption>
+        @endif
+        <thead>
+        <tr class="text-left text-gray-500">
+            <th scope="col" class="pb-2 pr-4 font-medium">{{ __('components.ai_llm.archive.columns.model') }}</th>
+            <th scope="col" class="pb-2 font-medium">{{ __('components.ai_llm.archive.columns.replaced_by') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($models as $model)
+            <tr class="border-t border-border-soft">
+                <td class="py-2 pr-4 font-medium text-gray-800">{{ $model->name }}</td>
+                <td class="py-2 text-muted">{{ $model->replacedBy?->name ?? '—' }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</x-ui.panel>

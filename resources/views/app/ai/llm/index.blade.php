@@ -3,21 +3,19 @@
     <p class="text-gray-800">{{ __('components.ai_llm.intro') }}</p>
 
     @foreach ($groups as $group)
-        <x-section>
-            <x-ai-llm.card>
-                <x-h2 :title="$group['category']->title()"/>
-                <p class="text-gray-600 mb-4">{{ $group['category']->description() }}</p>
+        <x-layout.section>
+            <x-ui.panel class="px-6 pt-6 pb-4">
+                <x-layout.section-header :title="$group['category']->title()" :intro="$group['category']->description()"/>
 
                 @foreach ($group['models'] as $model)
                     <x-ai-llm.model-row :model="$model"/>
                 @endforeach
-            </x-ai-llm.card>
-        </x-section>
+            </x-ui.panel>
+        </x-layout.section>
     @endforeach
 
-    <x-section>
-        <x-h2 :title="__('components.ai_llm.infrastructure.title')"/>
-        <p class="text-gray-600 mb-4">{{ __('components.ai_llm.infrastructure.intro') }}</p>
+    <x-layout.section>
+        <x-layout.section-header :title="__('components.ai_llm.infrastructure.title')" :intro="__('components.ai_llm.infrastructure.intro')"/>
 
         <x-ai-llm.infra-row
                 :label="__('components.ai_llm.infrastructure.items.hardware.label')"
@@ -27,10 +25,14 @@
                 :label="__('components.ai_llm.infrastructure.items.management.label')"
                 :text="__('components.ai_llm.infrastructure.items.management.text')">
             <div class="mt-2 flex flex-wrap gap-2">
-                <x-a-badge href="https://www.litellm.ai" label="LiteLLM ↗" target="_blank"
-                           :title="__('components.ai_llm.tooltips.link')"/>
-                <x-a-badge href="https://ollama.com" label="Ollama ↗" target="_blank"
-                           :title="__('components.ai_llm.tooltips.link')"/>
+                <x-ui.badge-link href="https://www.litellm.ai" label="LiteLLM" target="_blank"
+                                 :title="__('components.ai_llm.tooltips.link')">
+                    <x-icon.external-link class="ml-1 size-3"/>
+                </x-ui.badge-link>
+                <x-ui.badge-link href="https://ollama.com" label="Ollama" target="_blank"
+                                 :title="__('components.ai_llm.tooltips.link')">
+                    <x-icon.external-link class="ml-1 size-3"/>
+                </x-ui.badge-link>
             </div>
         </x-ai-llm.infra-row>
 
@@ -41,19 +43,18 @@
         <x-ai-llm.infra-row
                 :label="__('components.ai_llm.infrastructure.items.power.label')"
                 :text="__('components.ai_llm.infrastructure.items.power.text')"/>
-    </x-section>
+    </x-layout.section>
 
-    <x-section>
-        <x-ai-llm.card id="archiv">
-            <x-h2 :title="__('components.ai_llm.archive.title')"/>
-            <p class="text-gray-600 mb-4">{{ __('components.ai_llm.archive.intro') }}</p>
+    <x-layout.section>
+        <x-ui.panel id="archiv" class="px-6 pt-6 pb-4">
+            <x-layout.section-header :title="__('components.ai_llm.archive.title')" :intro="__('components.ai_llm.archive.intro')"/>
 
             @foreach ($archive as $group)
                 <div class="{{ $loop->first ? '' : 'mt-8' }}">
                     <x-h3 :title="$group['category']->title()"/>
-                    <x-ai-llm.archive-table :models="$group['models']"/>
+                    <x-ai-llm.archive-table :models="$group['models']" :caption="$group['category']->title()"/>
                 </div>
             @endforeach
-        </x-ai-llm.card>
-    </x-section>
+        </x-ui.panel>
+    </x-layout.section>
 </x-app-layout>

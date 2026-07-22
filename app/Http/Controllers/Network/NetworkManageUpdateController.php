@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers\Network;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Network\NetworkManageUpdateRequest;
+use App\Jobs\Mail\NetworkProfileUpdatedMail;
+use App\Models\Network;
+use App\Models\NetworkUser;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
+use Spatie\ResponseCache\Facades\ResponseCache;
+
+class NetworkManageUpdateController extends Controller
+{
+    public function __invoke(NetworkManageUpdateRequest $request, NetworkUser $networkUser): RedirectResponse
+    {
+        // Hard whitelist: a signed link may only ever touch the person's own
+        // contact channels, their own visibility and the company website.
+        $networkUser->update([
+            'email' => $request->validated('email'),
+            'linkedin' => $request->validated('linkedin'),
+            'phone' => $request->validated('phone'),
+            'published' => $request->boolean('published'),
+        ]);
+
+        Network::query()
+            ->where('key', $networkUser->network_key)
+            ->update(['website' => $request->validated('website')]);
+
+        ResponseCache::clear();
+
+        Mail::to(config('mail.from.address'))->send(new NetworkProfileUpdatedMail($networkUser->refresh()));
+
+        $url = URL::temporarySignedRoute(
+            Str::slug(app()->getLocale()).'.network.manage.show',
+            now()->addHours(48),
+            ['networkUser' => $networkUser],
+        );
+
+        return redirect()
+            ->to($url)
+            ->with('status', __('Your profile has been updated.'));
+    }
+}

@@ -1,49 +1,48 @@
 <?php
 
+use App\Enums\LocaleEnum;
 use App\Models\News;
 use App\Models\OpenSource;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Technology;
+use Illuminate\Support\Str;
 
 use function Pest\Laravel\get;
 
-it('shows a news article', function () {
+$startRoute = fn () => route(Str::slug(LocaleEnum::DE->value).'.start.index');
+
+it('redirects a news article to the start page while news is disabled', function () use ($startRoute) {
     $news = News::factory()->create(['locale' => 'de_CH']);
 
     get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
-        ->assertOk()
-        ->assertSee($news->title);
+        ->assertRedirect($startRoute());
 })->group('news', 'show');
 
-it('shows a product', function () {
+it('redirects a product to the start page while products are disabled', function () use ($startRoute) {
     $product = Product::factory()->create(['locale' => 'de_CH']);
 
     get(route('de-ch.products.show', ['locale' => 'de_CH', 'product' => $product->slug]))
-        ->assertOk()
-        ->assertSee($product->name);
+        ->assertRedirect($startRoute());
 })->group('products', 'show');
 
-it('shows a service', function () {
+it('redirects a service to the start page while services are disabled', function () use ($startRoute) {
     $service = Service::factory()->create(['locale' => 'de_CH']);
 
     get(route('de-ch.services.show', ['locale' => 'de_CH', 'service' => $service->slug]))
-        ->assertOk()
-        ->assertSee($service->name);
+        ->assertRedirect($startRoute());
 })->group('services', 'show');
 
-it('shows a technology', function () {
+it('redirects a technology to the start page while technologies are disabled', function () use ($startRoute) {
     $technology = Technology::factory()->create(['locale' => 'de_CH']);
 
     get(route('de-ch.technologies.show', ['locale' => 'de_CH', 'technology' => $technology->slug]))
-        ->assertOk()
-        ->assertSee($technology->title);
+        ->assertRedirect($startRoute());
 })->group('technologies', 'show');
 
-it('shows an open source project', function () {
+it('redirects an open source project to the start page while open source is disabled', function () use ($startRoute) {
     $openSource = OpenSource::factory()->create(['locale' => 'de_CH']);
 
     get(route('de-ch.open-source.show', ['locale' => 'de_CH', 'openSource' => $openSource->slug]))
-        ->assertOk()
-        ->assertSee($openSource->title);
+        ->assertRedirect($startRoute());
 })->group('open-source', 'show');

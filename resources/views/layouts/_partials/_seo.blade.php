@@ -33,6 +33,8 @@
     <meta name="twitter:title" content="{{ $page->title }}">
     <meta name="twitter:description" content="{{ $page->description }}">
     <meta name="twitter:image" content="{{ $seoImage }}">
+@else
+    <title>{{ config('app.name') }}</title>
 @endif
 
 

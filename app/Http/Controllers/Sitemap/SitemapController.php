@@ -6,12 +6,10 @@ use App\Actions\PageAction;
 use App\DTO\PageDTO;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
-use App\Models\News;
-use App\Models\Product;
-use App\Models\Service;
+use App\Models\Network;
 use App\Sitemap\SitemapBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class SitemapController extends Controller
@@ -19,9 +17,6 @@ class SitemapController extends Controller
     protected const array DEFAULT_ROUTES = [
         'start.index',
         'about-us.index',
-        'news.index',
-        'products.index',
-        'services.index',
         'contact.index',
         'media.index',
         'legal.imprint.index',
@@ -29,6 +24,7 @@ class SitemapController extends Controller
         'ai.index',
         'ai.llm.index',
         'ai.llm.analytics.index',
+        'network.index',
     ];
 
     protected const array DEFAULT_LOCALES = [
@@ -57,40 +53,28 @@ class SitemapController extends Controller
     private function builder(SitemapBuilder $sitemap): void
     {
         $this->addDefaultRoutesToSitemap($sitemap);
+        $this->addNetworksToSitemap($sitemap);
+    }
 
-        // Use chunked queries to prevent memory issues
-        News::whereNotNull('published_at')
-            ->where('published_at', '<=', now())
-            ->with('references')
-            ->chunk(100, function (Collection $news) use ($sitemap): void {
-                foreach ($news as $item) {
-                    $this->addLocalizedPageSet(
-                        page: (new PageAction(locale: null, routeName: null))->news(news: $item, withReferences: true),
-                        sitemap: $sitemap,
-                    );
-                }
-            });
+    private function addNetworksToSitemap(SitemapBuilder $sitemap): void
+    {
+        Network::query()
+            ->where('published', true)
+            ->whereNotNull('page_slug')
+            ->get()
+            ->groupBy('key')
+            ->each(function (Collection $rows) use ($sitemap): void {
+                $pages = $rows
+                    ->map(fn (Network $network): PageDTO => (new PageAction(locale: null, routeName: null))->network(network: $network))
+                    ->values();
 
-        Service::where('published', true)
-            ->with('references')
-            ->chunk(100, function (Collection $services) use ($sitemap): void {
-                foreach ($services as $item) {
-                    $this->addLocalizedPageSet(
-                        page: (new PageAction(locale: null, routeName: null))->service(service: $item, withReferences: true),
-                        sitemap: $sitemap,
-                    );
-                }
-            });
+                $pages->each(function (PageDTO $page) use ($pages): void {
+                    $page->referencePages = $pages;
+                });
 
-        Product::where('published', true)
-            ->with('references')
-            ->chunk(100, function (Collection $products) use ($sitemap): void {
-                foreach ($products as $item) {
-                    $this->addLocalizedPageSet(
-                        page: (new PageAction(locale: null, routeName: null))->product(product: $item, withReferences: true),
-                        sitemap: $sitemap,
-                    );
-                }
+                $pages->each(function (PageDTO $page) use ($sitemap): void {
+                    $sitemap->addItem(page: $page);
+                });
             });
     }
 
@@ -111,24 +95,5 @@ class SitemapController extends Controller
                 $sitemap->addItem(page: $page);
             });
         });
-    }
-
-    private function addLocalizedPageSet(PageDTO $page, SitemapBuilder $sitemap): void
-    {
-        $localizedPages = [$page];
-
-        foreach ($page->referencePages ?? [] as $referencePage) {
-            $localizedPages[] = $referencePage;
-        }
-
-        $pages = collect($localizedPages)->unique(fn (PageDTO $p): string => $p->locale)->values();
-
-        foreach ($pages as $currentPage) {
-            $otherPages = $pages->reject(fn (PageDTO $ref): bool => $ref->locale === $currentPage->locale)->values();
-
-            $currentPage->referencePages = collect([$currentPage])->merge($otherPages)->values();
-
-            $sitemap->addItem(page: $currentPage);
-        }
     }
 }

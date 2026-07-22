@@ -14,6 +14,12 @@ use App\Http\Controllers\Legal\PrivacyIndexController;
 use App\Http\Controllers\Legal\TermsIndexController;
 use App\Http\Controllers\Locale\LocaleUpdateController;
 use App\Http\Controllers\Media\MediaIndexController;
+use App\Http\Controllers\Network\NetworkIndexController;
+use App\Http\Controllers\Network\NetworkManageShowController;
+use App\Http\Controllers\Network\NetworkManageUpdateController;
+use App\Http\Controllers\Network\NetworkRequestIndexController;
+use App\Http\Controllers\Network\NetworkRequestStoreController;
+use App\Http\Controllers\Network\NetworkShowController;
 use App\Http\Controllers\News\NewsIndexController;
 use App\Http\Controllers\News\NewsShowController;
 use App\Http\Controllers\OpenSource\OpenSoruceShowController;
@@ -56,6 +62,13 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('ai/llm', AiLlmIndexController::class)->name('ai.llm.index');
     Route::get('ai/llm-analytics', AiLlmAnalyticsIndexController::class)->name('ai.llm.analytics.index');
 
+    Route::get('network', NetworkIndexController::class)->name('network.index');
+    Route::get('network/request', NetworkRequestIndexController::class)->name('network.request.index');
+    Route::post('network/request', NetworkRequestStoreController::class)->middleware('throttle:5,1')->name('network.request.store');
+    Route::get('network/manage/{networkUser}', NetworkManageShowController::class)->middleware('signed')->name('network.manage.show');
+    Route::put('network/manage/{networkUser}', NetworkManageUpdateController::class)->middleware('signed')->name('network.manage.update');
+    Route::get('network/{slug}', NetworkShowController::class)->name('network.show');
+
     Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('legal/imprint', ImprintIndexController::class)->name('legal.imprint.index');
     Route::get('legal/terms', TermsIndexController::class)->name('legal.terms.index');
@@ -87,6 +100,13 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('ki', AiIndexController::class)->name('ai.index');
     Route::get('ki/llm', AiLlmIndexController::class)->name('ai.llm.index');
     Route::get('ki/llm-analytics', AiLlmAnalyticsIndexController::class)->name('ai.llm.analytics.index');
+
+    Route::get('netzwerk', NetworkIndexController::class)->name('network.index');
+    Route::get('netzwerk/request', NetworkRequestIndexController::class)->name('network.request.index');
+    Route::post('netzwerk/request', NetworkRequestStoreController::class)->middleware('throttle:5,1')->name('network.request.store');
+    Route::get('netzwerk/verwalten/{networkUser}', NetworkManageShowController::class)->middleware('signed')->name('network.manage.show');
+    Route::put('netzwerk/verwalten/{networkUser}', NetworkManageUpdateController::class)->middleware('signed')->name('network.manage.update');
+    Route::get('netzwerk/{slug}', NetworkShowController::class)->name('network.show');
 
     Route::get('rechtlichtes/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
     Route::get('rechtlichtes/impressum', ImprintIndexController::class)->name('legal.imprint.index');

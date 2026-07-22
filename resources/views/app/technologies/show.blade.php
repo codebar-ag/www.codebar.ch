@@ -3,8 +3,10 @@
     <x-h1 :title="$name"/>
     <x-h1-teaser :teaser="$teaser"/>
 
-    <x-section>
-        <x-content :content="$content"/>
-    </x-section>
+    <x-layout.section>
+        <x-ui.prose>
+            {!! $content !!}
+        </x-ui.prose>
+    </x-layout.section>
 
 </x-app-layout>

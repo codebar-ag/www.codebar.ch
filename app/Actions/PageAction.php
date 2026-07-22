@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\DTO\PageDTO;
+use App\Models\Network;
 use App\Models\News;
 use App\Models\OpenSource;
 use App\Models\Page;
@@ -60,6 +61,21 @@ class PageAction
             lastModificationDate: Carbon::parse($news->updated_at ?? now()),
             routeParameters: ['locale' => $news->locale, 'news' => $news],
             referencePages: $withReferences ? $this->newsReferencePages($news) : null,
+        );
+    }
+
+    public function network(Network $network, ?string $locale = null): PageDTO
+    {
+        return new PageDTO(
+            locale: $locale ?? $network->locale->value,
+            routeKey: 'network.show',
+            routeName: Str::slug(title: $locale ?? $network->locale->value).'.network.show',
+            title: $network->name,
+            description: $network->excerpt,
+            image: $network->logo,
+            lastModificationDate: Carbon::parse($network->updated_at ?? now()),
+            routeParameters: ['slug' => $network->page_slug],
+            referencePages: null,
         );
     }
 

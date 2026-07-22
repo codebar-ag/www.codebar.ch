@@ -83,6 +83,42 @@ class PagesTableSeeder extends Seeder
 
         Page::updateOrCreate(
             [
+                'key' => 'technologies.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Open Technologies & Standards',
+                'description' => 'The open technologies and standards we build our software on – proven, transparent and vendor-independent.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'open-source.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Open Source Contributions',
+                'description' => 'Our contributions to the open source community – packages, tools and libraries developed and maintained by codebar.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'jobs.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Jobs at codebar',
+                'description' => 'Join codebar solutions AG – open positions and how we work as a team building software with open technologies.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
                 'key' => 'legal.imprint.index',
                 'locale' => $locale,
             ],
@@ -90,6 +126,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Legal Notice',
                 'description' => 'All legal details about codebar solutions AG.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'legal.terms.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Terms & Conditions',
+                'description' => 'The general terms and conditions of codebar solutions AG.',
             ]
         );
 
@@ -138,6 +186,30 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'AI at codebar',
                 'description' => 'How we use artificial intelligence in our own work — from the local models we run to the infrastructure behind them.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'network.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Our Network – Partners, Sponsoring & Certifications',
+                'description' => 'The companies and communities we work with: collaboration, software and infrastructure partners, sponsoring like BaselHack, and Swiss quality certifications.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'network.request.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'noindex,nofollow',
+                'title' => 'Update network profile',
+                'description' => 'Request a personal link to update your codebar network profile.',
             ]
         );
 
@@ -232,6 +304,42 @@ class PagesTableSeeder extends Seeder
 
         Page::updateOrCreate(
             [
+                'key' => 'technologies.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Offene Technologien & Standards',
+                'description' => 'Die offenen Technologien und Standards, auf denen unsere Software basiert – bewährt, transparent und herstellerunabhängig.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'open-source.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Open-Source-Beiträge',
+                'description' => 'Unsere Beiträge an die Open-Source-Community – Packages, Tools und Libraries, entwickelt und gepflegt von codebar.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'jobs.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Stellen bei codebar',
+                'description' => 'Werde Teil der codebar solutions AG – offene Stellen und wie wir als Team Software mit offenen Technologien entwickeln.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
                 'key' => 'legal.imprint.index',
                 'locale' => $locale,
             ],
@@ -239,6 +347,18 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'Rechtliches',
                 'description' => 'Alle rechtlichen Informationen zur codebar solutions AG.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'legal.terms.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Allgemeine Geschäftsbedingungen',
+                'description' => 'Die allgemeinen Geschäftsbedingungen der codebar solutions AG.',
             ]
         );
 
@@ -311,6 +431,30 @@ class PagesTableSeeder extends Seeder
                 'robots' => 'index,follow',
                 'title' => 'LLM-Nutzungsstatistik',
                 'description' => 'Token-Verbrauch und Anfrage-Statistiken unserer lokal betriebenen LLMs — aggregiert pro Monat und Modell.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'network.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'index,follow',
+                'title' => 'Unser Netzwerk – Partner, Sponsoring & Zertifizierungen',
+                'description' => 'Die Firmen und Communities, mit denen wir arbeiten: Collaboration-, Software- und Infrastruktur-Partner, Sponsoring wie der BaselHack und Schweizer Qualitätszertifizierungen.',
+            ]
+        );
+
+        Page::updateOrCreate(
+            [
+                'key' => 'network.request.index',
+                'locale' => $locale,
+            ],
+            [
+                'robots' => 'noindex,nofollow',
+                'title' => 'Netzwerk-Profil aktualisieren',
+                'description' => 'Persönlichen Link anfordern, um das eigene Profil im codebar Netzwerk zu aktualisieren.',
             ]
         );
     }

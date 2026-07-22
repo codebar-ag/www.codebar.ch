@@ -1,43 +1,37 @@
 <x-app-layout :page="$page">
     <x-h1 :title="__('Imprint')"/>
 
-    <x-section>
+    <x-layout.section>
         <x-h2 :title="__('Company')"/>
-        <address class="not-italic text-gray-800 text-lg leading-relaxed">
-            <p class="font-semibold">codebar Solutions AG</p>
-            <p class="font-light">{{ __('Legal form AG') }}</p>
-            <p class="font-light">CHE-257.955.682</p>
-        </address>
+        <x-card.address-card
+                :lines="['codebar Solutions AG', __('Legal form AG'), 'CHE-257.955.682']"
+                link-href="https://zefix.ch/de/search/entity/list/firm/1466584"
+                link-label="{{ __('Zefix') }}"/>
+    </x-layout.section>
 
-        <x-a-badge href="https://zefix.ch/de/search/entity/list/firm/1466584" label="{{ __('Zefix') }}" class-attributes="mt-1" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-1 size-3"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
-            </svg>
-        </x-a-badge>
-    </x-section>
-
-    <x-section-flex>
+    <x-layout.section class="flex flex-wrap gap-12">
         <div>
             <x-h2 :title="__('Email')"/>
-            <x-a href="mailto:info@codebar.ch" label="{{ __('info(at)codebar.ch') }}" classAttributes="block"/>
+            <x-ui.link href="mailto:info@codebar.ch" label="{{ __('info(at)codebar.ch') }}" class="block"/>
         </div>
         <div>
             <x-h2 :title="__('Phone')"/>
-            <x-a href="tel:0041615156090" label="{{ __('+41 61 515 60 90') }}" classAttributes="block"/>
+            <x-ui.link href="tel:0041615156090" label="{{ __('+41 61 515 60 90') }}" class="block"/>
         </div>
-    </x-section-flex>
+    </x-layout.section>
 
-    <x-section>
+    <x-layout.section>
         <x-h2 :title="__('Authorized representatives')"/>
-        <x-legal.prose>
+        <x-ui.prose variant="legal">
             <ul>
                 <li>Sebastian Bürgin</li>
                 <li>Melanie Sabrina Bürgin</li>
             </ul>
-        </x-legal.prose>
-    </x-section>
+        </x-ui.prose>
+    </x-layout.section>
 
-    <x-section>
+    <x-layout.section>
         <x-h2 :title="__('Disclaimer')"/>
         <p class="text-gray-800">{{ __('Imprint disclaimer') }}</p>
-    </x-section>
+    </x-layout.section>
 </x-app-layout>
