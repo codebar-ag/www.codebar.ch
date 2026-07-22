@@ -53,8 +53,9 @@ it('seeds unpublished contact persons with real channels where known', function 
     $sarah = NetworkUser::where('network_key', 'pst')->first();
     $domenik = NetworkUser::where('network_key', 'odoo')->first();
     $patrick = NetworkUser::where('network_key', 'iway')->first();
+    $baselhack = NetworkUser::where('network_key', 'baselhack')->first();
 
-    expect(NetworkUser::count())->toBe(5)
+    expect(NetworkUser::count())->toBe(6)
         ->and(NetworkUser::where('published', true)->count())->toBe(0)
         ->and($vincenzo->name)->toBe('Vincenzo Carbone')
         ->and($vincenzo->role)->toBe('DocuWare Schweiz')
@@ -65,7 +66,9 @@ it('seeds unpublished contact persons with real channels where known', function 
         ->and($domenik->name)->toBe('Domenik Friedrich')
         ->and($domenik->email)->toBe('domf@odoo.com')
         ->and($patrick->linkedin)->not->toBeNull()
-        ->and($patrick->phone)->not->toBeNull();
+        ->and($patrick->phone)->not->toBeNull()
+        ->and($baselhack->name)->toBe('BaselHack')
+        ->and($baselhack->email)->toBe('info@baselhack.ch');
 })->group('network', 'seeders');
 
 it('is idempotent', function () {
@@ -75,5 +78,5 @@ it('is idempotent', function () {
     $this->seed(NetworkUsersTableSeeder::class);
 
     expect(Network::count())->toBe(18)
-        ->and(NetworkUser::count())->toBe(5);
+        ->and(NetworkUser::count())->toBe(6);
 })->group('network', 'seeders');

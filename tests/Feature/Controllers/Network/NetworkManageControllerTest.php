@@ -218,7 +218,7 @@ it('stores an uploaded company cover on s3 for every locale row', function () {
 
     put(signedManageUrl($networkUser), [
         'name' => 'Vincenzo Carbone',
-        'cover' => UploadedFile::fake()->image('cover.jpg', 1200, 600),
+        'cover' => UploadedFile::fake()->image('cover.jpg', 1200, 400),
     ])->assertRedirect();
 
     $files = Storage::disk('s3')->files('network/covers');
@@ -245,7 +245,7 @@ it('rejects a non-image cover upload', function () {
     expect(Storage::disk('s3')->files('network/covers'))->toBeEmpty();
 })->group('network');
 
-it('rejects a cover upload that is not 2:1', function () {
+it('rejects a cover upload that is not 3:1', function () {
     Storage::fake('s3');
 
     $networkUser = createNetworkWithUser();

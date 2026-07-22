@@ -137,7 +137,7 @@
                     <input type="file" id="cover" name="cover" accept="image/jpeg,image/png,image/webp,image/avif"
                            class="mt-1 w-full text-sm text-gray-800 file:mr-3 file:rounded-pill file:border-0 file:bg-brand file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-brand-strong">
                     <p class="mt-1 text-sm text-muted">
-                        {{ __('JPG, PNG, WebP or AVIF, 2:1, max. 4 MB.') }}
+                        {{ __('JPG, PNG, WebP or AVIF, 3:1, max. 4 MB.') }}
                         <a href="{{ asset('images/templates/cover-template.jpg') }}" download
                            class="text-brand underline">{{ __('Download template (JPG)') }}</a>
                     </p>

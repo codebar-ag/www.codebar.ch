@@ -10,12 +10,12 @@
             <x-layout.grid gap="gap-6" class="mt-4">
                 @foreach($networks as $network)
                     <div class="flex flex-col overflow-hidden rounded-panel border border-gray-200">
-                        <div class="relative hidden sm:flex h-20 items-center justify-center border-b border-gray-100 bg-gray-50 px-4">
+                        <div class="relative hidden sm:flex h-20 items-center {{ $network->logo ? 'justify-start' : 'justify-center' }} border-b border-gray-100 bg-gray-50 px-4">
                             @php
                                 $drawing = 'images/network/'.$network->key.'.svg';
                             @endphp
                             @if($network->logo)
-                                <img src="{{ $network->logo }}" alt="{{ $network->name }}" loading="lazy" width="160" height="48" class="max-h-12 w-auto">
+                                <img src="{{ $network->logo }}" alt="{{ $network->name }}" loading="lazy" width="128" height="64" class="max-h-16 w-auto">
                             @elseif(file_exists(public_path($drawing)))
                                 <img src="{{ asset($drawing) }}" alt="" aria-hidden="true"
                                      loading="lazy" width="160" height="96" class="max-h-16 w-auto">

@@ -48,6 +48,13 @@ class NetworkUsersTableSeeder extends Seeder
         );
 
         $this->seed(
+            networkKey: 'baselhack',
+            name: 'BaselHack',
+            sort: 10,
+            email: 'info@baselhack.ch',
+        );
+
+        $this->seed(
             networkKey: 'iway',
             name: 'Patrick Baumeler',
             sort: 10,
