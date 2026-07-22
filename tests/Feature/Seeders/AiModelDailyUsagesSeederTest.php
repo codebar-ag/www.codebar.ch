@@ -5,21 +5,22 @@ use App\Models\AiModelDailyUsage;
 use Database\Seeders\AiModelDailyUsagesTableSeeder;
 use Database\Seeders\AiModelsTableSeeder;
 
-it('seeds demo usage rows linked to the active models', function () {
+it('seeds usage rows from the export, linking rows whose model still exists', function () {
     $this->seed(AiModelsTableSeeder::class);
     $this->seed(AiModelDailyUsagesTableSeeder::class);
 
-    $activeNames = AiModel::whereNull('archived_at')->pluck('name');
+    $knownNames = AiModel::pluck('name');
 
     expect(AiModelDailyUsage::count())->toBeGreaterThan(0)
-        ->and(AiModelDailyUsage::distinct('model')->pluck('model')->diff($activeNames))->toBeEmpty()
-        ->and(AiModelDailyUsage::whereNull('ai_model_id')->count())->toBe(0);
+        ->and(AiModelDailyUsage::whereIn('model', $knownNames)->whereNull('ai_model_id')->count())->toBe(0)
+        ->and(AiModelDailyUsage::whereNotIn('model', $knownNames)->count())->toBeGreaterThan(0);
 })->group('seeders', 'ai');
 
-it('does nothing when no models exist', function () {
+it('seeds usage rows even when no models exist yet, leaving them unlinked', function () {
     $this->seed(AiModelDailyUsagesTableSeeder::class);
 
-    expect(AiModelDailyUsage::count())->toBe(0);
+    expect(AiModelDailyUsage::count())->toBeGreaterThan(0)
+        ->and(AiModelDailyUsage::whereNull('ai_model_id')->count())->toBe(AiModelDailyUsage::count());
 })->group('seeders', 'ai');
 
 it('upserts on re-run instead of duplicating rows', function () {
