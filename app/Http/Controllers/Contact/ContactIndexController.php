@@ -19,6 +19,9 @@ class ContactIndexController extends Controller
         ]);
     }
 
+    /**
+     * @return array<int, array{day: string, open: ?string, close: ?string}>
+     */
     private function openingHours(): array
     {
         return [
@@ -27,7 +30,7 @@ class ContactIndexController extends Controller
             ['day' => 'Wednesday', 'open' => '08:00', 'close' => '18:00'],
             ['day' => 'Thursday', 'open' => '08:00', 'close' => '18:00'],
             ['day' => 'Friday', 'open' => '08:00', 'close' => '18:00'],
-            ['day' => 'Saturday', 'open' => '08:00', 'close' => '18:00'],
+            ['day' => 'Saturday', 'open' => '08:00', 'close' => '12:00'],
             ['day' => 'Sunday', 'open' => null, 'close' => null],
         ];
     }

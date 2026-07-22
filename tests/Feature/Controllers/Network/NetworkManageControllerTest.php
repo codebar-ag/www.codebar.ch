@@ -75,7 +75,7 @@ it('updates the own profile and the company website via a signed link', function
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
-        'email' => 'vincenzo.carbone@docuware.com',
+        'name' => 'Vincenzo Carbone-Rossi',
         'linkedin' => 'https://www.linkedin.com/in/vincenzo',
         'phone' => '+41 44 000 00 00',
         'published' => '1',
@@ -84,7 +84,7 @@ it('updates the own profile and the company website via a signed link', function
 
     $networkUser->refresh();
 
-    expect($networkUser->email)->toBe('vincenzo.carbone@docuware.com')
+    expect($networkUser->name)->toBe('Vincenzo Carbone-Rossi')
         ->and($networkUser->linkedin)->toBe('https://www.linkedin.com/in/vincenzo')
         ->and($networkUser->phone)->toBe('+41 44 000 00 00')
         ->and($networkUser->published)->toBeTrue();
@@ -105,23 +105,23 @@ it('can unpublish the own profile', function () {
     $networkUser->update(['published' => true]);
 
     put(signedManageUrl($networkUser), [
-        'email' => 'vincenzo@example.com',
+        'name' => 'Vincenzo Carbone',
         'published' => '0',
     ])->assertRedirect();
 
     expect($networkUser->refresh()->published)->toBeFalse();
 })->group('network');
 
-it('never touches fields outside the whitelist', function () {
+it('never touches fields outside the whitelist, including the email address', function () {
     Mail::fake();
 
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
-        'email' => 'vincenzo@example.com',
+        'name' => 'Vincenzo Carbone',
         'published' => '1',
         // Attempted privilege escalation: none of these may have any effect.
-        'name' => 'Hacked Name',
+        'email' => 'hacked@example.com',
         'role' => 'Hacked Role',
         'network_key' => 'other-company',
         'status' => NetworkStatusEnum::ENDED->value,
@@ -131,7 +131,7 @@ it('never touches fields outside the whitelist', function () {
 
     $networkUser->refresh();
 
-    expect($networkUser->name)->toBe('Vincenzo Carbone')
+    expect($networkUser->email)->toBe('vincenzo@example.com')
         ->and($networkUser->role)->toBe('DocuWare Schweiz')
         ->and($networkUser->network_key)->toBe('docuware');
 
@@ -149,7 +149,7 @@ it('cannot change the company visibility via the signed link', function () {
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
-        'email' => 'vincenzo@example.com',
+        'name' => 'Vincenzo Carbone',
         'published' => '0',
     ])->assertRedirect();
 
@@ -165,10 +165,22 @@ it('rejects an update without a valid signature', function () {
     $networkUser = createNetworkWithUser();
 
     put(route('de-ch.network.manage.update', ['networkUser' => $networkUser]), [
-        'email' => 'evil@example.com',
+        'name' => 'Evil Name',
     ])->assertForbidden();
 
-    expect($networkUser->refresh()->email)->toBe('vincenzo@example.com');
+    expect($networkUser->refresh()->name)->toBe('Vincenzo Carbone');
+
+    Mail::assertNothingSent();
+})->group('network');
+
+it('requires a name', function () {
+    Mail::fake();
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'name' => '',
+    ])->assertSessionHasErrors('name');
 
     Mail::assertNothingSent();
 })->group('network');
@@ -179,6 +191,7 @@ it('validates linkedin and website urls', function () {
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
+        'name' => 'Vincenzo Carbone',
         'linkedin' => 'not-a-url',
         'website' => 'also-not-a-url',
     ])->assertSessionHasErrors(['linkedin', 'website']);
@@ -193,7 +206,7 @@ it('stores an uploaded avatar on s3 and saves its url', function () {
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
-        'email' => 'vincenzo@example.com',
+        'name' => 'Vincenzo Carbone',
         'avatar' => UploadedFile::fake()->image('avatar.jpg', 200, 200),
     ])->assertRedirect();
 
@@ -211,12 +224,27 @@ it('rejects a non-image avatar upload', function () {
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
+        'name' => 'Vincenzo Carbone',
         'avatar' => UploadedFile::fake()->create('document.pdf', 100, 'application/pdf'),
     ])->assertSessionHasErrors('avatar');
 
     expect(Storage::disk('s3')->files('network/avatars'))->toBeEmpty();
 
     Mail::assertNothingSent();
+})->group('network');
+
+it('rejects a non-square avatar upload', function () {
+    Mail::fake();
+    Storage::fake('s3');
+
+    $networkUser = createNetworkWithUser();
+
+    put(signedManageUrl($networkUser), [
+        'name' => 'Vincenzo Carbone',
+        'avatar' => UploadedFile::fake()->image('avatar.jpg', 300, 200),
+    ])->assertSessionHasErrors('avatar');
+
+    expect(Storage::disk('s3')->files('network/avatars'))->toBeEmpty();
 })->group('network');
 
 it('rejects an avatar upload above 2 MB', function () {
@@ -226,7 +254,8 @@ it('rejects an avatar upload above 2 MB', function () {
     $networkUser = createNetworkWithUser();
 
     put(signedManageUrl($networkUser), [
-        'avatar' => UploadedFile::fake()->image('big.jpg')->size(3000),
+        'name' => 'Vincenzo Carbone',
+        'avatar' => UploadedFile::fake()->image('big.jpg', 200, 200)->size(3000),
     ])->assertSessionHasErrors('avatar');
 
     expect(Storage::disk('s3')->files('network/avatars'))->toBeEmpty();
@@ -240,7 +269,7 @@ it('keeps the existing avatar when no file is uploaded', function () {
     $networkUser->update(['avatar' => '/images/placeholders/avatar-sample.svg']);
 
     put(signedManageUrl($networkUser), [
-        'email' => 'vincenzo@example.com',
+        'name' => 'Vincenzo Carbone',
     ])->assertRedirect();
 
     expect($networkUser->refresh()->avatar)->toBe('/images/placeholders/avatar-sample.svg');

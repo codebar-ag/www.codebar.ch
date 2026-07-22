@@ -32,6 +32,9 @@ class CoWorkingIndexController extends Controller
         ]);
     }
 
+    /**
+     * @return array<int, array{category: string, title: string, teaser: string}>
+     */
     private function services(): array
     {
         return [

@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->integer('downloads')->nullable();
             $table->string('version')->nullable();
+            $table->string('github_name')->nullable();
+            $table->integer('stars')->default(0);
+            $table->integer('forks')->default(0);
+            $table->string('primary_language')->nullable();
             $table->timestamps();
 
             $table->unique(['slug', 'locale']);

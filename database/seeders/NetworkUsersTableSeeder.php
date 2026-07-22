@@ -10,10 +10,10 @@ class NetworkUsersTableSeeder extends Seeder
     /**
      * Run the database seeds.
      *
-     * Seeders never run on production — the contact channels below are
+     * Contact channels are real where known, otherwise placeholder
      *
-     * clearly-fake example data (*@example.com) so the cards, chips and
-     * avatars are visible in local and staging environments.
+     * (*@example.com). All rows seed as unpublished — a contact only
+     * appears on the network page once explicitly published.
      */
     public function run(): void
     {
@@ -21,17 +21,14 @@ class NetworkUsersTableSeeder extends Seeder
             networkKey: 'wieland-business-solutions',
             name: 'Dario Wieland',
             sort: 10,
-            email: 'dario.wieland@example.com',
-            linkedin: 'https://www.linkedin.com/in/example-dario',
-            phone: '+41 61 000 00 01',
+            email: 'dario.wieland@business-solutions.gmbh',
         );
 
         $this->seed(
             networkKey: 'pst',
             name: 'Sarah Fässler',
             sort: 10,
-            email: 'sarah.faessler@example.com',
-            phone: '+41 61 000 00 02',
+            email: 'sarah.faessler@pstgmbh.ch',
         );
 
         $this->seed(
@@ -39,16 +36,15 @@ class NetworkUsersTableSeeder extends Seeder
             name: 'Vincenzo Carbone',
             sort: 10,
             role: 'DocuWare Schweiz',
-            email: 'vincenzo.carbone@example.com',
-            linkedin: 'https://www.linkedin.com/in/example-vincenzo',
+            email: 'vincenzo.carbone@docuware.com',
             avatar: '/images/placeholders/avatar-sample.svg',
         );
 
         $this->seed(
             networkKey: 'odoo',
-            name: 'Domenik',
+            name: 'Domenik Friedrich',
             sort: 10,
-            email: 'domenik@example.com',
+            email: 'domf@odoo.com',
         );
 
         $this->seed(
@@ -82,7 +78,7 @@ class NetworkUsersTableSeeder extends Seeder
                 'linkedin' => $linkedin,
                 'phone' => $phone,
                 'avatar' => $avatar,
-                'published' => true,
+                'published' => false,
                 'sort' => $sort,
             ]
         );

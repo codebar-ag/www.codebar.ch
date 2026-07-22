@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Spatie\ResponseCache\Facades\ResponseCache;
 
 class NetworkManageUpdateController extends Controller
 {
@@ -38,6 +37,8 @@ class NetworkManageUpdateController extends Controller
                 's3',
             );
 
+            abort_if($path === false, 500, 'Failed to store the uploaded avatar.');
+
             $attributes['avatar'] = Storage::disk('s3')->url($path);
         }
 
@@ -45,9 +46,8 @@ class NetworkManageUpdateController extends Controller
 
         Network::query()
             ->where('key', $networkUser->network_key)
-            ->update(['website' => $request->validated('website')]);
-
-        ResponseCache::clear();
+            ->get()
+            ->each(fn (Network $network) => $network->update(['website' => $request->validated('website')]));
 
         Mail::to(config('mail.from.address'))->send(new NetworkProfileUpdatedMail($networkUser->refresh()));
 

@@ -36,6 +36,7 @@ use App\Http\Controllers\Technologies\TechnologiesIndexController;
 use App\Http\Controllers\Technologies\TechnologiesShowController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Spatie\ResponseCache\Middlewares\DoNotCacheResponse;
 
 Route::get('/', EntryIndexController::class)->name('entry.index');
 
@@ -67,9 +68,9 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('ai/llm-analytics', AiLlmAnalyticsIndexController::class)->name('ai.llm.analytics.index');
 
     Route::get('network', NetworkIndexController::class)->name('network.index');
-    Route::get('network/request', NetworkRequestIndexController::class)->name('network.request.index');
+    Route::get('network/request', NetworkRequestIndexController::class)->middleware(DoNotCacheResponse::class)->name('network.request.index');
     Route::post('network/request', NetworkRequestStoreController::class)->middleware('throttle:5,1')->name('network.request.store');
-    Route::get('network/manage/{networkUser}', NetworkManageShowController::class)->middleware('signed')->name('network.manage.show');
+    Route::get('network/manage/{networkUser}', NetworkManageShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('network.manage.show');
     Route::put('network/manage/{networkUser}', NetworkManageUpdateController::class)->middleware('signed')->name('network.manage.update');
     Route::get('network/{slug}', NetworkShowController::class)->name('network.show');
 
@@ -109,9 +110,9 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('ki/llm-analytics', AiLlmAnalyticsIndexController::class)->name('ai.llm.analytics.index');
 
     Route::get('netzwerk', NetworkIndexController::class)->name('network.index');
-    Route::get('netzwerk/request', NetworkRequestIndexController::class)->name('network.request.index');
+    Route::get('netzwerk/request', NetworkRequestIndexController::class)->middleware(DoNotCacheResponse::class)->name('network.request.index');
     Route::post('netzwerk/request', NetworkRequestStoreController::class)->middleware('throttle:5,1')->name('network.request.store');
-    Route::get('netzwerk/verwalten/{networkUser}', NetworkManageShowController::class)->middleware('signed')->name('network.manage.show');
+    Route::get('netzwerk/verwalten/{networkUser}', NetworkManageShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('network.manage.show');
     Route::put('netzwerk/verwalten/{networkUser}', NetworkManageUpdateController::class)->middleware('signed')->name('network.manage.update');
     Route::get('netzwerk/{slug}', NetworkShowController::class)->name('network.show');
 

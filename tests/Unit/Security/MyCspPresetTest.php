@@ -17,4 +17,5 @@ it('configures the expected content security policy directives', function () {
     expect($contents)->toContain("object-src 'none'");
     expect($contents)->toContain('img-src');
     expect($contents)->toContain('res.cloudinary.com');
+    expect($contents)->toContain('www.gravatar.com');
 })->group('unit', 'security');

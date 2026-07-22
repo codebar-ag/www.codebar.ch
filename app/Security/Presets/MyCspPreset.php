@@ -47,6 +47,7 @@ class MyCspPreset implements Preset
             Keyword::SELF,
             'data:',
             'res.cloudinary.com',
+            'www.gravatar.com',
         ]);
 
         $fontSources = array_filter([

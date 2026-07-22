@@ -20,8 +20,8 @@ class NetworksTableSeeder extends Seeder
             category: NetworkCategoryEnum::COLLABORATION,
             sort: 10,
             localizedData: [
-                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner', 'excerpt' => 'Gemeinsame Projekte'],
-                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner', 'excerpt' => 'Joint projects'],
+                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner DMS/ECM', 'excerpt' => 'Gemeinsame Projekte'],
+                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'tier_label' => 'Sparring Partner DMS/ECM', 'excerpt' => 'Joint projects'],
             ],
         );
 
@@ -73,7 +73,6 @@ class NetworksTableSeeder extends Seeder
             category: NetworkCategoryEnum::SPONSORING,
             sort: 60,
             website: 'https://www.baselhack.ch',
-            pageSlug: 'baselhack',
             localizedData: [
                 'de_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor'],
                 'en_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor'],
