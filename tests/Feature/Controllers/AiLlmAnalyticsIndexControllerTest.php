@@ -42,14 +42,17 @@ beforeEach(function () {
     ]);
 });
 
-it('renders the analytics page with localized month labels', function (string $url) {
+it('renders the analytics page with localized month labels', function (string $url, string $may, string $june) {
     get($url)
         ->assertOk()
-        ->assertSee('Mai 2026')
-        ->assertSee('Juni 2026')
+        ->assertSee($may)
+        ->assertSee($june)
         ->assertSee("1'500")
         ->assertSee("3'000");
-})->with(['/ki/llm-analytics', '/ai/llm-analytics'])->group('llm-analytics');
+})->with([
+    ['/ki/llm-analytics', 'Mai 2026', 'Juni 2026'],
+    ['/ai/llm-analytics', 'May 2026', 'June 2026'],
+])->group('llm-analytics');
 
 it('filters by month', function (string $month) {
     get('/ki/llm-analytics?month='.$month)

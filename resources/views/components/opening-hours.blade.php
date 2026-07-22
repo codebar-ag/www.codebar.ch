@@ -32,41 +32,41 @@
 @endphp
 
 <div {{ $attributes }}>
-    <div class="flex items-center gap-3 mb-3">
-        <x-h2 :title="__('Opening hours')"/>
-        @if ($isOpen)
-            <span class="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-2.5 py-0.5 text-sm font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                <span class="size-1.5 rounded-full bg-green-500"></span>
-                {{ __('Currently open') }}
-            </span>
-        @else
-            <span class="inline-flex items-center gap-1.5 rounded-full bg-gray-50 px-2.5 py-0.5 text-sm font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                <span class="size-1.5 rounded-full bg-gray-400"></span>
-                {{ __('Currently closed') }}
-            </span>
-        @endif
-    </div>
+    <x-h2 :title="__('Opening hours')"/>
 
-    <div class="space-y-1">
-        @foreach ($groups as $group)
-            @php
-                $isToday = $todayIso - 1 >= $group['startIdx'] && $todayIso - 1 <= $group['endIdx'];
-                $dayLabel = $group['startIdx'] === $group['endIdx']
-                    ? __($group['startDay'])
-                    : __($group['startDay']) . ' – ' . __($group['endDay']);
-            @endphp
-            <div @class([
-                'flex justify-between items-center py-2',
-                'border-b border-gray-200' => !$loop->last,
-                'border-l-2 border-l-brand pl-3 bg-brand/5 rounded-r' => $isToday,
-            ])>
-                <span class="{{ $isToday ? 'font-semibold' : 'font-medium' }}">{{ $dayLabel }}</span>
-                @if ($group['open'])
-                    <span class="font-light">{{ __(':open to :close', ['open' => $group['open'], 'close' => $group['close']]) }}</span>
-                @else
-                    <span class="font-light text-gray-500">{{ __('Closed') }}</span>
-                @endif
-            </div>
-        @endforeach
+    {{-- The box colour carries the status: green while open, red while closed. --}}
+    <div @class([
+        'mt-2 rounded-panel border px-4 sm:px-6 py-2',
+        'border-green-200 bg-green-50/60' => $isOpen,
+        'border-red-200 bg-red-50/60' => ! $isOpen,
+    ])>
+        <span class="sr-only">{{ $isOpen ? __('Currently open') : __('Currently closed') }}</span>
+
+        <dl @class([
+            'divide-y text-base',
+            'divide-green-200/70' => $isOpen,
+            'divide-red-200/70' => ! $isOpen,
+        ])>
+            @foreach ($groups as $group)
+                @php
+                    $isToday = $todayIso - 1 >= $group['startIdx'] && $todayIso - 1 <= $group['endIdx'];
+                    $dayLabel = $group['startIdx'] === $group['endIdx']
+                        ? __($group['startDay'])
+                        : __($group['startDay']) . ' – ' . __($group['endDay']);
+                @endphp
+                <div class="flex items-center justify-between gap-4 py-2.5">
+                    <dt class="{{ $isToday ? 'font-semibold text-gray-900' : 'font-medium' }}">
+                        {{ $dayLabel }}
+                    </dt>
+                    @if ($group['open'])
+                        <dd class="tabular-nums {{ $isToday ? 'font-semibold text-gray-900' : 'font-light' }}">
+                            {{ __(':open to :close', ['open' => $group['open'], 'close' => $group['close']]) }}
+                        </dd>
+                    @else
+                        <dd class="font-light text-gray-500">{{ __('Closed') }}</dd>
+                    @endif
+                </div>
+            @endforeach
+        </dl>
     </div>
 </div>

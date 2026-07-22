@@ -8,7 +8,7 @@
 
     <x-layout.grid class="mt-4">
         @foreach ($cards as $card)
-            <x-card.nav-card :url="localized_route($card['route'])" :label="$card['label']" :teaser="$card['teaser']"/>
+            <x-card.nav-card :url="localized_route($card['route'])" :route="$card['route']" :label="$card['label']" :teaser="$card['teaser']"/>
         @endforeach
     </x-layout.grid>
 </x-layout.section>

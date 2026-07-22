@@ -18,8 +18,8 @@ class ServicesTableSeeder extends Seeder
             localizedData: [
                 LocaleEnum::DE->value => [
                     'name' => 'Konzeption & Prototyping',
-                    'teaser' => 'Von der ersten Idee über das Konzept zum klickbaren Prototyp.',
-                    'tags' => ['Konzeption', 'Prototyping', 'UX'],
+                    'teaser' => 'Wir bringen deine Idee aufs Papier – visuell. Mit Mockups und klickbaren Prototypen entsteht früh ein gemeinsames Bild, noch bevor die erste Zeile Code geschrieben ist. Am Ende hältst du ein technisches Konzept in der Hand, inklusive Technologiewahl – als Basis für die Umsetzung, bei uns oder bei anderen.',
+                    'tags' => ['Requirements Engineering', 'Prototyping', 'UX'],
                     'content' => <<<'MD'
                         ## Von der Idee zum greifbaren Konzept
 
@@ -39,8 +39,8 @@ class ServicesTableSeeder extends Seeder
                 ],
                 LocaleEnum::EN->value => [
                     'name' => 'Concept design & prototyping',
-                    'teaser' => 'From the first idea and concept to a clickable prototype.',
-                    'tags' => ['Concept', 'Prototyping', 'UX'],
+                    'teaser' => 'We put your idea on paper – visually. Mockups and clickable prototypes create a shared picture early on, before a single line of code is written. In the end, you hold a technical concept in your hands, including the technology stack – as a basis for implementation, by us or by others.',
+                    'tags' => ['Requirements engineering', 'Prototyping', 'UX'],
                     'content' => <<<'MD'
                         ## From idea to tangible concept
 
@@ -67,8 +67,8 @@ class ServicesTableSeeder extends Seeder
             localizedData: [
                 LocaleEnum::DE->value => [
                     'name' => 'Individuelle Softwareentwicklung',
-                    'teaser' => 'Portallösungen, Schnittstellen und Integrationen – mit Open Source im Fokus.',
-                    'tags' => ['Softwareentwicklung', 'Open Source', 'Integrationen'],
+                    'teaser' => 'Portale, Schnittstellen, Automatisierungen: Software, die im Hintergrund zuverlässig ihre Arbeit macht. Wir entwickeln mit offenen Technologien wie Laravel – und betreuen deine Lösung auch nach dem Go-live, über Jahre.',
+                    'tags' => ['Backend & Schnittstellen', 'Laravel', 'Open Source'],
                     'content' => <<<'MD'
                         ## Software, die zu deinen Prozessen passt
 
@@ -91,8 +91,8 @@ class ServicesTableSeeder extends Seeder
                 ],
                 LocaleEnum::EN->value => [
                     'name' => 'Individual software development',
-                    'teaser' => 'Portal solutions, interfaces and integrations – with a focus on open source.',
-                    'tags' => ['Software development', 'Open source', 'Integrations'],
+                    'teaser' => 'Portals, interfaces, automation: software that quietly does its job in the background. We build with open technologies such as Laravel – and look after your solution long after go-live.',
+                    'tags' => ['Backend & interfaces', 'Laravel', 'Open source'],
                     'content' => <<<'MD'
                         ## Software that fits your processes
 
@@ -121,9 +121,9 @@ class ServicesTableSeeder extends Seeder
             sharedSlug: 'dms-ecm-consulting',
             localizedData: [
                 LocaleEnum::DE->value => [
-                    'name' => 'DMS/ECM Consulting & Implementation',
-                    'teaser' => 'Beratung und Umsetzung rund um digitales Dokumentenmanagement.',
-                    'tags' => ['DMS/ECM', 'DocuWare', 'Beratung'],
+                    'name' => 'DMS/ECM',
+                    'teaser' => 'Vom Papier zum papierlosen Büro – und weiter zur Automatisierung: Als DocuWare Silver & Cloud Partner digitalisieren wir deine Dokumente und bilden Prozesse in Workflows ab. Vom Einzelunternehmen bis zum Konzern mit über 200 Nutzer:innen.',
+                    'tags' => ['DocuWare', 'Dokumentenmanagement', 'Workflows'],
                     'content' => <<<'MD'
                         ## Dokumentenmanagement, das im Alltag funktioniert
 
@@ -142,9 +142,9 @@ class ServicesTableSeeder extends Seeder
                         MD,
                 ],
                 LocaleEnum::EN->value => [
-                    'name' => 'DMS/ECM consulting & implementation',
-                    'teaser' => 'Consulting and implementation for digital document management.',
-                    'tags' => ['DMS/ECM', 'DocuWare', 'Consulting'],
+                    'name' => 'DMS/ECM',
+                    'teaser' => 'From paper to a paperless office – and on to automation: as a DocuWare Silver & Cloud Partner, we digitise your documents and turn processes into workflows. From one-person businesses to corporations with more than 200 users.',
+                    'tags' => ['DocuWare', 'Document management', 'Workflows'],
                     'content' => <<<'MD'
                         ## Document management that works in everyday business
 
@@ -160,6 +160,32 @@ class ServicesTableSeeder extends Seeder
                         ### After go-live
 
                         We don't leave you alone with the system: training, support and the continuous improvement of your document processes are part of the package.
+                        MD,
+                ],
+            ]
+        );
+        $this->seed(
+            order: 4,
+            sharedSlug: 'open-source-erp',
+            localizedData: [
+                LocaleEnum::DE->value => [
+                    'name' => 'Open Source ERP',
+                    'teaser' => 'Unser jüngster Bereich – und einer, hinter dem wir stehen: Odoo setzen wir seit Kurzem selbst als ERP ein. Als Odoo-Partner bieten wir dir Schritt für Schritt an, was sich bei uns bewährt – heute die Einführung von Projektmanagement und Zeiterfassung, ohne Lizenz-Lock-in.',
+                    'tags' => ['Odoo', 'ERP-Einführung', 'Open Source'],
+                    'content' => <<<'MD'
+                        ## Odoo – das offene ERP
+
+                        Unser jüngster Bereich – und einer, hinter dem wir stehen: Odoo setzen wir seit Kurzem selbst als ERP ein. Als Odoo-Partner bieten wir dir Schritt für Schritt an, was sich bei uns bewährt – heute die Einführung von Projektmanagement und Zeiterfassung, ohne Lizenz-Lock-in.
+                        MD,
+                ],
+                LocaleEnum::EN->value => [
+                    'name' => 'Open-source ERP',
+                    'teaser' => 'Our newest area – and one we stand behind: we recently started running Odoo as our own ERP. As an Odoo partner, we offer you step by step what proves itself in our daily work – today, the rollout of project management and time tracking, free of licence lock-in.',
+                    'tags' => ['Odoo', 'ERP rollout', 'Open source'],
+                    'content' => <<<'MD'
+                        ## Odoo – the open ERP
+
+                        Our newest area – and one we stand behind: we recently started running Odoo as our own ERP. As an Odoo partner, we offer you step by step what proves itself in our daily work – today, the rollout of project management and time tracking, free of licence lock-in.
                         MD,
                 ],
             ]

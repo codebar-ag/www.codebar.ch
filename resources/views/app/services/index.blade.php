@@ -1,5 +1,5 @@
 <x-app-layout :page="$page">
-    <x-layout.page-header :title="__('Services')" :page="$page"/>
+    <x-layout.page-header :title="__('Services')" :intro="__('components.services.header')"/>
 
     <x-layout.section>
         <x-layout.list>

@@ -60,8 +60,8 @@ dataset('disabled-routes', function () {
     ];
 });
 
-it('redirects disabled routes to the default locale start page', function (string $locale, string $name) {
+it('redirects disabled routes to the start page of their own locale', function (string $locale, string $name) {
     $route = route(Str::slug($locale).'.'.$name);
 
-    get($route)->assertRedirect(route(Str::slug(LocaleEnum::DE->value).'.start.index'));
+    get($route)->assertRedirect(route(Str::slug($locale).'.start.index'));
 })->with('disabled-routes')->group('routes');

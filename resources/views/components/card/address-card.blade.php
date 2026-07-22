@@ -1,8 +1,13 @@
-@props(['title' => null, 'lines' => [], 'linkHref' => null, 'linkLabel' => null])
+@props(['title' => null, 'label' => null, 'lines' => [], 'linkHref' => null, 'linkLabel' => null])
 
 <div {{ $attributes }}>
     @if(filled($title))
-        <x-h3 :title="$title"/>
+        <div class="flex items-baseline gap-2">
+            <x-h3 :title="$title"/>
+            @if(filled($label))
+                <span class="text-sm text-muted">{{ $label }}</span>
+            @endif
+        </div>
     @endif
 
     <address class="not-italic leading-relaxed text-gray-800">

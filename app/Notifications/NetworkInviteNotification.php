@@ -30,7 +30,7 @@ class NetworkInviteNotification extends Notification
         return (new MailMessage)
             ->subject(__('Your profile in the codebar network'))
             ->greeting(__('Hello :name', ['name' => $notifiable->name]))
-            ->line(__(':company is already part of our network on the website. But good partnerships are about people, not logos — that is why, if you like, you can also be there in person, with your own profile.', ['company' => $this->company]))
+            ->line(__('Our partnership with :company is carried by people — first and foremost you. That is why our website shows not just companies but also the people behind them: if you like, you can be part of it in person, with your own profile.', ['company' => $this->company]))
             ->line(__('Use the link below to create and manage your profile — it only goes live once you publish it. The link is valid for 96 hours.'))
             ->action(__('Manage my profile'), $this->url)
             ->line(__('You can request a new link at any time: enter your email address under "Network → Profile" in the website footer.'))

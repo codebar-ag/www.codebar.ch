@@ -2,27 +2,43 @@
 
 return [
     'intro' => [
+        'title' => 'Innovative Ideen zum Leben erwecken',
         'who_we_are' => [
             'title' => 'Wer wir sind',
-            'text' => 'Wir sind codebar – ein Team, das innovative Ideen mit digitalen Hilfsmitteln zum Leben erweckt. Wir denken wirtschaftlich, arbeiten konzeptionell und setzen konsequent auf offene Technologien und Standards. So entstehen digitale Lösungen, die sich an den Bedürfnissen ihrer Nutzer:innen orientieren – ob wir sie beraten, konzipieren, entwickeln oder einführen. Und die dir echten Mehrwert bieten.',
+            'text' => 'Wir sind codebar – ein kleines Team aus der Region Basel. Wir erwecken Ideen zum Leben: von der ersten Skizze bis zur Software im täglichen Einsatz. Dabei verstehen wir uns als Bindeglied zwischen Business und Technik – wir hören zu, denken wirtschaftlich mit und bauen auf offene Technologien.',
         ],
         'what_we_do' => [
             'title' => 'Was wir machen',
-            'text' => 'Unsere Expertise deckt den ganzen Weg einer digitalen Lösung ab. Am Anfang steht die Konzeption: Wir erfassen und schärfen Anforderungen, bis daraus ein durchdachtes Konzept entsteht – und machen Ideen mit klickbaren Prototypen früh erlebbar. Darauf baut die individuelle Softwareentwicklung auf: Portallösungen, Schnittstellen und Integrationen, mit starkem Fokus auf Open Source. Derselbe offene Ansatz prägt unseren neusten Kompetenzbereich, die Open-Source-ERP-Systeme: Wir begleiten Unternehmen bei Evaluation, Einführung und Anpassung – flexibel, transparent und ohne Lizenz-Lock-in. Und im Dokumentenmanagement bringen wir langjährige Erfahrung mit: von der Beratung bis zur umgesetzten DMS- und ECM-Lösung.',
+            'text' => 'Unsere Arbeit deckt den ganzen Weg einer digitalen Lösung ab:',
+            'items' => [
+                '<b>Konzeption</b> – wir schärfen deine Anforderungen und machen Ideen mit klickbaren Prototypen früh greifbar.',
+                '<b>Softwareentwicklung</b> – Portale, Schnittstellen und Automatisierungen, entwickelt mit offenen Technologien wie Laravel.',
+                '<b>DMS/ECM</b> – als DocuWare Silver & Cloud Partner begleiten wir dich ins papierlose Büro und automatisieren deine Prozesse.',
+                '<b>Open Source ERP</b> – Odoo setzen wir selbst ein und begleiten dich als Odoo-Partner Schritt für Schritt bei der Einführung.',
+            ],
         ],
         'how_we_work' => [
             'title' => 'Wie wir arbeiten',
-            'text' => 'Am Anfang hören wir dir zu. Denn ob neue Software, ERP-Einführung oder Dokumentenmanagement: Zuerst muss man im Detail verstehen, worum es geht und was die Lösung leisten soll. Anschliessend erarbeiten wir gemeinsam ein Konzept, das sich an deinen Prozessen und den Anforderungen der künftigen Nutzer:innen orientiert. Liegt der Lösungsansatz in unserer Expertise, begleiten wir dich gerne bis zur Umsetzung – und darüber hinaus. Andernfalls freuen wir uns, wenn andere unsere Pläne in die Tat umsetzen.',
+            'text' => 'Am Anfang hören wir dir zu. Denn eine gute Lösung beginnt damit, das Problem zu verstehen – und ehrlich zu prüfen, ob sie sich für dich rechnet. Danach entwickeln wir gemeinsam ein Konzept, das sich nach deinen Prozessen richtet und nach den Menschen, die täglich damit arbeiten. Liegt die Umsetzung in unserer Expertise, begleiten wir dich bis in den Betrieb. Wenn nicht, sagen wir es offen – und freuen uns, wenn andere unsere Pläne verwirklichen.',
         ],
     ],
     'explore' => [
         'title' => 'Mehr entdecken',
         'home' => 'Zurück zur Startseite.',
-        'services' => 'Konzeption, Software, ERP und DMS/ECM.',
+        'services' => 'Vier Bereiche, ein Weg.',
         'team' => 'Die Menschen hinter codebar.',
         'ai' => 'KI auf eigener Infrastruktur.',
         'network' => 'Unsere Partner und Communities.',
         'contact' => 'Lass uns sprechen.',
+    ],
+    'services' => [
+        'header' => 'Vier Bereiche, ein Weg: von der ersten Idee bis zum laufenden Betrieb.',
+    ],
+    'team' => [
+        'header' => 'Klein aus Überzeugung: Bei uns arbeitest du direkt mit den Menschen, die deine Lösung verstehen – und bauen.',
+    ],
+    'contact' => [
+        'header' => 'Du hast eine Idee oder ein Projekt? Erzähl uns davon – wir hören zu.',
     ],
     'contact_cta' => [
         'title' => 'Interessiert?',
@@ -30,8 +46,8 @@ return [
     ],
     'ai' => [
         'title' => 'KI bei codebar',
-        'intro' => 'Wie wir künstliche Intelligenz in unserer eigenen Arbeit einsetzen — von den lokalen Modellen, die wir betreiben, bis zur Infrastruktur dahinter.',
-        'llm_teaser' => 'Die lokalen Open-Source-Sprachmodelle, auf die wir setzen, und die Infrastruktur, die sie betreibt.',
+        'intro' => 'Wir stehen bei KI am Anfang – und zeigen offen, was bei uns bereits läuft: lokale Open-Source-Modelle auf eigener Infrastruktur.',
+        'llm_teaser' => 'Seit ein paar Monaten arbeiten wir uns in das Thema ein, Use Case für Use Case. Hier dokumentieren wir laufend, welche Modelle wir einsetzen – und wie intensiv.',
         'to_models' => 'Zu den Modellen',
         'to_analytics' => 'Zur Nutzungsstatistik',
         'stats' => [
@@ -43,7 +59,7 @@ return [
     ],
     'ai_llm_analytics' => [
         'title' => 'LLM-Nutzungsstatistik',
-        'intro' => 'Token-Verbrauch und Anfrage-Statistiken unserer lokal betriebenen LLMs — aggregiert pro Monat und Modell.',
+        'intro' => 'Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle – pro Monat und Modell.',
         'filter' => [
             'year_label' => 'Jahr',
             'all_years' => 'Alle Jahre',
@@ -68,7 +84,7 @@ return [
     ],
     'ai_llm' => [
         'title' => 'Unsere lokalen LLMs im Einsatz',
-        'intro' => 'Auf diese lokalen Open-Source-Modelle setzen wir aktuell. Wir versuchen, so viel wie möglich unserer KI-Arbeit mit lokalen Modellen abzubilden — alle laufen auf unserer eigenen Infrastruktur, im hauseigenen Bürokeller.',
+        'intro' => 'Auf diese lokalen Open-Source-Modelle setzen wir aktuell. Wir decken so viel wie möglich unserer KI-Arbeit mit lokalen Modellen ab – alle laufen auf eigener Infrastruktur, im hauseigenen Bürokeller.',
         'categories' => [
             'reasoning_coding' => [
                 'title' => 'Reasoning & Coding',
@@ -76,7 +92,7 @@ return [
             ],
             'vision_documents' => [
                 'title' => 'Vision & Dokumente',
-                'description' => 'Die Augen: Bilder verstehen und gescannte Dokumente in verwertbaren Text verwandeln.',
+                'description' => 'Die Augen: Bilder verstehen und Scans in verwertbaren Text verwandeln.',
             ],
             'retrieval_search' => [
                 'title' => 'Retrieval & Suche',
@@ -126,11 +142,11 @@ return [
         ],
         'stats' => [
             'title' => 'Nutzung',
-            'intro' => 'So intensiv sind unsere lokalen Modelle aktuell im Einsatz.',
+            'intro' => 'So intensiv sind unsere Modelle aktuell im Einsatz.',
         ],
         'archive' => [
             'title' => 'Archiv',
-            'intro' => 'Modelle, die wir inzwischen abgelöst haben — der Vollständigkeit halber.',
+            'intro' => 'Modelle, die wir abgelöst haben – der Vollständigkeit halber.',
             'columns' => [
                 'model' => 'Altes Modell',
                 'replaced_by' => 'Abgelöst durch',

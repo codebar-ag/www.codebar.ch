@@ -35,6 +35,8 @@ class PagesTableSeeder extends Seeder
                     'robots' => $row['robots'],
                     'title' => $row['title'],
                     'description' => $row['description'],
+                    'created_at' => $row['created_at'],
+                    'updated_at' => $row['updated_at'],
                 ]
             );
         }
@@ -97,7 +99,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Jobs at codebar',
-                'description' => 'Join codebar solutions AG – open positions and how we work as a team building software with open technologies.',
+                'description' => 'Join codebar Solutions AG – open positions and how we work as a team building software with open technologies.',
             ]
         );
 
@@ -109,7 +111,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Terms & Conditions',
-                'description' => 'The general terms and conditions of codebar solutions AG.',
+                'description' => 'The general terms and conditions of codebar Solutions AG.',
             ]
         );
 
@@ -133,7 +135,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Media & Brand Assets – codebar',
-                'description' => 'Download official codebar logos and brand assets for press and partner use.',
+                'description' => 'Official codebar logos for press and partners – colour, inverted, black and white, as PNG and SVG.',
             ]
         );
 
@@ -144,8 +146,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'AI at codebar',
-                'description' => 'How we use artificial intelligence in our own work — from the local models we run to the infrastructure behind them.',
+                'title' => 'AI at codebar – Local Models, Own Infrastructure',
+                'description' => 'Transparency over buzzwords: an open look at how we use AI in our own work – with local open-source models and real usage figures.',
             ]
         );
 
@@ -156,8 +158,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Our Network – Partners, Sponsoring & Certifications',
-                'description' => 'The companies and communities we work with: collaboration, software and infrastructure partners, sponsoring like BaselHack, and Swiss quality certifications.',
+                'title' => 'Network – Partners & Community | codebar',
+                'description' => 'Who we work with: project, software and infrastructure partners, our community engagement – and the labels behind it.',
             ]
         );
 
@@ -180,8 +182,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Our local LLMs in action',
-                'description' => 'These are the local open-source models we currently rely on — all of them run on our own infrastructure, in our very own office basement.',
+                'title' => 'Our Local LLMs in Action – codebar',
+                'description' => 'The local open-source models we currently run – on our own hardware, in our own office basement. Models, infrastructure and usage.',
             ]
         );
 
@@ -192,8 +194,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'LLM usage analytics',
-                'description' => 'Token usage and request statistics of our locally hosted LLMs — aggregated per month and per model.',
+                'title' => 'LLM Usage Analytics – codebar',
+                'description' => 'Token consumption and requests of our locally run models – transparently broken down per month and model.',
             ]
         );
     }
@@ -246,7 +248,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Stellen bei codebar',
-                'description' => 'Werde Teil der codebar solutions AG – offene Stellen und wie wir als Team Software mit offenen Technologien entwickeln.',
+                'description' => 'Werde Teil der codebar Solutions AG – offene Stellen und wie wir als Team Software mit offenen Technologien entwickeln.',
             ]
         );
 
@@ -258,7 +260,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Allgemeine Geschäftsbedingungen',
-                'description' => 'Die allgemeinen Geschäftsbedingungen der codebar solutions AG.',
+                'description' => 'Die allgemeinen Geschäftsbedingungen der codebar Solutions AG.',
             ]
         );
 
@@ -282,7 +284,7 @@ class PagesTableSeeder extends Seeder
             [
                 'robots' => 'index,follow',
                 'title' => 'Medien & Markenassets – codebar',
-                'description' => 'Offizielle codebar-Logos und Markenassets für Presse und Partner.',
+                'description' => 'Offizielle codebar-Logos für Presse und Partner – farbig, invertiert, schwarz-weiss, als PNG und SVG.',
             ]
         );
 
@@ -293,8 +295,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'KI bei codebar',
-                'description' => 'Wie wir künstliche Intelligenz in unserer eigenen Arbeit einsetzen — von den lokalen Modellen, die wir betreiben, bis zur Infrastruktur dahinter.',
+                'title' => 'KI bei codebar – lokale Modelle, eigene Infrastruktur',
+                'description' => 'Transparenz statt Buzzwords: Wir zeigen offen, wie wir KI in der eigenen Arbeit einsetzen – mit lokalen Open-Source-Modellen und echten Nutzungszahlen.',
             ]
         );
 
@@ -305,8 +307,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Unsere lokalen LLMs im Einsatz',
-                'description' => 'Auf diese lokalen Open-Source-Modelle setzen wir aktuell — sie laufen alle auf unserer eigenen Infrastruktur, im hauseigenen Bürokeller.',
+                'title' => 'Unsere lokalen LLMs im Einsatz – codebar',
+                'description' => 'Diese lokalen Open-Source-Modelle betreiben wir aktuell – auf eigener Hardware im hauseigenen Bürokeller. Modelle, Infrastruktur und Nutzung.',
             ]
         );
 
@@ -317,8 +319,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'LLM-Nutzungsstatistik',
-                'description' => 'Token-Verbrauch und Anfrage-Statistiken unserer lokal betriebenen LLMs — aggregiert pro Monat und Modell.',
+                'title' => 'LLM-Nutzungsstatistik – codebar',
+                'description' => 'Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle – transparent aufgeschlüsselt pro Monat und Modell.',
             ]
         );
 
@@ -329,8 +331,8 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'robots' => 'index,follow',
-                'title' => 'Unser Netzwerk – Partner, Sponsoring & Zertifizierungen',
-                'description' => 'Die Firmen und Communities, mit denen wir arbeiten: Collaboration-, Software- und Infrastruktur-Partner, Sponsoring wie der BaselHack und Schweizer Qualitätszertifizierungen.',
+                'title' => 'Netzwerk – Partner & Community | codebar',
+                'description' => 'Mit wem wir arbeiten: Projekt-, Software- und Infrastrukturpartner, unser Engagement in der Community – und die Labels, die dahinterstehen.',
             ]
         );
 

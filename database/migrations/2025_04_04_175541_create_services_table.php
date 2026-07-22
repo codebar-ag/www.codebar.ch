@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('group');
             $table->integer('order');
             $table->string('name');
-            $table->string('teaser');
+            $table->text('teaser');
             $table->string('slug');
             $table->longText('content')->nullable();
             $table->string('image');

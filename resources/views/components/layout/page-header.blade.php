@@ -9,5 +9,6 @@
 <x-h1 :title="$title"/>
 
 @if(filled($context))
-    <p class="max-w-2xl text-gray-800">{{ $context }}</p>
+    {{-- Lead text: one step above the body copy (text-lg) so the header keeps its hierarchy. --}}
+    <p class="max-w-3xl text-xl md:text-2xl font-light leading-normal text-gray-800">{{ $context }}</p>
 @endif

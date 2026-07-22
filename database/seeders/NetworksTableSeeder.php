@@ -31,7 +31,7 @@ class NetworksTableSeeder extends Seeder
             sort: 20,
             localizedData: [
                 'de_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Finanzen & Buchhaltung'],
-                'en_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Accounting'],
+                'en_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Finance & accounting'],
             ],
         );
 
@@ -41,8 +41,8 @@ class NetworksTableSeeder extends Seeder
             sort: 30,
             website: 'https://start.docuware.com',
             localizedData: [
-                'de_CH' => ['name' => 'DocuWare', 'tier_label' => 'Silver Partner', 'excerpt' => 'DMS/ECM'],
-                'en_CH' => ['name' => 'DocuWare', 'tier_label' => 'Silver Partner', 'excerpt' => 'DMS/ECM'],
+                'de_CH' => ['name' => 'DocuWare', 'excerpt' => 'DMS/ECM'],
+                'en_CH' => ['name' => 'DocuWare', 'excerpt' => 'DMS/ECM'],
             ],
         );
 
@@ -52,8 +52,8 @@ class NetworksTableSeeder extends Seeder
             sort: 40,
             website: 'https://www.odoo.com',
             localizedData: [
-                'de_CH' => ['name' => 'Odoo', 'tier_label' => 'Learning Partner', 'excerpt' => 'Open Source ERP'],
-                'en_CH' => ['name' => 'Odoo', 'tier_label' => 'Learning Partner', 'excerpt' => 'Open Source ERP'],
+                'de_CH' => ['name' => 'Odoo', 'excerpt' => 'Open Source ERP'],
+                'en_CH' => ['name' => 'Odoo', 'excerpt' => 'Open-source ERP'],
             ],
         );
 
@@ -64,7 +64,7 @@ class NetworksTableSeeder extends Seeder
             website: 'https://www.iway.ch',
             localizedData: [
                 'de_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & Telefonie'],
-                'en_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & Telephony'],
+                'en_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & telephony'],
             ],
         );
 
@@ -75,7 +75,7 @@ class NetworksTableSeeder extends Seeder
             website: 'https://www.baselhack.ch',
             localizedData: [
                 'de_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Hackathon Nordwestschweiz'],
-                'en_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Basel Region Hackathon'],
+                'en_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Hackathon in the Basel region'],
             ],
         );
 
@@ -85,8 +85,8 @@ class NetworksTableSeeder extends Seeder
             sort: 70,
             website: 'https://laravel.swiss',
             localizedData: [
-                'de_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel Community'],
-                'en_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel Community'],
+                'de_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel-Community'],
+                'en_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel community'],
             ],
         );
 

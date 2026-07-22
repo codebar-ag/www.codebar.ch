@@ -38,9 +38,9 @@ it('seeds the tiers and categories', function () {
     $odoo = Network::where('key', 'odoo')->where('locale', LocaleEnum::DE->value)->first();
     $baselhack = Network::where('key', 'baselhack')->where('locale', LocaleEnum::DE->value)->first();
 
-    expect($docuware->tier_label)->toBe('Silver Partner')
+    expect($docuware->tier_label)->toBeNull()
         ->and($docuware->category)->toBe(NetworkCategoryEnum::SOFTWARE)
-        ->and($odoo->tier_label)->toBe('Learning Partner')
+        ->and($odoo->tier_label)->toBeNull()
         ->and($baselhack->tier_label)->toBe('Silver Sponsor')
         ->and($baselhack->page_slug)->toBeNull();
 })->group('network', 'seeders');
