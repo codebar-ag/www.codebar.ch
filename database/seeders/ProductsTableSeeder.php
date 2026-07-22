@@ -86,9 +86,12 @@ class ProductsTableSeeder extends Seeder
         );
     }
 
+    /**
+     * @param  array<string, array<string, mixed>>  $localizedData
+     */
     private function seed(int $order, string $sharedSlug, array $localizedData): void
     {
-        $entries = collect($localizedData)->map(function ($data, $locale) use ($sharedSlug, $order) {
+        $entries = collect($localizedData)->map(function (array $data, string $locale) use ($sharedSlug, $order) {
             $slug = Str::slug($sharedSlug, '-', $locale);
 
             return Product::updateOrCreate(

@@ -12,7 +12,7 @@ test('create a ProductModule model', function () {
 test('delete a ProductModule model', function () {
     $model = ProductModule::factory()->create();
 
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('uses the slug as route key and belongs to a product', function () {

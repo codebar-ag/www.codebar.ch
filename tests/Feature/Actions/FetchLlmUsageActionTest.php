@@ -26,7 +26,7 @@ it('fetches and aggregates spend logs per day and model', function () {
 
     expect($rows)->toHaveCount(2);
 
-    $qwen = $rows->firstWhere('model', 'qwen3.6:35b');
+    $qwen = $rows->firstOrFail(fn (array $row): bool => $row['model'] === 'qwen3.6:35b');
 
     expect($qwen['date'])->toBe('2026-07-20')
         ->and($qwen['prompt_tokens'])->toBe(110)

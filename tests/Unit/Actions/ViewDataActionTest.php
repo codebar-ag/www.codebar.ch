@@ -1,6 +1,7 @@
 <?php
 
 use App\Actions\ViewDataAction;
+use App\DTO\ContactDTO;
 use App\Enums\ContactSectionEnum;
 use App\Models\Contact;
 use App\Models\News;
@@ -8,6 +9,7 @@ use App\Models\OpenSource;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Technology;
+use Illuminate\Support\Collection;
 
 it('only returns published products for the given locale, ordered', function () {
     Product::factory()->create(['locale' => 'de_CH', 'published' => true, 'order' => 2]);
@@ -40,7 +42,7 @@ it('only returns published news items with a published_at date, ordered descendi
     $result = (new ViewDataAction)->news('de_CH');
 
     expect($result)->toHaveCount(2);
-    expect($result->first()->published_at->isToday())->toBeTrue();
+    expect($result->firstOrFail()->published_at?->isToday())->toBeTrue();
 })->group('unit', 'actions');
 
 it('only returns published technologies for the given locale, ordered', function () {
@@ -62,7 +64,7 @@ it('only returns published open source projects for the given locale, ordered by
     $result = (new ViewDataAction)->openSource('de_CH');
 
     expect($result)->toHaveCount(2);
-    expect($result->first()->downloads)->toBe(100);
+    expect($result->firstOrFail()->downloads)->toBe(100);
 })->group('unit', 'actions');
 
 it('groups published contacts by section for the given locale', function () {
@@ -84,7 +86,10 @@ it('groups published contacts by section for the given locale', function () {
 
     $result = (new ViewDataAction)->contacts('de_CH');
 
-    expect($result->{ContactSectionEnum::EMPLOYEES})->toHaveCount(1);
-    expect($result->{ContactSectionEnum::EMPLOYEES}->first()->name)->toBe('Alice');
+    /** @var Collection<int, ContactDTO> $employees */
+    $employees = $result->{ContactSectionEnum::EMPLOYEES};
+
+    expect($employees)->toHaveCount(1);
+    expect($employees->firstOrFail()->name)->toBe('Alice');
     expect($result->{ContactSectionEnum::COLLABORATIONS})->toHaveCount(0);
 })->group('unit', 'actions');

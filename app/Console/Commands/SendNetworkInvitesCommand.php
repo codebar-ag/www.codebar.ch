@@ -11,7 +11,8 @@ class SendNetworkInvitesCommand extends Command
 {
     protected $signature = 'network:invite
         {--locale= : Language of the invitation (de or en)}
-        {--email= : Only invite this email address}';
+        {--email= : Only invite this email address}
+        {--force : Send without asking for confirmation (for non-interactive environments)}';
 
     protected $description = 'Invite network users via a signed link (valid 96 hours) to manage and publish their profile';
 
@@ -46,7 +47,7 @@ class SendNetworkInvitesCommand extends Command
             $users->map(fn (NetworkUser $user): array => [$user->name, $user->email, $user->network_key])->all(),
         );
 
-        if (! $this->confirm(sprintf('Send %d invitation(s) in %s?', $users->count(), $locale->value))) {
+        if (! $this->option('force') && ! $this->confirm(sprintf('Send %d invitation(s) in %s?', $users->count(), $locale->value))) {
             $this->info('Aborted — nothing sent.');
 
             return self::SUCCESS;

@@ -7,6 +7,7 @@ use App\Models\NetworkUser;
 use App\Notifications\NetworkInviteNotification;
 use Illuminate\Support\Facades\Notification;
 
+use function Pest\Laravel\get;
 use function Pest\Laravel\travel;
 
 function createInviteJobUser(): NetworkUser
@@ -40,9 +41,9 @@ it('sends the invitation with a 96 hour signed link and the company name', funct
 
         // Still valid shortly before 96 hours, expired after.
         travel(95)->hours();
-        expect($this->get($notification->url)->status())->toBe(200);
+        expect(get($notification->url)->status())->toBe(200);
         travel(2)->hours();
-        expect($this->get($notification->url)->status())->toBe(403);
+        expect(get($notification->url)->status())->toBe(403);
 
         return true;
     });
@@ -64,5 +65,5 @@ it('logs the invitation to the notifications table', function () {
     (new SendNetworkInviteJob('vincenzo@example.com', 'de_CH'))->handle();
 
     expect($networkUser->notifications()->count())->toBe(1)
-        ->and($networkUser->notifications()->first()->type)->toBe(NetworkInviteNotification::class);
+        ->and($networkUser->notifications()->firstOrFail()->type)->toBe(NetworkInviteNotification::class);
 })->group('network');

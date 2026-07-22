@@ -10,7 +10,7 @@ test('create a Contact model', function () {
 
 test('delete a Contact model', function () {
     $model = Contact::factory()->create();
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('clears the published cache when a contact is saved or deleted', function () {

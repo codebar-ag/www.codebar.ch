@@ -14,6 +14,19 @@
                         <x-ui.link :href="localized_route('legal.imprint.index')" label="{{ __('Imprint') }}"
                                    class="text-lg"/>
                     </li>
+                    <li>
+                        <x-ui.link :href="localized_route('legal.terms.index')" label="{{ __('Terms') }}"
+                                   class="text-lg"/>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-base font-semibold text-gray-800">{{ __('Company') }}</h2>
+                <ul class="mt-1 list-none text-base">
+                    <li>
+                        <x-ui.link :href="localized_route('jobs.index')" label="{{ __('Jobs') }}"
+                                   class="text-lg"/>
+                    </li>
                 </ul>
             </div>
             <div>

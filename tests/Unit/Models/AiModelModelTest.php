@@ -25,7 +25,7 @@ test('delete an AiModel model', function () {
         'name' => 'qwen3.6:35b',
     ]);
 
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('defines the replacedBy and dailyUsages relations', function () {

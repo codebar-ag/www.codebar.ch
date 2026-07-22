@@ -2,6 +2,8 @@
 
 use App\Models\User;
 
+use function Pest\Laravel\assertSoftDeleted;
+
 it('can create a user model', function () {
     $model = User::factory()->create();
     expect($model)->toBeInstanceOf(User::class);
@@ -10,12 +12,12 @@ it('can create a user model', function () {
 it('can soft delete a user', function () {
     $model = User::factory()->create();
     $model->delete();
-    $this->assertSoftDeleted($model);
+    assertSoftDeleted($model);
 })->group('unit', 'models');
 
 it('can delete a user', function () {
     $model = User::factory()->create();
-    $this->assertTrue($model->forceDelete());
+    expect($model->forceDelete())->toBeTrue();
 })->group('unit', 'models');
 
 it('can get a user gravatar url', function () {

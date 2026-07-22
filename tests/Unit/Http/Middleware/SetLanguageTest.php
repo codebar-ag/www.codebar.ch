@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\get;
+
 beforeEach(function () {
     Route::middleware(['web', SetLanguage::class])->get('/test', function () {
         return 'Middleware Test';
@@ -19,7 +22,7 @@ it('sets locale based on authenticated user', function () {
         'locale' => LocaleEnum::DE,
     ]);
 
-    $this->actingAs($user)
+    actingAs($user)
         ->get('/test')
         ->assertOk();
 
@@ -29,14 +32,14 @@ it('sets locale based on authenticated user', function () {
 it('sets locale based on session when user is not authenticated', function () {
     Session::put(SessionKeyEnum::LANGUAGE->value, LocaleEnum::EN->value);
 
-    $this->get('/test')
+    get('/test')
         ->assertOk();
 
     expect(App::getLocale())->toBe(LocaleEnum::EN->value);
 })->group('middleware', 'locale');
 
 it('defaults to English locale when no user or session language is set', function () {
-    $this->get('/test')
+    get('/test')
         ->assertOk();
 
     expect(App::getLocale())->toBe(LocaleEnum::DE->value);

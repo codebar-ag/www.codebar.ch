@@ -9,7 +9,7 @@ test('create a Product model', function () {
 
 test('delete a Product model', function () {
     $model = Product::factory()->create();
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('resolves the route key name to slug', function () {
@@ -28,5 +28,5 @@ it('has a references relation', function () {
     ]);
 
     expect($product->references()->count())->toBe(1);
-    expect($product->references->first()->target)->toBeInstanceOf(Product::class);
+    expect($product->references->firstOrFail()->target)->toBeInstanceOf(Product::class);
 })->group('unit', 'models');

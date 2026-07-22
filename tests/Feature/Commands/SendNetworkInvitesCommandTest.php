@@ -6,8 +6,6 @@ use App\Models\Network;
 use App\Models\NetworkUser;
 use Illuminate\Support\Facades\Bus;
 
-use function Pest\Laravel\artisan;
-
 function createInvitableUser(): NetworkUser
 {
     foreach (LocaleEnum::cases() as $locale) {
@@ -28,8 +26,8 @@ function createInvitableUser(): NetworkUser
 it('requires a valid locale option', function () {
     Bus::fake();
 
-    artisan('network:invite')->assertFailed();
-    artisan('network:invite', ['--locale' => 'fr'])->assertFailed();
+    runArtisan('network:invite')->assertFailed();
+    runArtisan('network:invite', ['--locale' => 'fr'])->assertFailed();
 
     Bus::assertNothingDispatched();
 })->group('network');
@@ -39,7 +37,7 @@ it('queues an invite job per user after confirmation', function () {
 
     $networkUser = createInvitableUser();
 
-    artisan('network:invite', ['--locale' => 'de'])
+    runArtisan('network:invite', ['--locale' => 'de'])
         ->expectsConfirmation('Send 1 invitation(s) in de_CH?', 'yes')
         ->assertSuccessful();
 
@@ -48,12 +46,23 @@ it('queues an invite job per user after confirmation', function () {
     });
 })->group('network');
 
+it('skips the confirmation with --force', function () {
+    Bus::fake();
+
+    $networkUser = createInvitableUser();
+
+    runArtisan('network:invite', ['--locale' => 'de', '--force' => true])
+        ->assertSuccessful();
+
+    Bus::assertDispatched(SendNetworkInviteJob::class, fn (SendNetworkInviteJob $job) => $job->email === $networkUser->email);
+})->group('network');
+
 it('queues nothing when the confirmation is declined', function () {
     Bus::fake();
 
     createInvitableUser();
 
-    artisan('network:invite', ['--locale' => 'en'])
+    runArtisan('network:invite', ['--locale' => 'en'])
         ->expectsConfirmation('Send 1 invitation(s) in en_CH?', 'no')
         ->assertSuccessful();
 
@@ -66,7 +75,7 @@ it('can be limited to a single email address', function () {
     createInvitableUser();
     NetworkUser::factory()->create(['network_key' => 'docuware', 'email' => 'other@example.com']);
 
-    artisan('network:invite', ['--locale' => 'de', '--email' => 'vincenzo@example.com'])
+    runArtisan('network:invite', ['--locale' => 'de', '--email' => 'vincenzo@example.com'])
         ->expectsConfirmation('Send 1 invitation(s) in de_CH?', 'yes')
         ->assertSuccessful();
 
@@ -79,7 +88,7 @@ it('skips users without an email address', function () {
 
     NetworkUser::factory()->create(['email' => null]);
 
-    artisan('network:invite', ['--locale' => 'de'])->assertSuccessful();
+    runArtisan('network:invite', ['--locale' => 'de'])->assertSuccessful();
 
     Bus::assertNothingDispatched();
 })->group('network');

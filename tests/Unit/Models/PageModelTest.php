@@ -23,5 +23,5 @@ test('delete a Page model', function () {
         'description' => 'Start page description',
     ]);
 
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');

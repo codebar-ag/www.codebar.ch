@@ -9,5 +9,5 @@ test('create a Role model', function () {
 
 test('delete a Role model', function () {
     $model = Role::factory()->create();
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');

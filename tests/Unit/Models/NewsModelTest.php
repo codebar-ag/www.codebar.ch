@@ -9,7 +9,7 @@ test('create a News model', function () {
 
 test('delete a News model', function () {
     $model = News::factory()->create();
-    $this->assertTrue($model->delete());
+    expect($model->delete())->toBeTrue();
 })->group('unit', 'models');
 
 it('resolves the route key name to slug', function () {
@@ -28,5 +28,5 @@ it('has a references relation', function () {
     ]);
 
     expect($news->references()->count())->toBe(1);
-    expect($news->references->first()->target)->toBeInstanceOf(News::class);
+    expect($news->references->firstOrFail()->target)->toBeInstanceOf(News::class);
 })->group('unit', 'models');

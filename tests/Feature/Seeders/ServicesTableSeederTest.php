@@ -4,8 +4,10 @@ use App\Enums\LocaleEnum;
 use App\Models\Service;
 use Database\Seeders\ServicesTableSeeder;
 
+use function Pest\Laravel\seed;
+
 it('seeds the four services in both locales', function () {
-    $this->seed(ServicesTableSeeder::class);
+    seed(ServicesTableSeeder::class);
 
     $expectedSlugs = [
         'konzeption-prototyping',
@@ -25,9 +27,9 @@ it('seeds the four services in both locales', function () {
 })->group('services', 'seeders');
 
 it('seeds name, teaser, content and locale references', function () {
-    $this->seed(ServicesTableSeeder::class);
+    seed(ServicesTableSeeder::class);
 
-    $concept = Service::where('slug', 'konzeption-prototyping')->where('locale', LocaleEnum::DE->value)->first();
+    $concept = Service::where('slug', 'konzeption-prototyping')->where('locale', LocaleEnum::DE->value)->firstOrFail();
 
     expect($concept->name)->toBe('Konzeption & Prototyping')
         ->and($concept->teaser)->toBe('Wir bringen deine Idee aufs Papier – visuell. Mit Mockups und klickbaren Prototypen entsteht früh ein gemeinsames Bild, noch bevor die erste Zeile Code geschrieben ist. Am Ende hältst du ein technisches Konzept in der Hand, inklusive Technologiewahl – als Basis für die Umsetzung, bei uns oder bei anderen.')
@@ -36,8 +38,8 @@ it('seeds name, teaser, content and locale references', function () {
 })->group('services', 'seeders');
 
 it('is idempotent', function () {
-    $this->seed(ServicesTableSeeder::class);
-    $this->seed(ServicesTableSeeder::class);
+    seed(ServicesTableSeeder::class);
+    seed(ServicesTableSeeder::class);
 
     expect(Service::count())->toBe(8);
 })->group('services', 'seeders');

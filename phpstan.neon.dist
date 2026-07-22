@@ -16,3 +16,5 @@ parameters:
         - database/migrations/2024_06_06_100452_create_permission_tables.php
         # Nova is not installed; this config references Laravel\Nova classes.
         - config/nova.php
+        # Pest's architecture-testing DSL is not statically analysable.
+        - tests/Core/ArchitectureTest.php

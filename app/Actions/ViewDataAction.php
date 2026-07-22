@@ -117,7 +117,7 @@ class ViewDataAction
         });
     }
 
-    public function contacts(string $locale): object
+    public function contacts(string $locale): \stdClass
     {
         $key = Str::slug("contacts_published_{$locale}");
 
