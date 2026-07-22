@@ -1,18 +1,22 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-return new class extends Migration
+class SeoImageCleanupSeeder extends Seeder
 {
     private const BROKEN_IMAGE_PATTERN = '%seo_codebar.webp%';
 
     private const LEGACY_IMAGE_PATTERN = '%seo_paperflakes.webp%';
 
     /**
-     * Run the migrations.
+     * Clears out references to two SEO images that were replaced — a broken
+     * upload and a legacy placeholder — and reapplies the page descriptions
+     * that shipped alongside that image swap.
      */
-    public function up(): void
+    public function run(): void
     {
         DB::table('pages')
             ->where(function ($query) {
@@ -47,12 +51,4 @@ return new class extends Migration
                 ->update(['description' => $page['description']]);
         }
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        // SEO image and description fixes are not reversed.
-    }
-};
+}

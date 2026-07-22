@@ -1,5 +1,7 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('News')"/>
+    <x-layout.page-header
+            :title="__('News')"
+            :intro="__('Insights from our day-to-day work: what we are building, what we are learning, and what is happening at codebar.')"/>
     <x-layout.section>
         <x-layout.list>
             @foreach($news as $entry)

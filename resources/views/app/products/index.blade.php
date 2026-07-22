@@ -1,5 +1,7 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Products')"/>
+    <x-layout.page-header
+            :title="__('Products')"
+            :intro="__('Products born out of real project work: developed by us, in daily use, and continuously improved.')"/>
     <x-layout.section>
         <x-layout.list>
             @foreach($products as $entry)

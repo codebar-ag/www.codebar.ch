@@ -1,5 +1,7 @@
 <x-app-layout :page="$page">
-    <x-h1 :title="__('Open Source')"/>
+    <x-layout.page-header
+            :title="__('Open Source')"
+            :intro="__('We build on open source — and give back. These are the projects and contributions we share with the community.')"/>
     <x-layout.section>
         <x-layout.list>
             @foreach($openSource as $entry)
