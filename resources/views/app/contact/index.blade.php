@@ -1,7 +1,7 @@
 <x-app-layout :page="$page">
     <x-layout.page-header :title="__('Contact')" :intro="__('components.contact.header')"/>
 
-    <x-layout.section class="flex flex-wrap gap-12">
+    <x-layout.section class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
         <div>
             <x-h2 :title="__('Phone')"/>
             <x-ui.link href="tel:0041615156090" label="{{ __('+41 61 515 60 90') }}" class="block"/>

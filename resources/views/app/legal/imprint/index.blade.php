@@ -9,7 +9,7 @@
                 link-label="{{ __('Zefix') }}"/>
     </x-layout.section>
 
-    <x-layout.section class="flex flex-wrap gap-12">
+    <x-layout.section class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
         <div>
             <x-h2 :title="__('Email')"/>
             <x-ui.link href="mailto:info@codebar.ch" label="{{ __('info(at)codebar.ch') }}" class="block"/>
