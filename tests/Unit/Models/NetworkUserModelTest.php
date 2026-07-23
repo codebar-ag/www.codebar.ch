@@ -1,26 +1,19 @@
 <?php
 
-use App\Enums\LocaleEnum;
 use App\Models\Network;
 use App\Models\NetworkUser;
 
-it('returns the company rows for all locales', function () {
-    Network::factory()->create(['key' => 'docuware', 'locale' => LocaleEnum::DE->value]);
-    Network::factory()->create(['key' => 'docuware', 'locale' => LocaleEnum::EN->value]);
+it('returns the company via the network relation, translated per locale', function () {
+    Network::factory()->create([
+        'key' => 'docuware',
+        'name' => ['de_CH' => 'DocuWare DE', 'en_CH' => 'DocuWare EN'],
+    ]);
 
     $networkUser = NetworkUser::factory()->create(['network_key' => 'docuware']);
+    $network = $networkUser->network()->firstOrFail();
 
-    expect($networkUser->networks)->toHaveCount(2);
-})->group('network', 'network-user-model');
-
-it('returns the company row for a given locale', function () {
-    Network::factory()->create(['key' => 'docuware', 'locale' => LocaleEnum::DE->value, 'name' => 'DocuWare DE']);
-    Network::factory()->create(['key' => 'docuware', 'locale' => LocaleEnum::EN->value, 'name' => 'DocuWare EN']);
-
-    $networkUser = NetworkUser::factory()->create(['network_key' => 'docuware']);
-
-    expect($networkUser->network(LocaleEnum::DE->value)?->name)->toBe('DocuWare DE')
-        ->and($networkUser->network(LocaleEnum::EN->value)?->name)->toBe('DocuWare EN');
+    expect($network->getTranslation('name', 'de_CH'))->toBe('DocuWare DE')
+        ->and($network->getTranslation('name', 'en_CH'))->toBe('DocuWare EN');
 })->group('network', 'network-user-model');
 
 it('filters by the published scope', function () {

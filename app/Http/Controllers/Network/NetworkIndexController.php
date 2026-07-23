@@ -14,7 +14,6 @@ class NetworkIndexController extends Controller
     public function __invoke(): View
     {
         $networks = Network::query()
-            ->where('locale', app()->getLocale())
             ->published()
             ->active()
             ->with('publishedUsers')

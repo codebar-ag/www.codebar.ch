@@ -17,16 +17,14 @@ it('resolves the route key name to slug', function () {
     expect($model->getRouteKeyName())->toBe('slug');
 })->group('unit', 'models');
 
-it('has a references relation', function () {
-    $service = Service::factory()->create();
-    $other = Service::factory()->create();
-
-    $service->references()->create([
-        'reference_type' => Service::class,
-        'reference_id' => $other->id,
-        'reference_locale' => $other->locale->value,
+it('translates name, teaser and content per locale', function () {
+    $service = Service::factory()->create([
+        'name' => ['de_CH' => 'Name DE', 'en_CH' => 'Name EN'],
+        'teaser' => ['de_CH' => 'Teaser DE', 'en_CH' => 'Teaser EN'],
     ]);
 
-    expect($service->references()->count())->toBe(1);
-    expect($service->references->firstOrFail()->target)->toBeInstanceOf(Service::class);
+    expect($service->getTranslation('name', 'de_CH'))->toBe('Name DE')
+        ->and($service->getTranslation('name', 'en_CH'))->toBe('Name EN')
+        ->and($service->getTranslation('teaser', 'de_CH'))->toBe('Teaser DE')
+        ->and($service->getTranslation('teaser', 'en_CH'))->toBe('Teaser EN');
 })->group('unit', 'models');

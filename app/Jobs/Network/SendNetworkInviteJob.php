@@ -37,7 +37,7 @@ class SendNetworkInviteJob implements ShouldQueue
         $networkUser->notify(
             (new NetworkInviteNotification(
                 $url,
-                $networkUser->network($this->locale)->name ?? $networkUser->network_key,
+                is_string($name = $networkUser->network?->getTranslation('name', $this->locale)) ? $name : $networkUser->network_key,
             ))->locale($this->locale),
         );
     }

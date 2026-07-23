@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\LocaleEnum;
 use App\Jobs\Network\SendNetworkInviteJob;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -8,13 +7,10 @@ use Illuminate\Support\Facades\Bus;
 
 function createInvitableUser(): NetworkUser
 {
-    foreach (LocaleEnum::cases() as $locale) {
-        Network::factory()->create([
-            'key' => 'docuware',
-            'locale' => $locale->value,
-            'name' => 'DocuWare',
-        ]);
-    }
+    Network::factory()->create([
+        'key' => 'docuware',
+        'name' => 'DocuWare',
+    ]);
 
     return NetworkUser::factory()->create([
         'network_key' => 'docuware',

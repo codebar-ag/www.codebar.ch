@@ -8,7 +8,6 @@ use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Network;
 use App\Sitemap\SitemapBuilder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
@@ -64,10 +63,11 @@ class SitemapController extends Controller
             ->where('published', true)
             ->whereNotNull('page_slug')
             ->get()
-            ->groupBy('key')
-            ->each(function (Collection $rows) use ($sitemap): void {
-                $pages = $rows
-                    ->map(fn (Network $network): PageDTO => (new PageAction(locale: null, routeName: null))->network(network: $network))
+            ->each(function (Network $network) use ($sitemap): void {
+                $action = new PageAction(locale: null, routeName: null);
+
+                $pages = collect(self::DEFAULT_LOCALES)
+                    ->map(fn (string $locale): PageDTO => $action->network(network: $network, locale: $locale))
                     ->values();
 
                 $pages->each(function (PageDTO $page) use ($pages): void {

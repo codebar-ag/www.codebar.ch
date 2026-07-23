@@ -20,7 +20,6 @@ it('returns 200 for both locales', function (string $locale) {
 it('shows a published network with tier label, excerpt and a website icon link', function () {
     Network::factory()->create([
         'key' => 'docuware',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'DocuWare',
         'category' => NetworkCategoryEnum::SOFTWARE->value,
         'tier_label' => 'Silver Partner',
@@ -41,7 +40,6 @@ it('shows a published network with tier label, excerpt and a website icon link',
 it('shows the drawing illustration when no logo is set but a drawing exists', function () {
     Network::factory()->create([
         'key' => 'docuware',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'DocuWare',
         'cover_url' => null,
     ]);
@@ -54,7 +52,6 @@ it('shows the drawing illustration when no logo is set but a drawing exists', fu
 
 it('shows the placeholder illustration instead of the name when no logo is set', function () {
     Network::factory()->create([
-        'locale' => LocaleEnum::DE->value,
         'name' => 'Placeholder AG',
         'cover_url' => null,
     ]);
@@ -66,7 +63,6 @@ it('shows the placeholder illustration instead of the name when no logo is set',
 
 it('shows the logo image instead of the placeholder when a logo is set', function () {
     Network::factory()->create([
-        'locale' => LocaleEnum::DE->value,
         'name' => 'Logo AG',
         'cover_url' => 'https://res.cloudinary.com/codebar/image/upload/logo-ag.webp',
     ]);
@@ -79,7 +75,6 @@ it('shows the logo image instead of the placeholder when a logo is set', functio
 
 it('does not show unpublished networks', function () {
     Network::factory()->create([
-        'locale' => LocaleEnum::DE->value,
         'name' => 'Hidden Company AG',
         'published' => false,
     ]);
@@ -91,7 +86,6 @@ it('does not show unpublished networks', function () {
 
 it('does not show ended networks', function () {
     Network::factory()->create([
-        'locale' => LocaleEnum::DE->value,
         'name' => 'Former Partner AG',
         'status' => NetworkStatusEnum::ENDED->value,
     ]);
@@ -101,21 +95,20 @@ it('does not show ended networks', function () {
         ->assertDontSee('Former Partner AG');
 })->group('network');
 
-it('does not show networks of another locale', function () {
+it('shows the translated name for the current locale, not the other one', function () {
     Network::factory()->create([
-        'locale' => LocaleEnum::EN->value,
-        'name' => 'English Only AG',
+        'name' => ['de_CH' => 'Deutsche AG', 'en_CH' => 'English Only AG'],
     ]);
 
     get(route('de-ch.network.index'))
         ->assertOk()
+        ->assertSee('Deutsche AG')
         ->assertDontSee('English Only AG');
 })->group('network');
 
 it('shows published contact persons with their channels', function () {
     Network::factory()->create([
         'key' => 'iway',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'iWay',
         'category' => NetworkCategoryEnum::INFRASTRUCTURE->value,
     ]);
@@ -141,7 +134,6 @@ it('shows published contact persons with their channels', function () {
 it('does not show unpublished contact persons', function () {
     Network::factory()->create([
         'key' => 'iway',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'iWay',
     ]);
 
@@ -159,7 +151,6 @@ it('does not show unpublished contact persons', function () {
 it('links to the subpage only when a page slug is set', function () {
     Network::factory()->create([
         'key' => 'baselhack',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'BaselHack',
         'category' => NetworkCategoryEnum::SPONSORING->value,
         'page_slug' => 'baselhack',
@@ -167,7 +158,6 @@ it('links to the subpage only when a page slug is set', function () {
 
     Network::factory()->create([
         'key' => 'odoo',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'Odoo',
         'category' => NetworkCategoryEnum::SOFTWARE->value,
         'page_slug' => null,

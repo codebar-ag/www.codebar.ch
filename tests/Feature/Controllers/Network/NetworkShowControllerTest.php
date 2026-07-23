@@ -11,16 +11,13 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\withSession;
 
 it('renders the baselhack subpage for both locales', function (string $locale) {
-    foreach (LocaleEnum::cases() as $rowLocale) {
-        Network::factory()->create([
-            'key' => 'baselhack',
-            'locale' => $rowLocale->value,
-            'name' => 'BaselHack',
-            'tier_label' => 'Silver Sponsor',
-            'website' => 'https://www.baselhack.ch',
-            'page_slug' => 'baselhack',
-        ]);
-    }
+    Network::factory()->create([
+        'key' => 'baselhack',
+        'name' => ['de_CH' => 'BaselHack', 'en_CH' => 'BaselHack'],
+        'tier_label' => ['de_CH' => 'Silver Sponsor', 'en_CH' => 'Silver Sponsor'],
+        'website' => 'https://www.baselhack.ch',
+        'page_slug' => 'baselhack',
+    ]);
 
     withSession([SessionKeyEnum::LANGUAGE->value => $locale])
         ->get(route(Str::slug($locale).'.network.show', ['slug' => 'baselhack']))
@@ -33,7 +30,6 @@ it('renders the baselhack subpage for both locales', function (string $locale) {
 it('shows published contact persons on the subpage', function () {
     Network::factory()->create([
         'key' => 'baselhack',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'BaselHack',
         'page_slug' => 'baselhack',
     ]);
@@ -64,7 +60,6 @@ it('returns 404 for an unknown slug', function () {
 it('returns 404 when the network is unpublished', function () {
     Network::factory()->create([
         'key' => 'baselhack',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'BaselHack',
         'page_slug' => 'baselhack',
         'published' => false,
@@ -77,7 +72,6 @@ it('returns 404 when the network is unpublished', function () {
 it('returns 404 when the network has ended, even when accessed directly', function () {
     Network::factory()->create([
         'key' => 'baselhack',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'BaselHack',
         'page_slug' => 'baselhack',
         'published' => true,
@@ -91,7 +85,6 @@ it('returns 404 when the network has ended, even when accessed directly', functi
 it('returns 404 when no blade view exists for the page slug', function () {
     Network::factory()->create([
         'key' => 'no-view',
-        'locale' => LocaleEnum::DE->value,
         'name' => 'No View AG',
         'page_slug' => 'no-view',
     ]);

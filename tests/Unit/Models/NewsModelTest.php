@@ -17,16 +17,14 @@ it('resolves the route key name to slug', function () {
     expect($model->getRouteKeyName())->toBe('slug');
 })->group('unit', 'models');
 
-it('has a references relation', function () {
-    $news = News::factory()->create();
-    $other = News::factory()->create();
-
-    $news->references()->create([
-        'reference_type' => News::class,
-        'reference_id' => $other->id,
-        'reference_locale' => $other->locale->value,
+it('translates title, teaser and content per locale', function () {
+    $news = News::factory()->create([
+        'title' => ['de_CH' => 'Titel DE', 'en_CH' => 'Title EN'],
+        'teaser' => ['de_CH' => 'Teaser DE', 'en_CH' => 'Teaser EN'],
     ]);
 
-    expect($news->references()->count())->toBe(1);
-    expect($news->references->firstOrFail()->target)->toBeInstanceOf(News::class);
+    expect($news->getTranslation('title', 'de_CH'))->toBe('Titel DE')
+        ->and($news->getTranslation('title', 'en_CH'))->toBe('Title EN')
+        ->and($news->getTranslation('teaser', 'de_CH'))->toBe('Teaser DE')
+        ->and($news->getTranslation('teaser', 'en_CH'))->toBe('Teaser EN');
 })->group('unit', 'models');

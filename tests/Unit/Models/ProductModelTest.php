@@ -17,16 +17,17 @@ it('resolves the route key name to slug', function () {
     expect($model->getRouteKeyName())->toBe('slug');
 })->group('unit', 'models');
 
-it('has a references relation', function () {
-    $product = Product::factory()->create();
-    $other = Product::factory()->create();
-
-    $product->references()->create([
-        'reference_type' => Product::class,
-        'reference_id' => $other->id,
-        'reference_locale' => $other->locale->value,
+it('translates name, teaser and nested features per locale', function () {
+    $product = Product::factory()->create([
+        'name' => ['de_CH' => 'Name DE', 'en_CH' => 'Name EN'],
+        'features' => [
+            'de_CH' => [['title' => 'Titel DE', 'description' => 'Beschreibung DE']],
+            'en_CH' => [['title' => 'Title EN', 'description' => 'Description EN']],
+        ],
     ]);
 
-    expect($product->references()->count())->toBe(1);
-    expect($product->references->firstOrFail()->target)->toBeInstanceOf(Product::class);
+    expect($product->getTranslation('name', 'de_CH'))->toBe('Name DE')
+        ->and($product->getTranslation('name', 'en_CH'))->toBe('Name EN')
+        ->and($product->getTranslation('features', 'de_CH'))->toBe([['title' => 'Titel DE', 'description' => 'Beschreibung DE']])
+        ->and($product->getTranslation('features', 'en_CH'))->toBe([['title' => 'Title EN', 'description' => 'Description EN']]);
 })->group('unit', 'models');

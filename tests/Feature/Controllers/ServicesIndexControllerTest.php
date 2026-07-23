@@ -16,7 +16,6 @@ it('returns 200 for both locales', function (string $locale) {
 
 it('shows a published service with name and teaser', function () {
     Service::factory()->create([
-        'locale' => LocaleEnum::DE->value,
         'name' => 'Konzeption Visible',
         'teaser' => 'Sichtbarer Teaser Text',
         'published' => true,
@@ -30,7 +29,6 @@ it('shows a published service with name and teaser', function () {
 
 it('does not show unpublished services', function () {
     Service::factory()->create([
-        'locale' => LocaleEnum::DE->value,
         'name' => 'Hidden Service XYZ',
         'published' => false,
     ]);
@@ -40,14 +38,14 @@ it('does not show unpublished services', function () {
         ->assertDontSee('Hidden Service XYZ');
 })->group('services');
 
-it('does not show services of another locale', function () {
+it('shows the translated name for the current locale, not the other one', function () {
     Service::factory()->create([
-        'locale' => LocaleEnum::EN->value,
-        'name' => 'English Only Service',
+        'name' => ['de_CH' => 'Deutscher Service', 'en_CH' => 'English Only Service'],
         'published' => true,
     ]);
 
     get(route('de-ch.services.index'))
         ->assertOk()
+        ->assertSee('Deutscher Service')
         ->assertDontSee('English Only Service');
 })->group('services');

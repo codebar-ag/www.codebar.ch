@@ -98,14 +98,18 @@
                 </div>
 
                 <div class="mt-4">
-                    <label for="avatar" class="block text-sm font-medium text-gray-800">{{ __('Upload') }}</label>
-                    <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png,image/webp,image/avif"
-                           class="mt-1 w-full text-sm text-gray-800 file:mr-3 file:rounded-pill file:border-0 file:bg-brand file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-brand-strong">
-                    <p class="mt-1 text-sm text-muted">
-                        {{ __('JPG, PNG, WebP or AVIF, 1:1, max. 2 MB.') }}
-                        <a href="{{ asset('images/templates/avatar-template.jpg') }}" download
-                           class="text-brand underline">{{ __('Download template (JPG)') }}</a>
-                    </p>
+                    @if($networkUser->avatar_path)
+                        <p class="text-sm text-muted">{{ __('The avatar is a raw upload — please convert it to Cloudinary.') }}</p>
+                    @else
+                        <label for="avatar" class="block text-sm font-medium text-gray-800">{{ __('Upload') }}</label>
+                        <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png,image/webp,image/avif"
+                               class="mt-1 w-full text-sm text-gray-800 file:mr-3 file:rounded-pill file:border-0 file:bg-brand file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-brand-strong">
+                        <p class="mt-1 text-sm text-muted">
+                            {{ __('JPG, PNG, WebP or AVIF, 1:1, max. 2 MB.') }}
+                            <a href="{{ asset('images/templates/avatar-template.jpg') }}" download
+                               class="text-brand underline">{{ __('Download template (JPG)') }}</a>
+                        </p>
+                    @endif
                     @error('avatar')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -146,14 +150,18 @@
                 </div>
 
                 <div class="mt-4">
-                    <label for="cover" class="block text-sm font-medium text-gray-800">{{ __('Upload') }}</label>
-                    <input type="file" id="cover" name="cover" accept="image/jpeg,image/png,image/webp,image/avif"
-                           class="mt-1 w-full text-sm text-gray-800 file:mr-3 file:rounded-pill file:border-0 file:bg-brand file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-brand-strong">
-                    <p class="mt-1 text-sm text-muted">
-                        {{ __('JPG, PNG, WebP or AVIF, 3:1, max. 4 MB.') }}
-                        <a href="{{ asset('images/templates/cover-template.jpg') }}" download
-                           class="text-brand underline">{{ __('Download template (JPG)') }}</a>
-                    </p>
+                    @if($network?->cover_path)
+                        <p class="text-sm text-muted">{{ __('The company image is a raw upload — please convert it to Cloudinary.') }}</p>
+                    @else
+                        <label for="cover" class="block text-sm font-medium text-gray-800">{{ __('Upload') }}</label>
+                        <input type="file" id="cover" name="cover" accept="image/jpeg,image/png,image/webp,image/avif"
+                               class="mt-1 w-full text-sm text-gray-800 file:mr-3 file:rounded-pill file:border-0 file:bg-brand file:px-4 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-brand-strong">
+                        <p class="mt-1 text-sm text-muted">
+                            {{ __('JPG, PNG, WebP or AVIF, 3:1, max. 4 MB.') }}
+                            <a href="{{ asset('images/templates/cover-template.jpg') }}" download
+                               class="text-brand underline">{{ __('Download template (JPG)') }}</a>
+                        </p>
+                    @endif
                     @error('cover')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror

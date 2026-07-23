@@ -4,12 +4,11 @@ use App\Actions\PageAction;
 use App\Models\News;
 use App\Models\OpenSource;
 use App\Models\Product;
-use App\Models\Reference;
 use App\Models\Service;
 use App\Models\Technology;
 
 it('builds a PageDTO for a news item', function () {
-    $news = News::factory()->create(['locale' => 'de_CH']);
+    $news = News::factory()->create();
 
     $page = (new PageAction)->news($news);
 
@@ -20,7 +19,7 @@ it('builds a PageDTO for a news item', function () {
 });
 
 it('builds a PageDTO for a product', function () {
-    $product = Product::factory()->create(['locale' => 'de_CH']);
+    $product = Product::factory()->create();
 
     $page = (new PageAction)->product($product);
 
@@ -29,7 +28,7 @@ it('builds a PageDTO for a product', function () {
 });
 
 it('builds a PageDTO for a service', function () {
-    $service = Service::factory()->create(['locale' => 'de_CH']);
+    $service = Service::factory()->create();
 
     $page = (new PageAction)->service($service);
 
@@ -38,7 +37,7 @@ it('builds a PageDTO for a service', function () {
 });
 
 it('builds a PageDTO for a technology', function () {
-    $technology = Technology::factory()->create(['locale' => 'de_CH']);
+    $technology = Technology::factory()->create();
 
     $page = (new PageAction)->technology($technology);
 
@@ -47,7 +46,7 @@ it('builds a PageDTO for a technology', function () {
 });
 
 it('builds a PageDTO for an open source project', function () {
-    $openSource = OpenSource::factory()->create(['locale' => 'de_CH']);
+    $openSource = OpenSource::factory()->create();
 
     $page = (new PageAction)->openSource($openSource);
 
@@ -55,35 +54,15 @@ it('builds a PageDTO for an open source project', function () {
     expect($page->routeKey)->toBe('open-source.show');
 });
 
-it('includes only same-type reference pages when requested', function () {
-    $news = News::factory()->create(['locale' => 'de_CH']);
-    $referencedNews = News::factory()->create(['locale' => 'en_CH']);
-
-    $news->references()->create([
-        'reference_type' => News::class,
-        'reference_id' => $referencedNews->id,
-        'reference_locale' => $referencedNews->locale->value,
+it('includes the alternate locale as a reference page when requested', function () {
+    $news = News::factory()->create([
+        'title' => ['de_CH' => 'Titel DE', 'en_CH' => 'Title EN'],
+        'teaser' => ['de_CH' => 'Teaser DE', 'en_CH' => 'Teaser EN'],
     ]);
 
-    $page = (new PageAction)->news($news, withReferences: true);
+    $page = (new PageAction(locale: 'de_CH'))->news($news, withReferences: true);
 
     expect($page->referencePages)->toHaveCount(1);
     expect($page->referencePages?->firstOrFail()->locale)->toBe('en_CH');
-});
-
-it('skips reference pages pointing at a different model type', function () {
-    $product = Product::factory()->create(['locale' => 'de_CH']);
-    $news = News::factory()->create(['locale' => 'de_CH']);
-
-    Reference::create([
-        'source_type' => Product::class,
-        'source_id' => $product->id,
-        'reference_type' => News::class,
-        'reference_id' => $news->id,
-        'reference_locale' => $news->locale->value,
-    ]);
-
-    $page = (new PageAction)->product($product, withReferences: true);
-
-    expect($page->referencePages)->toHaveCount(0);
+    expect($page->referencePages?->firstOrFail()->title)->toBe('Title EN');
 });

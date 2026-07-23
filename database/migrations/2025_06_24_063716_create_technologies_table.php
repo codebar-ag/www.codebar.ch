@@ -14,18 +14,16 @@ return new class extends Migration
         Schema::create('technologies', function (Blueprint $table) {
             $table->id();
             $table->boolean('published')->default(false);
-            $table->string('locale');
             $table->string('group');
             $table->integer('order');
-            $table->string('title');
-            $table->string('slug');
-            $table->string('teaser');
-            $table->longText('content')->nullable();
+            $table->json('title');
+            $table->string('slug')->unique();
+            $table->json('teaser');
+            $table->json('content')->nullable();
             $table->string('image');
             $table->json('tags')->nullable();
             $table->string('link')->nullable();
             $table->timestamps();
-            $table->unique(['slug', 'locale']);
         });
     }
 

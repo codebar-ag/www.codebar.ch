@@ -12,36 +12,26 @@ class TechnologiesTableSeeder extends Seeder
 
     public function run(): void
     {
-        $entries = collect($this->readCsv('technologies.csv'))->map(function (array $row) {
-            return Technology::updateOrCreate(
-                [
-                    'locale' => $row['locale'],
-                    'slug' => $row['slug'],
-                ],
-                [
-                    'published' => filter_var($row['published'], FILTER_VALIDATE_BOOLEAN),
-                    'group' => $row['group'],
-                    'order' => (int) $row['order'],
-                    'title' => $row['title'],
-                    'teaser' => $row['teaser'],
-                    'content' => $row['content'] !== '' ? $row['content'] : null,
-                    'image' => $row['image'],
-                    'tags' => $this->decodeJson($row['tags']),
-                    'link' => $row['link'],
-                ]
-            );
-        });
+        collect($this->readCsv('technologies.csv'))
+            ->groupBy('slug')
+            ->each(function ($rows, string $slug) {
+                $byLocale = $rows->keyBy('locale');
+                $first = $rows->first() ?? [];
 
-        $entries->groupBy('slug')->each(function ($group) {
-            $group->each(function (Technology $entry) use ($group) {
-                $group->each(function (Technology $reference) use ($entry) {
-                    $entry->references()->updateOrCreate([
-                        'reference_type' => get_class($reference),
-                        'reference_id' => $reference->id,
-                        'reference_locale' => $reference->locale,
-                    ]);
-                });
+                Technology::updateOrCreate(
+                    ['slug' => $slug],
+                    [
+                        'published' => filter_var($first['published'] ?? false, FILTER_VALIDATE_BOOLEAN),
+                        'group' => $first['group'] ?? '',
+                        'order' => (int) ($first['order'] ?? 0),
+                        'title' => $byLocale->map(fn (array $row) => $row['title'])->all(),
+                        'teaser' => $byLocale->map(fn (array $row) => $row['teaser'])->all(),
+                        'content' => $byLocale->map(fn (array $row) => $row['content'] !== '' ? $row['content'] : null)->all(),
+                        'image' => $first['image'] ?? '',
+                        'tags' => $this->decodeJson($first['tags'] ?? ''),
+                        'link' => $first['link'] ?? null,
+                    ]
+                );
             });
-        });
     }
 }

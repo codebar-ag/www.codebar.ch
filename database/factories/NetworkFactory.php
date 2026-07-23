@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\LocaleEnum;
 use App\Enums\NetworkCategoryEnum;
 use App\Enums\NetworkStatusEnum;
 use App\Models\Network;
@@ -25,8 +24,7 @@ class NetworkFactory extends Factory
 
         return [
             'key' => Str::slug($name),
-            'locale' => LocaleEnum::DE->value,
-            'name' => $name,
+            'name' => ['de_CH' => $name, 'en_CH' => $name],
             'category' => collect(NetworkCategoryEnum::cases())->random()->value,
             'status' => NetworkStatusEnum::ACTIVE->value,
             'cover_url' => null,

@@ -6,7 +6,6 @@ use App\Enums\LocaleEnum;
 use App\Models\Service;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class ServicesTableSeeder extends Seeder
 {
@@ -197,36 +196,25 @@ class ServicesTableSeeder extends Seeder
      */
     private function seed(int $order, string $sharedSlug, array $localizedData): void
     {
-        $entries = collect($localizedData)->map(function (array $data, string $locale) use ($sharedSlug, $order) {
-            $slug = Str::slug($sharedSlug, '-', $locale);
+        $translated = fn (string $field, mixed $default = null) => collect($localizedData)
+            ->map(fn (array $data) => Arr::get($data, $field, $default))
+            ->all();
 
-            return Service::updateOrCreate(
-                [
-                    'locale' => $locale,
-                    'slug' => $slug,
-                ],
-                [
-                    'published' => true,
-                    'order' => $order,
-                    'group' => 'services',
-                    'name' => Arr::get($data, 'name'),
-                    'teaser' => Arr::get($data, 'teaser'),
-                    'tags' => Arr::get($data, 'tags', []),
-                    'content' => Arr::get($data, 'content'),
-                    'url' => Arr::get($data, 'url'),
-                    'image' => Arr::get($data, 'image', ''),
-                ]
-            );
-        });
+        $first = collect($localizedData)->first() ?? [];
 
-        $entries->each(function (Service $entry) use ($entries) {
-            $entries->each(function (Service $reference) use ($entry) {
-                $entry->references()->updateOrCreate([
-                    'reference_type' => get_class($reference),
-                    'reference_id' => $reference->id,
-                    'reference_locale' => $reference->locale,
-                ]);
-            });
-        });
+        Service::updateOrCreate(
+            ['slug' => $sharedSlug],
+            [
+                'published' => true,
+                'order' => $order,
+                'group' => 'services',
+                'name' => $translated('name'),
+                'teaser' => $translated('teaser'),
+                'tags' => Arr::get($first, 'tags', []),
+                'content' => $translated('content'),
+                'url' => Arr::get($first, 'url'),
+                'image' => Arr::get($first, 'image', ''),
+            ]
+        );
     }
 }

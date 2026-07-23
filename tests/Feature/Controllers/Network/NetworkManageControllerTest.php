@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\LocaleEnum;
 use App\Enums\NetworkStatusEnum;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -23,14 +22,11 @@ function signedManageUrl(NetworkUser $networkUser): string
 
 function createNetworkWithUser(): NetworkUser
 {
-    foreach (LocaleEnum::cases() as $locale) {
-        Network::factory()->create([
-            'key' => 'docuware',
-            'locale' => $locale->value,
-            'name' => 'DocuWare',
-            'website' => 'https://old.example.com',
-        ]);
-    }
+    Network::factory()->create([
+        'key' => 'docuware',
+        'name' => 'DocuWare',
+        'website' => 'https://old.example.com',
+    ]);
 
     return NetworkUser::factory()->create([
         'network_key' => 'docuware',
@@ -87,9 +83,7 @@ it('updates the own profile and the company website via a signed link', function
         ->and($networkUser->phone)->toBe('+41 44 000 00 00')
         ->and($networkUser->published)->toBeTrue();
 
-    Network::where('key', 'docuware')->get()->each(function (Network $network) {
-        expect($network->website)->toBe('https://start.docuware.com');
-    });
+    expect(Network::where('key', 'docuware')->firstOrFail()->website)->toBe('https://start.docuware.com');
 })->group('network');
 
 it('can unpublish the own profile', function () {
@@ -125,12 +119,12 @@ it('never touches fields outside the whitelist, including the email address', fu
         ->and($networkUser->role)->toBe('DocuWare Schweiz')
         ->and($networkUser->network_key)->toBe('docuware');
 
-    Network::where('key', 'docuware')->get()->each(function (Network $network) {
-        expect($network->name)->toBe('DocuWare')
-            ->and($network->published)->toBeTrue()
-            ->and($network->status)->toBe(NetworkStatusEnum::ACTIVE)
-            ->and($network->tier_label)->toBeNull();
-    });
+    $network = Network::where('key', 'docuware')->firstOrFail();
+
+    expect($network->name)->toBe('DocuWare')
+        ->and($network->published)->toBeTrue()
+        ->and($network->status)->toBe(NetworkStatusEnum::ACTIVE)
+        ->and($network->tier_label)->toBeNull();
 })->group('network');
 
 it('cannot change the company visibility via the signed link', function () {
@@ -142,9 +136,7 @@ it('cannot change the company visibility via the signed link', function () {
     ])->assertRedirect();
 
     // Only the person's own visibility changed — the company stays published.
-    Network::where('key', 'docuware')->get()->each(function (Network $network) {
-        expect($network->published)->toBeTrue();
-    });
+    expect(Network::where('key', 'docuware')->firstOrFail()->published)->toBeTrue();
 })->group('network');
 
 it('rejects an update without a valid signature', function () {
@@ -208,12 +200,11 @@ it('cannot change the read-only avatar and cover urls via the signed link', func
     expect($networkUser->refresh()->avatar_url)
         ->toBe('https://res.cloudinary.com/demo/image/upload/avatar.jpg');
 
-    Network::where('key', 'docuware')->get()->each(function (Network $network) {
-        expect($network->cover_url)->toBe('https://res.cloudinary.com/demo/image/upload/cover.jpg');
-    });
+    expect(Network::where('key', 'docuware')->firstOrFail()->cover_url)
+        ->toBe('https://res.cloudinary.com/demo/image/upload/cover.jpg');
 })->group('network');
 
-it('stores an uploaded company cover on s3 for every locale row', function () {
+it('stores an uploaded company cover on s3', function () {
     Storage::fake('s3');
 
     $networkUser = createNetworkWithUser();
@@ -228,10 +219,10 @@ it('stores an uploaded company cover on s3 for every locale row', function () {
     expect($files)->toHaveCount(1)
         ->and($files[0])->toStartWith('network/covers/docuware-');
 
-    Network::where('key', 'docuware')->get()->each(function (Network $network) use ($files) {
-        expect($network->cover_disk)->toBe('s3')
-            ->and($network->cover_path)->toBe($files[0]);
-    });
+    $network = Network::where('key', 'docuware')->firstOrFail();
+
+    expect($network->cover_disk)->toBe('s3')
+        ->and($network->cover_path)->toBe($files[0]);
 })->group('network');
 
 it('rejects a non-image cover upload', function () {
