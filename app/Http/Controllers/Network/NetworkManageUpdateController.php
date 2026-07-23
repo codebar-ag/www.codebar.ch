@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Network;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Network\NetworkManageUpdateRequest;
-use App\Models\Network;
 use App\Models\NetworkUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\URL;
@@ -61,10 +60,7 @@ class NetworkManageUpdateController extends Controller
             $networkAttributes['cover_path'] = $path;
         }
 
-        Network::query()
-            ->where('key', $networkUser->network_key)
-            ->get()
-            ->each(fn (Network $network) => $network->update($networkAttributes));
+        $networkUser->network?->update($networkAttributes);
 
         $url = URL::temporarySignedRoute(
             Str::slug(app()->getLocale()).'.network.manage.show',

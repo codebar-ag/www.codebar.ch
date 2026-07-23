@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\LocaleEnum;
 use App\Enums\NetworkCategoryEnum;
 use App\Enums\NetworkStatusEnum;
 use App\Models\Network;
@@ -138,33 +137,22 @@ class NetworksTableSeeder extends Seeder
         ?int $sinceYear = null,
         ?int $untilYear = null,
     ): void {
-        foreach (LocaleEnum::cases() as $locale) {
-            $data = $localizedData[$locale->value] ?? null;
-
-            if (! $data) {
-                continue;
-            }
-
-            Network::updateOrCreate(
-                [
-                    'key' => $key,
-                    'locale' => $locale->value,
-                ],
-                [
-                    'name' => $data['name'],
-                    'category' => $category->value,
-                    'status' => $status->value,
-                    'cover_url' => $data['cover_url'] ?? $coverUrl,
-                    'tier_label' => $data['tier_label'] ?? null,
-                    'excerpt' => $data['excerpt'] ?? null,
-                    'website' => $website,
-                    'since_year' => $sinceYear,
-                    'until_year' => $untilYear,
-                    'page_slug' => $pageSlug,
-                    'published' => true,
-                    'sort' => $sort,
-                ]
-            );
-        }
+        Network::updateOrCreate(
+            ['key' => $key],
+            [
+                'name' => collect($localizedData)->map(fn (array $data) => $data['name'])->all(),
+                'category' => $category->value,
+                'status' => $status->value,
+                'cover_url' => collect($localizedData)->first()['cover_url'] ?? $coverUrl,
+                'tier_label' => collect($localizedData)->map(fn (array $data) => $data['tier_label'] ?? null)->all(),
+                'excerpt' => collect($localizedData)->map(fn (array $data) => $data['excerpt'] ?? null)->all(),
+                'website' => $website,
+                'since_year' => $sinceYear,
+                'until_year' => $untilYear,
+                'page_slug' => $pageSlug,
+                'published' => true,
+                'sort' => $sort,
+            ]
+        );
     }
 }

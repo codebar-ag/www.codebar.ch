@@ -346,36 +346,25 @@ class OpenSourceTableSeeder extends Seeder
         string $version = '',
         ?string $identifier = null,
     ): void {
-        $entries = collect($localizedData)->map(function (array $data, string $locale) use ($sharedSlug, $link, $downloads, $version) {
-            $slug = Str::slug($sharedSlug, '-', $locale);
+        $translated = fn (string $field, mixed $default = null) => collect($localizedData)
+            ->map(fn (array $data) => Arr::get($data, $field, $default))
+            ->all();
 
-            return OpenSource::updateOrCreate(
-                [
-                    'locale' => $locale,
-                    'slug' => $slug,
-                ],
-                [
-                    'published' => true,
-                    'title' => Arr::get($data, 'title'),
-                    'teaser' => Arr::get($data, 'teaser'),
-                    'image' => Arr::get($data, 'image', ''),
-                    'tags' => Arr::get($data, 'tags', []),
-                    'content' => Arr::get($data, 'content'),
-                    'link' => $link,
-                    'downloads' => $downloads,
-                    'version' => $version,
-                ]
-            );
-        });
+        $first = collect($localizedData)->first() ?? [];
 
-        $entries->each(function (OpenSource $entry) use ($entries) {
-            $entries->each(function (OpenSource $reference) use ($entry) {
-                $entry->references()->updateOrCreate([
-                    'reference_type' => get_class($reference),
-                    'reference_id' => $reference->id,
-                    'reference_locale' => $reference->locale,
-                ]);
-            });
-        });
+        OpenSource::updateOrCreate(
+            ['slug' => Str::slug($sharedSlug)],
+            [
+                'published' => true,
+                'title' => $translated('title'),
+                'teaser' => $translated('teaser'),
+                'image' => Arr::get($first, 'image', ''),
+                'tags' => Arr::get($first, 'tags', []),
+                'content' => $translated('content'),
+                'link' => $link,
+                'downloads' => $downloads,
+                'version' => $version,
+            ]
+        );
     }
 }

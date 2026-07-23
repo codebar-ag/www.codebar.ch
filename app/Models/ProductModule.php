@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\LocaleEnum;
-use App\Traits\HasLocalizedReferences;
 use App\Traits\HasLocalizedRouteBinding;
 use Database\Factories\ProductModuleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +14,6 @@ class ProductModule extends Model
     /** @use HasFactory<ProductModuleFactory> */
     use HasFactory;
 
-    use HasLocalizedReferences;
     use HasLocalizedRouteBinding;
 
     protected $casts = [

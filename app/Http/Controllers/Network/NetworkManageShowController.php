@@ -14,7 +14,7 @@ class NetworkManageShowController extends Controller
         return view('app.network.manage')->with([
             'page' => (new PageAction(locale: null, routeName: 'network.request.index'))->default(),
             'networkUser' => $networkUser,
-            'network' => $networkUser->network(),
+            'network' => $networkUser->network,
         ]);
     }
 }

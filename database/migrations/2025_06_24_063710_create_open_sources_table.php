@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('open_sources', function (Blueprint $table) {
             $table->id();
             $table->boolean('published')->default(false);
-            $table->string('locale');
-            $table->string('title');
-            $table->string('slug');
-            $table->string('teaser');
-            $table->longText('content')->nullable();
+            $table->json('title');
+            $table->string('slug')->unique();
+            $table->json('teaser');
+            $table->json('content')->nullable();
             $table->string('image');
             $table->json('tags')->nullable();
             $table->string('link')->nullable();
@@ -29,8 +28,6 @@ return new class extends Migration
             $table->integer('forks')->default(0);
             $table->string('primary_language')->nullable();
             $table->timestamps();
-
-            $table->unique(['slug', 'locale']);
         });
     }
 

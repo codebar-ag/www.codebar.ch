@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Page;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -46,10 +47,10 @@ class SeoImageCleanupSeeder extends Seeder
         ];
 
         foreach ($pageDescriptions as $page) {
-            DB::table('pages')
-                ->where('key', $page['key'])
-                ->where('locale', $page['locale'])
-                ->update(['description' => $page['description']]);
+            Page::where('key', $page['key'])
+                ->first()
+                ?->setTranslation('description', $page['locale'], $page['description'])
+                ->save();
         }
     }
 }

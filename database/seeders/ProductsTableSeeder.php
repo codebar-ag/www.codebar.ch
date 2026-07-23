@@ -6,7 +6,6 @@ use App\Enums\LocaleEnum;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -91,43 +90,32 @@ class ProductsTableSeeder extends Seeder
      */
     private function seed(int $order, string $sharedSlug, array $localizedData): void
     {
-        $entries = collect($localizedData)->map(function (array $data, string $locale) use ($sharedSlug, $order) {
-            $slug = Str::slug($sharedSlug, '-', $locale);
+        $translated = fn (string $field, mixed $default = null) => collect($localizedData)
+            ->map(fn (array $data) => Arr::get($data, $field, $default))
+            ->all();
 
-            return Product::updateOrCreate(
-                [
-                    'locale' => $locale,
-                    'slug' => $slug,
-                ],
-                [
-                    'published' => true,
-                    'order' => $order,
-                    'name' => Arr::get($data, 'name'),
-                    'headline' => Arr::get($data, 'headline'),
-                    'teaser' => Arr::get($data, 'teaser'),
-                    'tags' => Arr::get($data, 'tags', []),
-                    'image' => Arr::get($data, 'image', 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp'),
-                    'content' => Arr::get($data, 'content'),
-                    'features_heading' => Arr::get($data, 'features_heading'),
-                    'features_intro' => Arr::get($data, 'features_intro'),
-                    'features' => Arr::get($data, 'features', []),
-                    'deployment_heading' => Arr::get($data, 'deployment_heading'),
-                    'deployment_intro' => Arr::get($data, 'deployment_intro'),
-                    'deployment_options' => Arr::get($data, 'deployment_options', []),
-                    'cta_heading' => Arr::get($data, 'cta_heading'),
-                    'cta_body' => Arr::get($data, 'cta_body'),
-                ]
-            );
-        });
+        $first = collect($localizedData)->first() ?? [];
 
-        $entries->each(function (Product $entry) use ($entries) {
-            $entries->each(function (Product $reference) use ($entry) {
-                $entry->references()->updateOrCreate([
-                    'reference_type' => get_class($reference),
-                    'reference_id' => $reference->id,
-                    'reference_locale' => $reference->locale,
-                ]);
-            });
-        });
+        Product::updateOrCreate(
+            ['slug' => $sharedSlug],
+            [
+                'published' => true,
+                'order' => $order,
+                'name' => $translated('name'),
+                'headline' => $translated('headline'),
+                'teaser' => $translated('teaser'),
+                'tags' => Arr::get($first, 'tags', []),
+                'image' => Arr::get($first, 'image', 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_1200/www-paperflakes-ch/seo/seo_paperflakes.webp'),
+                'content' => $translated('content'),
+                'features_heading' => $translated('features_heading'),
+                'features_intro' => $translated('features_intro'),
+                'features' => $translated('features', []),
+                'deployment_heading' => $translated('deployment_heading'),
+                'deployment_intro' => $translated('deployment_intro'),
+                'deployment_options' => $translated('deployment_options', []),
+                'cta_heading' => $translated('cta_heading'),
+                'cta_body' => $translated('cta_body'),
+            ]
+        );
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\LocaleEnum;
 use App\Enums\NetworkCategoryEnum;
 use App\Enums\NetworkStatusEnum;
 use Database\Factories\NetworkFactory;
@@ -10,18 +9,28 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Translatable\HasTranslations;
 
 class Network extends Model
 {
     /** @use HasFactory<NetworkFactory> */
     use HasFactory;
 
+    use HasTranslations;
+
+    /** @var array<int, string> */
+    protected array $translatable = ['name', 'excerpt', 'tier_label'];
+
     protected $casts = [
-        'locale' => LocaleEnum::class,
         'category' => NetworkCategoryEnum::class,
         'status' => NetworkStatusEnum::class,
         'published' => 'boolean',
     ];
+
+    public function getLocale(): string
+    {
+        return app()->getLocale();
+    }
 
     /**
      * All contact persons of this company, shared across locales.

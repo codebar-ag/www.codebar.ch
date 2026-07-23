@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\LocaleEnum;
 use App\Models\OpenSource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
@@ -160,29 +159,24 @@ class SyncRepositoriesCommand extends Command
         $teaser = $repo['description'] ?? '';
         $downloads = $this->fetchPackagistDownloads($repo['full_name']);
 
-        foreach (LocaleEnum::cases() as $locale) {
-            $entry = OpenSource::query()->updateOrCreate(
-                [
-                    'locale' => $locale->value,
-                    'slug' => $slug,
-                ],
-                [
-                    'published' => true,
-                    'title' => $title,
-                    'teaser' => $teaser,
-                    'image' => self::DEFAULT_IMAGE,
-                    'tags' => $repo['topics'],
-                    'link' => $repo['html_url'],
-                    'downloads' => $downloads,
-                    'stars' => $repo['stargazers_count'],
-                    'forks' => $repo['forks_count'],
-                    'primary_language' => $repo['language'],
-                    'github_name' => $repo['full_name'],
-                ]
-            );
+        $entry = OpenSource::query()->updateOrCreate(
+            ['slug' => $slug],
+            [
+                'published' => true,
+                'title' => ['de_CH' => $title, 'en_CH' => $title],
+                'teaser' => ['de_CH' => $teaser, 'en_CH' => $teaser],
+                'image' => self::DEFAULT_IMAGE,
+                'tags' => $repo['topics'],
+                'link' => $repo['html_url'],
+                'downloads' => $downloads,
+                'stars' => $repo['stargazers_count'],
+                'forks' => $repo['forks_count'],
+                'primary_language' => $repo['language'],
+                'github_name' => $repo['full_name'],
+            ]
+        );
 
-            $this->line(sprintf('  %s [%s] %s downloads', $entry->title, $locale->value, number_format($downloads)));
-        }
+        $this->line(sprintf('  %s %s downloads', $entry->title, number_format($downloads)));
     }
 
     private function fetchPackagistDownloads(string $fullName): int

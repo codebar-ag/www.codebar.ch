@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('networks', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->string('locale');
-            $table->string('name');
+            $table->string('key')->unique();
+            $table->json('name');
             $table->string('category');
             $table->string('status')->default('active');
             $table->string('cover_disk')->nullable();
             $table->string('cover_path')->nullable();
             $table->string('cover_url')->nullable();
-            $table->string('tier_label')->nullable();
-            $table->string('excerpt')->nullable();
+            $table->json('tier_label')->nullable();
+            $table->json('excerpt')->nullable();
             $table->string('website')->nullable();
             $table->unsignedSmallInteger('since_year')->nullable();
             $table->unsignedSmallInteger('until_year')->nullable();
@@ -30,8 +29,6 @@ return new class extends Migration
             $table->boolean('published')->default(true);
             $table->unsignedInteger('sort')->default(0);
             $table->timestamps();
-
-            $table->unique(['key', 'locale']);
         });
     }
 

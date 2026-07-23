@@ -23,6 +23,7 @@ use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
+use Spatie\Translatable\Translatable;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->multilanguage();
+
+        app(Translatable::class)->allowNullForTranslation();
 
         Network::observe(NetworkObserver::class);
         NetworkUser::observe(NetworkUserObserver::class);

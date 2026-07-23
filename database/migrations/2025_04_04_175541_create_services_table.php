@@ -14,19 +14,16 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->boolean('published')->default(false);
-            $table->string('locale');
             $table->string('group');
             $table->integer('order');
-            $table->string('name');
-            $table->text('teaser');
-            $table->string('slug');
-            $table->longText('content')->nullable();
+            $table->json('name');
+            $table->json('teaser');
+            $table->string('slug')->unique();
+            $table->json('content')->nullable();
             $table->string('image');
             $table->string('url')->nullable();
             $table->json('tags')->nullable();
             $table->timestamps();
-
-            $table->unique(['slug', 'locale']);
         });
     }
 

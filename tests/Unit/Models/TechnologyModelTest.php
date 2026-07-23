@@ -17,16 +17,14 @@ it('resolves the route key name to slug', function () {
     expect($model->getRouteKeyName())->toBe('slug');
 })->group('unit', 'models');
 
-it('has a references relation', function () {
-    $technology = Technology::factory()->create();
-    $other = Technology::factory()->create();
-
-    $technology->references()->create([
-        'reference_type' => Technology::class,
-        'reference_id' => $other->id,
-        'reference_locale' => $other->locale->value,
+it('translates title, teaser and content per locale', function () {
+    $technology = Technology::factory()->create([
+        'title' => ['de_CH' => 'Titel DE', 'en_CH' => 'Title EN'],
+        'teaser' => ['de_CH' => 'Teaser DE', 'en_CH' => 'Teaser EN'],
     ]);
 
-    expect($technology->references()->count())->toBe(1);
-    expect($technology->references->firstOrFail()->target)->toBeInstanceOf(Technology::class);
+    expect($technology->getTranslation('title', 'de_CH'))->toBe('Titel DE')
+        ->and($technology->getTranslation('title', 'en_CH'))->toBe('Title EN')
+        ->and($technology->getTranslation('teaser', 'de_CH'))->toBe('Teaser DE')
+        ->and($technology->getTranslation('teaser', 'en_CH'))->toBe('Teaser EN');
 })->group('unit', 'models');

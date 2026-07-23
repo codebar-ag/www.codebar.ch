@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\LocaleEnum;
 use App\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,18 +17,19 @@ class TechnologyFactory extends Factory
      */
     public function definition(): array
     {
-        /** @var string $title words() returns a string when $asText is true */
-        $title = fake()->unique()->words(3, true);
+        /** @var string $titleDe words() returns a string when $asText is true */
+        $titleDe = fake()->unique()->words(3, true);
+        /** @var string $titleEn words() returns a string when $asText is true */
+        $titleEn = fake()->unique()->words(3, true);
 
         return [
             'published' => true,
-            'locale' => collect(LocaleEnum::cases())->random()->value,
             'group' => fake()->word(),
             'order' => fake()->numberBetween(1, 100),
-            'title' => $title,
-            'slug' => str($title)->slug(),
-            'teaser' => fake()->sentence(),
-            'content' => fake()->paragraphs(3, true),
+            'title' => ['de_CH' => $titleDe, 'en_CH' => $titleEn],
+            'slug' => str($titleDe)->slug(),
+            'teaser' => ['de_CH' => fake()->sentence(), 'en_CH' => fake()->sentence()],
+            'content' => ['de_CH' => fake()->paragraphs(3, true), 'en_CH' => fake()->paragraphs(3, true)],
             'image' => fake()->imageUrl(),
             'tags' => fake()->words(2),
             'link' => fake()->url(),

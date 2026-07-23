@@ -12,7 +12,6 @@ class NetworkShowController extends Controller
     public function __invoke(string $slug): View
     {
         $network = Network::query()
-            ->where('locale', app()->getLocale())
             ->published()
             ->active()
             ->where('page_slug', $slug)

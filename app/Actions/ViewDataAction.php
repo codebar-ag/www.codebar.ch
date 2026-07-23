@@ -25,8 +25,8 @@ class ViewDataAction
     {
         $key = Str::slug("products_published_{$locale}");
 
-        return Cache::rememberForever($key, function () use ($locale) {
-            return Product::where('locale', $locale)->where('published', true)->orderBy('order')->get();
+        return Cache::rememberForever($key, function () {
+            return Product::where('published', true)->orderBy('order')->get();
         });
     }
 
@@ -37,8 +37,8 @@ class ViewDataAction
     {
         $key = Str::slug("services_published_{$locale}");
 
-        return Cache::rememberForever($key, function () use ($locale) {
-            return Service::where('locale', $locale)->where('published', true)->orderBy('order')->get();
+        return Cache::rememberForever($key, function () {
+            return Service::where('published', true)->orderBy('order')->get();
         });
     }
 
@@ -49,8 +49,8 @@ class ViewDataAction
     {
         $key = Str::slug("news_published_{$locale}");
 
-        return Cache::rememberForever($key, function () use ($locale) {
-            return News::where('locale', $locale)->whereNotNull('published_at')->orderByDesc('published_at')->get();
+        return Cache::rememberForever($key, function () {
+            return News::whereNotNull('published_at')->orderByDesc('published_at')->get();
         });
     }
 
@@ -61,8 +61,8 @@ class ViewDataAction
     {
         $key = Str::slug("technologies_published_{$locale}");
 
-        return Cache::rememberForever($key, function () use ($locale) {
-            return Technology::where('locale', $locale)->where('published', true)->orderBy('order')->get();
+        return Cache::rememberForever($key, function () {
+            return Technology::where('published', true)->orderBy('order')->get();
         });
     }
 
@@ -112,8 +112,8 @@ class ViewDataAction
     {
         $key = Str::slug("open_source_published_{$locale}");
 
-        return Cache::rememberForever($key, function () use ($locale) {
-            return OpenSource::where('locale', $locale)->where('published', true)->orderByDesc('downloads')->get();
+        return Cache::rememberForever($key, function () {
+            return OpenSource::where('published', true)->orderByDesc('downloads')->get();
         });
     }
 

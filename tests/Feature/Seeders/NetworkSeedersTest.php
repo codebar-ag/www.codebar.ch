@@ -25,25 +25,27 @@ it('seeds every company in both locales', function () {
     ];
 
     foreach ($expectedKeys as $key) {
+        $network = Network::where('key', $key)->firstOrFail();
+
         foreach (LocaleEnum::cases() as $locale) {
-            expect(Network::where('key', $key)->where('locale', $locale->value)->exists())->toBeTrue();
+            expect($network->getTranslation('name', $locale->value, false))->not->toBeEmpty();
         }
     }
 
-    expect(Network::count())->toBe(count($expectedKeys) * count(LocaleEnum::cases()));
+    expect(Network::count())->toBe(count($expectedKeys));
 })->group('network', 'seeders');
 
 it('seeds the tiers and categories', function () {
     seed(NetworksTableSeeder::class);
 
-    $docuware = Network::where('key', 'docuware')->where('locale', LocaleEnum::DE->value)->firstOrFail();
-    $odoo = Network::where('key', 'odoo')->where('locale', LocaleEnum::DE->value)->firstOrFail();
-    $baselhack = Network::where('key', 'baselhack')->where('locale', LocaleEnum::DE->value)->firstOrFail();
+    $docuware = Network::where('key', 'docuware')->firstOrFail();
+    $odoo = Network::where('key', 'odoo')->firstOrFail();
+    $baselhack = Network::where('key', 'baselhack')->firstOrFail();
 
     expect($docuware->tier_label)->toBeNull()
         ->and($docuware->category)->toBe(NetworkCategoryEnum::SOFTWARE)
         ->and($odoo->tier_label)->toBeNull()
-        ->and($baselhack->tier_label)->toBe('Silver Sponsor')
+        ->and($baselhack->getTranslation('tier_label', LocaleEnum::DE->value))->toBe('Silver Sponsor')
         ->and($baselhack->page_slug)->toBeNull();
 })->group('network', 'seeders');
 
@@ -79,6 +81,6 @@ it('is idempotent', function () {
     seed(NetworkUsersTableSeeder::class);
     seed(NetworkUsersTableSeeder::class);
 
-    expect(Network::count())->toBe(18)
+    expect(Network::count())->toBe(9)
         ->and(NetworkUser::count())->toBe(6);
 })->group('network', 'seeders');

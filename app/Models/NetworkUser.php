@@ -8,7 +8,7 @@ use Database\Factories\NetworkUserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
 class NetworkUser extends Model
@@ -23,23 +23,13 @@ class NetworkUser extends Model
     ];
 
     /**
-     * The company rows of this person, one per locale.
+     * The company this person belongs to.
      *
-     * @return HasMany<Network, $this>
+     * @return BelongsTo<Network, $this>
      */
-    public function networks(): HasMany
+    public function network(): BelongsTo
     {
-        return $this->hasMany(Network::class, 'key', 'network_key');
-    }
-
-    /**
-     * The company row for the given (or current) locale.
-     */
-    public function network(?string $locale = null): ?Network
-    {
-        return $this->networks()
-            ->where('locale', $locale ?? app()->getLocale())
-            ->first();
+        return $this->belongsTo(Network::class, 'network_key', 'key');
     }
 
     /**

@@ -17,16 +17,14 @@ it('resolves the route key name to slug', function () {
     expect($model->getRouteKeyName())->toBe('slug');
 })->group('unit', 'models');
 
-it('has a references relation', function () {
-    $openSource = OpenSource::factory()->create();
-    $other = OpenSource::factory()->create();
-
-    $openSource->references()->create([
-        'reference_type' => OpenSource::class,
-        'reference_id' => $other->id,
-        'reference_locale' => $other->locale->value,
+it('translates title, teaser and content per locale', function () {
+    $openSource = OpenSource::factory()->create([
+        'title' => ['de_CH' => 'Titel DE', 'en_CH' => 'Title EN'],
+        'teaser' => ['de_CH' => 'Teaser DE', 'en_CH' => 'Teaser EN'],
     ]);
 
-    expect($openSource->references()->count())->toBe(1);
-    expect($openSource->references->firstOrFail()->target)->toBeInstanceOf(OpenSource::class);
+    expect($openSource->getTranslation('title', 'de_CH'))->toBe('Titel DE')
+        ->and($openSource->getTranslation('title', 'en_CH'))->toBe('Title EN')
+        ->and($openSource->getTranslation('teaser', 'de_CH'))->toBe('Teaser DE')
+        ->and($openSource->getTranslation('teaser', 'en_CH'))->toBe('Teaser EN');
 })->group('unit', 'models');
