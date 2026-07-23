@@ -49,6 +49,23 @@ it('includes live legal and media pages in the sitemap', function () {
     expect($content)->toContain('medien');
 })->group('sitemap');
 
+it('includes the newly activated terms and jobs pages in the sitemap', function () {
+    seed(PagesTableSeeder::class);
+
+    Cache::flush();
+
+    $response = get('sitemap.xml');
+
+    $response->assertOk();
+
+    $content = $response->getContent();
+
+    expect($content)->toContain('legal/terms');
+    expect($content)->toContain('jobs');
+    expect($content)->toContain('rechtliches/geschaeftsbedingungen');
+    expect($content)->toContain('stellen');
+})->group('sitemap');
+
 it('does not include disabled pages in the sitemap', function () {
     seed(PagesTableSeeder::class);
 
@@ -64,8 +81,9 @@ it('does not include disabled pages in the sitemap', function () {
     expect($content)->not->toContain('produkte');
     expect($content)->not->toContain('technologien');
     expect($content)->not->toContain('open-source-beitraege');
-    expect($content)->not->toContain('stellen');
-    expect($content)->not->toContain('geschaeftsbedingungen');
+    expect($content)->not->toContain('co-working');
+    expect($content)->not->toContain('ueber-uns');
+    expect($content)->not->toContain('about-us');
 })->group('sitemap');
 
 it('includes the AI pages in the sitemap', function () {

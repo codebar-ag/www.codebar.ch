@@ -7,11 +7,11 @@
 
         <x-ui.link :href="localized_route('services.index')" label="{{ __('Services') }}" class="text-xl md:text-2xl" />
 
-        <span class="text-gray-300" aria-hidden="true">|</span>
+        {{-- <span class="text-gray-300" aria-hidden="true">|</span>
 
         <x-ui.link :href="localized_route('about-us.index')" label="{{ __('Team') }}" class="text-xl md:text-2xl" />
 
-        {{-- <span class="text-gray-300" aria-hidden="true">|</span>
+        <span class="text-gray-300" aria-hidden="true">|</span>
 
         <x-ui.link :href="localized_route('technologies.index')" label="{{ __('Technologies') }}" class="text-xl md:text-2xl" /> --}}
 

@@ -1,14 +1,14 @@
 <?php
 
+use App\Http\Middleware\PreventRequestForgery;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLanguage;
-use App\Http\Middleware\ValidateCsrfToken;
 use App\Providers\AppServiceProvider;
 use App\Providers\EventServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken as FrameworkValidateCsrfToken;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery as FrameworkPreventRequestForgery;
 use Mazedlx\FeaturePolicy\AddFeaturePolicyHeaders;
 use Spatie\Csp\AddCspHeaders;
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -31,8 +31,9 @@ return Application::configure(basePath: dirname(__DIR__))
             SecurityHeaders::class,
             SetLanguage::class,
             CacheResponse::class,
+        ], replace: [
+            FrameworkPreventRequestForgery::class => PreventRequestForgery::class,
         ]);
-        $middleware->replace(FrameworkValidateCsrfToken::class, ValidateCsrfToken::class);
         $middleware->alias([
             'role' => RoleMiddleware::class,
         ]);

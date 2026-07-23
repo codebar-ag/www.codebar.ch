@@ -13,7 +13,7 @@
         : __('errors.default_server');
 @endphp
 
-@include('errors.partials._auth-error', [
+@include('errors.partials._error-page', [
     'statusCode' => $statusCode,
     'title' => __('errors.title_server'),
     'message' => $message,

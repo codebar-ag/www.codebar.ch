@@ -4,7 +4,6 @@
     // One accent hue per main page so the explore tiles carry a bit of colour.
     $accent = match ($route) {
         'services.index' => 'border-l-sky-400',
-        'about-us.index' => 'border-l-amber-400',
         'ai.index' => 'border-l-violet-400',
         'network.index' => 'border-l-emerald-400',
         'contact.index' => 'border-l-rose-400',

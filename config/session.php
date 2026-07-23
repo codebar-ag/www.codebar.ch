@@ -14,12 +14,9 @@ return [
     |
     */
 
-    // The __Host- prefix requires Secure, Path=/ and no Domain attribute,
-    // so it is only applied when SESSION_SECURE_COOKIE is enabled.
     'cookie' => env(
         'SESSION_COOKIE',
-        (env('SESSION_SECURE_COOKIE') ? '__Host-' : '')
-            .Str::slug((string) env('APP_NAME', 'laravel'), '_').'_session'
+        Str::slug((string) env('APP_NAME', 'laravel'), '_').'_session'
     ),
 
 ];

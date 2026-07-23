@@ -24,8 +24,8 @@
         <x-h2 :title="__('Authorized representatives')"/>
         <x-ui.prose variant="legal">
             <ul>
-                <li>Sebastian Bürgin</li>
-                <li>Melanie Sabrina Bürgin</li>
+                <li>Sebastian Bürgin-Fix</li>
+                <li>Melanie Sabrina Bürgin-Fix</li>
             </ul>
         </x-ui.prose>
     </x-layout.section>
