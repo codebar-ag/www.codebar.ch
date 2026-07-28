@@ -80,6 +80,7 @@ return [
             'total' => 'Total',
         ],
         'empty' => 'Noch keine Nutzungsdaten vorhanden.',
+        'last_synced' => 'Zuletzt aktualisiert am :datetime, Daten bis und mit :date.',
         'back' => 'Zurück zu unseren LLMs',
     ],
     'ai_llm' => [

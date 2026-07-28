@@ -12,11 +12,11 @@ use function Pest\Laravel\get;
 
 $startRoute = fn () => route(Str::slug(LocaleEnum::DE->value).'.start.index');
 
-it('redirects a news article to the start page while news is disabled', function () use ($startRoute) {
+it('renders a news article', function () {
     $news = News::factory()->create();
 
     get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
-        ->assertRedirect($startRoute());
+        ->assertOk();
 })->group('news', 'show');
 
 it('redirects a product to the start page while products are disabled', function () use ($startRoute) {
@@ -40,9 +40,18 @@ it('redirects a technology to the start page while technologies are disabled', f
         ->assertRedirect($startRoute());
 })->group('technologies', 'show');
 
-it('redirects an open source project to the start page while open source is disabled', function () use ($startRoute) {
+it('renders an open source project that has a written body', function () {
     $openSource = OpenSource::factory()->create();
 
     get(route('de-ch.open-source.show', ['locale' => 'de_CH', 'openSource' => $openSource->slug]))
-        ->assertRedirect($startRoute());
+        ->assertOk();
+})->group('open-source', 'show');
+
+it('does not expose an open source project without a written body', function () {
+    // sync:repositories imports title and teaser from GitHub but leaves the
+    // body empty — there is no page worth serving, let alone indexing.
+    $openSource = OpenSource::factory()->create(['content' => null]);
+
+    get(route('de-ch.open-source.show', ['locale' => 'de_CH', 'openSource' => $openSource->slug]))
+        ->assertNotFound();
 })->group('open-source', 'show');

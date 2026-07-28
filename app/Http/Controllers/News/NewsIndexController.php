@@ -4,25 +4,26 @@ namespace App\Http\Controllers\News;
 
 use App\Actions\PageAction;
 use App\Actions\ViewDataAction;
+use App\DTO\PageDTO;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Str;
+use App\Seo\SchemaNodes;
 use Illuminate\View\View;
 
 class NewsIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View|RedirectResponse
+    public function __invoke(): View
     {
-        return redirect()->route(Str::slug(app()->getLocale()).'.start.index');
+        $locale = app()->getLocale();
 
-        /*        $locale = app()->getLocale();
+        $page = (new PageAction(locale: null, routeName: 'news.index'))->default();
+        $news = (new ViewDataAction)->news($locale);
 
-                return view('app.news.index')->with([
-                    'page' => (new PageAction(locale: null, routeName: 'news.index'))->default(),
-                    'news' => (new ViewDataAction)->news($locale),
-                ]);*/
+        return view('app.news.index')->with([
+            'page' => $page,
+            'news' => $news,
+            'schema' => $page instanceof PageDTO
+                ? SchemaNodes::blog($news, $page, $locale)
+                : [],
+        ]);
     }
 }

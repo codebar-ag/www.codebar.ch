@@ -65,6 +65,8 @@ class AiLlmAnalyticsIndexController extends Controller
             'month' => $month,
             'model' => $model,
             'modelLabel' => $model === LlmUsageStatsAction::OTHER_MODEL ? $otherLabel : $model,
+            'lastSyncedAt' => $stats->lastSyncedAt(),
+            'latestDate' => $stats->latestDate(),
         ]);
     }
 

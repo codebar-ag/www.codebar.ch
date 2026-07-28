@@ -10,49 +10,35 @@ use Illuminate\Support\Carbon;
 class NewsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Only articles that genuinely exist in both languages belong here.
+     *
+     * This seeder previously defined two entries that both read the same
+     * markdown file, and one of them paired a German title with an unrelated
+     * English one. Published, that would have produced two URLs with identical
+     * bodies plus an hreflang pair joining two different articles — exactly the
+     * duplicate-content and wrong-language signals that cost indexing across a
+     * whole domain. Add the second article back once its text has been written.
      */
     public function run(): void
     {
-
         $this->seed(
             slug: 'docuware-7-12-is-here',
             publishedAt: Carbon::parse('2025-04-06'),
             author: 'Sebastian Bürgin-Fix',
             localizedData: [
                 'de_CH' => [
-                    'title' => 'Hello World! codebar stellt sich vor.',
-                    'teaser' => 'Computerprogramme werden vielfach in fernen Ländern entwickelt, nicht aber bei codebar. Hier gibt es «Software made in Basel». Wir haben Sebastian Fix, den Geschäftsführer dieses Start-ups, nach der Idee dahinter gefragt.',
+                    'title' => 'DocuWare 7.12 ist da',
+                    'teaser' => 'Mehr Automatisierung, mehr Einblick, mehr Effizienz: Das Release verbessert die E-Rechnungsverarbeitung, bringt IDP in die Cloud-Konfiguration und öffnet Workflow-Daten für Analytics.',
                     'content' => file_get_contents(database_path('files/news/de_CH/20250406_docuware_712.md')),
                 ],
                 'en_CH' => [
                     'title' => 'DocuWare 7.12 is here',
-                    'teaser' => 'More automation, more insights, more efficiency',
+                    'teaser' => 'More automation, more insight, more efficiency: this release improves e-invoice processing, brings IDP into the cloud configuration and opens workflow data up to analytics.',
                     'content' => file_get_contents(database_path('files/news/en_CH/20250406_docuware_712.md')),
                 ],
             ],
             tags: ['DMS/ECM', 'DocuWare'],
         );
-
-        $this->seed(
-            slug: 'docu-ware-cloud-partner',
-            publishedAt: Carbon::parse('2025-04-06'),
-            author: 'Sebastian Bürgin-Fix',
-            localizedData: [
-                'de_CH' => [
-                    'title' => 'DocuWare und codebar Solutions AG: Zwei Partner, eine Mission',
-                    'teaser' => 'Die codebar Solutions AG ist seit Februar 2023 offizieller Partner der Dokumenten-Management-Lösung (DMS) DocuWare Cloud. Dadurch haben unsere Kund*innen ab sofort ein Tool an der Hand, welches ihnen helfen wird, die Digitalisierung im eigenen Unternehmen voranzutreiben.',
-                    'content' => file_get_contents(database_path('files/news/de_CH/20250406_docuware_712.md')),
-                ],
-                'en_CH' => [
-                    'title' => 'DocuWare 7.12 is here',
-                    'teaser' => 'More automation, more insights, more efficiency',
-                    'content' => file_get_contents(database_path('files/news/en_CH/20250406_docuware_712.md')),
-                ],
-            ],
-            tags: ['DMS/ECM', 'DocuWare'],
-        );
-
     }
 
     /**

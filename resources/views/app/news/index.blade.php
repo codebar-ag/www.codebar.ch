@@ -1,4 +1,4 @@
-<x-app-layout :page="$page">
+<x-app-layout :page="$page" :schema="$schema">
     <x-layout.page-header
             :title="__('News')"
             :intro="__('Insights from our day-to-day work: what we are building, what we are learning, and what is happening at codebar.')"/>

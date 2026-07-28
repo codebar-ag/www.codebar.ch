@@ -9,11 +9,13 @@ use App\Models\Network;
 use App\Models\NetworkUser;
 use App\Models\News;
 use App\Models\OpenSource;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Technology;
 use App\Observers\NetworkObserver;
 use App\Observers\NetworkUserObserver;
+use App\Observers\SitemapCacheObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Check;
@@ -40,6 +42,11 @@ class AppServiceProvider extends ServiceProvider
 
         Network::observe(NetworkObserver::class);
         NetworkUser::observe(NetworkUserObserver::class);
+
+        // Everything the sitemap draws its URLs from.
+        foreach ([Page::class, Network::class, News::class, OpenSource::class] as $model) {
+            $model::observe(SitemapCacheObserver::class);
+        }
 
         Model::unguard();
         Model::shouldBeStrict($this->app->isLocal());

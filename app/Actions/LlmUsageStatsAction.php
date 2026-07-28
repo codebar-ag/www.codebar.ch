@@ -3,8 +3,10 @@
 namespace App\Actions;
 
 use App\Models\AiModelDailyUsage;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Closure;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
@@ -52,6 +54,35 @@ class LlmUsageStatsAction
                 ->unique()
                 ->values();
         });
+    }
+
+    /**
+     * When the sync last wrote usage rows to the database.
+     */
+    public function lastSyncedAt(): ?Carbon
+    {
+        return $this->remember('last_synced_at', function (): ?Carbon {
+            return $this->toDate(AiModelDailyUsage::query()->max('updated_at'));
+        });
+    }
+
+    /**
+     * The most recent day usage data is available for.
+     */
+    public function latestDate(): ?Carbon
+    {
+        return $this->remember('latest_date', function (): ?Carbon {
+            return $this->toDate(AiModelDailyUsage::query()->max('date'));
+        });
+    }
+
+    private function toDate(mixed $value): ?Carbon
+    {
+        return match (true) {
+            is_string($value) => Carbon::parse($value),
+            $value instanceof DateTimeInterface => Carbon::instance($value),
+            default => null,
+        };
     }
 
     /**

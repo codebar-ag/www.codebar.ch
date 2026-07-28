@@ -80,7 +80,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
 
     Route::get('jobs', JobsIndexController::class)->name('jobs.index');
     Route::get('media', MediaIndexController::class)->name('media.index');
-    Route::get('contact', ContactIndexController::class)->name('contact.index');
+    // Not cached: the opening hours box reflects the current day and open/closed state.
+    Route::get('contact', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
 });
 
 Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
@@ -122,7 +123,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 
     Route::get('stellen', JobsIndexController::class)->name('jobs.index');
     Route::get('medien', MediaIndexController::class)->name('media.index');
-    Route::get('kontakt', ContactIndexController::class)->name('contact.index');
+    // Not cached: the opening hours box reflects the current day and open/closed state.
+    Route::get('kontakt', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
 });
 
 Route::post('language/update', LocaleUpdateController::class)->name('language.update');

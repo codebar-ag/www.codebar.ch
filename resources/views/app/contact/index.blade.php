@@ -1,14 +1,15 @@
-<x-app-layout :page="$page">
+<x-app-layout :page="$page" :schema="$schema">
     <x-layout.page-header :title="__('Contact')" :intro="__('components.contact.header')"/>
 
     <x-layout.section class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
         <div>
             <x-h2 :title="__('Phone')"/>
-            <x-ui.link href="tel:0041615156090" label="{{ __('+41 61 515 60 90') }}" class="block"/>
+            <x-ui.link href="tel:{{ config('company.phone.e164') }}" label="{{ __('+41 61 515 60 90') }}" class="block"/>
         </div>
         <div>
             <x-h2 :title="__('Email')"/>
-            <x-ui.link href="mailto:info@codebar.ch?subject=Hello%20World!" label="{{ __('info(at)codebar.ch') }}"
+            <x-ui.link href="mailto:{{ config('company.email') }}?subject=Hello%20World!"
+                       label="{{ __('info(at)codebar.ch') }}"
                        class="block"/>
         </div>
     </x-layout.section>
@@ -16,18 +17,18 @@
     <x-layout.section>
         <x-h2 :title="__('Locations')"/>
         <x-layout.grid :cols="2" gap="gap-6 sm:gap-4">
-            <x-card.address-card
-                    :title="__('Zunzgen')"
-                    :label="__('Headquarter')"
-                    :lines="['codebar Solutions AG', 'Hauptstrasse 91', 'CH-4455 Zunzgen']"
-                    link-href="https://maps.app.goo.gl/d9iK5vCrHHAHUcvx6"
-                    link-label="{{ __('Google Maps') }} — {{ __('Zunzgen') }}"/>
-            <x-card.address-card
-                    :title="__('Oberwil')"
-                    :label="__('Office')"
-                    :lines="['codebar Solutions AG', 'Langegasse 39', 'CH-4104 Oberwil']"
-                    link-href="https://maps.app.goo.gl/1ndrUgUvw2pxxekUA"
-                    link-label="{{ __('Google Maps') }} — {{ __('Oberwil') }}"/>
+            @foreach($locations as $location)
+                <x-card.address-card
+                        :title="__($location['city'])"
+                        :label="__($location['label'])"
+                        :lines="[
+                            config('company.legal_name'),
+                            $location['street'],
+                            $location['country'] . '-' . $location['postal_code'] . ' ' . $location['city'],
+                        ]"
+                        :link-href="$location['map_url']"
+                        link-label="{{ __('Google Maps') }} — {{ __($location['city']) }}"/>
+            @endforeach
         </x-layout.grid>
     </x-layout.section>
 

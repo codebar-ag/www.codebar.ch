@@ -50,6 +50,17 @@
         </x-layout.section>
     @endif
 
+    @if ($lastSyncedAt && $latestDate)
+        <x-layout.section class="mt-4 text-sm text-muted">
+            <p>
+                {{ __('components.ai_llm_analytics.last_synced', [
+                    'datetime' => \App\Helpers\Facades\HelperDate::formatDateTime($lastSyncedAt),
+                    'date' => \App\Helpers\Facades\HelperDate::formatDate($latestDate),
+                ]) }}
+            </p>
+        </x-layout.section>
+    @endif
+
     @if ($periods->isEmpty())
         <x-layout.section>
             <p class="text-muted">{{ __('components.ai_llm_analytics.empty') }}</p>

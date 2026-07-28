@@ -4,19 +4,20 @@
     <x-layout.section>
         <x-h2 :title="__('Company')"/>
         <x-card.address-card
-                :lines="['codebar Solutions AG', __('Legal form AG'), 'CHE-257.955.682']"
-                link-href="https://zefix.ch/de/search/entity/list/firm/1466584"
+                :lines="[config('company.legal_name'), __('Legal form AG'), config('company.uid')]"
+                :link-href="config('company.zefix_url')"
                 link-label="{{ __('Zefix') }}"/>
     </x-layout.section>
 
     <x-layout.section class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
         <div>
             <x-h2 :title="__('Email')"/>
-            <x-ui.link href="mailto:info@codebar.ch" label="{{ __('info(at)codebar.ch') }}" class="block"/>
+            <x-ui.link href="mailto:{{ config('company.email') }}" label="{{ __('info(at)codebar.ch') }}"
+                       class="block"/>
         </div>
         <div>
             <x-h2 :title="__('Phone')"/>
-            <x-ui.link href="tel:0041615156090" label="{{ __('+41 61 515 60 90') }}" class="block"/>
+            <x-ui.link href="tel:{{ config('company.phone.e164') }}" label="{{ __('+41 61 515 60 90') }}" class="block"/>
         </div>
     </x-layout.section>
 

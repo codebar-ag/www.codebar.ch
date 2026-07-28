@@ -11,8 +11,17 @@
 
         $hreflangAlternates = collect(\App\Enums\LocaleEnum::cases())
             ->mapWithKeys(function ($locale) use ($page) {
+                $parameters = $page->routeParameters;
+
+                // Detail routes carry the locale in the path as well as in the
+                // route-name prefix (/news/{locale}/{slug}). Without swapping it
+                // the English alternate points at the German article.
+                if (is_array($parameters) && array_key_exists('locale', $parameters)) {
+                    $parameters['locale'] = $locale->value;
+                }
+
                 try {
-                    $url = route(\Illuminate\Support\Str::slug($locale->value).'.'.$page->routeKey, $page->routeParameters, true);
+                    $url = route(\Illuminate\Support\Str::slug($locale->value).'.'.$page->routeKey, $parameters, true);
                 } catch (\Throwable) {
                     return [];
                 }
@@ -23,8 +32,6 @@
     <title>{{ $page->title }}</title>
     <meta name="robots" content="{{ $page->robots }}">
     <meta name="description" content="{{ $page->description }}">
-    <meta name="language" Content="{{ $page->locale }}">
-    <meta name="url" content="{{ request()->url() }}">
     <link rel="canonical" href="{{ request()->url() }}">
     @foreach($hreflangAlternates as $hreflang => $url)
         <link rel="alternate" hreflang="{{ $hreflang }}" href="{{ $url }}">
@@ -50,7 +57,11 @@
     <meta name="twitter:description" content="{{ $page->description }}">
     <meta name="twitter:image" content="{{ $seoImage }}">
 @else
+    {{-- No page metadata: error pages and anything else rendered without a
+         PageDTO. These must never enter the index — without an explicit robots
+         tag an error page competes with real content in search results. --}}
     <title>{{ config('app.name') }}</title>
+    <meta name="robots" content="noindex,follow">
 @endif
 
 

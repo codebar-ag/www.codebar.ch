@@ -20,6 +20,7 @@
     <link rel="preload" href="{{ asset('fonts/poppins/poppins-regular.woff2') }}" as="font" type="font/woff2" crossorigin>
 
     @include('layouts._partials._seo')
+    @include('layouts._partials._schema')
     @include('layouts._partials._favicons')
 
     @vite(['resources/js/app.js'])

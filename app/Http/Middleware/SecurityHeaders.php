@@ -22,6 +22,13 @@ class SecurityHeaders
             );
         }
 
+        // Belt and braces alongside robots.txt: a crawler that reaches a
+        // staging URL through a link rather than the root still gets told not
+        // to index it. robots.txt only prevents crawling, not indexing.
+        if (! app()->isProduction()) {
+            $response->headers->set('X-Robots-Tag', 'noindex, nofollow');
+        }
+
         $response->headers->set('Cross-Origin-Opener-Policy', 'same-origin');
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');

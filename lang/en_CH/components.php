@@ -80,6 +80,7 @@ return [
             'total' => 'Total',
         ],
         'empty' => 'No usage data available yet.',
+        'last_synced' => 'Last updated on :datetime, data up to and including :date.',
         'back' => 'Back to our LLMs',
     ],
     'ai_llm' => [

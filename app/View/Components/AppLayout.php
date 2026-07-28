@@ -9,9 +9,15 @@ use Illuminate\View\View;
 
 class AppLayout extends Component
 {
+    /**
+     * @param  array<int, array<string, mixed>>  $schema
+     *                                                    Page-specific schema.org nodes appended to the global graph
+     *                                                    (LocalBusiness, BlogPosting, Person, …). See App\Seo\SchemaGraph.
+     */
     public function __construct(
         protected mixed $page,
         public bool $preconnectCloudinary = false,
+        protected array $schema = [],
     ) {}
 
     public function render(): View
@@ -23,6 +29,7 @@ class AppLayout extends Component
             'locale' => Str::slug($locale),
             'page' => $this->page,
             'preconnectCloudinary' => $this->preconnectCloudinary,
+            'schema' => $this->schema,
         ]);
     }
 }

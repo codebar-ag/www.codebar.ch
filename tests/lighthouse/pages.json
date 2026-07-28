@@ -1,14 +1,14 @@
 [
   { "name": "home", "path": "/en-ch" },
   { "name": "services_index", "path": "/services" },
-  { "name": "services_show", "path": "/services/en/konzeption-prototyping", "note": "ServicesShowController currently redirects to start.index (WIP) - re-enable once implemented" },
-  { "name": "products_index", "path": "/products" },
-  { "name": "products_show", "path": "/products/en/flows", "note": "ProductsShowController currently redirects to start.index (WIP) - re-enable once implemented" },
-  { "name": "technologies_index", "path": "/technologies" },
-  { "name": "technologies_show", "path": "/technologies/en/laravel-framework", "note": "TechnologiesShowController currently redirects to start.index (WIP) - re-enable once implemented" },
+  { "name": "services_show", "path": "/services/en_CH/konzeption-prototyping", "note": "ServicesShowController currently redirects to start.index (WIP) - re-enable once implemented" },
+  { "name": "products_index", "path": "/products", "note": "ProductsIndexController currently redirects to start.index (WIP)" },
+  { "name": "products_show", "path": "/products/en_CH/flows", "note": "ProductsShowController currently redirects to start.index (WIP) - re-enable once implemented" },
+  { "name": "technologies_index", "path": "/technologies", "note": "TechnologiesIndexController currently redirects to start.index (WIP)" },
+  { "name": "technologies_show", "path": "/technologies/en_CH/laravel-framework", "note": "TechnologiesShowController currently redirects to start.index (WIP) - re-enable once implemented" },
   { "name": "network_index", "path": "/network" },
-  { "name": "network_request", "path": "/network/request" },
-  { "name": "jobs", "path": "/jobs", "note": "currently redirects to start.index (WIP)" },
+  { "name": "network_request", "path": "/network/request", "note": "noindex,nofollow by design - not in the sitemap" },
+  { "name": "jobs", "path": "/jobs" },
   { "name": "media", "path": "/media" },
   { "name": "contact", "path": "/contact" },
   { "name": "about_us", "path": "/about-us" },
@@ -17,7 +17,8 @@
   { "name": "ai_llm_analytics", "path": "/ai/llm-analytics" },
   { "name": "legal_privacy", "path": "/legal/privacy" },
   { "name": "legal_imprint", "path": "/legal/imprint" },
-  { "name": "legal_terms", "path": "/legal/terms", "note": "currently redirects to start.index (WIP)" },
-  { "name": "news", "path": "/news", "note": "currently redirects to start.index (WIP) - no News records seeded" },
-  { "name": "open_source", "path": "/open-source-contributions", "note": "currently redirects to start.index (WIP) - no OpenSource records seeded" }
+  { "name": "legal_terms", "path": "/legal/terms" },
+  { "name": "news_index", "path": "/news" },
+  { "name": "news_show", "path": "/news/en_CH/docuware-7-12-is-here" },
+  { "name": "open_source", "path": "/open-source-contributions", "note": "index only - detail pages 404 until a repository has a written body" }
 ]

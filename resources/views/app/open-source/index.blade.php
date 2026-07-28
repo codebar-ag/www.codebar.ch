@@ -5,12 +5,17 @@
     <x-layout.section>
         <x-layout.list>
             @foreach($openSource as $entry)
+                {{-- Entries with a written body get an internal detail page; the
+                     rest link straight to GitHub, because there is nothing here
+                     to show beyond what the repository already says. --}}
                 <x-card.item-card
-                        :url="$entry->link"
+                        :url="$entry->hasWrittenContent()
+                            ? localized_route('open-source.show', ['locale' => app()->getLocale(), 'openSource' => $entry])
+                            : $entry->link"
                         :title="$entry->title"
                         :teaser="$entry->teaser"
                         :tags="$entry->tags"
-                        target="_blank"
+                        :target="$entry->hasWrittenContent() ? '_self' : '_blank'"
                         :level="2"/>
             @endforeach
         </x-layout.list>

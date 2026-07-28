@@ -34,4 +34,17 @@ class OpenSource extends Model
     {
         return 'slug';
     }
+
+    /**
+     * True when someone has written a body for this entry.
+     *
+     * `sync:repositories` only imports title, teaser and metadata from GitHub;
+     * content stays null until it is written by hand. Entries without it have
+     * no detail page — they link straight to the repository instead, so we
+     * never publish an all-but-empty URL.
+     */
+    public function hasWrittenContent(): bool
+    {
+        return filled($this->content);
+    }
 }

@@ -52,8 +52,8 @@ class PagesTableSeeder extends Seeder
         $pages = [
             'technologies.index' => [
                 'robots' => 'index,follow',
-                'de_CH' => ['title' => 'Offene Technologien & Standards', 'description' => 'Die offenen Technologien und Standards, auf denen unsere Software basiert – bewährt, transparent und herstellerunabhängig.'],
-                'en_CH' => ['title' => 'Open Technologies & Standards', 'description' => 'The open technologies and standards we build our software on – proven, transparent and vendor-independent.'],
+                'de_CH' => ['title' => 'Offene Technologien & Standards – codebar Solutions AG', 'description' => 'Die offenen Technologien und Standards, auf denen unsere Software basiert – bewährt, transparent und herstellerunabhängig.'],
+                'en_CH' => ['title' => 'Open Technologies & Standards – codebar Solutions AG', 'description' => 'The open technologies and standards we build our software on – proven, transparent and vendor-independent.'],
             ],
             'co-working.index' => [
                 'robots' => 'index,follow',
@@ -62,8 +62,8 @@ class PagesTableSeeder extends Seeder
             ],
             'open-source.index' => [
                 'robots' => 'index,follow',
-                'de_CH' => ['title' => 'Open-Source-Beiträge', 'description' => 'Unsere Beiträge an die Open-Source-Community – Packages, Tools und Libraries, entwickelt und gepflegt von codebar.'],
-                'en_CH' => ['title' => 'Open Source Contributions', 'description' => 'Our contributions to the open source community – packages, tools and libraries developed and maintained by codebar.'],
+                'de_CH' => ['title' => 'Open-Source-Beiträge – codebar Solutions AG', 'description' => 'Unsere Beiträge an die Open-Source-Community – Packages, Tools und Libraries, entwickelt und gepflegt von codebar.'],
+                'en_CH' => ['title' => 'Open Source Contributions – codebar Solutions AG', 'description' => 'Our contributions to the open source community – packages, tools and libraries developed and maintained by codebar.'],
             ],
             'jobs.index' => [
                 'robots' => 'index,follow',
@@ -107,8 +107,8 @@ class PagesTableSeeder extends Seeder
             ],
             'network.request.index' => [
                 'robots' => 'noindex,nofollow',
-                'de_CH' => ['title' => 'Netzwerk-Profil aktualisieren', 'description' => 'Persönlichen Link anfordern, um das eigene Profil im codebar Netzwerk zu aktualisieren.'],
-                'en_CH' => ['title' => 'Update network profile', 'description' => 'Request a personal link to update your codebar network profile.'],
+                'de_CH' => ['title' => 'Netzwerk-Profil aktualisieren – codebar Solutions AG', 'description' => 'Persönlichen Link anfordern, um das eigene Profil im codebar Netzwerk zu aktualisieren.'],
+                'en_CH' => ['title' => 'Update network profile – codebar Solutions AG', 'description' => 'Request a personal link to update your codebar network profile.'],
             ],
         ];
 

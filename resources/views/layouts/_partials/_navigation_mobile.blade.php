@@ -26,11 +26,17 @@
                 {{ __('Services') }}
             </a>
 
-            {{-- <!-- Team -->
+            <!-- Team -->
             <a href="{{ localized_route('about-us.index') }}" title="{{ __('Team') }}"
                 class="block py-3 text-center bg-gray-50/50 hover:text-brand hover:font-semibold transition">
                 {{ __('Team') }}
-            </a> --}}
+            </a>
+
+            <!-- News -->
+            <a href="{{ localized_route('news.index') }}" title="{{ __('News') }}"
+                class="block py-3 text-center bg-gray-50 hover:text-brand hover:font-semibold transition">
+                {{ __('News') }}
+            </a>
 
             <!-- AI -->
             <a href="{{ localized_route('ai.index') }}" title="{{ __('AI') }}"
@@ -51,11 +57,11 @@
                     {{ __('Contact') }}
                 </a>
                 <div class="mt-1 text-sm text-gray-600 space-y-1">
-                    <a href="tel:0041615156090" title="{{ __('Contact Phone number') }}"
+                    <a href="tel:{{ config('company.phone.e164') }}" title="{{ __('Contact Phone number') }}"
                         class="block text-base hover:text-brand hover:font-semibold transition">
-                        +41 61 515 60 90
+                        {{ config('company.phone.display') }}
                     </a>
-                    <a href="mailto:info@codebar.ch" title="{{ __('Contact email address') }}"
+                    <a href="mailto:{{ config('company.email') }}" title="{{ __('Contact email address') }}"
                         class="block text-base hover:text-brand hover:font-semibold transition">
                         info@codebar.ch
                     </a>
@@ -68,15 +74,13 @@
                     <span>{{ __('Language') }}</span>
                     <div class="mt-1 flex justify-center gap-4 text-sm text-gray-600">
                         @foreach ($locales as $language)
-                            <form method="POST" action="{{ route('language.update') }}" rel="nofollow">
-                                @csrf
-                                <input type="hidden" name="language" value="{{ $language->value }}">
-                                <button type="submit"
-                                    class="text-base hover:text-brand hover:font-semibold transition cursor-pointer"
-                                    title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
-                                    {{ $language->getLabel() }}
-                                </button>
-                            </form>
+                            <a href="{{ locale_switch_url($language->value) }}"
+                                hreflang="{{ str_replace('_', '-', $language->value) }}"
+                                @if($language->value === app()->getLocale()) aria-current="true" @endif
+                                class="text-base hover:text-brand hover:font-semibold transition"
+                                title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
+                                {{ $language->getLabel() }}
+                            </a>
                         @endforeach
                     </div>
                 </div>

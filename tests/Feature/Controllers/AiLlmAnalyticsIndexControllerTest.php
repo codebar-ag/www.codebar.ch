@@ -119,6 +119,14 @@ it('paginates the periods', function () {
         ->assertDontSee('Dezember 2026');
 })->group('llm-analytics');
 
+it('shows when the data was last synced and how far it reaches', function () {
+    AiModelDailyUsage::query()->update(['updated_at' => '2026-06-11 05:03:00']);
+
+    get('/ki/llm-analytics')
+        ->assertOk()
+        ->assertSee('Zuletzt aktualisiert am 11.06.2026 05:03 Uhr, Daten bis und mit 10.06.2026.');
+})->group('llm-analytics');
+
 it('never displays spend', function () {
     get('/ki/llm-analytics')
         ->assertOk()

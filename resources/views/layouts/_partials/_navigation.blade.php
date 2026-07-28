@@ -14,15 +14,18 @@
 
         @if(!empty($locales))
             <div class="hidden md:flex gap-2 text-lg items-center">
+                {{-- Real links, not a form: crawlers cannot submit forms, so a
+                     form would leave the two language versions connected only by
+                     the hreflang tags in <head>. SetLanguage reads the locale
+                     from the URL and persists it, so no POST is needed. --}}
                 @foreach($locales as $language)
-                    <form method="POST" action="{{ route('language.update') }}">
-                        @csrf
-                        <input type="hidden" name="language" value="{{ $language->value }}">
-                        <button type="submit" class="hover:text-brand hover:font-semibold transition cursor-pointer"
-                                title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
-                            {{ $language->getLabel() }}
-                        </button>
-                    </form>
+                    <a href="{{ locale_switch_url($language->value) }}"
+                       hreflang="{{ str_replace('_', '-', $language->value) }}"
+                       @if($language->value === app()->getLocale()) aria-current="true" @endif
+                       class="hover:text-brand hover:font-semibold transition"
+                       title="{{ __('Update to :lang language', ['lang' => $language->getLabel()]) }}">
+                        {{ $language->getLabel() }}
+                    </a>
                     @if (!$loop->last)
                         <span class="text-gray-300 font-light" aria-hidden="true">|</span>
                     @endif

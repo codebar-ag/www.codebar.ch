@@ -25,6 +25,15 @@ entirely fake Cumulative Layout Shift (0.8–1.0 instead of the real ~0.01).
 Perf/CLS numbers from dev mode are not meaningful; only audit with this
 script.
 
+**The SEO category caps at 66 locally — that is expected, not a regression.**
+Outside `production`, `SecurityHeaders` sends `X-Robots-Tag: noindex, nofollow`
+(and `robots.txt` answers `Disallow: /`) so a staging or local copy can never be
+indexed alongside the real site. Lighthouse honours that header and fails its
+`is-crawlable` audit, which alone costs ~34 points. The page's own
+`<meta name="robots">` is still `index,follow`; check the audit's `details.items`
+to confirm the source is the header before investigating. Only the SEO score
+from a production run is meaningful — perf, a11y and best-practices are unaffected.
+
 ## Output
 
 Each run writes to `reports/<timestamp>/`:
@@ -36,6 +45,12 @@ Each run writes to `reports/<timestamp>/`:
 ## Maintaining `pages.json`
 
 Some entries are marked with a `note` because the underlying page currently
-redirects to the homepage (WIP controllers, or no seeded records for
-News/OpenSource). Update `pages.json` as those pages are built out — real
-slugs for show pages, once the content and its controllers are back in place.
+redirects to the homepage (Products, Technologies and the Services/Products/
+Technologies detail pages are still WIP controllers). Update `pages.json` as
+those pages are built out — real slugs for show pages, once the content and its
+controllers are back in place.
+
+Detail-page paths need the full locale (`/news/en_CH/<slug>`, not `/news/en/…`).
+`open_source` covers the index only: a repository imported by
+`sync:repositories` has no written body, and its detail page answers 404 until
+someone writes one.

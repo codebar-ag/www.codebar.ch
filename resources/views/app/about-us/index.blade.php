@@ -1,4 +1,4 @@
-<x-app-layout :page="$page" :preconnect-cloudinary="true">
+<x-app-layout :page="$page" :preconnect-cloudinary="true" :schema="$schema">
     <x-layout.page-header :title="__('Team')" :intro="__('components.team.header')"/>
 
     <x-layout.section>
