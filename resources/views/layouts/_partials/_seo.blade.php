@@ -7,7 +7,15 @@
 
 @if(!empty($page))
     @php
-        $seoImage = $page->image ?: url(asset(config('seo.default_image')));
+        // A page image can be a Cloudinary public ID, a remote URL or a path inside
+        // public/ — only the second form is usable as-is, so NewsImage resolves it to
+        // an absolute URL. SVG heroes (the local release placeholders) are skipped:
+        // the social networks do not render SVG, and og:image:type below says PNG.
+        $seoImage = str_ends_with(strtolower((string) $page->image), '.svg')
+            ? null
+            : \App\Support\NewsImage::src($page->image, config()->integer('seo.image_width'));
+
+        $seoImage ??= url(asset(config('seo.default_image')));
 
         // Detail pages ship a PageDTO per language (referencePages); each already carries
         // its own locale segment and its own translated slug, so they are the source of

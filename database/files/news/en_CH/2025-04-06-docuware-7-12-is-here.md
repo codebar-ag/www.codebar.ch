@@ -6,6 +6,8 @@ teaser: >-
   More automation and insight: this release improves e-invoice processing, brings IDP into the cloud configuration and opens workflow data up to analytics.
 published_at: 2025-04-06
 author: sebastian.buergin@codebar.ch
+hero: images/news/placeholders/docuware-7-12.svg
+hero_alt: Placeholder graphic for the DocuWare 7.12 release
 tags: [DMS/ECM]
 ---
 

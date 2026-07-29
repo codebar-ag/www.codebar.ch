@@ -4,6 +4,7 @@ namespace App\Seo;
 
 use App\Actions\PageAction;
 use App\DTO\PageDTO;
+use App\Support\NewsImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Throwable;
@@ -137,8 +138,8 @@ class SchemaGraph
             'dateModified' => $this->page->lastModificationDate->toIso8601String(),
             'isPartOf' => ['@id' => $this->id(self::WEBSITE_ID)],
             'about' => ['@id' => $this->id(self::ORGANIZATION_ID)],
-            'primaryImageOfPage' => $this->page->image !== null && $this->page->image !== ''
-                ? ['@type' => 'ImageObject', 'url' => $this->page->image]
+            'primaryImageOfPage' => ($image = NewsImage::src($this->page->image, config()->integer('seo.image_width'))) !== null
+                ? ['@type' => 'ImageObject', 'url' => $image]
                 : null,
         ], fn (mixed $value): bool => $value !== null && $value !== '');
 

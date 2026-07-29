@@ -6,6 +6,8 @@ teaser: >-
   Die letzten Einstellungen wandern in den Browser, eine neu gebaute App bringt Aufgaben aufs Telefon, und Archive ziehen zwischen Cloud-Organisationen um.
 published_at: 2026-05-12
 author: sebastian.buergin@codebar.ch
+hero: images/news/placeholders/docuware-7-14.svg
+hero_alt: Platzhaltergrafik zum DocuWare-Release 7.14
 tags: [DMS/ECM]
 ---
 

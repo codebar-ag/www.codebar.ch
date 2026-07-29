@@ -7,6 +7,7 @@ use App\DTO\PageDTO;
 use App\Models\News;
 use App\Models\OpenSource;
 use App\Models\Service;
+use App\Support\NewsImage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -138,7 +139,7 @@ class SchemaNodes
             'dateModified' => $news->updated_at?->toIso8601String(),
             'author' => self::articleAuthor($news, $organizationId),
             'publisher' => ['@id' => $organizationId],
-            'image' => filled($news->hero_image) ? $news->hero_image : null,
+            'image' => NewsImage::src($news->hero_image, config()->integer('seo.image_width')),
             'keywords' => is_array($tags) ? array_values($tags) : null,
         ], fn (mixed $value): bool => $value !== null && $value !== [])];
     }
