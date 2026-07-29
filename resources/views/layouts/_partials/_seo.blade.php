@@ -9,10 +9,11 @@
     @php
         // A page image can be a Cloudinary public ID, a remote URL or a path inside
         // public/ — only the second form is usable as-is, so NewsImage resolves it to
-        // an absolute URL. SVG heroes (the local release placeholders) are skipped:
-        // the social networks do not render SVG, and og:image:type below says PNG.
+        // an absolute URL. SVG heroes (the local release placeholders) cannot be used
+        // directly: social networks do not render SVG, and og:image:type below says
+        // PNG. A same-named PNG rendered from the SVG is used instead when one exists.
         $seoImage = str_ends_with(strtolower((string) $page->image), '.svg')
-            ? null
+            ? \App\Support\NewsImage::ogImage($page->image)
             : \App\Support\NewsImage::src($page->image, config()->integer('seo.image_width'));
 
         $seoImage ??= url(asset(config('seo.default_image')));

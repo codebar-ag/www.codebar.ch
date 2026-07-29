@@ -21,6 +21,16 @@ parameters:
             paths:
                 - app/Notifications/*
 
+        # Mockery's shouldReceive()/expects() are documented as returning a union in
+        # which only Expectation declares the count modifiers. The calls are correct —
+        # a mutation check confirms the expectation fails when the behaviour is removed —
+        # but the stubs cannot express which member of the union is returned.
+        -
+            identifier: method.notFound
+            message: '#Mockery\\(ExpectationInterface|HigherOrderMessage|ExpectsHigherOrderMessage)#'
+            paths:
+                - tests/*
+
     excludePaths:
         # Vendor-published migration (spatie/laravel-permission) — not our code.
         - database/migrations/2024_06_06_100452_create_permission_tables.php
