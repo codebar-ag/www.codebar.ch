@@ -11,6 +11,7 @@
         "php": "^8.5",
         "codebar-ag/laravel-flysystem-cloudinary": "^13.0",
         "laravel/framework": "^13.0",
+        "laravel/nightwatch": "^1.28",
         "laravel/tinker": "^3.0",
         "league/flysystem-aws-s3-v3": "^3.28",
         "mazedlx/laravel-feature-policy": "^2.2",
@@ -25,7 +26,8 @@
         "spatie/laravel-translatable": "^6.14",
         "spatie/security-advisories-health-check": "^1.2",
         "symfony/http-client": "^8.1",
-        "symfony/postmark-mailer": "^8.1"
+        "symfony/postmark-mailer": "^8.1",
+        "symfony/yaml": "^8.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -41,7 +43,6 @@
         "pestphp/pest-plugin-type-coverage": "^4.0",
         "phpstan/extension-installer": "^1.4.3",
         "phpstan/phpstan": "^2.2",
-        "spatie/laravel-ignition": "^2.7",
         "spatie/laravel-ray": "^1.39"
     },
     "autoload": {

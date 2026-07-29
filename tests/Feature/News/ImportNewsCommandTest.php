@@ -7,40 +7,14 @@ use App\Models\News;
 use App\Models\NewsSeries;
 use App\Models\NewsTag;
 use Illuminate\Support\Facades\File;
-
-/**
- * Keeps track of the throwaway directories a test wrote to, so afterEach can
- * remove them without leaning on undeclared $this properties.
- */
-class ImportTempDirectories
-{
-    /** @var array<int, string> */
-    private static array $paths = [];
-
-    public static function next(): string
-    {
-        $path = sys_get_temp_dir().'/news-import-'.bin2hex(random_bytes(4));
-        self::$paths[] = $path;
-
-        return $path;
-    }
-
-    public static function cleanUp(): void
-    {
-        foreach (self::$paths as $path) {
-            File::deleteDirectory($path);
-        }
-
-        self::$paths = [];
-    }
-}
+use Tests\Support\TempDirectories;
 
 /**
  * @param  array<string, string>  $files  locale => file contents
  */
 function writeArticles(array $files): string
 {
-    $base = ImportTempDirectories::next();
+    $base = TempDirectories::next('news-import');
 
     foreach ($files as $locale => $contents) {
         File::ensureDirectoryExists($base.'/'.$locale);
@@ -70,7 +44,7 @@ function articleFile(string $title, string $slug, string $extra = ''): string
 }
 
 afterEach(function () {
-    ImportTempDirectories::cleanUp();
+    TempDirectories::cleanUp();
 });
 
 it('imports an article that exists in both languages', function () {

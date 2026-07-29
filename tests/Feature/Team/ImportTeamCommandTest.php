@@ -4,42 +4,16 @@ declare(strict_types=1);
 
 use App\Models\Contact;
 use Illuminate\Support\Facades\File;
+use Tests\Support\TempDirectories;
 
 use function Pest\Laravel\get;
-
-/**
- * Keeps track of the throwaway directories a test wrote to, so afterEach can
- * remove them without leaning on undeclared $this properties.
- */
-class TeamTempDirectories
-{
-    /** @var array<int, string> */
-    private static array $paths = [];
-
-    public static function next(): string
-    {
-        $path = sys_get_temp_dir().'/team-import-'.bin2hex(random_bytes(4));
-        self::$paths[] = $path;
-
-        return $path;
-    }
-
-    public static function cleanUp(): void
-    {
-        foreach (self::$paths as $path) {
-            File::deleteDirectory($path);
-        }
-
-        self::$paths = [];
-    }
-}
 
 /**
  * @param  array<string, string>  $files  filename => yaml
  */
 function writeTeamFiles(array $files): string
 {
-    $base = TeamTempDirectories::next();
+    $base = TempDirectories::next('team-import');
     File::ensureDirectoryExists($base);
 
     foreach ($files as $name => $contents) {
@@ -71,7 +45,7 @@ function personYaml(string $key, string $name, bool $published = true, int $sort
 }
 
 afterEach(function () {
-    TeamTempDirectories::cleanUp();
+    TempDirectories::cleanUp();
 });
 
 it('imports a person from a yaml file', function () {

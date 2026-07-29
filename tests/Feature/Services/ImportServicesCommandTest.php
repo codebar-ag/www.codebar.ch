@@ -4,40 +4,14 @@ declare(strict_types=1);
 
 use App\Models\Service;
 use Illuminate\Support\Facades\File;
-
-/**
- * Keeps track of the throwaway directories a test wrote to, so afterEach can
- * remove them without leaning on undeclared $this properties.
- */
-class ServiceTempDirectories
-{
-    /** @var array<int, string> */
-    private static array $paths = [];
-
-    public static function next(): string
-    {
-        $path = sys_get_temp_dir().'/services-import-'.bin2hex(random_bytes(4));
-        self::$paths[] = $path;
-
-        return $path;
-    }
-
-    public static function cleanUp(): void
-    {
-        foreach (self::$paths as $path) {
-            File::deleteDirectory($path);
-        }
-
-        self::$paths = [];
-    }
-}
+use Tests\Support\TempDirectories;
 
 /**
  * @param  array<string, string>  $files  locale => file contents
  */
 function writeServiceFiles(string $key, array $files): string
 {
-    $base = ServiceTempDirectories::next();
+    $base = TempDirectories::next('services-import');
 
     foreach ($files as $locale => $contents) {
         File::ensureDirectoryExists($base.'/'.$locale);
@@ -64,7 +38,7 @@ function serviceFile(string $key, string $name, string $extra = ''): string
 }
 
 afterEach(function () {
-    ServiceTempDirectories::cleanUp();
+    TempDirectories::cleanUp();
 });
 
 it('imports a service that exists in both languages', function () {
