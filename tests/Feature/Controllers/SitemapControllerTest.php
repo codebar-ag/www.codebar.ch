@@ -80,9 +80,12 @@ it('does not include disabled pages in the sitemap', function () {
     expect($content)->not->toContain('produkte');
     expect($content)->not->toContain('technologien');
     expect($content)->not->toContain('co-working');
+    // The open source listing has no entries and its controller redirects.
+    expect($content)->not->toContain('open-source-beitraege');
+    expect($content)->not->toContain('open-source-contributions');
 })->group('sitemap');
 
-it('includes the reactivated team, news and open source pages in the sitemap', function () {
+it('includes the reactivated team and news pages in the sitemap', function () {
     seed(PagesTableSeeder::class);
 
     Cache::flush();
@@ -93,8 +96,6 @@ it('includes the reactivated team, news and open source pages in the sitemap', f
     expect($content)->toContain('about-us');
     expect($content)->toContain('aktuelles');
     expect($content)->toContain('news');
-    expect($content)->toContain('open-source-beitraege');
-    expect($content)->toContain('open-source-contributions');
 })->group('sitemap');
 
 it('includes the AI pages in the sitemap', function () {

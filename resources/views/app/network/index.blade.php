@@ -9,8 +9,8 @@
 
             <x-layout.grid gap="gap-6" class="mt-4">
                 @foreach($networks as $network)
-                    <div class="flex flex-col overflow-hidden rounded-panel border border-gray-200">
-                        <div class="relative hidden sm:flex h-20 items-center {{ $network->cover_url ? 'justify-start' : 'justify-center' }} border-b border-gray-100 bg-gray-50 px-4">
+                    <div class="flex flex-col overflow-hidden rounded-panel border border-border">
+                        <div class="relative hidden sm:flex h-20 items-center {{ $network->cover_url ? 'justify-start' : 'justify-center' }} border-b border-border-soft bg-surface px-4">
                             @php
                                 $drawing = 'images/network/'.$network->key.'.svg';
                             @endphp
@@ -25,14 +25,9 @@
                             @endif
 
                             @if($network->tier_label)
-                                @php
-                                    $tierBadge = str_contains($network->tier_label, 'Silver')
-                                        ? 'bg-linear-to-b from-gray-100 via-white to-gray-300 text-gray-700 ring-gray-400/40'
-                                        : 'bg-white/90 text-muted ring-gray-400/20';
-                                @endphp
-                                <span class="absolute bottom-2 right-2 inline-flex items-center rounded-pill px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset {{ $tierBadge }}">
-                                    {{ $network->tier_label }}
-                                </span>
+                                <x-ui.badge :label="$network->tier_label" size="xs"
+                                            :variant="str_contains($network->tier_label, 'Silver') ? 'metal' : 'default'"
+                                            class="absolute bottom-2 right-2"/>
                             @endif
                         </div>
 
@@ -40,14 +35,9 @@
                             <div class="flex flex-col gap-0">
                                 <div class="flex min-w-0 items-center justify-between gap-2">
                                     <span class="truncate whitespace-nowrap text-base font-bold text-gray-800">{{ $network->name }}</span>
-                                    @if($network->website)
-                                        <a href="{{ $network->website }}" target="_blank" rel="noopener noreferrer"
-                                           aria-label="{{ $network->websiteHost() }}"
-                                           title="{{ $network->websiteHost() }}"
-                                           class="flex size-7 shrink-0 items-center justify-center text-muted hover:text-gray-800">
-                                            <x-icon.website class="size-5"/>
-                                        </a>
-                                    @endif
+                                    <x-ui.social-links :name="$network->name" class="-mr-2 shrink-0 sm:mr-0"
+                                                       :links="['website' => $network->website]"
+                                                       :titles="['website' => $network->websiteHost()]"/>
                                 </div>
 
                                 @if($network->excerpt)
@@ -67,7 +57,7 @@
                         @if($network->page_slug)
                             <a href="{{ localized_route('network.show', ['slug' => $network->page_slug]) }}"
                                title="{{ __('More about :name', ['name' => $network->name]) }}"
-                               class="flex items-center justify-between gap-2 bg-brand px-4 py-2.5 text-sm font-medium text-white transition hover:bg-brand-strong">
+                               class="flex min-h-control items-center justify-between gap-2 bg-brand px-4 text-sm font-medium text-white transition hover:bg-brand-strong focus:outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white">
                                 {{ __('Learn more') }}
                                 <x-icon.arrow-right class="size-4"/>
                             </a>

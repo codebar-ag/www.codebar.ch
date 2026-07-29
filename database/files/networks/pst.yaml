@@ -1,0 +1,11 @@
+key: pst
+category: collaboration
+sort: 20
+cover_url: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/pst-3x1-black.svg'
+website: 'https://www.pstgmbh.ch'
+name:
+  de_CH: 'PST GmbH'
+  en_CH: 'PST GmbH'
+excerpt:
+  de_CH: 'Finanzen & Buchhaltung'
+  en_CH: 'Finance & accounting'

@@ -10,7 +10,7 @@
     <x-layout.section>
         <x-h2 :title="__('components.explore.title')"/>
         <x-layout.grid class="mt-4">
-            <x-card.nav-card :url="localized_route($next['route'])" :route="$next['route']" :label="$next['label']" :teaser="$next['teaser']"/>
+            <x-card.nav-card :url="localized_route($next['route'])" :label="$next['label']" :teaser="$next['teaser']"/>
         </x-layout.grid>
     </x-layout.section>
 @endif

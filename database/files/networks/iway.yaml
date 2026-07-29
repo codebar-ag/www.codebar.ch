@@ -1,0 +1,11 @@
+key: iway
+category: infrastructure
+sort: 50
+cover_url: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/iway-3x1-black.svg'
+website: 'https://www.iway.ch'
+name:
+  de_CH: iWay
+  en_CH: iWay
+excerpt:
+  de_CH: Internet & Telefonie
+  en_CH: Internet & telephony

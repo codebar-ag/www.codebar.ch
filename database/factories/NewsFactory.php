@@ -21,14 +21,30 @@ class NewsFactory extends Factory
         $titleEn = fake()->unique()->sentence();
 
         return [
+            'key' => str($titleDe)->slug()->toString(),
             'title' => ['de_CH' => $titleDe, 'en_CH' => $titleEn],
-            'slug' => str($titleDe)->slug(),
+            'slug' => [
+                'de_CH' => str($titleDe)->slug()->toString(),
+                'en_CH' => str($titleEn)->slug()->toString(),
+            ],
             'teaser' => ['de_CH' => fake()->sentence(), 'en_CH' => fake()->sentence()],
             'content' => ['de_CH' => fake()->paragraphs(3, true), 'en_CH' => fake()->paragraphs(3, true)],
-            'image' => fake()->imageUrl(),
+            'hero_image' => null,
             'published_at' => fake()->dateTime(),
+            'published' => true,
             'author' => fake()->name(),
             'tags' => fake()->words(2),
+            'reading_minutes' => fake()->numberBetween(2, 12),
         ];
+    }
+
+    public function unpublished(): static
+    {
+        return $this->state(fn (): array => ['published' => false]);
+    }
+
+    public function featured(): static
+    {
+        return $this->state(fn (): array => ['featured' => true]);
     }
 }

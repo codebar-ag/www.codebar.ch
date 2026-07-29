@@ -2,157 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Enums\NetworkCategoryEnum;
-use App\Enums\NetworkStatusEnum;
-use App\Models\Network;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
+/**
+ * Network partners live as one YAML file per company under database/files/networks/.
+ * Adding or changing one means editing that file and running
+ * `php artisan networks:import`; no code change is needed.
+ */
 class NetworksTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $this->seed(
-            key: 'wieland-business-solutions',
-            category: NetworkCategoryEnum::COLLABORATION,
-            sort: 10,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/wieland-3x1-black.svg',
-            website: 'https://www.business-solutions.gmbh',
-            localizedData: [
-                'de_CH' => ['name' => 'Wieland Business Solutions AG', 'excerpt' => 'Sparringspartner DMS/ECM'],
-                'en_CH' => ['name' => 'Wieland Business Solutions AG', 'excerpt' => 'DMS/ECM sparring partner'],
-            ],
-        );
-
-        $this->seed(
-            key: 'pst',
-            category: NetworkCategoryEnum::COLLABORATION,
-            sort: 20,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/pst-3x1-black.svg',
-            website: 'https://www.pstgmbh.ch',
-            localizedData: [
-                'de_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Finanzen & Buchhaltung'],
-                'en_CH' => ['name' => 'PST GmbH', 'excerpt' => 'Finance & accounting'],
-            ],
-        );
-
-        $this->seed(
-            key: 'docuware',
-            category: NetworkCategoryEnum::SOFTWARE,
-            sort: 30,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/docuware-3x1-black.svg',
-            website: 'https://start.docuware.com',
-            localizedData: [
-                'de_CH' => ['name' => 'DocuWare', 'excerpt' => 'DMS/ECM'],
-                'en_CH' => ['name' => 'DocuWare', 'excerpt' => 'DMS/ECM'],
-            ],
-        );
-
-        $this->seed(
-            key: 'odoo',
-            category: NetworkCategoryEnum::SOFTWARE,
-            sort: 40,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/odoo-3x1-black.svg',
-            website: 'https://www.odoo.com',
-            localizedData: [
-                'de_CH' => ['name' => 'Odoo', 'excerpt' => 'Open Source ERP'],
-                'en_CH' => ['name' => 'Odoo', 'excerpt' => 'Open-source ERP'],
-            ],
-        );
-
-        $this->seed(
-            key: 'iway',
-            category: NetworkCategoryEnum::INFRASTRUCTURE,
-            sort: 50,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/iway-3x1-black.svg',
-            website: 'https://www.iway.ch',
-            localizedData: [
-                'de_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & Telefonie'],
-                'en_CH' => ['name' => 'iWay', 'excerpt' => 'Internet & telephony'],
-            ],
-        );
-
-        $this->seed(
-            key: 'baselhack',
-            category: NetworkCategoryEnum::SPONSORING,
-            sort: 60,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/baselhack-3x1-black.svg',
-            website: 'https://www.baselhack.ch',
-            localizedData: [
-                'de_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Hackathon Nordwestschweiz'],
-                'en_CH' => ['name' => 'BaselHack', 'tier_label' => 'Silver Sponsor', 'excerpt' => 'Hackathon in the Basel region'],
-            ],
-        );
-
-        $this->seed(
-            key: 'swiss-laravel-association',
-            category: NetworkCategoryEnum::SPONSORING,
-            sort: 70,
-            website: 'https://laravel.swiss',
-            localizedData: [
-                'de_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel-Community'],
-                'en_CH' => ['name' => 'Swiss Laravel Association', 'excerpt' => 'Laravel community'],
-            ],
-        );
-
-        $this->seed(
-            key: 'swiss-made-software',
-            category: NetworkCategoryEnum::CERTIFICATION,
-            sort: 80,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/swiss-made-software-3x1-black.svg',
-            website: 'https://www.swissmadesoftware.org/en/about/swiss-made-software.html',
-            localizedData: [
-                'de_CH' => ['name' => 'Swiss Made Software'],
-                'en_CH' => ['name' => 'Swiss Made Software'],
-            ],
-        );
-
-        $this->seed(
-            key: 'swiss-digital-services',
-            category: NetworkCategoryEnum::CERTIFICATION,
-            sort: 90,
-            coverUrl: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/swiss-digital-services-3x1-black.svg',
-            website: 'https://www.swissmadesoftware.org/en/about/swiss-digital-services.html',
-            localizedData: [
-                'de_CH' => ['name' => 'Swiss Digital Services'],
-                'en_CH' => ['name' => 'Swiss Digital Services'],
-            ],
-        );
-    }
-
-    /**
-     * @param  array<string, array<string, string|null>>  $localizedData
-     */
-    private function seed(
-        string $key,
-        NetworkCategoryEnum $category,
-        int $sort,
-        array $localizedData,
-        ?string $coverUrl = null,
-        ?string $website = null,
-        ?string $pageSlug = null,
-        NetworkStatusEnum $status = NetworkStatusEnum::ACTIVE,
-        ?int $sinceYear = null,
-        ?int $untilYear = null,
-    ): void {
-        Network::updateOrCreate(
-            ['key' => $key],
-            [
-                'name' => collect($localizedData)->map(fn (array $data) => $data['name'])->all(),
-                'category' => $category->value,
-                'status' => $status->value,
-                'cover_url' => collect($localizedData)->first()['cover_url'] ?? $coverUrl,
-                'tier_label' => collect($localizedData)->map(fn (array $data) => $data['tier_label'] ?? null)->all(),
-                'excerpt' => collect($localizedData)->map(fn (array $data) => $data['excerpt'] ?? null)->all(),
-                'website' => $website,
-                'since_year' => $sinceYear,
-                'until_year' => $untilYear,
-                'page_slug' => $pageSlug,
-                'published' => true,
-                'sort' => $sort,
-            ]
-        );
+        Artisan::call('networks:import', [], $this->command->getOutput());
     }
 }

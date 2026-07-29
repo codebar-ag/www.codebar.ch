@@ -18,6 +18,11 @@ class AppLayout extends Component
         protected mixed $page,
         public bool $preconnectCloudinary = false,
         protected array $schema = [],
+        /**
+         * Editorial pages manage their own width so figures can break out of the
+         * reading column. Everything else stays inside the shared max-w-4xl frame.
+         */
+        public bool $wide = false,
     ) {}
 
     public function render(): View
@@ -30,6 +35,7 @@ class AppLayout extends Component
             'page' => $this->page,
             'preconnectCloudinary' => $this->preconnectCloudinary,
             'schema' => $this->schema,
+            'wide' => $this->wide,
         ]);
     }
 }

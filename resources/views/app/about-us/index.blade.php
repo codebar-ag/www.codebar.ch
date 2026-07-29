@@ -2,6 +2,14 @@
     <x-layout.page-header :title="__('Team')" :intro="__('components.team.header')"/>
 
     <x-layout.section>
+        <x-h2 :title="__('components.team.working_title')"/>
+        <x-ui.prose class="mt-4">
+            <p>{{ __('components.team.working_body') }}</p>
+            <p>{{ __('components.team.learning_body') }}</p>
+        </x-ui.prose>
+    </x-layout.section>
+
+    <x-layout.section>
         <x-h2 :title="__('Employees')"/>
         @if(!empty($contacts->employees) && $contacts->employees->count())
             <x-layout.grid :cols="2" class="mt-2">

@@ -1,3 +1,3 @@
 @props(['title'])
 
-<h2 class="mb-2 text-xl md:text-2xl font-semibold">{{ $title }}</h2>
+<h2 {{ $attributes->merge(['class' => 'mb-2 text-heading font-semibold text-balance']) }}>{{ $title }}</h2>

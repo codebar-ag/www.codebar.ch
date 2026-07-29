@@ -11,6 +11,7 @@ use App\Models\Page;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Technology;
+use App\Support\LocalizedRouteParameters;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -64,10 +65,12 @@ class PageAction
             routeName: Str::slug(title: $locale).'.news.show',
             title: $this->translatedString($news->getTranslation('title', $locale)),
             description: $this->translatedString($news->getTranslation('teaser', $locale)),
-            image: $news->image,
+            image: $news->hero_image,
             lastModificationDate: Carbon::parse($news->updated_at ?? now()),
-            routeParameters: ['locale' => $locale, 'news' => $news],
+            routeParameters: LocalizedRouteParameters::for(['locale' => $locale, 'news' => $news], $locale),
             referencePages: $withReferences ? $this->alternateLocalePages($news, $locale, fn (News $n, string $l) => $this->news($n, false, $l)) : null,
+            publishedAt: $news->published_at !== null ? Carbon::parse($news->published_at) : null,
+            authorName: $news->authorName(),
         );
     }
 

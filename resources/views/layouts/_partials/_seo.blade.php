@@ -9,27 +9,48 @@
     @php
         $seoImage = $page->image ?: url(asset(config('seo.default_image')));
 
-        $hreflangAlternates = collect(\App\Enums\LocaleEnum::cases())
-            ->mapWithKeys(function ($locale) use ($page) {
-                $parameters = $page->routeParameters;
+        // Detail pages ship a PageDTO per language (referencePages); each already carries
+        // its own locale segment and its own translated slug, so they are the source of
+        // truth. Everything else has no model parameters and can be derived by name.
+        $alternatePages = collect([$page])->merge($page->referencePages ?? []);
 
-                // Detail routes carry the locale in the path as well as in the
-                // route-name prefix (/news/{locale}/{slug}). Without swapping it
-                // the English alternate points at the German article.
-                if (is_array($parameters) && array_key_exists('locale', $parameters)) {
-                    $parameters['locale'] = $locale->value;
-                }
-
+        $hreflangAlternates = $alternatePages
+            ->mapWithKeys(function ($alternate) {
                 try {
-                    $url = route(\Illuminate\Support\Str::slug($locale->value).'.'.$page->routeKey, $parameters, true);
+                    return [str_replace('_', '-', $alternate->locale) => $alternate->url()];
                 } catch (\Throwable) {
                     return [];
                 }
+            })
+            ->when(
+                $page->referencePages === null,
+                fn ($alternates) => collect(\App\Enums\LocaleEnum::cases())
+                    ->mapWithKeys(function ($locale) use ($page) {
+                        $parameters = is_array($page->routeParameters)
+                            ? \App\Support\LocalizedRouteParameters::for($page->routeParameters, $locale->value)
+                            : $page->routeParameters;
 
-                return [str_replace('_', '-', $locale->value) => $url];
-            });
+                        try {
+                            $url = route(\Illuminate\Support\Str::slug($locale->value).'.'.$page->routeKey, $parameters, true);
+                        } catch (\Throwable) {
+                            return [];
+                        }
+
+                        return [str_replace('_', '-', $locale->value) => $url];
+                    })
+            )
+            ->sortKeys();
+
+        // Page titles carry the brand themselves; article titles are the plain
+        // headline, because $page->title also feeds og:title and the JSON-LD
+        // headline, where a company suffix does not belong. Only the document
+        // title gets it appended, and only when it is not already there.
+        $brand = config()->string('app.name');
+        $documentTitle = str_contains($page->title, $brand)
+            ? $page->title
+            : $page->title.' – '.$brand;
     @endphp
-    <title>{{ $page->title }}</title>
+    <title>{{ $documentTitle }}</title>
     <meta name="robots" content="{{ $page->robots }}">
     <meta name="description" content="{{ $page->description }}">
     <link rel="canonical" href="{{ request()->url() }}">
@@ -41,7 +62,14 @@
     @endif
 
     <meta property="og:locale" content="{{ $page->locale }}">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{{ $page->isArticle() ? 'article' : 'website' }}">
+    @if($page->isArticle())
+        <meta property="article:published_time" content="{{ $page->publishedAt->toIso8601String() }}">
+        <meta property="article:modified_time" content="{{ $page->lastModificationDate->toIso8601String() }}">
+        @if(filled($page->authorName))
+            <meta property="article:author" content="{{ $page->authorName }}">
+        @endif
+    @endif
     <meta property="og:title" content="{{ $page->title }}">
     <meta property="og:description" content="{{ $page->description }}">
     <meta property="og:site_name" content="{{ config('app.name') }}">

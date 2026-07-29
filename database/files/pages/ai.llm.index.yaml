@@ -1,0 +1,8 @@
+key: ai.llm.index
+robots: index,follow
+title:
+  de_CH: 'Unsere lokalen LLMs im Einsatz – codebar Solutions AG'
+  en_CH: 'Our Local LLMs in Action – codebar Solutions AG'
+description:
+  de_CH: 'Diese lokalen Open-Source-Modelle betreiben wir aktuell – auf eigener Hardware im hauseigenen Bürokeller. Modelle, Infrastruktur und Nutzung.'
+  en_CH: 'The local open-source models we currently run – on our own hardware, in our own office basement. Models, infrastructure and usage.'

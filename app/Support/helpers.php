@@ -1,5 +1,6 @@
 <?php
 
+use App\Support\LocalizedRouteParameters;
 use Illuminate\Support\Str;
 
 if (! function_exists('localized_route')) {
@@ -36,12 +37,13 @@ if (! function_exists('locale_switch_url')) {
 
         // Route names are locale-prefixed ("de-ch.services.index").
         $routeKey = Str::after($routeName, '.');
+
+        /** @var array<string, mixed> $parameters */
         $parameters = $route?->parameters() ?? [];
 
-        // Detail routes carry the locale in the path as well as the prefix.
-        if (array_key_exists('locale', $parameters)) {
-            $parameters['locale'] = $locale;
-        }
+        // Detail routes carry the locale in the path as well as the prefix, and their
+        // slugs are translated — both have to be swapped together.
+        $parameters = LocalizedRouteParameters::for($parameters, $locale);
 
         try {
             return route($localeSlug.'.'.$routeKey, $parameters);

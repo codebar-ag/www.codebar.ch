@@ -136,13 +136,37 @@ class SchemaNodes
             'inLanguage' => str_replace('_', '-', $locale),
             'datePublished' => $news->published_at?->toIso8601String(),
             'dateModified' => $news->updated_at?->toIso8601String(),
-            'author' => filled($news->author)
-                ? ['@type' => 'Person', 'name' => $news->author]
-                : ['@id' => $organizationId],
+            'author' => self::articleAuthor($news, $organizationId),
             'publisher' => ['@id' => $organizationId],
-            'image' => filled($news->image) ? $news->image : null,
+            'image' => filled($news->hero_image) ? $news->hero_image : null,
             'keywords' => is_array($tags) ? array_values($tags) : null,
         ], fn (mixed $value): bool => $value !== null && $value !== [])];
+    }
+
+    /**
+     * A linked contact becomes a real Person node with picture and LinkedIn profile,
+     * which is what Google reads for author authority. Without one the organisation
+     * stays the author, as before.
+     *
+     * @return array<string, mixed>
+     */
+    private static function articleAuthor(News $news, string $organizationId): array
+    {
+        $contact = $news->authorContact;
+
+        if ($contact !== null) {
+            return array_filter([
+                '@type' => 'Person',
+                'name' => $contact->name,
+                'image' => $contact->image !== '' ? $contact->image : null,
+                'worksFor' => ['@id' => $organizationId],
+                'sameAs' => is_array($contact->icons) ? Arr::get($contact->icons, 'linkedin') : null,
+            ], fn (mixed $value): bool => $value !== null);
+        }
+
+        return filled($news->author)
+            ? ['@type' => 'Person', 'name' => $news->author]
+            : ['@id' => $organizationId];
     }
 
     /**

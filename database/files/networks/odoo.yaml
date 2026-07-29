@@ -1,0 +1,11 @@
+key: odoo
+category: software
+sort: 40
+cover_url: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/odoo-3x1-black.svg'
+website: 'https://www.odoo.com'
+name:
+  de_CH: Odoo
+  en_CH: Odoo
+excerpt:
+  de_CH: Open Source ERP
+  en_CH: Open-source ERP

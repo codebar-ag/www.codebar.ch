@@ -50,7 +50,13 @@ class ViewDataAction
         $key = Str::slug("news_published_{$locale}");
 
         return Cache::rememberForever($key, function () {
-            return News::whereNotNull('published_at')->orderByDesc('published_at')->get();
+            // Eager loaded: the cards read the series title and the author's picture,
+            // the index filters on tags, and Model::shouldBeStrict() turns a lazy load
+            // into an exception locally.
+            return News::with(['series', 'authorContact', 'newsTags'])
+                ->published()
+                ->orderByDesc('published_at')
+                ->get();
         });
     }
 
@@ -122,8 +128,11 @@ class ViewDataAction
         $key = Str::slug("contacts_published_{$locale}");
 
         return Cache::rememberForever($key, function () use ($locale) {
+            // Ordered by the `sort` field from the YAML files rather than alphabetically:
+            // the team page has an intended order that a surname does not express.
             $publishedContacts = Contact::query()
                 ->where('published', true)
+                ->orderBy('sort')
                 ->orderBy('name')
                 ->get();
 

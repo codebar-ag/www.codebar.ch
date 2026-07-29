@@ -241,7 +241,7 @@ The file-by-file gap analysis from the first pass, preserved for reference. Note
 | Jobs page content | 3 invented English placeholder roles | Translation-key driven, no-openings panel | ⛔ HEAD is better |
 | Services partnerships partial | 80-line inline SVG block | Replaced by the Network feature | ✅ Superseded |
 | Nav / footer | `$configuration`-driven, paperflakes email | Static, single-brand, focus-trapped | ⛔ Cannot render on HEAD |
-| `config/responsecache.php` | Old spatie schema, `enabled => false` | Current spatie v8 schema | ⛔ Would disable response caching |
+| `config/responsecache.php` | Old spatie schema, `enabled => false` | Current spatie v8 schema | ⛔ Would disable response caching |to 
 | `config/auth.php` | Present | Intentionally deleted | ⛔ |
 | `.gitignore` | adds `/laravel-start/` | missing that one line | 🟢 Trivial |
 

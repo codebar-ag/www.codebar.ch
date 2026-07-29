@@ -1,0 +1,10 @@
+key: swiss-laravel-association
+category: sponsoring
+sort: 70
+website: 'https://laravel.swiss'
+name:
+  de_CH: 'Swiss Laravel Association'
+  en_CH: 'Swiss Laravel Association'
+excerpt:
+  de_CH: 'Laravel-Community'
+  en_CH: 'Laravel community'

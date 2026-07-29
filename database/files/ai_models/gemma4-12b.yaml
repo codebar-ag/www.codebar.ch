@@ -1,0 +1,6 @@
+key: gemma4-12b
+name: 'gemma4:12b'
+category: vision_documents
+order: 1
+archived_at: '2026-07-01'
+replaced_by: qwen3-vl-8b

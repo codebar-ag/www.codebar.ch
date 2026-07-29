@@ -15,6 +15,7 @@ use App\Models\Service;
 use App\Models\Technology;
 use App\Observers\NetworkObserver;
 use App\Observers\NetworkUserObserver;
+use App\Observers\NewsObserver;
 use App\Observers\SitemapCacheObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
 
         Network::observe(NetworkObserver::class);
         NetworkUser::observe(NetworkUserObserver::class);
+        News::observe(NewsObserver::class);
 
         // Everything the sitemap draws its URLs from.
         foreach ([Page::class, Network::class, News::class, OpenSource::class] as $model) {

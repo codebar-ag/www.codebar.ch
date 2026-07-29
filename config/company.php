@@ -56,8 +56,8 @@ return [
      * or dead profile is worse than a short list.
      */
     'same_as' => [
+        'https://www.linkedin.com/company/codebar-solutions-ag',
         'https://github.com/codebar-ag',
-        // TODO: LinkedIn company page — not yet linked anywhere on the site.
         // TODO: Swiss Made Software / Swiss Digital Services profile pages.
     ],
 

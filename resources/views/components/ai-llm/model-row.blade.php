@@ -5,9 +5,9 @@
         <div class="font-semibold text-lg text-gray-800">{{ $model->name }}</div>
         <div class="text-muted">{{ $model->localizedRole() }}</div>
         <div class="flex flex-wrap gap-2">
-            <x-ui.badge :label="$model->provider" :title="__('components.ai_llm.tooltips.provider')" class="text-xs"/>
-            <x-ui.badge :label="$model->ram" :title="__('components.ai_llm.tooltips.ram')" class="text-xs"/>
-            <x-ui.badge :label="$model->licenseLabel()" :title="$model->licenseTooltip()" class="text-xs"/>
+            <x-ui.badge :label="$model->provider" :title="__('components.ai_llm.tooltips.provider')" size="xs"/>
+            <x-ui.badge :label="$model->ram" :title="__('components.ai_llm.tooltips.ram')" size="xs"/>
+            <x-ui.badge :label="$model->licenseLabel()" :title="$model->licenseTooltip()" size="xs"/>
         </div>
     </div>
     <div class="sm:justify-self-end">
@@ -17,7 +17,7 @@
                 target="_blank"
                 :title="__('components.ai_llm.tooltips.link')"
                 variant="brand"
-                class="text-xs whitespace-nowrap">
+                class="whitespace-nowrap">
             <x-icon.external-link class="ml-1 size-3"/>
         </x-ui.badge-link>
     </div>

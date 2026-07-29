@@ -1,0 +1,5 @@
+key: qwen3-reranker-8b
+name: 'qwen3-reranker:8b'
+category: retrieval_search
+order: 2
+archived_at: '2026-07-01'

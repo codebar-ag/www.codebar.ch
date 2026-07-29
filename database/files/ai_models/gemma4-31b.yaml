@@ -1,0 +1,12 @@
+key: gemma4-31b
+name: 'gemma4:31b'
+category: vision_documents
+order: 3
+provider: Google
+ram: '19 GB RAM'
+license: Gemma
+role:
+  de: 'Bild-Input + stilsichere Texte'
+  en: 'Image input + polished writing'
+link_label: Ollama
+link_url: 'https://ollama.com/library/gemma4'

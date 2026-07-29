@@ -32,21 +32,23 @@
 @endphp
 
 <div {{ $attributes }}>
-    <x-h2 :title="__('Opening hours')"/>
+    {{-- The status sits next to the heading as a chip: a green dot while we are open,
+         a grey one while we are not — the box itself keeps the neutral logo wash. --}}
+    <div class="flex flex-wrap items-center gap-3">
+        <x-h2 :title="__('Opening hours')"/>
 
-    {{-- The box colour carries the status: green while open, red while closed. --}}
-    <div @class([
-        'mt-2 rounded-panel border px-4 sm:px-6 py-2',
-        'border-green-200 bg-green-50/60' => $isOpen,
-        'border-red-200 bg-red-50/60' => ! $isOpen,
-    ])>
-        <span class="sr-only">{{ $isOpen ? __('Currently open') : __('Currently closed') }}</span>
+        <x-ui.badge class="mb-2" :variant="$isOpen ? 'success' : 'default'">
+            <span @class([
+                'mr-1.5 size-1.5 shrink-0 rounded-full',
+                'bg-emerald-500' => $isOpen,
+                'bg-gray-400' => ! $isOpen,
+            ])></span>
+            {{ $isOpen ? __('Currently open') : __('Currently closed') }}
+        </x-ui.badge>
+    </div>
 
-        <dl @class([
-            'divide-y text-base',
-            'divide-green-200/70' => $isOpen,
-            'divide-red-200/70' => ! $isOpen,
-        ])>
+    <div class="rounded-panel border border-border bg-linear-to-r from-fuchsia-600/10 via-brand/10 to-blue-600/10 px-4 py-2 sm:px-6">
+        <dl class="divide-y divide-border-soft text-base">
             @foreach ($groups as $group)
                 @php
                     $isToday = $todayIso - 1 >= $group['startIdx'] && $todayIso - 1 <= $group['endIdx'];

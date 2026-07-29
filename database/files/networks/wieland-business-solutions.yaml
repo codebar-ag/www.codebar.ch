@@ -1,0 +1,11 @@
+key: wieland-business-solutions
+category: collaboration
+sort: 10
+cover_url: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/wieland-3x1-black.svg'
+website: 'https://www.business-solutions.gmbh'
+name:
+  de_CH: 'Wieland Business Solutions AG'
+  en_CH: 'Wieland Business Solutions AG'
+excerpt:
+  de_CH: 'Sparringspartner DMS/ECM'
+  en_CH: 'DMS/ECM sparring partner'

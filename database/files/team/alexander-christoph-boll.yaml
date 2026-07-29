@@ -1,0 +1,13 @@
+key: alexander-christoph-boll
+name: 'Alexander Christoph Boll'
+published: true
+sort: 4
+image: 'https://res.cloudinary.com/codebar/image/upload/e_background_removal/c_thumb,g_face,z_0.7,w_500,h_500,b_rgb:E4E6E9/f_auto,q_auto/www-codebar-ch/team/Alex_v3.webp'
+sections:
+  employees:
+    role:
+      de_CH: 'Innovationsmanagement & Projektleitung'
+      en_CH: 'Innovation Management & Project Lead'
+icons:
+  email: alexander.boll@codebar.ch
+  linkedin: 'https://www.linkedin.com/in/alexanderboll'

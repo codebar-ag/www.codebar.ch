@@ -1,5 +1,9 @@
 <x-app-layout :page="$page">
-    <x-layout.page-header :title="__('components.ai_llm_analytics.title')" :intro="__('components.ai_llm_analytics.intro')"/>
+    <x-layout.page-header :title="__('components.ai_llm_analytics.title')" :intro="__('components.ai_llm_analytics.intro')" :breadcrumbs="[
+        ['label' => __('AI'), 'url' => localized_route('ai.index')],
+        ['label' => __('components.ai_llm.title'), 'url' => localized_route('ai.llm.index')],
+        ['label' => __('components.ai_llm_analytics.title')],
+    ]"/>
 
     <x-layout.section>
         <form method="GET" action="{{ url()->current() }}" x-data="autoSubmit" x-on:change="submit"
@@ -50,12 +54,11 @@
         </x-layout.section>
     @endif
 
-    @if ($lastSyncedAt && $latestDate)
-        <x-layout.section class="mt-4 text-sm text-muted">
+    @if ($lastSyncedAt)
+        <x-layout.section class="mt-4 text-xs text-muted">
             <p>
                 {{ __('components.ai_llm_analytics.last_synced', [
                     'datetime' => \App\Helpers\Facades\HelperDate::formatDateTime($lastSyncedAt),
-                    'date' => \App\Helpers\Facades\HelperDate::formatDate($latestDate),
                 ]) }}
             </p>
         </x-layout.section>
@@ -114,8 +117,7 @@
     @endif
 
     <x-layout.section>
-        <x-ui.link :href="localized_route('ai.llm.index')" class="inline-block text-base">
-            <span aria-hidden="true">←</span> {{ __('components.ai_llm_analytics.back') }}
-        </x-ui.link>
+        <x-ui.arrow-link :href="localized_route('ai.llm.index')" direction="back"
+                         :label="__('components.ai_llm_analytics.back')"/>
     </x-layout.section>
 </x-app-layout>

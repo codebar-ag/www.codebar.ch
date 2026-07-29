@@ -41,22 +41,32 @@ it('pairs both locales with self-referencing hreflang links', function () {
         ->toContain('<link rel="alternate" hreflang="x-default"');
 })->group('seo');
 
-it('swaps the locale route parameter in a detail page hreflang', function () {
-    // /news/{locale}/{slug} carries the locale twice: in the path prefix and as
-    // a route parameter. Only swapping the prefix pointed the English alternate
-    // at the German article — a wrong-language pair Google would ignore.
+it('swaps locale and slug together in a detail page hreflang', function () {
+    // /news/{locale}/{slug} carries the locale twice — in the path prefix and as a
+    // route parameter — and the slug itself is translated. Swapping only the prefix
+    // pointed the English alternate at the German article with the German slug: a
+    // wrong-language pair Google would ignore.
     $news = News::factory()->create();
 
-    $html = (string) get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
+    $germanSlug = $news->getTranslation('slug', 'de_CH');
+    $englishSlug = $news->getTranslation('slug', 'en_CH');
+
+    expect($germanSlug)->not->toBe($englishSlug);
+
+    $html = (string) get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $germanSlug]))
         ->assertOk()->getContent();
 
     expect($html)
-        ->toContain('hreflang="en-CH" href="'.route('en-ch.news.show', ['locale' => 'en_CH', 'news' => $news->slug]).'"')
-        ->toContain('hreflang="de-CH" href="'.route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]).'"');
+        ->toContain('hreflang="en-CH" href="'.route('en-ch.news.show', ['locale' => 'en_CH', 'news' => $englishSlug]).'"')
+        ->toContain('hreflang="de-CH" href="'.route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $germanSlug]).'"');
 
-    // The regression: the English path with the German locale parameter.
+    // The regressions: English path with the German locale parameter, or with the German slug.
     expect($html)->not->toContain(
-        'hreflang="en-CH" href="'.route('en-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]).'"'
+        'hreflang="en-CH" href="'.route('en-ch.news.show', ['locale' => 'de_CH', 'news' => $englishSlug]).'"'
+    );
+
+    expect($html)->not->toContain(
+        'hreflang="en-CH" href="'.route('en-ch.news.show', ['locale' => 'en_CH', 'news' => $germanSlug]).'"'
     );
 })->group('seo');
 
@@ -99,6 +109,38 @@ it('gives a news article its own title rather than the index title', function ()
     expect(titleOf($article))->not->toBe(titleOf($index));
 })->group('seo');
 
+it('shares a news article as an article and every other page as a website', function () {
+    // og:type drives how the link renders when shared: an article card carries
+    // a byline and a date, a website card does not.
+    $news = News::factory()->create();
+
+    $article = (string) get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
+        ->assertOk()->getContent();
+
+    expect($article)
+        ->toContain('<meta property="og:type" content="article">')
+        ->toContain('<meta property="article:published_time"')
+        ->toContain('<meta property="article:modified_time"');
+
+    $index = (string) get(route('de-ch.news.index'))->assertOk()->getContent();
+
+    expect($index)->toContain('<meta property="og:type" content="website">');
+})->group('seo');
+
+it('appends the company name to a title that does not already carry it', function () {
+    // Page titles ship the brand themselves; an article title is the bare
+    // headline, because it also feeds og:title and the JSON-LD headline.
+    $news = News::factory()->create(['title' => ['de_CH' => 'Ein Testartikel', 'en_CH' => 'A test article']]);
+
+    $article = (string) get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
+        ->assertOk()->getContent();
+
+    expect(titleOf($article))->toBe('Ein Testartikel – '.config()->string('app.name'))
+        // …but the brand must not leak into the sharing title or the headline.
+        ->and($article)->toContain('<meta property="og:title" content="Ein Testartikel">')
+        ->and($article)->toContain('"headline":"Ein Testartikel"');
+})->group('seo');
+
 it('gives a network partner page its own title and self-referencing hreflang', function () {
     // The controller used to build this page's metadata from the network index,
     // so every partner page shared the index's title and description and its
@@ -112,7 +154,9 @@ it('gives a network partner page its own title and self-referencing hreflang', f
     $detail = (string) get(route('de-ch.network.show', ['slug' => 'baselhack']))
         ->assertOk()->getContent();
 
-    expect(titleOf($detail))->toBe('BaselHack')
+    // The document title appends the company name; the partner's own name has
+    // to lead it, and must not collapse into the index title.
+    expect(titleOf($detail))->toBe('BaselHack – '.config()->string('app.name'))
         ->and(titleOf($detail))->not->toBe(titleOf((string) get(route('de-ch.network.index'))->getContent()));
 
     expect($detail)

@@ -1,24 +1,15 @@
-@props(['url', 'title', 'teaser' => null, 'tags' => [], 'target' => '_self', 'level' => 3])
+@props(['url' => null, 'title', 'teaser' => null, 'tags' => [], 'publishedAt' => null, 'target' => '_self', 'level' => 3])
 
-<a href="{{ $url }}"
-   @if($target !== '_self') target="{{ $target }}" rel="noopener noreferrer" @endif
-   {{ $attributes->merge(['class' => 'group block py-4 transition hover:bg-gray-50/50 rounded']) }}>
-    <div class="flex flex-col gap-1">
-        <h{{ $level }} class="text-xl font-semibold text-gray-800 group-hover:text-brand">
-            {{ $title }}
-        </h{{ $level }}>
-
-        @if(filled($teaser))
-            <div class="text-muted">
-                {{ $teaser }}
-            </div>
-        @endif
-
-        <x-data.tag-list :tags="$tags" class="mt-1"/>
-
-        <span class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-brand">
-            {{ __('Learn more') }}
-            <x-icon.arrow-right class="size-4 transition-transform group-hover:translate-x-1"/>
-        </span>
+{{-- The list row behind services, products, technologies, open source and the
+     latest-news block. Given no url it renders the same row without the link and
+     without the «Learn more» affordance, so an index whose entries have no detail
+     page still reads as the same list. --}}
+@if(filled($url))
+    <x-card.linkable :url="$url" :target="$target" {{ $attributes }}>
+        <x-card.item-card-body :title="$title" :teaser="$teaser" :tags="$tags" :published-at="$publishedAt" :level="$level"/>
+    </x-card.linkable>
+@else
+    <div {{ $attributes->merge(['class' => 'py-4']) }}>
+        <x-card.item-card-body :title="$title" :teaser="$teaser" :tags="$tags" :published-at="$publishedAt" :level="$level" :linked="false"/>
     </div>
-</a>
+@endif

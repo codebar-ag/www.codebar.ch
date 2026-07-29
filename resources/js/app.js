@@ -138,6 +138,70 @@ Alpine.data('navigation', () => ({
     },
 }))
 
+// Thin progress bar at the top of a long article. Width is written straight to the
+// style attribute because the CSP build of Alpine cannot evaluate inline expressions.
+Alpine.data('readingProgress', () => ({
+    init() {
+        this.update()
+        this.onScroll = () => this.update()
+        window.addEventListener('scroll', this.onScroll, { passive: true })
+        window.addEventListener('resize', this.onScroll, { passive: true })
+    },
+
+    destroy() {
+        window.removeEventListener('scroll', this.onScroll)
+        window.removeEventListener('resize', this.onScroll)
+    },
+
+    update() {
+        const article = document.getElementById('article-body')
+        if (!article) return
+
+        const start = article.offsetTop
+        const distance = article.offsetHeight - window.innerHeight
+        const progress = distance <= 0 ? 1 : (window.scrollY - start) / distance
+
+        this.$refs.bar.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`
+    },
+}))
+
+// Marks the table-of-contents entry belonging to the section currently on screen.
+Alpine.data('tableOfContents', () => ({
+    init() {
+        const headings = Array.from(document.querySelectorAll('#article-body h2[id], #article-body h3[id]'))
+        if (headings.length === 0) return
+
+        this.observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return
+                    this.$root.querySelectorAll('a[data-anchor]').forEach((link) => {
+                        link.setAttribute('aria-current', link.dataset.anchor === entry.target.id ? 'true' : 'false')
+                    })
+                })
+            },
+            { rootMargin: '-80px 0px -70% 0px' },
+        )
+
+        headings.forEach((heading) => this.observer.observe(heading))
+    },
+
+    destroy() {
+        this.observer?.disconnect()
+    },
+}))
+
+// Click-to-load video: nothing is requested from the video host until asked for.
+Alpine.data('videoEmbed', () => ({
+    loaded: false,
+    embedSrc: '',
+
+    load() {
+        this.embedSrc = `${this.$root.dataset.src}${this.$root.dataset.src.includes('?') ? '&' : '?'}autoplay=1`
+        this.loaded = true
+    },
+}))
+
 Alpine.data('tabs', () => ({
     active: 0,
 

@@ -8,7 +8,6 @@ use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Network;
 use App\Models\News;
-use App\Models\OpenSource;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -30,7 +29,7 @@ class SitemapController extends Controller
         'network.index',
         'about-us.index',
         'news.index',
-        'open-source.index',
+        // 'open-source.index' — disabled controller, see OpenSourceIndexController.
     ];
 
     protected const array DEFAULT_LOCALES = [
@@ -61,7 +60,6 @@ class SitemapController extends Controller
         $this->addDefaultRoutesToSitemap($sitemap);
         $this->addNetworksToSitemap($sitemap);
         $this->addNewsToSitemap($sitemap);
-        $this->addOpenSourceToSitemap($sitemap);
     }
 
     private function addNetworksToSitemap(SitemapBuilder $sitemap): void
@@ -85,29 +83,16 @@ class SitemapController extends Controller
     private function addNewsToSitemap(SitemapBuilder $sitemap): void
     {
         News::query()
-            ->whereNotNull('published_at')
+            ->published()
+            // PageDTO resolves the author name for the article metadata, which
+            // reads this relation — without it that is one query per article.
+            ->with('authorContact')
             ->orderByDesc('published_at')
             ->get()
             ->each(function (News $news) use ($sitemap): void {
                 $this->addLocalizedSet(
                     $sitemap,
                     fn (string $locale): PageDTO => (new PageAction)->news(news: $news, locale: $locale),
-                );
-            });
-    }
-
-    private function addOpenSourceToSitemap(SitemapBuilder $sitemap): void
-    {
-        OpenSource::query()
-            ->where('published', true)
-            ->get()
-            // Entries without a written body have no detail page —
-            // OpenSoruceShowController answers 404 for them.
-            ->filter(fn (OpenSource $openSource): bool => $openSource->hasWrittenContent())
-            ->each(function (OpenSource $openSource) use ($sitemap): void {
-                $this->addLocalizedSet(
-                    $sitemap,
-                    fn (string $locale): PageDTO => (new PageAction)->openSource(openSource: $openSource, locale: $locale),
                 );
             });
     }

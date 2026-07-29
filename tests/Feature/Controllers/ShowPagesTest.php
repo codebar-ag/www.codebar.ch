@@ -40,18 +40,9 @@ it('redirects a technology to the start page while technologies are disabled', f
         ->assertRedirect($startRoute());
 })->group('technologies', 'show');
 
-it('renders an open source project that has a written body', function () {
+it('redirects an open source project to the start page while open source is disabled', function () use ($startRoute) {
     $openSource = OpenSource::factory()->create();
 
     get(route('de-ch.open-source.show', ['locale' => 'de_CH', 'openSource' => $openSource->slug]))
-        ->assertOk();
-})->group('open-source', 'show');
-
-it('does not expose an open source project without a written body', function () {
-    // sync:repositories imports title and teaser from GitHub but leaves the
-    // body empty — there is no page worth serving, let alone indexing.
-    $openSource = OpenSource::factory()->create(['content' => null]);
-
-    get(route('de-ch.open-source.show', ['locale' => 'de_CH', 'openSource' => $openSource->slug]))
-        ->assertNotFound();
+        ->assertRedirect($startRoute());
 })->group('open-source', 'show');
