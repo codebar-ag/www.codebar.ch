@@ -1,12 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\Contact;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Reads one YAML file per person from database/files/team/ and writes them to the
@@ -15,7 +13,7 @@ use Symfony\Component\Yaml\Yaml;
  * Replaces a semicolon-separated CSV that carried JSON inside its cells, which was
  * effectively uneditable by hand and produced unreadable diffs.
  */
-class ImportTeamCommand extends Command
+class ImportTeamCommand extends ImportCommand
 {
     protected $signature = 'team:import
                             {--dry-run : Show what would change without writing anything}
@@ -25,7 +23,7 @@ class ImportTeamCommand extends Command
 
     public function handle(): int
     {
-        $files = $this->files();
+        $files = $this->yamlFiles();
 
         if ($files === []) {
             $this->components->warn('No team files found under '.$this->basePath().'.');
@@ -33,7 +31,7 @@ class ImportTeamCommand extends Command
             return self::SUCCESS;
         }
 
-        $dryRun = (bool) $this->option('dry-run');
+        $dryRun = $this->isDryRun();
         $imported = 0;
         $skipped = 0;
         $keys = [];
@@ -79,7 +77,7 @@ class ImportTeamCommand extends Command
         }
 
         if (! $dryRun) {
-            $this->removeOrphans($keys);
+            $this->removeOrphans(Contact::query(), 'key', $keys);
             Contact::clearPublishedCache();
         }
 
@@ -89,28 +87,9 @@ class ImportTeamCommand extends Command
         return $skipped > 0 ? self::FAILURE : self::SUCCESS;
     }
 
-    private function basePath(): string
+    protected function defaultPath(): string
     {
-        $override = $this->option('path');
-
-        return is_string($override) && $override !== '' ? rtrim($override, '/') : database_path('files/team');
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private function files(): array
-    {
-        $base = $this->basePath();
-
-        if (! is_dir($base)) {
-            return [];
-        }
-
-        $files = array_merge(glob($base.'/*.yaml') ?: [], glob($base.'/*.yml') ?: []);
-        sort($files);
-
-        return $files;
+        return 'files/team';
     }
 
     /**
@@ -118,17 +97,9 @@ class ImportTeamCommand extends Command
      */
     private function parse(string $path): ?array
     {
-        try {
-            $parsed = Yaml::parseFile($path);
-        } catch (ParseException $exception) {
-            $this->components->error(basename($path).': '.$exception->getMessage());
+        $parsed = $this->parseYamlFile($path);
 
-            return null;
-        }
-
-        if (! is_array($parsed)) {
-            $this->components->error(basename($path).' is not a YAML mapping — skipped.');
-
+        if ($parsed === null) {
             return null;
         }
 
@@ -150,28 +121,8 @@ class ImportTeamCommand extends Command
             // Each section carries its own key, which the DTO reads back — filling it
             // here keeps the YAML free of a value that only repeats the mapping key.
             'sections' => $this->sections($parsed['sections'] ?? []),
-            'icons' => $this->icons($parsed['icons'] ?? null),
+            'icons' => $this->localizedMap($parsed['icons'] ?? null),
         ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private function icons(mixed $icons): array
-    {
-        if (! is_array($icons)) {
-            return [];
-        }
-
-        $result = [];
-
-        foreach ($icons as $name => $value) {
-            if (is_string($name) && is_string($value) && $value !== '') {
-                $result[$name] = $value;
-            }
-        }
-
-        return $result;
     }
 
     /**
@@ -200,26 +151,5 @@ class ImportTeamCommand extends Command
         }
 
         return $result;
-    }
-
-    /**
-     * A person removed from the repository must disappear from the site too, otherwise
-     * the files stop being the source of truth.
-     *
-     * @param  array<int, string>  $keys
-     */
-    private function removeOrphans(array $keys): void
-    {
-        $orphans = Contact::whereNotIn('key', $keys)->get();
-
-        foreach ($orphans as $orphan) {
-            $this->components->twoColumnDetail($orphan->key, '<fg=red>removed</>');
-            $orphan->delete();
-        }
-    }
-
-    private function string(mixed $value): string
-    {
-        return is_string($value) ? trim($value) : '';
     }
 }

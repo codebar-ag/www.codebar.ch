@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'intro' => [
         'title' => 'Innovative Ideen zum Leben erwecken',

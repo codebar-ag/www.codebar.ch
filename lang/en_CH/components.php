@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'intro' => [
         'title' => 'Bringing innovative ideas to life',

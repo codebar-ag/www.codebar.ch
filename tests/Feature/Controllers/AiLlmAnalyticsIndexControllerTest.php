@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\AiModelCategoryEnum;
 use App\Models\AiModel;
 use App\Models\AiModelDailyUsage;

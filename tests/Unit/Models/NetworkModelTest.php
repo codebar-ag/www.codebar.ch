@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\NetworkCategoryEnum;
 use App\Enums\NetworkStatusEnum;
 use App\Models\Network;

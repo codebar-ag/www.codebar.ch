@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Traits\HasLocalizedRouteBinding;
@@ -18,6 +20,24 @@ class OpenSource extends Model
 
     /** @var array<int, string> */
     protected array $translatable = ['title', 'teaser', 'content'];
+
+    /** @var list<string> */
+    protected $fillable = [
+        'published',
+        'title',
+        'slug',
+        'teaser',
+        'content',
+        'image',
+        'tags',
+        'link',
+        'downloads',
+        'version',
+        'github_name',
+        'stars',
+        'forks',
+        'primary_language',
+    ];
 
     protected $casts = [
         'published' => 'boolean',

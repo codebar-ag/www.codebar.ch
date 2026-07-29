@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions;
 
 use App\Models\AiModelDailyUsage;
@@ -63,16 +65,6 @@ class LlmUsageStatsAction
     {
         return $this->remember('last_synced_at', function (): ?Carbon {
             return $this->toDate(AiModelDailyUsage::query()->max('updated_at'));
-        });
-    }
-
-    /**
-     * The most recent day usage data is available for.
-     */
-    public function latestDate(): ?Carbon
-    {
-        return $this->remember('latest_date', function (): ?Carbon {
-            return $this->toDate(AiModelDailyUsage::query()->max('date'));
         });
     }
 

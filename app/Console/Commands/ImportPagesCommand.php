@@ -1,12 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Enums\LocaleEnum;
 use App\Models\Page;
-use Illuminate\Console\Command;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Reads one YAML file per page from database/files/pages/ and writes them to the
@@ -15,7 +14,7 @@ use Symfony\Component\Yaml\Yaml;
  * Replaces a CSV that carried JSON inside its cells, which was effectively
  * uneditable by hand and produced unreadable diffs.
  */
-class ImportPagesCommand extends Command
+class ImportPagesCommand extends ImportCommand
 {
     protected $signature = 'pages:import
                             {--dry-run : Show what would change without writing anything}
@@ -25,7 +24,7 @@ class ImportPagesCommand extends Command
 
     public function handle(): int
     {
-        $files = $this->files();
+        $files = $this->yamlFiles();
 
         if ($files === []) {
             $this->components->warn('No page files found under '.$this->basePath().'.');
@@ -33,7 +32,7 @@ class ImportPagesCommand extends Command
             return self::SUCCESS;
         }
 
-        $dryRun = (bool) $this->option('dry-run');
+        $dryRun = $this->isDryRun();
         $imported = 0;
         $skipped = 0;
         $keys = [];
@@ -76,7 +75,7 @@ class ImportPagesCommand extends Command
         }
 
         if (! $dryRun) {
-            $this->removeOrphans($keys);
+            $this->removeOrphans(Page::query(), 'key', $keys);
         }
 
         $this->newLine();
@@ -85,28 +84,9 @@ class ImportPagesCommand extends Command
         return $skipped > 0 ? self::FAILURE : self::SUCCESS;
     }
 
-    private function basePath(): string
+    protected function defaultPath(): string
     {
-        $override = $this->option('path');
-
-        return is_string($override) && $override !== '' ? rtrim($override, '/') : database_path('files/pages');
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private function files(): array
-    {
-        $base = $this->basePath();
-
-        if (! is_dir($base)) {
-            return [];
-        }
-
-        $files = array_merge(glob($base.'/*.yaml') ?: [], glob($base.'/*.yml') ?: []);
-        sort($files);
-
-        return $files;
+        return 'files/pages';
     }
 
     /**
@@ -114,17 +94,9 @@ class ImportPagesCommand extends Command
      */
     private function parse(string $path): ?array
     {
-        try {
-            $parsed = Yaml::parseFile($path);
-        } catch (ParseException $exception) {
-            $this->components->error(basename($path).': '.$exception->getMessage());
+        $parsed = $this->parseYamlFile($path);
 
-            return null;
-        }
-
-        if (! is_array($parsed)) {
-            $this->components->error(basename($path).' is not a YAML mapping — skipped.');
-
+        if ($parsed === null) {
             return null;
         }
 
@@ -137,67 +109,36 @@ class ImportPagesCommand extends Command
             return null;
         }
 
-        $titles = is_array($parsed['title'] ?? null) ? $parsed['title'] : [];
-        $descriptions = is_array($parsed['description'] ?? null) ? $parsed['description'] : [];
+        // Sanitised up front, so the completeness check below sees exactly the
+        // locales that survive as usable strings — not keys that only look present.
+        $titles = $this->localizedMap($parsed['title'] ?? null);
+        $descriptions = $this->localizedMap($parsed['description'] ?? null);
 
-        $missing = array_diff(
-            array_map(fn (LocaleEnum $case): string => $case->value, LocaleEnum::cases()),
-            array_keys($titles),
-            array_keys($descriptions)
-        );
+        $locales = array_map(fn (LocaleEnum $case): string => $case->value, LocaleEnum::cases());
 
-        if ($missing !== []) {
-            $this->components->error(sprintf(
-                '%s is missing a title or description for %s.',
-                basename($path),
-                implode(', ', $missing)
-            ));
+        // Checked per field: a single array_diff against both at once would accept a
+        // page whose title is German-only and whose description is English-only.
+        foreach (['title' => $titles, 'description' => $descriptions] as $field => $values) {
+            $missing = $this->missingLocales($locales, $values);
 
-            return null;
+            if ($missing !== []) {
+                $this->components->error(sprintf(
+                    '%s is missing a %s for %s.',
+                    basename($path),
+                    $field,
+                    implode(', ', $missing)
+                ));
+
+                return null;
+            }
         }
 
         return [
             'key' => $key,
             'robots' => $robots,
-            'title' => array_map(fn (mixed $value): string => $this->string($value), $titles),
-            'description' => array_map(fn (mixed $value): string => $this->string($value), $descriptions),
+            'title' => $titles,
+            'description' => $descriptions,
             'image' => $this->nullableString($parsed['image'] ?? null),
         ];
-    }
-
-    /**
-     * A page removed from the repository must disappear from the site too, otherwise
-     * the files stop being the source of truth.
-     *
-     * @param  array<int, string>  $keys
-     */
-    private function removeOrphans(array $keys): void
-    {
-        $orphans = Page::whereNotIn('key', $keys)->get();
-
-        foreach ($orphans as $orphan) {
-            $this->components->twoColumnDetail($orphan->key, '<fg=red>removed</>');
-            $orphan->delete();
-        }
-    }
-
-    private function string(mixed $value): string
-    {
-        if (is_string($value)) {
-            return trim($value);
-        }
-
-        if (is_int($value) || is_float($value) || is_bool($value)) {
-            return trim((string) $value);
-        }
-
-        return '';
-    }
-
-    private function nullableString(mixed $value): ?string
-    {
-        $string = $this->string($value);
-
-        return $string === '' ? null : $string;
     }
 }

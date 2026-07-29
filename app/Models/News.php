@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Contracts\HasTranslatedRouteKey;
@@ -23,6 +25,27 @@ class News extends Model implements HasTranslatedRouteKey
 
     /** @var array<int, string> */
     protected array $translatable = ['title', 'teaser', 'content', 'slug', 'hero_caption', 'hero_alt'];
+
+    /** @var list<string> */
+    protected $fillable = [
+        'key',
+        'slug',
+        'title',
+        'teaser',
+        'content',
+        'hero_image',
+        'hero_caption',
+        'hero_alt',
+        'published_at',
+        'published',
+        'author',
+        'contact_id',
+        'series_id',
+        'series_position',
+        'featured',
+        'reading_minutes',
+        'tags',
+    ];
 
     protected $casts = [
         'tags' => 'json',

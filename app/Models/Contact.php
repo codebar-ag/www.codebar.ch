@@ -1,18 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Enums\LocaleEnum;
+use App\Enums\CacheKeyEnum;
 use Database\Factories\ContactFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
 class Contact extends Model
 {
     /** @use HasFactory<ContactFactory> */
     use HasFactory;
+
+    /** @var list<string> */
+    protected $fillable = [
+        'key',
+        'published',
+        'sort',
+        'name',
+        'sections',
+        'image',
+        'icons',
+    ];
 
     protected $casts = [
         'published' => 'boolean',
@@ -28,8 +40,8 @@ class Contact extends Model
 
     public static function clearPublishedCache(): void
     {
-        foreach (LocaleEnum::cases() as $locale) {
-            Cache::forget(Str::slug("contacts_published_{$locale->value}"));
+        foreach (CacheKeyEnum::CONTACTS_PUBLISHED->forAllLocales() as $key) {
+            Cache::forget($key);
         }
     }
 }

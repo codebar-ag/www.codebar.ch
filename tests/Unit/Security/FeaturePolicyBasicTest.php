@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Security\FeaturePolicyBasic;
 
 it('configures geolocation and fullscreen directives', function () {

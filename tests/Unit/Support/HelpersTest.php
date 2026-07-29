@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\App;
 
 it('builds a localized route url using the current app locale', function () {

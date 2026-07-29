@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Enums\AiModelCategoryEnum;
 use App\Models\AiModel;
-use Illuminate\Console\Command;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
+use App\Observers\ContentCacheObserver;
 
 /**
  * Reads one YAML file per model from database/files/ai_models/ and writes them to the
@@ -16,7 +16,7 @@ use Symfony\Component\Yaml\Yaml;
  * database id — ids are not stable across a fresh import, so the link is resolved by
  * key in a second pass once every row exists.
  */
-class ImportAiModelsCommand extends Command
+class ImportAiModelsCommand extends ImportCommand
 {
     protected $signature = 'ai-models:import
                             {--dry-run : Show what would change without writing anything}
@@ -26,7 +26,7 @@ class ImportAiModelsCommand extends Command
 
     public function handle(): int
     {
-        $files = $this->files();
+        $files = $this->yamlFiles();
 
         if ($files === []) {
             $this->components->warn('No AI model files found under '.$this->basePath().'.');
@@ -34,7 +34,7 @@ class ImportAiModelsCommand extends Command
             return self::SUCCESS;
         }
 
-        $dryRun = (bool) $this->option('dry-run');
+        $dryRun = $this->isDryRun();
         $imported = 0;
         $skipped = 0;
         $parsedByKey = [];
@@ -109,7 +109,11 @@ class ImportAiModelsCommand extends Command
             AiModel::whereKey($idsByKey[$key])->update(['replaced_by_id' => $targetId]);
         }
 
-        $this->removeOrphans(array_map(fn (array $data): string => $data['name'], $parsedByKey));
+        $this->removeOrphans(AiModel::query(), 'name', array_values(array_map(fn (array $data): string => $data['name'], $parsedByKey)));
+
+        // The replaced_by pass above writes through the query builder, which fires no
+        // model events — so the observer that drops the cached catalogue never runs.
+        ContentCacheObserver::flush(new AiModel);
 
         $this->newLine();
         $this->components->info(sprintf('%d model(s) imported, %d skipped.', $imported, $skipped));
@@ -117,28 +121,9 @@ class ImportAiModelsCommand extends Command
         return $skipped > 0 ? self::FAILURE : self::SUCCESS;
     }
 
-    private function basePath(): string
+    protected function defaultPath(): string
     {
-        $override = $this->option('path');
-
-        return is_string($override) && $override !== '' ? rtrim($override, '/') : database_path('files/ai_models');
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private function files(): array
-    {
-        $base = $this->basePath();
-
-        if (! is_dir($base)) {
-            return [];
-        }
-
-        $files = array_merge(glob($base.'/*.yaml') ?: [], glob($base.'/*.yml') ?: []);
-        sort($files);
-
-        return $files;
+        return 'files/ai_models';
     }
 
     /**
@@ -146,17 +131,9 @@ class ImportAiModelsCommand extends Command
      */
     private function parse(string $path): ?array
     {
-        try {
-            $parsed = Yaml::parseFile($path);
-        } catch (ParseException $exception) {
-            $this->components->error(basename($path).': '.$exception->getMessage());
+        $parsed = $this->parseYamlFile($path);
 
-            return null;
-        }
-
-        if (! is_array($parsed)) {
-            $this->components->error(basename($path).' is not a YAML mapping — skipped.');
-
+        if ($parsed === null) {
             return null;
         }
 
@@ -185,67 +162,11 @@ class ImportAiModelsCommand extends Command
             'provider' => $this->nullableString($parsed['provider'] ?? null),
             'ram' => $this->nullableString($parsed['ram'] ?? null),
             'license' => $this->nullableString($parsed['license'] ?? null),
-            'role' => $this->role($parsed['role'] ?? null),
+            'role' => $this->localizedMap($parsed['role'] ?? null) ?: null,
             'link_label' => $this->nullableString($parsed['link_label'] ?? null),
             'link_url' => $this->nullableString($parsed['link_url'] ?? null),
             'archived_at' => $this->nullableString($parsed['archived_at'] ?? null),
             'replaced_by' => $this->nullableString($parsed['replaced_by'] ?? null),
         ];
-    }
-
-    /**
-     * @return array<string, string>|null
-     */
-    private function role(mixed $value): ?array
-    {
-        if (! is_array($value)) {
-            return null;
-        }
-
-        $result = [];
-
-        foreach ($value as $locale => $text) {
-            if (is_string($locale) && is_string($text) && $text !== '') {
-                $result[$locale] = $text;
-            }
-        }
-
-        return $result === [] ? null : $result;
-    }
-
-    /**
-     * A model removed from the repository must disappear from the catalogue too,
-     * otherwise the files stop being the source of truth.
-     *
-     * @param  array<int, string>  $names
-     */
-    private function removeOrphans(array $names): void
-    {
-        $orphans = AiModel::whereNotIn('name', $names)->get();
-
-        foreach ($orphans as $orphan) {
-            $this->components->twoColumnDetail($orphan->name, '<fg=red>removed</>');
-            $orphan->delete();
-        }
-    }
-
-    private function string(mixed $value): string
-    {
-        if (is_string($value)) {
-            return trim($value);
-        }
-
-        if (is_int($value) || is_float($value) || is_bool($value)) {
-            return trim((string) $value);
-        }
-
-        return '';
-    }
-
-    private function nullableString(mixed $value): ?string
-    {
-        $string = $this->string($value);
-
-        return $string === '' ? null : $string;
     }
 }

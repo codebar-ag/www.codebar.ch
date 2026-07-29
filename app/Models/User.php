@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\LocaleEnum;
@@ -27,6 +29,15 @@ class User extends Authenticatable implements MustVerifyEmailContract
     use Notifiable;
     use SoftDeletes;
 
+    /** @var list<string> */
+    protected $fillable = [
+        'name',
+        'email',
+        'email_verified_at',
+        'password',
+        'locale',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -37,11 +48,4 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'password' => 'hashed',
         'locale' => LocaleEnum::class,
     ];
-
-    public function getGravatarUrl(int $size = 200): string
-    {
-        $hash = md5(strtolower(trim($this->email)));
-
-        return "https://www.gravatar.com/avatar/$hash?s=$size&d=mp";
-    }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Database\Seeders\PagesTableSeeder;
 use Illuminate\Support\Facades\Cache;
 

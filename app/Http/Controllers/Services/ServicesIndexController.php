@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Services;
 
 use App\Actions\PageAction;
@@ -10,13 +12,10 @@ use Illuminate\View\View;
 
 class ServicesIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $viewData): View
     {
         $locale = app()->getLocale();
-        $services = (new ViewDataAction)->services($locale);
+        $services = $viewData->services($locale);
 
         return view('app.services.index')->with([
             'page' => (new PageAction(locale: null, routeName: 'services.index'))->default(),

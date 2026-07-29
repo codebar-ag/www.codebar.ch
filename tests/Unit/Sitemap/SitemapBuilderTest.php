@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\DTO\PageDTO;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Support\Carbon;

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
+use App\Enums\CacheKeyEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
@@ -26,6 +29,6 @@ class SitemapCacheObserver
 
     private function forget(): void
     {
-        Cache::forget('sitemap_xml');
+        Cache::forget(CacheKeyEnum::SITEMAP->value);
     }
 }

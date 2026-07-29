@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
-use App\Enums\LocaleEnum;
+use App\Enums\CacheKeyEnum;
 use App\Models\News;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Spatie\ResponseCache\Facades\ResponseCache;
 
 /**
@@ -27,8 +28,8 @@ class NewsObserver
 
     public static function flush(): void
     {
-        foreach (LocaleEnum::cases() as $locale) {
-            Cache::forget(Str::slug("news_published_{$locale->value}"));
+        foreach (CacheKeyEnum::NEWS_PUBLISHED->forAllLocales() as $key) {
+            Cache::forget($key);
         }
 
         ResponseCache::clear();

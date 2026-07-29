@@ -1,21 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Enums\LocaleEnum;
 use App\Enums\NetworkCategoryEnum;
 use App\Enums\NetworkStatusEnum;
 use App\Models\Network;
-use Illuminate\Console\Command;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Reads one YAML file per network partner from database/files/networks/ and writes
  * them to the database. The files are the source of truth — running this repeatedly
  * is safe.
  */
-class ImportNetworksCommand extends Command
+class ImportNetworksCommand extends ImportCommand
 {
     protected $signature = 'networks:import
                             {--dry-run : Show what would change without writing anything}
@@ -25,7 +24,7 @@ class ImportNetworksCommand extends Command
 
     public function handle(): int
     {
-        $files = $this->files();
+        $files = $this->yamlFiles();
 
         if ($files === []) {
             $this->components->warn('No network files found under '.$this->basePath().'.');
@@ -33,7 +32,7 @@ class ImportNetworksCommand extends Command
             return self::SUCCESS;
         }
 
-        $dryRun = (bool) $this->option('dry-run');
+        $dryRun = $this->isDryRun();
         $imported = 0;
         $skipped = 0;
         $keys = [];
@@ -84,7 +83,7 @@ class ImportNetworksCommand extends Command
         }
 
         if (! $dryRun) {
-            $this->removeOrphans($keys);
+            $this->removeOrphans(Network::query(), 'key', $keys);
         }
 
         $this->newLine();
@@ -93,28 +92,9 @@ class ImportNetworksCommand extends Command
         return $skipped > 0 ? self::FAILURE : self::SUCCESS;
     }
 
-    private function basePath(): string
+    protected function defaultPath(): string
     {
-        $override = $this->option('path');
-
-        return is_string($override) && $override !== '' ? rtrim($override, '/') : database_path('files/networks');
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private function files(): array
-    {
-        $base = $this->basePath();
-
-        if (! is_dir($base)) {
-            return [];
-        }
-
-        $files = array_merge(glob($base.'/*.yaml') ?: [], glob($base.'/*.yml') ?: []);
-        sort($files);
-
-        return $files;
+        return 'files/networks';
     }
 
     /**
@@ -122,26 +102,20 @@ class ImportNetworksCommand extends Command
      */
     private function parse(string $path): ?array
     {
-        try {
-            $parsed = Yaml::parseFile($path);
-        } catch (ParseException $exception) {
-            $this->components->error(basename($path).': '.$exception->getMessage());
+        $parsed = $this->parseYamlFile($path);
 
-            return null;
-        }
-
-        if (! is_array($parsed)) {
-            $this->components->error(basename($path).' is not a YAML mapping — skipped.');
-
+        if ($parsed === null) {
             return null;
         }
 
         $key = $this->string($parsed['key'] ?? '') ?: pathinfo($path, PATHINFO_FILENAME);
-        $names = is_array($parsed['name'] ?? null) ? $parsed['name'] : [];
+        // Sanitised up front, so the completeness check below sees exactly the
+        // locales that survive as usable strings — not keys that only look present.
+        $names = $this->localizedMap($parsed['name'] ?? null);
 
-        $missing = array_diff(
+        $missing = $this->missingLocales(
             array_map(fn (LocaleEnum $case): string => $case->value, LocaleEnum::cases()),
-            array_keys($names)
+            $names
         );
 
         if ($missing !== []) {
@@ -169,74 +143,9 @@ class ImportNetworksCommand extends Command
             'until_year' => $this->nullableInt($parsed['until_year'] ?? null),
             'page_slug' => $this->nullableString($parsed['page_slug'] ?? null),
             'published' => (bool) ($parsed['published'] ?? true),
-            'name' => array_map(fn (mixed $value): string => $this->string($value), $names),
+            'name' => $names,
             'tier_label' => $this->localizedMap($parsed['tier_label'] ?? null),
             'excerpt' => $this->localizedMap($parsed['excerpt'] ?? null),
         ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private function localizedMap(mixed $value): array
-    {
-        if (! is_array($value)) {
-            return [];
-        }
-
-        $result = [];
-
-        foreach ($value as $locale => $text) {
-            if (is_string($locale) && is_string($text) && $text !== '') {
-                $result[$locale] = $text;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * A network removed from the repository must disappear from the site too,
-     * otherwise the files stop being the source of truth.
-     *
-     * @param  array<int, string>  $keys
-     */
-    private function removeOrphans(array $keys): void
-    {
-        $orphans = Network::whereNotIn('key', $keys)->get();
-
-        foreach ($orphans as $orphan) {
-            $this->components->twoColumnDetail($orphan->key, '<fg=red>removed</>');
-            $orphan->delete();
-        }
-    }
-
-    private function string(mixed $value): string
-    {
-        if (is_string($value)) {
-            return trim($value);
-        }
-
-        if (is_int($value) || is_float($value) || is_bool($value)) {
-            return trim((string) $value);
-        }
-
-        return '';
-    }
-
-    private function nullableInt(mixed $value): ?int
-    {
-        if (is_int($value)) {
-            return $value;
-        }
-
-        return is_string($value) && ctype_digit($value) ? (int) $value : null;
-    }
-
-    private function nullableString(mixed $value): ?string
-    {
-        $string = $this->string($value);
-
-        return $string === '' ? null : $string;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\DTO\ContactDTO;
 use App\Models\Contact;
 

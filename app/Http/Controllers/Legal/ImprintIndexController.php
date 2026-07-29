@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Legal;
 
 use App\Actions\PageAction;
@@ -8,9 +10,6 @@ use Illuminate\View\View;
 
 class ImprintIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function __invoke(): View
     {
         return view('app.legal.imprint.index')->with([

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Contact;
 
 use App\Actions\PageAction;
@@ -9,9 +11,6 @@ use Illuminate\View\View;
 
 class ContactIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function __invoke(): View
     {
         return view('app.contact.index')->with([

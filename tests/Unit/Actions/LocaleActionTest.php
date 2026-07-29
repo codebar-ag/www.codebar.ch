@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\LocaleAction;
 use App\Enums\SessionKeyEnum;
 use Illuminate\Support\Facades\App;

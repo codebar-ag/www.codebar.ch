@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions;
 
 use App\DTO\ContactDTO;
 use App\Enums\AiModelCategoryEnum;
+use App\Enums\CacheKeyEnum;
 use App\Enums\ContactSectionEnum;
 use App\Models\AiModel;
 use App\Models\Contact;
@@ -14,7 +17,6 @@ use App\Models\Service;
 use App\Models\Technology;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
 class ViewDataAction
 {
@@ -23,7 +25,7 @@ class ViewDataAction
      */
     public function products(string $locale): Collection
     {
-        $key = Str::slug("products_published_{$locale}");
+        $key = CacheKeyEnum::PRODUCTS_PUBLISHED->forLocale($locale);
 
         return Cache::rememberForever($key, function () {
             return Product::where('published', true)->orderBy('order')->get();
@@ -35,7 +37,7 @@ class ViewDataAction
      */
     public function services(string $locale): Collection
     {
-        $key = Str::slug("services_published_{$locale}");
+        $key = CacheKeyEnum::SERVICES_PUBLISHED->forLocale($locale);
 
         return Cache::rememberForever($key, function () {
             return Service::where('published', true)->orderBy('order')->get();
@@ -47,7 +49,7 @@ class ViewDataAction
      */
     public function news(string $locale): Collection
     {
-        $key = Str::slug("news_published_{$locale}");
+        $key = CacheKeyEnum::NEWS_PUBLISHED->forLocale($locale);
 
         return Cache::rememberForever($key, function () {
             // Eager loaded: the cards read the series title and the author's picture,
@@ -65,7 +67,7 @@ class ViewDataAction
      */
     public function technologies(string $locale): Collection
     {
-        $key = Str::slug("technologies_published_{$locale}");
+        $key = CacheKeyEnum::TECHNOLOGIES_PUBLISHED->forLocale($locale);
 
         return Cache::rememberForever($key, function () {
             return Technology::where('published', true)->orderBy('order')->get();
@@ -77,7 +79,7 @@ class ViewDataAction
      */
     public function aiModelGroups(): Collection
     {
-        return Cache::rememberForever('ai_models_active', function () {
+        return Cache::rememberForever(CacheKeyEnum::AI_MODELS_ACTIVE->value, function () {
             return $this->groupAiModelsByCategory(
                 AiModel::whereNull('archived_at')->orderBy('order')->get()
             );
@@ -89,7 +91,7 @@ class ViewDataAction
      */
     public function aiModelArchive(): Collection
     {
-        return Cache::rememberForever('ai_models_archived', function () {
+        return Cache::rememberForever(CacheKeyEnum::AI_MODELS_ARCHIVED->value, function () {
             return $this->groupAiModelsByCategory(
                 AiModel::whereNotNull('archived_at')->with('replacedBy')->orderBy('order')->get()
             );
@@ -116,7 +118,7 @@ class ViewDataAction
      */
     public function openSource(string $locale): Collection
     {
-        $key = Str::slug("open_source_published_{$locale}");
+        $key = CacheKeyEnum::OPEN_SOURCE_PUBLISHED->forLocale($locale);
 
         return Cache::rememberForever($key, function () {
             return OpenSource::where('published', true)->orderByDesc('downloads')->get();
@@ -125,7 +127,7 @@ class ViewDataAction
 
     public function contacts(string $locale): \stdClass
     {
-        $key = Str::slug("contacts_published_{$locale}");
+        $key = CacheKeyEnum::CONTACTS_PUBLISHED->forLocale($locale);
 
         return Cache::rememberForever($key, function () use ($locale) {
             // Ordered by the `sort` field from the YAML files rather than alphabetically:

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Network;
 use App\Models\News;
 use Database\Seeders\PagesTableSeeder;

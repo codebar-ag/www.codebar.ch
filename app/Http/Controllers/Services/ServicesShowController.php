@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Services;
 
 use App\Actions\PageAction;
@@ -11,9 +13,6 @@ use Illuminate\View\View;
 
 class ServicesShowController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function __invoke(string $locale, Service $service): View|RedirectResponse
     {
         return redirect()->route(Str::slug(app()->getLocale()).'.start.index');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\PageAction;
 use App\Models\News;
 use App\Models\OpenSource;

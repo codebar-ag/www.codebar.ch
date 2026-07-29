@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Start;
 
 use App\Actions\LocaleAction;
@@ -12,10 +14,7 @@ use Illuminate\View\View;
 
 class StartIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $viewData): View
     {
         $locale = request()->routeIs(Str::slug(LocaleEnum::EN->value).'.start.index')
             ? LocaleEnum::EN->value
@@ -27,7 +26,7 @@ class StartIndexController extends Controller
             'page' => (new PageAction(locale: null, routeName: 'start.index'))->default(),
             // Two entries only: the start page teases the latest news, it does not
             // list them — the next-page card below leads to the full overview.
-            'latestNews' => (new ViewDataAction)->news($locale)->take(2),
+            'latestNews' => $viewData->news($locale)->take(2),
         ]);
     }
 }

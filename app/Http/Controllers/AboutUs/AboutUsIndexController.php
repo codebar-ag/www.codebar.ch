@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\AboutUs;
 
 use App\Actions\PageAction;
@@ -14,12 +16,12 @@ use stdClass;
 
 class AboutUsIndexController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $viewData): View
     {
         $locale = app()->getLocale();
 
         $page = (new PageAction(locale: null, routeName: 'about-us.index'))->default();
-        $contacts = (new ViewDataAction)->contacts($locale);
+        $contacts = $viewData->contacts($locale);
 
         return view('app.about-us.index')->with([
             'page' => $page,

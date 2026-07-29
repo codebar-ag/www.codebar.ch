@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +14,15 @@ use Spatie\Translatable\HasTranslations;
 class NewsSeries extends Model
 {
     use HasTranslations;
+
+    /** @var list<string> */
+    protected $fillable = [
+        'key',
+        'title',
+        'slug',
+        'description',
+        'published',
+    ];
 
     protected $table = 'news_series';
 

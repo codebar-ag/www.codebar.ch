@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +36,8 @@ return new class extends Migration
 
         // A JSON column cannot carry a plain unique constraint — index the extracted
         // per-locale value instead, so each language keeps its own unique slug.
+        // PostgreSQL only: `->>` here takes a bare key, which is not valid MySQL.
+        // The whole application targets pgsql (see config/database.php).
         foreach (['de_CH', 'en_CH'] as $locale) {
             $index = 'news_slug_'.strtolower(str_replace('_', '', $locale)).'_unique';
             DB::statement("CREATE UNIQUE INDEX {$index} ON news (( slug->>'{$locale}' ))");

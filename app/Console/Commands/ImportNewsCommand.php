@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Enums\LocaleEnum;
@@ -9,17 +11,14 @@ use App\Models\News;
 use App\Models\NewsSeries;
 use App\Models\NewsTag;
 use App\Observers\NewsObserver;
-use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Reads the article files under database/files/news/{locale}/ and writes them to the
  * database. The markdown files are the source of truth — running this repeatedly is safe.
  */
-class ImportNewsCommand extends Command
+class ImportNewsCommand extends ImportCommand
 {
     protected $signature = 'news:import
                             {--dry-run : Show what would change without writing anything}
@@ -30,7 +29,11 @@ class ImportNewsCommand extends Command
 
     public function handle(NewsMarkdown $markdown): int
     {
-        $documents = $this->readDocuments();
+        // PARSE_DATETIME: without it a bare `published_at: 2026-07-28` arrives as a Unix timestamp.
+        $documents = $this->readLocaleDocuments(
+            array_map(fn (LocaleEnum $case): string => $case->value, LocaleEnum::cases()),
+            parseDateTime: true,
+        );
 
         if ($documents === []) {
             $this->components->warn('No article files found under '.$this->basePath().'.');
@@ -38,7 +41,7 @@ class ImportNewsCommand extends Command
             return self::SUCCESS;
         }
 
-        $dryRun = (bool) $this->option('dry-run');
+        $dryRun = $this->isDryRun();
         $only = $this->option('key');
 
         $imported = 0;
@@ -49,9 +52,9 @@ class ImportNewsCommand extends Command
                 continue;
             }
 
-            $missing = array_diff(
+            $missing = $this->missingLocales(
                 array_map(fn (LocaleEnum $case): string => $case->value, LocaleEnum::cases()),
-                array_keys($localeDocuments)
+                $localeDocuments
             );
 
             if ($missing !== []) {
@@ -89,51 +92,9 @@ class ImportNewsCommand extends Command
         return $skipped > 0 ? self::FAILURE : self::SUCCESS;
     }
 
-    private function basePath(): string
+    protected function defaultPath(): string
     {
-        $override = $this->option('path');
-
-        return is_string($override) && $override !== '' ? rtrim($override, '/') : database_path('files/news');
-    }
-
-    /**
-     * @return array<string, array<string, array{front: array<string, mixed>, body: string}>>
-     */
-    private function readDocuments(): array
-    {
-        $documents = [];
-
-        foreach (LocaleEnum::cases() as $case) {
-            $directory = $this->basePath().'/'.$case->value;
-
-            if (! is_dir($directory)) {
-                continue;
-            }
-
-            foreach (glob($directory.'/*.md') ?: [] as $path) {
-                $parsed = $this->parseFile($path);
-
-                if ($parsed === null) {
-                    continue;
-                }
-
-                $key = $parsed['front']['key'] ?? null;
-
-                if (! is_string($key) || $key === '') {
-                    $this->components->error(basename($path).' has no "key" in its front matter — skipped.');
-
-                    continue;
-                }
-
-                $this->checkFileName($path, $key, $parsed['front']);
-
-                $documents[$key][$case->value] = $parsed;
-            }
-        }
-
-        ksort($documents);
-
-        return $documents;
+        return 'files/news';
     }
 
     /**
@@ -143,7 +104,7 @@ class ImportNewsCommand extends Command
      *
      * @param  array<string, mixed>  $front
      */
-    private function checkFileName(string $path, string $key, array $front): void
+    protected function checkFileName(string $path, string $key, array $front): void
     {
         $publishedAt = $this->publishedAt($front['published_at'] ?? null);
 
@@ -156,58 +117,6 @@ class ImportNewsCommand extends Command
         if (basename($path) !== $expected) {
             $this->components->warn(sprintf('%s should be named %s.', basename($path), $expected));
         }
-    }
-
-    /**
-     * @return array{front: array<string, mixed>, body: string}|null
-     */
-    private function parseFile(string $path): ?array
-    {
-        $contents = file_get_contents($path);
-
-        if ($contents === false) {
-            return null;
-        }
-
-        $contents = str_replace("\r\n", "\n", $contents);
-
-        if (! str_starts_with($contents, '---')) {
-            $this->components->error(basename($path).' has no YAML front matter — skipped.');
-
-            return null;
-        }
-
-        $parts = preg_split('/^---\s*$/m', $contents, 3);
-
-        if ($parts === false || count($parts) < 3) {
-            $this->components->error(basename($path).' has malformed front matter — skipped.');
-
-            return null;
-        }
-
-        try {
-            // Without PARSE_DATETIME, `published_at: 2025-04-06` arrives as a Unix timestamp.
-            $front = Yaml::parse($parts[1], Yaml::PARSE_DATETIME);
-        } catch (ParseException $exception) {
-            $this->components->error(basename($path).': '.$exception->getMessage());
-
-            return null;
-        }
-
-        $normalised = [];
-
-        if (is_array($front)) {
-            foreach ($front as $field => $value) {
-                if (is_string($field)) {
-                    $normalised[$field] = $value;
-                }
-            }
-        }
-
-        return [
-            'front' => $normalised,
-            'body' => trim($parts[2]),
-        ];
     }
 
     /**
@@ -249,7 +158,7 @@ class ImportNewsCommand extends Command
             'series_id' => $this->resolveSeriesId($primary['series'] ?? null, $localeDocuments),
             'series_position' => $this->nullableInt($primary['series_position'] ?? null),
             'featured' => (bool) ($primary['featured'] ?? false),
-            'tags' => $this->tagLabels($primary['tags'] ?? []),
+            'tags' => $this->stringList($primary['tags'] ?? []),
             'reading_minutes' => $markdown->readingMinutes($localeDocuments[LocaleEnum::DE->value]['body']),
         ]);
 
@@ -367,21 +276,6 @@ class ImportNewsCommand extends Command
     }
 
     /**
-     * @return array<int, string>
-     */
-    private function tagLabels(mixed $tags): array
-    {
-        if (! is_array($tags)) {
-            return [];
-        }
-
-        return array_values(array_filter(array_map(
-            fn (mixed $tag): string => $this->string($tag),
-            $tags
-        ), fn (string $tag): bool => $tag !== ''));
-    }
-
-    /**
      * @param  array<string, array{front: array<string, mixed>, body: string}>  $localeDocuments
      * @return array<int, int>
      */
@@ -389,7 +283,7 @@ class ImportNewsCommand extends Command
     {
         $ids = [];
 
-        foreach ($this->tagLabels($tags) as $label) {
+        foreach ($this->stringList($tags) as $label) {
             // "DMS/ECM" must not collapse into "dmsecm".
             $key = Str::slug(str_replace(['/', '&'], ' ', $label));
             $tag = NewsTag::firstOrNew(['key' => $key]);
@@ -448,34 +342,5 @@ class ImportNewsCommand extends Command
 
             $news->relatedArticles()->sync($sync);
         }
-    }
-
-    private function string(mixed $value): string
-    {
-        if (is_string($value)) {
-            return trim($value);
-        }
-
-        if (is_int($value) || is_float($value) || is_bool($value)) {
-            return trim((string) $value);
-        }
-
-        return '';
-    }
-
-    private function nullableInt(mixed $value): ?int
-    {
-        if (is_int($value)) {
-            return $value;
-        }
-
-        return is_string($value) && ctype_digit($value) ? (int) $value : null;
-    }
-
-    private function nullableString(mixed $value): ?string
-    {
-        $string = $this->string($value);
-
-        return $string === '' ? null : $string;
     }
 }

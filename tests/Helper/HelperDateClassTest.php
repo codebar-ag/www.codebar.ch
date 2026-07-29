@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Helpers\Facades\HelperDate;
 
 it('helper date: format date-time', function () {

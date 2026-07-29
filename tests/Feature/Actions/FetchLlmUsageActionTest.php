@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\FetchLlmUsageAction;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Client\Request;

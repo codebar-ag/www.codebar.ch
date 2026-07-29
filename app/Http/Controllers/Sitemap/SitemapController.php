@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Sitemap;
 
 use App\Actions\PageAction;
 use App\DTO\PageDTO;
+use App\Enums\CacheKeyEnum;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Network;
@@ -40,7 +43,7 @@ class SitemapController extends Controller
     public function __invoke(): Response
     {
         $content = Cache::remember(
-            key: 'sitemap_xml',
+            key: CacheKeyEnum::SITEMAP->value,
             ttl: now()->addHours(24),
             callback: function (): string {
                 $sitemap = new SitemapBuilder;
@@ -52,7 +55,7 @@ class SitemapController extends Controller
 
         return response(content: $content)
             ->header('Content-Type', 'application/xml')
-            ->header('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+            ->header('Cache-Control', 'public, max-age=3600');
     }
 
     private function builder(SitemapBuilder $sitemap): void

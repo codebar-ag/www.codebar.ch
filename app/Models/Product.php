@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Traits\HasLocalizedRouteBinding;
@@ -23,6 +25,28 @@ class Product extends Model
         'features_heading', 'features_intro', 'features',
         'deployment_heading', 'deployment_intro', 'deployment_options',
         'cta_heading', 'cta_body',
+    ];
+
+    /** @var list<string> */
+    protected $fillable = [
+        'published',
+        'order',
+        'name',
+        'headline',
+        'teaser',
+        'slug',
+        'content',
+        'features_heading',
+        'features_intro',
+        'features',
+        'deployment_heading',
+        'deployment_intro',
+        'deployment_options',
+        'cta_heading',
+        'cta_body',
+        'image',
+        'url',
+        'tags',
     ];
 
     protected $casts = [

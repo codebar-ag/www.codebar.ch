@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\CacheKeyEnum;
 
 it('exposes the valid filesystems default cache key', function () {

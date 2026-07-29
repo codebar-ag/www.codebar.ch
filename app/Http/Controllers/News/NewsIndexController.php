@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\News;
 
 use App\Actions\PageAction;
@@ -14,12 +16,12 @@ use Illuminate\View\View;
 
 class NewsIndexController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $viewData): View
     {
         $locale = app()->getLocale();
 
         $page = (new PageAction(locale: null, routeName: 'news.index'))->default();
-        $all = (new ViewDataAction)->news($locale);
+        $all = $viewData->news($locale);
 
         // Filtering happens by topic slug in the query string rather than on its own
         // route: the canonical URL stays /aktuelles, so filtered views never compete

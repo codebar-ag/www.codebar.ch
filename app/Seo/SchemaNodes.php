@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Seo;
 
 use App\DTO\ContactDTO;

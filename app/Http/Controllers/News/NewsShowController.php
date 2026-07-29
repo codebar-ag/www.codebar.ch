@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\News;
 
 use App\Actions\PageAction;
@@ -13,6 +15,10 @@ use Illuminate\View\View;
 
 class NewsShowController extends Controller
 {
+    private const int RELATED_ARTICLES = 3;
+
+    private const int RELATED_CANDIDATE_POOL = 30;
+
     public function __invoke(string $locale, News $news, NewsMarkdown $markdown): View
     {
         // Drafts must not be reachable by guessing the URL — the route binding
@@ -56,14 +62,17 @@ class NewsShowController extends Controller
     {
         $curated = $news->relatedArticles()->published()->get();
 
-        if ($curated->count() >= 3) {
-            return $curated->take(3);
+        if ($curated->count() >= self::RELATED_ARTICLES) {
+            return $curated->take(self::RELATED_ARTICLES);
         }
 
         $tags = $this->tagStrings($news);
 
         $byTag = News::query()
             ->published()
+            // Only the card fields — `content` holds the full article body in both
+            // languages, and scoring by tag overlap never looks at it.
+            ->select(['id', 'key', 'slug', 'title', 'teaser', 'hero_image', 'published_at', 'reading_minutes', 'tags', 'series_id', 'contact_id'])
             ->whereKeyNot($news->getKey())
             ->whereNotIn('id', $curated->modelKeys())
             ->when($news->series_id !== null, fn ($query) => $query->where(function ($inner) use ($news) {
@@ -71,9 +80,12 @@ class NewsShowController extends Controller
                 $inner->whereNull('series_id')->orWhere('series_id', '!=', $news->series_id);
             }))
             ->orderByDesc('published_at')
+            // Tag overlap is scored in PHP, so the candidate set has to be bounded:
+            // "related" never reaches past the most recent articles anyway.
+            ->limit(self::RELATED_CANDIDATE_POOL)
             ->get()
             ->sortByDesc(fn (News $candidate): int => count(array_intersect($tags, $this->tagStrings($candidate))))
-            ->take(3 - $curated->count());
+            ->take(self::RELATED_ARTICLES - $curated->count());
 
         return $curated->merge($byTag)->values();
     }

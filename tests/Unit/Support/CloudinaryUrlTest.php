@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Support\CloudinaryUrl;
 
 it('transforms cloudinary urls with sizing parameters', function () {

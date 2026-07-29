@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\LocaleEnum;
 use App\Enums\NetworkStatusEnum;
 use App\Enums\SessionKeyEnum;
