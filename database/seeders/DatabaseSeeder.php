@@ -48,11 +48,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AiModelsTableSeeder::class);
         $this->call(NetworksTableSeeder::class);
         $this->call(NetworkUsersTableSeeder::class);
+        $this->call(AiModelDailyUsagesTableSeeder::class);
 
-        if (app()->isLocal()) {
-            $this->call(AiModelDailyUsagesTableSeeder::class);
-
-            Artisan::call(ClearCommand::class);
-        }
+        Artisan::call(ClearCommand::class);
+        Artisan::call('responsecache:clear');
     }
 }

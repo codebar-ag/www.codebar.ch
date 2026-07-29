@@ -10,6 +10,7 @@ use App\Models\AiModelDailyUsage;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 use function Pest\Laravel\assertDatabaseHas;
 
@@ -75,4 +76,34 @@ it('invalidates the stats cache after storing', function () {
     );
 
     expect(Cache::get(LlmUsageStatsAction::VERSION_CACHE_KEY))->toBeGreaterThan($versionBefore);
+})->group('llm-analytics');
+
+it('does not clear the response cache when a single day is stored', function () {
+    $responseCache = ResponseCache::spy();
+
+    (new StoreLlmUsageAction)->store(collect([[
+        'date' => '2026-07-20',
+        'model' => 'qwen3.6:35b',
+        'prompt_tokens' => 100,
+        'completion_tokens' => 50,
+        'total_tokens' => 150,
+        'requests' => 1,
+        'spend' => 0.5,
+    ]]));
+
+    // Clearing the whole site's rendered HTML is the sync's decision, not one day's —
+    // otherwise an hourly run wipes the response cache once per day in its window.
+    $responseCache->shouldNotHaveReceived('clear');
+})->group('llm-analytics');
+
+it('clears the response cache once after the whole sync batch finishes', function () {
+    Http::fake(['llm.codebar.net/spend/logs*' => Http::response(spendLogsPayload(promptTokens: 100))]);
+
+    $responseCache = ResponseCache::spy();
+
+    runArtisan('llm:fetch-analytics', ['--from' => '2026-07-20', '--to' => '2026-07-23'])
+        ->assertSuccessful();
+
+    // Four days were synced; the rendered pages are dropped exactly once.
+    $responseCache->shouldHaveReceived('clear')->once();
 })->group('llm-analytics');

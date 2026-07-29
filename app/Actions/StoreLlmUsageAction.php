@@ -7,9 +7,7 @@ namespace App\Actions;
 use App\Models\AiModel;
 use App\Models\AiModelDailyUsage;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
-use Spatie\ResponseCache\Commands\ClearCommand;
 
 class StoreLlmUsageAction
 {
@@ -35,9 +33,11 @@ class StoreLlmUsageAction
             update: ['ai_model_id', 'prompt_tokens', 'completion_tokens', 'total_tokens', 'requests', 'spend'],
         );
 
+        // Bumping the version invalidates every cached stats query at once, which is
+        // all this action is responsible for. Clearing the rendered pages is the
+        // sync's job, not one day's — FetchLlmAnalyticsCommand does it once the whole
+        // batch has finished, rather than four times per hourly run.
         Cache::increment(LlmUsageStatsAction::VERSION_CACHE_KEY);
-
-        Artisan::call(ClearCommand::class);
 
         return $count;
     }

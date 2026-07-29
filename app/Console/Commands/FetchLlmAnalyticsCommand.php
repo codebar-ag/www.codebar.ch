@@ -8,7 +8,10 @@ use App\Jobs\FetchLlmUsageJob;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
+use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Bus;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 class FetchLlmAnalyticsCommand extends Command
 {
@@ -35,7 +38,19 @@ class FetchLlmAnalyticsCommand extends Command
 
         $days = collect(CarbonPeriod::create($from, $to)->toArray());
 
-        $days->each(fn (CarbonInterface $day) => FetchLlmUsageJob::dispatch(CarbonImmutable::instance($day)));
+        // Batched rather than dispatched one by one: the usage figures are rendered
+        // into the AI pages, so the cached HTML has to go once the numbers change.
+        // finally() fires after the last day is stored — clearing per job would wipe
+        // the whole site's response cache once per day in the window, and clearing
+        // here in the command would fire before the queue had done any work at all.
+        Bus::batch(
+            $days->map(fn (CarbonInterface $day): FetchLlmUsageJob => new FetchLlmUsageJob(CarbonImmutable::instance($day)))->all()
+        )
+            ->name('llm-usage-sync')
+            ->finally(function (Batch $batch): void {
+                ResponseCache::clear();
+            })
+            ->dispatch();
 
         $this->info("Dispatched {$days->count()} job(s) for {$from->toDateString()} to {$to->toDateString()}.");
 
