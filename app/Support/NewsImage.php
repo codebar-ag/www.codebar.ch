@@ -43,6 +43,23 @@ class NewsImage
         return self::fromPublicId($reference, $width);
     }
 
+    /**
+     * The og:image counterpart of an SVG hero. Social crawlers cannot render
+     * SVG, so a same-named PNG rendered from it — see
+     * public/images/news/placeholders/ — is used when one exists; otherwise
+     * the caller falls back to the site default image.
+     */
+    public static function ogImage(string $svgReference): ?string
+    {
+        if (! self::isLocalPath($svgReference) || ! str_ends_with(strtolower($svgReference), '.svg')) {
+            return null;
+        }
+
+        $png = substr($svgReference, 0, -4).'.png';
+
+        return is_file(public_path(ltrim($png, '/'))) ? asset(ltrim($png, '/')) : null;
+    }
+
     public static function srcset(?string $reference, int $maxWidth): ?string
     {
         if (self::src($reference, $maxWidth) === null) {
