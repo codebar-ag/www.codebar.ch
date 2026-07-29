@@ -6,7 +6,7 @@ teaser: >-
   Workflows entstehen neu im Browser, der Rechnungseingang kommt mit ausländischen E-Rechnungsformaten zurecht, und die Anmeldung schützt ein zweiter Faktor.
 published_at: 2025-09-15
 author: sebastian.buergin@codebar.ch
-hero: images/news/placeholders/docuware-7-13.svg
+hero: images/news/placeholders/docuware-7-13-de.svg
 hero_alt: Platzhaltergrafik zum DocuWare-Release 7.13
 tags: [DMS/ECM]
 ---

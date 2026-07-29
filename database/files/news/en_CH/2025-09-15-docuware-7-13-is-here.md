@@ -6,7 +6,7 @@ teaser: >-
   Workflows are now built in the browser, invoice intake copes with foreign e-invoice formats, and logging in can be secured with a second factor.
 published_at: 2025-09-15
 author: sebastian.buergin@codebar.ch
-hero: images/news/placeholders/docuware-7-13.svg
+hero: images/news/placeholders/docuware-7-13-en.svg
 hero_alt: Placeholder graphic for the DocuWare 7.13 release
 tags: [DMS/ECM]
 ---
