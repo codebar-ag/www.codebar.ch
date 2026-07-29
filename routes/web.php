@@ -58,7 +58,6 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
     Route::get('technologies', TechnologiesIndexController::class)->name('technologies.index');
     Route::get('technologies/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
-    // Not yet linked in navigation — built but inactive, same as Technologies above.
     Route::get('co-working', CoWorkingIndexController::class)->name('co-working.index');
 
     Route::get('open-source-contributions', OpenSourceIndexController::class)->name('open-source.index');
@@ -101,10 +100,6 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('technologien', TechnologiesIndexController::class)->name('technologies.index');
     Route::get('technologien/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
-    // Not yet linked in navigation — built but inactive, same as Technologies above.
-    // The slug is German like every other route in this group: sharing "co-working"
-    // with the English group would let one registration shadow the other, and the
-    // locale is resolved from the matched route's name.
     Route::get('arbeitsplaetze', CoWorkingIndexController::class)->name('co-working.index');
 
     Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');

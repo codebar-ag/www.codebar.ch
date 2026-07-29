@@ -13,8 +13,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Every channel not listed here falls back to Laravel's internal default
-    | config (vendor/laravel/framework/config/logging.php). "flare" is added
-    | for spatie/laravel-ignition, which isn't a Laravel default channel.
+    | config (vendor/laravel/framework/config/logging.php).
+    |
+    | Error reporting goes to Laravel Nightwatch, which hooks the exception
+    | handler directly rather than through a log channel — so there is no
+    | reporting channel to add to LOG_STACK.
     |
     */
 
@@ -29,10 +32,6 @@ return [
                 'stream' => 'php://stderr',
             ],
             'processors' => [PsrLogMessageProcessor::class],
-        ],
-
-        'flare' => [
-            'driver' => 'flare',
         ],
 
     ],
