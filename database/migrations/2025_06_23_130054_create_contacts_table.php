@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique();
             $table->boolean('published')->default(false);
+            $table->unsignedSmallInteger('sort')->default(0);
             $table->string('name');
             $table->json('sections')->nullable();
             $table->string('image');
