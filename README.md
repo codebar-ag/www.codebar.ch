@@ -1,306 +1,133 @@
 <p align="center">
-<a href="https://github.com/codebar-ag/laravel-template.git" target="_blank">
-<img src="https://banners.beyondco.de/Laravel%20Template.png?theme=dark&pattern=architect&style=style_1&description=codebar+Solutions+AG&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg" alt="Laravel Logo">
-</a>
+  <img src="public/images/logos/codebar-logo-colored.svg" alt="codebar Solutions AG" width="260">
 </p>
 
-## About Laravel Template
+<h1 align="center">www.codebar.ch</h1>
 
-Laravel Template is a project template for all Codebar Solutions AG Laravel applications.
-It is a starting point for new Laravel projects.
-It includes a basic setup for a Laravel application with some common packages and configurations.:
+<p align="center">
+  The public marketing website of <a href="https://www.codebar.ch">codebar Solutions AG</a> — a small software company based in the Basel region, Switzerland. Laravel, Blade and Tailwind, bilingual (DE/EN), content managed as version-controlled files rather than through an admin panel.
+</p>
 
-- Auth
-- Support for Microsoft Office 365 Authentication
-- Enums
-- [Laravel Nova](https://nova.laravel.com).
-- [Flysystem Cloudinary](https://github.com/codebar-ag/laravel-flysystem-cloudinary).
-- [Flysystem Cloudinary Nova](https://github.com/codebar-ag/laravel-flysystem-cloudinary-nova).
-- [Spatie Activity Log](https://github.com/spatie/laravel-activitylog).
-- [Spatie Health](https://github.com/spatie/laravel-health).
-- [Spatie Permission](https://github.com/spatie/laravel-permission).
+## Contents
 
-## Installation
+- [Content architecture](#content-architecture)
+- [Localization](#localization)
+- [SEO](#seo)
+- [LLM usage analytics](#llm-usage-analytics)
+- [Local development](#local-development)
+- [Testing & code quality](#testing--code-quality)
+- [Deployment](#deployment-laravel-cloud)
+- [Key packages](#key-packages)
 
-You can use this template by clicking on the `Use this template` button on the top of this github repository page.
+## Content architecture
 
-**INSERT IMAGE HERE* *
+Almost everything editorial — pages, news articles, team members, services, products, technologies, network partners, the AI model catalogue — lives as YAML or Markdown files under `database/files/`, not as data entered through a CMS. The files are the source of truth; the database is a rebuildable cache of them.
 
-Once you have created a new repository from this template, you can clone it to your local machine and install the dependencies:
+```
+database/files/
+├── ai_models/        one YAML file per model
+├── networks/          one YAML file per partner
+├── news/{locale}/      one Markdown file per article, per language
+├── pages/              one YAML file per page (SEO metadata: title, description, robots, image)
+├── products/{locale}/
+├── services/{locale}/
+├── team/                one YAML file per person
+└── technologies/{locale}/
+```
+
+Each content type has a matching import command that reads its files and upserts the database, and is safe to run repeatedly:
+
+| Command | Reads |
+|---|---|
+| `php artisan pages:import` | `database/files/pages/*.yaml` |
+| `php artisan news:import` | `database/files/news/{locale}/*.md` |
+| `php artisan team:import` | `database/files/team/*.yaml` |
+| `php artisan services:import` | `database/files/services/{locale}/*.md` |
+| `php artisan products:import` | `database/files/products/{locale}/*.md` |
+| `php artisan technologies:import` | `database/files/technologies/{locale}/*.md` |
+| `php artisan networks:import` | `database/files/networks/*.yaml` |
+| `php artisan ai-models:import` | `database/files/ai_models/*.yaml` |
+| `php artisan sync:repositories` | live GitHub repositories (open-source content) |
+
+`database/seeders/DatabaseSeeder.php` calls every one of these on `db:seed` — including in production. That is intentional: these seeders don't generate test fixtures, they publish the real content the same way running the command by hand would. The one exception is `AiModelDailyUsagesTableSeeder`, which loads a static local-dev fixture rather than real usage data (see [LLM usage analytics](#llm-usage-analytics)).
+
+A file that disappears from `database/files/` removes the matching row on the next import — the importers are the single source of truth in both directions.
+
+## Localization
+
+The site ships in German (`de_CH`) and English (`en_CH`) under distinct, fully translated URL prefixes rather than a shared `/en/…` segment — e.g. `/dienstleistungen` and `/services`, `/aktuelles` and `/news`, `/ueber-uns` and `/about-us`. Every localized route pair cross-references the other via `hreflang`, including on detail pages where the slug itself is translated (`routes/web.php`, `resources/views/layouts/_partials/_seo.blade.php`).
+
+## SEO
+
+- **Structured data** — a single `@graph` JSON-LD payload (`App\Seo\SchemaGraph` / `App\Seo\SchemaNodes`) built from `config/company.php`, the one source of truth for the company's name, addresses, phone and `sameAs` profiles. Every page ships `Organization`, `WebSite`, `WebPage` and `BreadcrumbList` nodes; content pages add `Service`, `Person`, `BlogPosting`, etc.
+- **Sitemap** — `App\Sitemap\SitemapBuilder` + `App\Http\Controllers\Sitemap\SitemapController` build `/sitemap.xml` from the same models the site renders, cached 24h via `Cache::remember`.
+- **Response cache** — `spatie/laravel-responsecache` caches full HTTP responses for up to 7 days. `App\Observers\SitemapCacheObserver` drops the sitemap's own data cache on every relevant model save, and `responsecache:clear` runs hourly via the scheduler (`routes/console.php`) as a backstop for the full-page cache layer — these are two independent caches and both need clearing after a bulk content change (`php artisan responsecache:clear` after a fresh `db:seed`, for instance).
+- **Social images** — article heroes that are local SVG placeholders (no real photography yet) are not usable as `og:image` — social crawlers don't render SVG. `App\Support\NewsImage::ogImage()` falls back to a same-named `.png` rendered from the SVG when one exists, or the site's default share image otherwise.
+- **Tests** — `tests/Feature/Seo/` asserts on the actual rendered JSON-LD and meta tags (not just "does it look right"), and `tests/lighthouse/` audits real Lighthouse scores against the built (`npm run build`) output, not the Vite dev server.
+
+## LLM usage analytics
+
+`/ki` (`/ai`) publishes aggregate usage figures for the AI models codebar runs internally via a self-hosted [LiteLLM](https://www.litellm.ai/) proxy. `php artisan llm:fetch-analytics` pulls per-day usage from the proxy's `/spend/logs` endpoint and stores it in `ai_model_daily_usages`; it's scheduled hourly but only backfills the last 3 days by default — use `--full` (syncs from 2026-01-01) or `--from`/`--to` to backfill a specific range. Spend figures are stored but must never be displayed publicly. The dashboard intentionally shows monthly/yearly aggregates only, never a daily breakdown.
+
+## Local development
 
 ```bash
 composer install
-
 cp .env.example .env
-cp vite.config-example.js vite.config.js
-
 php artisan key:generate
 
-php artisan migrate --seed
+php artisan migrate --seed   # imports real content — see "Content architecture" above
 
 npm install
-npm run build
+npm run build   # or `npm run dev` for the Vite dev server
 ```
 
-If you want to use Valet to serve your application, you can run the following command:
-
-```bash
-valet link
- 
-valet secure
-
-valet open
-```
-
-If you want to user Herd to serve your application, you can run the following command:
+If you use [Herd](https://herd.laravel.com):
 
 ```bash
 herd link
- 
 herd secure
-
 herd open
 ```
 
-You can run the development asset server with the following command:
+If you use [Valet](https://laravel.com/docs/valet):
 
 ```bash
-npm run dev
-````
+valet link
+valet secure
+valet open
+```
 
-> Note: You should set `valetTls: 'your-domain.test',` below `refresh: true,` in your `vite.config.js` file if you use `valet secure` or `herd secure`.
+> Set `valetTls: 'your-domain.test'` below `refresh: true` in `vite.config.js` if you use `valet secure` / `herd secure`.
 
-## Assets
+## Testing & code quality
 
-Assets should be set in the following directories:
-
-- `resources/js` for JavaScript files.
-- `resources/css` for CSS files.
-- `resources/fonts` for Font files.
-- `resources/images` for Image files.
-
-After you have added your assets, you can run the following command to compile them:
 ```bash
-npm run build
+./vendor/bin/pest              # test suite (Pest)
+./vendor/bin/phpstan analyse   # static analysis (Larastan, see phpstan.neon.dist)
+./vendor/bin/pint              # code style
+./vendor/bin/pint --blade      # blade formatting (beta)
 ```
 
-To include your assets in your blade files, you can use the following:
+## Deployment (Laravel Cloud)
 
-```blade
-{{ Vite::asset('resources/images/your-image.png') }}
-```
-
-## Auth
-
-Auth is enabled by default.
-
-You can configure auth settings in the `config/laravel-auth.php` file.
-
-### 🔐 Verify
-If you wish to use email verification, you can use the following middleware to protect your routes:
-
-```php
-Route::middleware(['laravel-auth-middleware'])->group(function () {
-    ...
-});
-```
-To use verification in nova, add the middleware into in your `nova.php` config:
-
-```php
-/*
-|--------------------------------------------------------------------------
-| Nova Route Middleware
-|--------------------------------------------------------------------------
-|
-| These middleware will be assigned to every Nova route, giving you the
-| chance to add your own middleware to this stack or override any of
-| the existing middleware. Or, you can just stick with this stack.
-|
-*/
-
-'middleware' => [
-    'web',
-    'laravel-auth-middleware',
-    HandleInertiaRequests::class,
-    DispatchServingNovaEvent::class,
-    BootTools::class,
-],
-```
-
-### Microsoft Office 365 Authentication
-
-⚠️ When using Office 365 you need to provide a publicly accessible URL for the `MICROSOFT_REDIRECT_URI` environment variable. You can use [expose](https://expose.dev/) or [ngrok](https://ngrok.com/) for local development.
-
-```bash 
-APP_URL=https://your-expose-or-ngrok-url.com
-
-# ✅ This is recommended for production as well:
-MICROSOFT_REDIRECT_URI="${APP_URL}/auth/service/microsoft/redirect"
-```
-
-## Permissions
-
-Please refer to the [Spatie Permission](https://github.com/spatie/laravel-permission) documentation for more information on how to use permissions.
-
-## Enums
-
-Enums are included in PHP's core functionality but we have some additional functionality to make them easier to use.
-
-You can create an enum in the `app/Enums` directory:
-
-```php
-<?php
-
-namespace App\Enums;
-
-use App\Interfaces\LabelEnumInterface;use App\Traits\HasLabels;
-
-enum EnvironmentEnum: string implements LabelEnumInterface
-{
-    use HasLabels;
-
-    case PRODUCTION = 'production';
-    case STAGING = 'staging';
-    case LOCAL = 'local';
-
-    public function label(): string
-    {
-        return match ($this) {
-            EnvironmentEnum::PRODUCTION => __('Production'),
-            EnvironmentEnum::STAGING => __('Staging'),
-            EnvironmentEnum::LOCAL => __('Local'),
-        };
-    }
-}
-```
-
-You should use the `HasLabels` trait to add a `label` method to your enum.
-You should also implement the `LabelEnumInterface` interface to ensure that the `label` method is implemented.
-
-The `label` method should return the label for the enum value.
-
-You can use the enum in your code like this:
-
-```php
-// Native PHP Enum
-$enum = EnvironmentEnum::PRODUCTION; // Enum Object
-$name = EnvironmentEnum::PRODUCTION->name; // Enum Name (PRODUCTION)
-$value = EnvironmentEnum::PRODUCTION->value; // Enum Value (production)
-
-// Label
-$label = EnvironmentEnum::PRODUCTION->label();  // Enum Label using Laravels Translation (Production)
-
-// Labels
-$labels = EnvironmentEnum::labels(); // Array of Enum Labels with Enum value as Key (['production' => 'Production', 'staging' => 'Staging', 'local' => 'Local'])
-```
-
-## Health
-
-Please refer to the [Spatie Health](https://github.com/spatie/laravel-health) documentation for more information on how to use health checks.
-
-We have added two health checks which are located in the `app/Checks` directory:
-
-- `FailedJobsCheck`
-- `JobsCheck`
-
-## Helpers
-
-We have added some helper functions which are located in the `app/Helpers` directory
-
-You should the Facades for the helpers which are located in the `app/Helpers/Facades` directory:
-
-- `HelperBank`
-- `HelperDate`
-- `HelperDevice`
-- `HelperFile`
-- `HelperMarkdown`
-- `HelperMoney`
-- `HelperNumber`
-- `HelperPhone`
-
-## Feature Policy
-
-We have added feature policy which is located in the `app/FeaturePolicy` directory.
-
-It is enabled by default and you can configure it in the `config/feature-policy.php` and `config/default.php` file.
-
-The Feature Policy Middleware is installed and enabled by default in the `bootstrap/app.php` file.
-
-## Traits
-
-We have added some traits which are located in the `app/Traits` directory.
-
-- `HassUuid`
-
-We also have some traits which are located in the `app/Traits/Nova` directory which are intended for use only in Laravel Nova.
-
-- `NovaCustomOrderTrait`
-- `NovaIdentificationPanelTrait`
-- `NovaLanguageTrait`
-- `NovaTimestampsPanelTrait`
-
-## Blade Components
-
-We have added some blade components which are located in the `resources/views/components` directory.
-
-- `fathom.blade.php`
-- `favicons.blade.php`
-
-You should include both the blade components in your blade layout files
-
-## Laravel Cloud deployment
-
-When deploying to Laravel Cloud, ensure these environment variables are set for Lighthouse Best Practices (security headers):
+The site runs on [Laravel Cloud](https://cloud.laravel.com), behind Cloudflare. Required environment variables for security headers:
 
 - `CSP_ENABLED=true` — enables Content-Security-Policy enforcement via Spatie CSP middleware
 - `FPH_ENABLED=true` — enables Permissions-Policy headers
 
-Security headers (HSTS, COOP, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`) are applied automatically by `SecurityHeaders` middleware on all web responses.
+HSTS, COOP, `X-Content-Type-Options`, `Referrer-Policy` and `X-Frame-Options` are applied automatically by the `SecurityHeaders` middleware on every web response.
 
-**Lighthouse note:** Deprecated API warnings for `/cdn-cgi/challenge-platform/scripts/jsd/main.js` come from Cloudflare bot protection injected by Laravel Cloud, not from application code. Run Lighthouse in incognito without browser extensions for accurate scores.
+**Lighthouse note:** deprecated-API warnings for `/cdn-cgi/challenge-platform/scripts/jsd/main.js` come from Cloudflare's bot protection, injected at the edge — not from application code. Run Lighthouse in incognito without extensions for an accurate score, and prefer `tests/lighthouse/` (which audits the built output) over ad-hoc runs against the dev server.
 
-## Cloudinary
+## Key packages
 
-Please refer to the respective documentation for the Cloudinary and Cloudinary Nova packages.
-
-- [Flysystem Cloudinary](https://github.com/codebar-ag/laravel-flysystem-cloudinary).
-- [Flysystem Cloudinary Nova](https://github.com/codebar-ag/laravel-flysystem-cloudinary-nova).
-
-## Notifications
-
-We use Filament for notifications. Please refer to the [Filament](https://filamentphp.com/docs/3.x/notifications/sending-notifications) documentation for more information on how to use notifications.
-
-## Pint
-
-We use Laravel Pint to format code.
-
-You can run the following command to format your code:
-
-```bash
-./vendor/bin/pint
-```
-
-You can run the following command to format your blade files:
-
-```bash
-./vendor/bin/pint --blade
-```
-
-> The blade formatter is still in beta and may not work as expected. if you wish to not use this update your `composer.json` to use the latest version of `laravel/pint` instead of the dev branch.
-
-
-## Testing
-
-We use PestPHP for testing.
-
-You can run the following command to run your tests:
-
-```bash
-./vendor/bin/pest
-```
-
-Please refer to the [PestPHP](https://pestphp.com) documentation for more information on how to use PestPHP.
+- **Content & storage** — `spatie/laravel-translatable`, `codebar-ag/laravel-flysystem-cloudinary` (editorial images), `league/flysystem-aws-s3-v3` (DigitalOcean Spaces for other assets), `symfony/yaml`
+- **SEO** — `spatie/laravel-sitemap`, `spatie/laravel-responsecache`
+- **Security & health** — `spatie/laravel-csp`, `spatie/laravel-honeypot`, `spatie/laravel-permission`, `spatie/laravel-health`, `spatie/security-advisories-health-check`, `mazedlx/laravel-feature-policy`
+- **Ops** — `laravel/nightwatch` (observability), `symfony/postmark-mailer`
+- **Analytics** — [Fathom](https://usefathom.com) (privacy-friendly, no cookie banner)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The application code is proprietary to codebar Solutions AG. The underlying Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).

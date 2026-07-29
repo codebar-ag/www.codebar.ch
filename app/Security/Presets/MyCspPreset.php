@@ -50,6 +50,8 @@ class MyCspPreset implements Preset
             'data:',
             'res.cloudinary.com',
             'www.gravatar.com',
+            'cdn.usefathom.com',
+            'cdn-eu.usefathom.com',
         ]);
 
         $fontSources = array_filter([
