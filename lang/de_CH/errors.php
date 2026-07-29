@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'title_client' => 'Anfrage fehlgeschlagen',
     'title_server' => 'Etwas ist schiefgelaufen',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Traits\HasLocalizedRouteBinding;
@@ -18,6 +20,20 @@ class Technology extends Model
 
     /** @var array<int, string> */
     protected array $translatable = ['title', 'teaser', 'content'];
+
+    /** @var list<string> */
+    protected $fillable = [
+        'published',
+        'group',
+        'order',
+        'title',
+        'slug',
+        'teaser',
+        'content',
+        'image',
+        'tags',
+        'link',
+    ];
 
     protected $casts = [
         'published' => 'boolean',

@@ -17,4 +17,12 @@
             @endforeach
         </x-layout.grid>
     </x-layout.section>
+
+    <x-layout.section>
+        <x-h2 :title="__('Media usage')"/>
+        <x-ui.prose class="mt-4">
+            <p>{{ __('Media usage allowed') }}</p>
+            <p>{{ __('Media usage forbidden') }}</p>
+        </x-ui.prose>
+    </x-layout.section>
 </x-app-layout>

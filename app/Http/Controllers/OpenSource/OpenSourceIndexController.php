@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\OpenSource;
 
-use App\Actions\PageAction;
-use App\Actions\ViewDataAction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
@@ -12,7 +12,10 @@ use Illuminate\View\View;
 class OpenSourceIndexController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Disabled until the listing actually has entries. `sync:repositories` is
+     * not scheduled, so this page rendered its intro and nothing else — an
+     * empty URL that search engines read as thin content. Restore the body
+     * below once repositories are synced and written up.
      */
     public function __invoke(): View|RedirectResponse
     {

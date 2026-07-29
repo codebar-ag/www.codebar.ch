@@ -1,0 +1,6 @@
+key: qwen3-5-4b
+name: 'qwen3.5:4b'
+category: reasoning_coding
+order: 5
+archived_at: '2026-07-01'
+replaced_by: kimi-linear-48b

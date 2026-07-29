@@ -1,4 +1,4 @@
-@props(['title', 'intro' => null, 'page' => null])
+@props(['title', 'intro' => null, 'page' => null, 'breadcrumbs' => []])
 
 @php
     // Explicit intro wins; otherwise fall back to the page's SEO description
@@ -6,9 +6,13 @@
     $context = $intro ?? $page?->description;
 @endphp
 
+<x-breadcrumbs :items="$breadcrumbs"/>
+
 <x-h1 :title="$title"/>
 
 @if(filled($context))
-    {{-- Lead text: one step above the body copy (text-lg) so the header keeps its hierarchy. --}}
-    <p class="max-w-3xl text-xl md:text-2xl font-light leading-normal text-gray-800">{{ $context }}</p>
+    {{-- One lead treatment for the whole site. Detail pages used to set this
+         semibold and index pages light, so the same slot read as two different
+         things depending on where you had come from. --}}
+    <p class="max-w-3xl text-lead font-light text-gray-800">{{ $context }}</p>
 @endif

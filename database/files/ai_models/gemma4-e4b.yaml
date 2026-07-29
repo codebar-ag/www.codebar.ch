@@ -1,0 +1,6 @@
+key: gemma4-e4b
+name: 'gemma4:e4b'
+category: vision_documents
+order: 2
+archived_at: '2026-07-01'
+replaced_by: qwen3-vl-8b

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Middleware\PreventRequestForgery;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLanguage;
 use App\Providers\AppServiceProvider;
-use App\Providers\EventServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,7 +18,6 @@ use Spatie\ResponseCache\Middlewares\CacheResponse;
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
         AppServiceProvider::class,
-        EventServiceProvider::class,
     ])
     ->withRouting(
         web: __DIR__.'/../routes/web.php',

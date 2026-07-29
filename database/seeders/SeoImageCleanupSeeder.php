@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Page;
@@ -27,7 +29,10 @@ class SeoImageCleanupSeeder extends Seeder
             })
             ->update(['image' => null]);
 
-        foreach (['news', 'technologies', 'open_sources'] as $table) {
+        // `news` is no longer listed here: it dropped `image` in favour of a
+        // nullable `hero_image`, which is written by news:import from the article
+        // front matter and never carried either of these placeholders.
+        foreach (['technologies', 'open_sources'] as $table) {
             DB::table($table)
                 ->where(function (Builder $query) {
                     $query->where('image', 'like', self::BROKEN_IMAGE_PATTERN)

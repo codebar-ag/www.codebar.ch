@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\LocaleEnum;
 use App\Models\News;
 use App\Models\OpenSource;
@@ -12,11 +14,11 @@ use function Pest\Laravel\get;
 
 $startRoute = fn () => route(Str::slug(LocaleEnum::DE->value).'.start.index');
 
-it('redirects a news article to the start page while news is disabled', function () use ($startRoute) {
+it('renders a news article', function () {
     $news = News::factory()->create();
 
     get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
-        ->assertRedirect($startRoute());
+        ->assertOk();
 })->group('news', 'show');
 
 it('redirects a product to the start page while products are disabled', function () use ($startRoute) {

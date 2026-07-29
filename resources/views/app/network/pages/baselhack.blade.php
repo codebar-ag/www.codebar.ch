@@ -39,7 +39,7 @@
                 <p class="text-sm uppercase tracking-wide text-muted">{{ __('Website') }}</p>
                 @if($network->website)
                     <a href="{{ $network->website }}" target="_blank" rel="noopener noreferrer"
-                       class="mt-1 block text-gray-800 transition hover:text-brand">
+                       class="mt-1 block rounded-pill focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand text-gray-800 transition hover:text-brand">
                         {{ $network->websiteHost() }} &nearr;
                     </a>
                 @endif
@@ -52,7 +52,7 @@
             <x-layout.section-header :title="__('Contact persons')"/>
             <x-layout.grid :cols="2" class="mt-4 max-w-2xl">
                 @foreach($users as $user)
-                    <div class="rounded-panel border border-gray-200 p-4">
+                    <div class="rounded-panel border border-border p-4">
                         <x-card.network-user-card :user="$user" :divided="false"/>
                     </div>
                 @endforeach

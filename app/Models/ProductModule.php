@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\LocaleEnum;
@@ -15,6 +17,15 @@ class ProductModule extends Model
     use HasFactory;
 
     use HasLocalizedRouteBinding;
+
+    /** @var list<string> */
+    protected $fillable = [
+        'published',
+        'locale',
+        'slug',
+        'tags',
+        'product_id',
+    ];
 
     protected $casts = [
         'published' => 'boolean',

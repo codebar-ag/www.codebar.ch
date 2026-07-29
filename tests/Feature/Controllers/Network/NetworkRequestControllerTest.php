@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\LocaleEnum;
 use App\Jobs\Network\SendNetworkManageLinkJob;
 use App\Models\NetworkUser;

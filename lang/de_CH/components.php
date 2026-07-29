@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'intro' => [
         'title' => 'Innovative Ideen zum Leben erwecken',
@@ -27,6 +29,7 @@ return [
         'home' => 'Zurück zur Startseite.',
         'services' => 'Vier Bereiche, ein Weg.',
         'team' => 'Die Menschen hinter codebar.',
+        'news' => 'Einblicke aus unserem Alltag.',
         'ai' => 'KI auf eigener Infrastruktur.',
         'network' => 'Unsere Partner und Communities.',
         'contact' => 'Lass uns sprechen.',
@@ -36,6 +39,9 @@ return [
     ],
     'team' => [
         'header' => 'Klein aus Überzeugung: Bei uns arbeitest du direkt mit den Menschen, die deine Lösung verstehen – und bauen.',
+        'working_title' => 'Wie wir arbeiten',
+        'working_body' => 'Ein kleines Team, keine Zwischenebene: Wer dein Projekt baut, sitzt auch im Gespräch. Das spart einen Übersetzungsschritt und macht Zusagen verbindlich.',
+        'learning_body' => 'Ausbildung und Wissenstransfer gehören für uns dazu. Wir geben Wissen im Team weiter, statt es auf einzelnen Köpfen liegen zu lassen – das hält Projekte unabhängig von einzelnen Personen und uns als Team lernfähig.',
     ],
     'contact' => [
         'header' => 'Du hast eine Idee oder ein Projekt? Erzähl uns davon – wir hören zu.',
@@ -50,6 +56,9 @@ return [
         'llm_teaser' => 'Seit ein paar Monaten arbeiten wir uns in das Thema ein, Use Case für Use Case. Hier dokumentieren wir laufend, welche Modelle wir einsetzen – und wie intensiv.',
         'to_models' => 'Zu den Modellen',
         'to_analytics' => 'Zur Nutzungsstatistik',
+        'local_title' => 'Warum lokal?',
+        'local_body' => 'Kundendaten verlassen unsere Infrastruktur nicht. Das ist der Hauptgrund, warum wir Open-Source-Modelle selbst betreiben, statt Anfragen an einen Cloud-Anbieter zu schicken. Was wir dafür in Kauf nehmen: etwas weniger Leistung an der Spitze – dafür volle Kontrolle darüber, wo Daten liegen und was sie kosten.',
+        'usage_body' => 'Wir setzen KI dort ein, wo sie uns messbar Arbeit abnimmt: beim Lesen von Dokumenten, beim Einordnen von Belegen, beim Schreiben und Prüfen von Code. Wo sie das nicht tut, lassen wir es. Die Nutzungsstatistik zeigt ungefiltert, wie oft das tatsächlich vorkommt.',
         'stats' => [
             'tokens_month' => 'Tokens diesen Monat',
             'requests_month' => 'Anfragen diesen Monat',
@@ -80,6 +89,7 @@ return [
             'total' => 'Total',
         ],
         'empty' => 'Noch keine Nutzungsdaten vorhanden.',
+        'last_synced' => 'Zuletzt aktualisiert am :datetime.',
         'back' => 'Zurück zu unseren LLMs',
     ],
     'ai_llm' => [

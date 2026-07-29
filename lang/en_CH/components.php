@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'intro' => [
         'title' => 'Bringing innovative ideas to life',
@@ -27,6 +29,7 @@ return [
         'home' => 'Back to the start page.',
         'services' => 'Four areas, one path.',
         'team' => 'The people behind codebar.',
+        'news' => 'Insights from our day-to-day work.',
         'ai' => 'AI on our own infrastructure.',
         'network' => 'Our partners and communities.',
         'contact' => 'Let\'s talk.',
@@ -36,6 +39,9 @@ return [
     ],
     'team' => [
         'header' => 'Small by conviction: you work directly with the people who understand your solution – and build it.',
+        'working_title' => 'How we work',
+        'working_body' => 'A small team with no layer in between: the people who build your project are the ones in the room. That saves a translation step and makes commitments binding.',
+        'learning_body' => 'Training and knowledge transfer are part of how we work. We pass knowledge around the team rather than leaving it with individuals – which keeps projects independent of any single person and keeps us learning.',
     ],
     'contact' => [
         'header' => 'Got an idea or a project? Tell us about it – we\'ll listen.',
@@ -50,6 +56,9 @@ return [
         'llm_teaser' => 'For a few months now, we\'ve been working our way into the topic, use case by use case. Here we keep track of which models we run – and how intensively.',
         'to_models' => 'View the models',
         'to_analytics' => 'View usage analytics',
+        'local_title' => 'Why local?',
+        'local_body' => 'Customer data does not leave our infrastructure. That is the main reason we run open-source models ourselves instead of sending requests to a cloud provider. The trade-off: a little less performance at the top end – in exchange for full control over where data sits and what it costs.',
+        'usage_body' => 'We use AI where it measurably takes work off our hands: reading documents, sorting receipts, writing and reviewing code. Where it does not, we leave it alone. The usage figures show, unfiltered, how often that actually happens.',
         'stats' => [
             'tokens_month' => 'Tokens this month',
             'requests_month' => 'Requests this month',
@@ -80,6 +89,7 @@ return [
             'total' => 'Total',
         ],
         'empty' => 'No usage data available yet.',
+        'last_synced' => 'Last updated on :datetime.',
         'back' => 'Back to our LLMs',
     ],
     'ai_llm' => [

@@ -1,0 +1,8 @@
+key: ai.llm.analytics.index
+robots: index,follow
+title:
+  de_CH: 'LLM-Nutzungsstatistik – codebar Solutions AG'
+  en_CH: 'LLM Usage Analytics – codebar Solutions AG'
+description:
+  de_CH: 'Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle – transparent aufgeschlüsselt pro Monat und Modell.'
+  en_CH: 'Token consumption and requests of our locally run models – transparently broken down per month and model.'

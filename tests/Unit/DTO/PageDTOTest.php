@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\DTO\PageDTO;
 use Illuminate\Support\Carbon;
 

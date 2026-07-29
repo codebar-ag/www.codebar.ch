@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\AboutUs\AboutUsIndexController;
 use App\Http\Controllers\Ai\AiIndexController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\Jobs\JobsIndexController;
 use App\Http\Controllers\Legal\ImprintIndexController;
 use App\Http\Controllers\Legal\PrivacyIndexController;
 use App\Http\Controllers\Legal\TermsIndexController;
-use App\Http\Controllers\Locale\LocaleUpdateController;
 use App\Http\Controllers\Media\MediaIndexController;
 use App\Http\Controllers\Network\NetworkIndexController;
 use App\Http\Controllers\Network\NetworkManageShowController;
@@ -80,7 +81,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () {
 
     Route::get('jobs', JobsIndexController::class)->name('jobs.index');
     Route::get('media', MediaIndexController::class)->name('media.index');
-    Route::get('contact', ContactIndexController::class)->name('contact.index');
+    // Not cached: the opening hours box reflects the current day and open/closed state.
+    Route::get('contact', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
 });
 
 Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
@@ -100,7 +102,10 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
     Route::get('technologien/{locale}/{technology}', TechnologiesShowController::class)->name('technologies.show');
 
     // Not yet linked in navigation — built but inactive, same as Technologies above.
-    Route::get('co-working', CoWorkingIndexController::class)->name('co-working.index');
+    // The slug is German like every other route in this group: sharing "co-working"
+    // with the English group would let one registration shadow the other, and the
+    // locale is resolved from the matched route's name.
+    Route::get('arbeitsplaetze', CoWorkingIndexController::class)->name('co-working.index');
 
     Route::get('open-source-beitraege', OpenSourceIndexController::class)->name('open-source.index');
     Route::get('open-source-beitraege/{locale}/{openSource}', OpenSoruceShowController::class)->name('open-source.show');
@@ -122,10 +127,9 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () {
 
     Route::get('stellen', JobsIndexController::class)->name('jobs.index');
     Route::get('medien', MediaIndexController::class)->name('media.index');
-    Route::get('kontakt', ContactIndexController::class)->name('contact.index');
+    // Not cached: the opening hours box reflects the current day and open/closed state.
+    Route::get('kontakt', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
 });
-
-Route::post('language/update', LocaleUpdateController::class)->name('language.update');
 
 if (! app()->isProduction()) {
     Route::get('demo/flows', [FlowsLayoutDemoController::class, 'index'])->name('demo.flows.index');

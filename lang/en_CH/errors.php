@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     // Error page headings (4xx vs 5xx)
     'title_client' => 'Request failed',

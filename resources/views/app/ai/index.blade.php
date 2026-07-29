@@ -5,27 +5,22 @@
         <x-layout.section-header :title="__('components.ai_llm.title')" :intro="__('components.ai.llm_teaser')"/>
 
         @if ($llmSummary['requests'] > 0)
-            <x-layout.grid :cols="2" class="mt-4">
-                <x-card.stat-card
-                        :label="__('components.ai.stats.tokens_month')"
-                        :value="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['total_tokens'])"
-                        :input="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['prompt_tokens'])"
-                        :output="\App\Helpers\Facades\HelperNumber::abbreviate($llmSummary['completion_tokens'])"/>
-                <x-card.stat-card
-                        :label="__('components.ai.stats.requests_month')"
-                        :value="\App\Helpers\Facades\HelperNumber::format($llmSummary['requests'], 0)"/>
-            </x-layout.grid>
+            <x-ai-llm.usage-summary :summary="$llmSummary"/>
         @endif
 
         <div class="mt-4 flex flex-wrap gap-x-8 gap-y-2">
-            <x-ui.link :href="localized_route('ai.llm.index')" class="inline-block text-base">
-                {{ __('components.ai.to_models') }} <span aria-hidden="true">→</span>
-            </x-ui.link>
+            <x-ui.arrow-link :href="localized_route('ai.llm.index')" :label="__('components.ai.to_models')"/>
             @if ($llmSummary['requests'] > 0)
-                <x-ui.link :href="localized_route('ai.llm.analytics.index')" class="inline-block text-base">
-                    {{ __('components.ai.to_analytics') }} <span aria-hidden="true">→</span>
-                </x-ui.link>
+                <x-ui.arrow-link :href="localized_route('ai.llm.analytics.index')" :label="__('components.ai.to_analytics')"/>
             @endif
         </div>
+    </x-layout.section>
+
+    <x-layout.section>
+        <x-h2 :title="__('components.ai.local_title')"/>
+        <x-ui.prose class="mt-4">
+            <p>{{ __('components.ai.local_body') }}</p>
+            <p>{{ __('components.ai.usage_body') }}</p>
+        </x-ui.prose>
     </x-layout.section>
 </x-app-layout>

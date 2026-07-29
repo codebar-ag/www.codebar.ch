@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\AiModelCategoryEnum;
 use App\Models\AiModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

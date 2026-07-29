@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Enums\LocaleEnum;
@@ -36,6 +38,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PagesTableSeeder::class);
         $this->call(SeoImageCleanupSeeder::class);
         $this->call(ContactsTableSeeder::class);
+        $this->call(NewsTableSeeder::class);
+        // OpenSource content comes from `php artisan sync:repositories`, which
+        // pulls the live GitHub repositories — the seed data here is stale.
         // $this->call(OpenSourceTableSeeder::class);
         $this->call(TechnologiesTableSeeder::class);
         $this->call(ServicesTableSeeder::class);

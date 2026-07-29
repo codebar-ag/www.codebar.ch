@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\NetworkStatusEnum;
 
 it('returns correct labels array', function () {

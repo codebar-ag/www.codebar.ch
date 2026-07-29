@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Database\Seeders\PagesTableSeeder;
 use Illuminate\Support\Facades\Cache;
 
@@ -77,13 +79,25 @@ it('does not include disabled pages in the sitemap', function () {
 
     $content = $response->getContent();
 
-    expect($content)->not->toContain('aktuelles');
     expect($content)->not->toContain('produkte');
     expect($content)->not->toContain('technologien');
-    expect($content)->not->toContain('open-source-beitraege');
     expect($content)->not->toContain('co-working');
-    expect($content)->not->toContain('ueber-uns');
-    expect($content)->not->toContain('about-us');
+    // The open source listing has no entries and its controller redirects.
+    expect($content)->not->toContain('open-source-beitraege');
+    expect($content)->not->toContain('open-source-contributions');
+})->group('sitemap');
+
+it('includes the reactivated team and news pages in the sitemap', function () {
+    seed(PagesTableSeeder::class);
+
+    Cache::flush();
+
+    $content = get('sitemap.xml')->assertOk()->getContent();
+
+    expect($content)->toContain('ueber-uns');
+    expect($content)->toContain('about-us');
+    expect($content)->toContain('aktuelles');
+    expect($content)->toContain('news');
 })->group('sitemap');
 
 it('includes the AI pages in the sitemap', function () {

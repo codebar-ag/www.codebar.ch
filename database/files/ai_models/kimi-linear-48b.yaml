@@ -1,0 +1,12 @@
+key: kimi-linear-48b
+name: 'kimi-linear:48b'
+category: reasoning_coding
+order: 2
+provider: 'Moonshot AI (CN)'
+ram: '30 GB RAM'
+license: MIT
+role:
+  de: 'Alltags-Sprinter, lange Dokumente & Kontextverständnis'
+  en: 'Everyday sprinter, long documents & context understanding'
+link_label: 'Hugging Face'
+link_url: 'https://huggingface.co/moonshotai'

@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schedule;
 
-Schedule::command('llm:fetch-analytics')->twiceDaily(5, 17);
+// A full sync window is dispatched per run; without the guard a slow LiteLLM
+// response lets the next hour's run pile a second set of jobs on top.
+Schedule::command('llm:fetch-analytics')->hourly()->withoutOverlapping();
 
-Schedule::command('optimize:clear')->twiceDaily(6, 18);
-Schedule::command('responsecache:clear')->twiceDaily(6, 18);
+// The opening-hours box renders "open now / closed" from the current time, so the
+// rendered HTML goes stale on its own — no model change fires an observer for it.
+Schedule::command('responsecache:clear')->hourly();

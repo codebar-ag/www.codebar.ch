@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -14,6 +16,13 @@ return [
     */
 
     'name' => env('APP_NAME', 'codebar Solutions AG'),
+
+    /*
+     * Pinned explicitly rather than left to the framework default: robots.txt,
+     * the sitemap, canonical tags, OG URLs and the JSON-LD @id anchors are all
+     * built from this. A wrong value here poisons every absolute URL we emit.
+     */
+    'url' => env('APP_URL', 'https://www.codebar.ch'),
 
     'timezone' => env('APP_TIMEZONE', 'Europe/Zurich'),
 

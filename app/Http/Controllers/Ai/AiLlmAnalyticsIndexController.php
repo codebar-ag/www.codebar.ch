@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Ai;
 
 use App\Actions\LlmUsageStatsAction;
@@ -65,6 +67,7 @@ class AiLlmAnalyticsIndexController extends Controller
             'month' => $month,
             'model' => $model,
             'modelLabel' => $model === LlmUsageStatsAction::OTHER_MODEL ? $otherLabel : $model,
+            'lastSyncedAt' => $stats->lastSyncedAt(),
         ]);
     }
 

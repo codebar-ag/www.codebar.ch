@@ -1,29 +1,27 @@
 <x-app-layout :page="$page">
     <x-layout.page-header
             :title="__('Update network profile')"
-            :intro="__('Enter the email address stored in your network profile. If it is registered, we will send you a personal link — valid for one hour — to update your profile.')"/>
+            :intro="__('Enter the email address stored in your network profile. If it is registered, we will send you a personal link — valid for one hour — to update your profile.')"
+            :breadcrumbs="[
+                ['label' => __('Network'), 'url' => localized_route('network.index')],
+                ['label' => __('Update network profile')],
+            ]"/>
 
     <x-layout.section>
         @if(session('status'))
-            <p class="mt-6 max-w-2xl rounded-panel bg-gray-400/10 px-4 py-3 text-gray-800 ring-1 ring-gray-400/20 ring-inset">
-                {{ session('status') }}
-            </p>
+            <x-ui.alert class="max-w-2xl">{{ session('status') }}</x-ui.alert>
         @endif
 
-        <form method="POST" action="{{ localized_route('network.request.store') }}" class="mt-6 max-w-md">
+        <form method="POST" action="{{ localized_route('network.request.store') }}" class="mt-section max-w-md">
             @csrf
 
-            <label for="email" class="block text-sm font-medium text-gray-800">{{ __('Email') }}</label>
-            <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus
-                   class="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 text-gray-800 placeholder-gray-400 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand">
+            <x-form.field name="email" :label="__('Email')">
+                <x-form.input name="email" type="email" required autofocus/>
+            </x-form.field>
 
-            @error('email')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-
-            <div class="mt-4">
+            <x-form.actions>
                 <x-ui.button :label="__('Request link')"/>
-            </div>
+            </x-form.actions>
         </form>
     </x-layout.section>
 </x-app-layout>

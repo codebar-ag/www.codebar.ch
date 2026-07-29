@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\LocaleEnum;
 use Illuminate\Support\Str;
 
@@ -21,6 +23,8 @@ dataset('routes', function () {
         [LocaleEnum::EN->value, 'network.index'],
         [LocaleEnum::EN->value, 'network.request.index'],
         [LocaleEnum::EN->value, 'services.index'],
+        [LocaleEnum::EN->value, 'about-us.index'],
+        [LocaleEnum::EN->value, 'news.index'],
 
         // DE-CH
         [LocaleEnum::DE->value, 'start.index'],
@@ -36,6 +40,8 @@ dataset('routes', function () {
         [LocaleEnum::DE->value, 'network.index'],
         [LocaleEnum::DE->value, 'network.request.index'],
         [LocaleEnum::DE->value, 'services.index'],
+        [LocaleEnum::DE->value, 'about-us.index'],
+        [LocaleEnum::DE->value, 'news.index'],
     ];
 });
 
@@ -47,16 +53,12 @@ it('returns 200 for localized route', function (string $locale, string $name, ar
 
 dataset('disabled-routes', function () {
     return [
-        [LocaleEnum::EN->value, 'news.index'],
         [LocaleEnum::EN->value, 'products.index'],
         [LocaleEnum::EN->value, 'technologies.index'],
         [LocaleEnum::EN->value, 'open-source.index'],
-        [LocaleEnum::EN->value, 'about-us.index'],
-        [LocaleEnum::DE->value, 'news.index'],
         [LocaleEnum::DE->value, 'products.index'],
         [LocaleEnum::DE->value, 'technologies.index'],
         [LocaleEnum::DE->value, 'open-source.index'],
-        [LocaleEnum::DE->value, 'about-us.index'],
         [LocaleEnum::DE->value, 'co-working.index'],
     ];
 });

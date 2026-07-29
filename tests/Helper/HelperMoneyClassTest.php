@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Helpers\Facades\HelperMoney;
 
 it('helper money: format', function () {

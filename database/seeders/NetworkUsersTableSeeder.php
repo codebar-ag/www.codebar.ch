@@ -1,94 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\NetworkUser;
+use Database\Seeders\Concerns\ReadsCsv;
 use Illuminate\Database\Seeder;
 
+/**
+ * Contact channels are real where known, otherwise placeholder (*@example.com).
+ * All rows seed as unpublished — a contact only appears on the network page once
+ * explicitly published.
+ *
+ * Sourced from network_users.csv — the current data export — not hand-authored,
+ * so this stays CSV rather than moving to per-item files like networks/services/news.
+ */
 class NetworkUsersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * Contact channels are real where known, otherwise placeholder
-     *
-     * (*@example.com). All rows seed as unpublished — a contact only
-     * appears on the network page once explicitly published.
-     */
+    use ReadsCsv;
+
     public function run(): void
     {
-        $this->seed(
-            networkKey: 'wieland-business-solutions',
-            name: 'Dario Wieland',
-            sort: 10,
-            email: 'dario.wieland@business-solutions.gmbh',
-        );
-
-        $this->seed(
-            networkKey: 'pst',
-            name: 'Sarah Fässler',
-            sort: 10,
-            email: 'sarah.faessler@pstgmbh.ch',
-        );
-
-        $this->seed(
-            networkKey: 'docuware',
-            name: 'Vincenzo Carbone',
-            sort: 10,
-            role: 'DocuWare Schweiz',
-            email: 'vincenzo.carbone@docuware.com',
-            avatarUrl: '/images/placeholders/avatar-sample.svg',
-        );
-
-        $this->seed(
-            networkKey: 'odoo',
-            name: 'Domenik Friedrich',
-            sort: 10,
-            email: 'domf@odoo.com',
-        );
-
-        $this->seed(
-            networkKey: 'baselhack',
-            name: 'BaselHack',
-            sort: 10,
-            email: 'info@baselhack.ch',
-        );
-
-        $this->seed(
-            networkKey: 'iway',
-            name: 'Patrick Baumeler',
-            sort: 10,
-            email: 'patrick.baumeler@example.com',
-            linkedin: 'https://www.linkedin.com/in/example-patrick',
-            phone: '+41 61 000 00 03',
-        );
-    }
-
-    private function seed(
-        string $networkKey,
-        string $name,
-        int $sort,
-        ?string $role = null,
-        ?string $email = null,
-        ?string $linkedin = null,
-        ?string $phone = null,
-        ?string $avatarUrl = null,
-    ): void {
-        NetworkUser::updateOrCreate(
-            [
-                'network_key' => $networkKey,
-                'name' => $name,
-            ],
-            [
-                'role' => $role,
-                'email' => $email,
-                'public_email' => $email,
-                'linkedin' => $linkedin,
-                'phone' => $phone,
-                'avatar_url' => $avatarUrl,
-                'published' => false,
-                'sort' => $sort,
-            ]
-        );
+        collect($this->readCsv('network_users.csv'))->each(function (array $row): void {
+            NetworkUser::updateOrCreate(
+                [
+                    'network_key' => $row['network_key'],
+                    'name' => $row['name'],
+                ],
+                [
+                    'role' => $row['role'] !== '' ? $row['role'] : null,
+                    'avatar_disk' => $row['avatar_disk'] !== '' ? $row['avatar_disk'] : null,
+                    'avatar_path' => $row['avatar_path'] !== '' ? $row['avatar_path'] : null,
+                    'avatar_url' => $row['avatar_url'] !== '' ? $row['avatar_url'] : null,
+                    'email' => $row['email'] !== '' ? $row['email'] : null,
+                    'public_email' => $row['public_email'] !== '' ? $row['public_email'] : null,
+                    'linkedin' => $row['linkedin'] !== '' ? $row['linkedin'] : null,
+                    'phone' => $row['phone'] !== '' ? $row['phone'] : null,
+                    'published' => filter_var($row['published'], FILTER_VALIDATE_BOOLEAN),
+                    'sort' => (int) $row['sort'],
+                ]
+            );
+        });
     }
 }

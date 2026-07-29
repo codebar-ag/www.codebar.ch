@@ -6,7 +6,7 @@
     <ul {{ $attributes->merge(['class' => 'flex flex-wrap gap-2']) }}>
         @foreach($tags as $tag)
             <li>
-                <x-ui.badge :label="$tag" class="text-xs"/>
+                <x-ui.badge :label="$tag" size="xs"/>
             </li>
         @endforeach
     </ul>

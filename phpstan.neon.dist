@@ -10,11 +10,19 @@ parameters:
     level: 10
 
     ignoreErrors:
+        # SimpleMessage::salutation() is documented as taking a string, but the
+        # parameter is untyped and the notification template renders it through
+        # {{ }}, which honours Htmlable — the framework's own fallback branch
+        # emits <br> the same way. Passing HtmlString is how a salutation gets
+        # line breaks; the vendor docblock is simply narrower than the behaviour.
+        -
+            identifier: argument.type
+            message: '#salutation\(\) expects string, Illuminate\\Support\\HtmlString given#'
+            paths:
+                - app/Notifications/*
 
     excludePaths:
         # Vendor-published migration (spatie/laravel-permission) — not our code.
         - database/migrations/2024_06_06_100452_create_permission_tables.php
-        # Nova is not installed; this config references Laravel\Nova classes.
-        - config/nova.php
         # Pest's architecture-testing DSL is not statically analysable.
         - tests/Core/ArchitectureTest.php

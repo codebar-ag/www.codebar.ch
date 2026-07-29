@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\NetworkCategoryEnum;
@@ -20,6 +22,25 @@ class Network extends Model
 
     /** @var array<int, string> */
     protected array $translatable = ['name', 'excerpt', 'tier_label'];
+
+    /** @var list<string> */
+    protected $fillable = [
+        'key',
+        'name',
+        'category',
+        'status',
+        'cover_disk',
+        'cover_path',
+        'cover_url',
+        'tier_label',
+        'excerpt',
+        'website',
+        'since_year',
+        'until_year',
+        'page_slug',
+        'published',
+        'sort',
+    ];
 
     protected $casts = [
         'category' => NetworkCategoryEnum::class,

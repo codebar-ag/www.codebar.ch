@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Sitemap;
 
 use App\Actions\PageAction;
 use App\DTO\PageDTO;
+use App\Enums\CacheKeyEnum;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Network;
+use App\Models\News;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
@@ -26,6 +30,9 @@ class SitemapController extends Controller
         'ai.llm.index',
         'ai.llm.analytics.index',
         'network.index',
+        'about-us.index',
+        'news.index',
+        // 'open-source.index' — disabled controller, see OpenSourceIndexController.
     ];
 
     protected const array DEFAULT_LOCALES = [
@@ -36,7 +43,7 @@ class SitemapController extends Controller
     public function __invoke(): Response
     {
         $content = Cache::remember(
-            key: 'sitemap_xml',
+            key: CacheKeyEnum::SITEMAP->value,
             ttl: now()->addHours(24),
             callback: function (): string {
                 $sitemap = new SitemapBuilder;
@@ -48,36 +55,68 @@ class SitemapController extends Controller
 
         return response(content: $content)
             ->header('Content-Type', 'application/xml')
-            ->header('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+            ->header('Cache-Control', 'public, max-age=3600');
     }
 
     private function builder(SitemapBuilder $sitemap): void
     {
         $this->addDefaultRoutesToSitemap($sitemap);
         $this->addNetworksToSitemap($sitemap);
+        $this->addNewsToSitemap($sitemap);
     }
 
     private function addNetworksToSitemap(SitemapBuilder $sitemap): void
     {
         Network::query()
-            ->where('published', true)
+            ->published()
+            // Same filters NetworkShowController enforces: without active() and
+            // the view check, the sitemap advertises URLs that answer 404.
+            ->active()
             ->whereNotNull('page_slug')
             ->get()
+            ->filter(fn (Network $network): bool => view()->exists('app.network.pages.'.$network->page_slug))
             ->each(function (Network $network) use ($sitemap): void {
-                $action = new PageAction(locale: null, routeName: null);
-
-                $pages = collect(self::DEFAULT_LOCALES)
-                    ->map(fn (string $locale): PageDTO => $action->network(network: $network, locale: $locale))
-                    ->values();
-
-                $pages->each(function (PageDTO $page) use ($pages): void {
-                    $page->referencePages = $pages;
-                });
-
-                $pages->each(function (PageDTO $page) use ($sitemap): void {
-                    $sitemap->addItem(page: $page);
-                });
+                $this->addLocalizedSet(
+                    $sitemap,
+                    fn (string $locale): PageDTO => (new PageAction)->network(network: $network, locale: $locale),
+                );
             });
+    }
+
+    private function addNewsToSitemap(SitemapBuilder $sitemap): void
+    {
+        News::query()
+            ->published()
+            // PageDTO resolves the author name for the article metadata, which
+            // reads this relation — without it that is one query per article.
+            ->with('authorContact')
+            ->orderByDesc('published_at')
+            ->get()
+            ->each(function (News $news) use ($sitemap): void {
+                $this->addLocalizedSet(
+                    $sitemap,
+                    fn (string $locale): PageDTO => (new PageAction)->news(news: $news, locale: $locale),
+                );
+            });
+    }
+
+    /**
+     * Adds one URL per locale and cross-references them all as hreflang
+     * alternates of each other.
+     *
+     * @param  callable(string): PageDTO  $builder
+     */
+    private function addLocalizedSet(SitemapBuilder $sitemap, callable $builder): void
+    {
+        $pages = collect(self::DEFAULT_LOCALES)
+            ->map(fn (string $locale): PageDTO => $builder($locale))
+            ->values();
+
+        $pages->each(function (PageDTO $page) use ($pages): void {
+            $page->referencePages = $pages;
+        });
+
+        $pages->each(fn (PageDTO $page) => $sitemap->addItem(page: $page));
     }
 
     private function addDefaultRoutesToSitemap(SitemapBuilder $sitemap): void

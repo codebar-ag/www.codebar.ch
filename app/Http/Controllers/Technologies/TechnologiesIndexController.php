@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Technologies;
 
 use App\Actions\PageAction;
@@ -11,9 +13,6 @@ use Illuminate\View\View;
 
 class TechnologiesIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function __invoke(): View|RedirectResponse
     {
         return redirect()->route(Str::slug(app()->getLocale()).'.start.index');

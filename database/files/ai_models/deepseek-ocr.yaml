@@ -1,0 +1,12 @@
+key: deepseek-ocr
+name: deepseek-ocr
+category: vision_documents
+order: 4
+provider: 'DeepSeek AI (CN)'
+ram: '6,7 GB RAM'
+license: MIT
+role:
+  de: 'PDF/Scan → Markdown'
+  en: 'PDF/scan → Markdown'
+link_label: Ollama
+link_url: 'https://ollama.com/library/deepseek-ocr'

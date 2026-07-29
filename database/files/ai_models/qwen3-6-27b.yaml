@@ -1,0 +1,6 @@
+key: qwen3-6-27b
+name: 'qwen3.6:27b'
+category: reasoning_coding
+order: 3
+archived_at: '2026-07-01'
+replaced_by: qwen3-6-35b

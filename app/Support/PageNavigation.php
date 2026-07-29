@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
 class PageNavigation
@@ -14,6 +16,12 @@ class PageNavigation
         return [
             ['route' => 'start.index', 'label' => __('Home'), 'teaser' => __('components.explore.home')],
             ['route' => 'services.index', 'label' => __('Services'), 'teaser' => __('components.explore.services')],
+            // Position matches the header navigation. The `components.explore.team`
+            // translation existed all along; only this entry was missing, so the team
+            // page appeared in the header but in neither the explore grid nor the
+            // next-page chain.
+            ['route' => 'about-us.index', 'label' => __('Team'), 'teaser' => __('components.explore.team')],
+            ['route' => 'news.index', 'label' => __('News'), 'teaser' => __('components.explore.news')],
             ['route' => 'ai.index', 'label' => __('AI'), 'teaser' => __('components.explore.ai')],
             ['route' => 'network.index', 'label' => __('Network'), 'teaser' => __('components.explore.network')],
             ['route' => 'contact.index', 'label' => __('Contact'), 'teaser' => __('components.explore.contact')],

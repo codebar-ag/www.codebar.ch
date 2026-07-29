@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\ViewDataAction;
 use App\DTO\ContactDTO;
 use App\Enums\ContactSectionEnum;

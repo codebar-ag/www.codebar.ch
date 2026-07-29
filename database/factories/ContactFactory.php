@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Contact;
@@ -17,9 +19,13 @@ class ContactFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->name();
+
         return [
+            'key' => str($name)->slug()->toString(),
             'published' => true,
-            'name' => fake()->name(),
+            'sort' => fake()->numberBetween(1, 99),
+            'name' => $name,
             'sections' => [],
             'image' => fake()->imageUrl(),
             'icons' => [],

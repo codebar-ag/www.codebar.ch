@@ -1,6 +1,12 @@
 @import 'tailwindcss';
 
 @theme {
+    /* ── Colour ───────────────────────────────────────────────────────────────
+       Contrast against white, measured: brand 13.1:1, brand-strong 15.9:1 —
+       both directions pass AA, so white-on-brand is safe too. muted (gray-600)
+       7.6:1. border-strong / placeholder (gray-500) 4.8:1, the lightest gray a
+       form control boundary may use and still clear the 3:1 of WCAG 1.4.11.
+       gray-400 measures 2.6:1 and must never carry meaning. */
     --color-brand: #500472;
     --color-brand-strong: #3a0354;
 
@@ -8,11 +14,58 @@
     --color-surface: var(--color-gray-50);
     --color-border: var(--color-gray-200);
     --color-border-soft: var(--color-gray-100);
+    --color-border-strong: var(--color-gray-500);
     --color-muted: var(--color-gray-600);
+    --color-hint: var(--color-gray-500);
 
     /* Two radii: pills/buttons and panels/cards */
     --radius-pill: 0.375rem;
     --radius-panel: 0.75rem;
+
+    /* ── Type scale ───────────────────────────────────────────────────────────
+       Fluid rather than stepped: every heading interpolates between its 360px
+       and its 768px size, so the responsive behaviour lives in the token and no
+       component needs a `md:` variant to shrink on a phone. */
+    --text-display: clamp(1.875rem, 1.544rem + 1.47vw, 2.25rem); /* 30 → 36 */
+    --text-display--line-height: 1.15;
+    --text-display--letter-spacing: -0.02em;
+
+    --text-title: clamp(1.5rem, 1.169rem + 1.47vw, 1.875rem); /* 24 → 30 */
+    --text-title--line-height: 1.25;
+    --text-title--letter-spacing: -0.015em;
+
+    --text-heading: clamp(1.25rem, 1.03rem + 0.98vw, 1.5rem); /* 20 → 24 */
+    --text-heading--line-height: 1.3;
+
+    --text-subheading: clamp(1.125rem, 1.015rem + 0.49vw, 1.25rem); /* 18 → 20 */
+    --text-subheading--line-height: 1.4;
+
+    /* The lead paragraph under a page title. Same size as a heading, set light. */
+    --text-lead: clamp(1.25rem, 1.03rem + 0.98vw, 1.5rem);
+    --text-lead--line-height: 1.5;
+
+    /* ── Spacing rhythm ───────────────────────────────────────────────────────
+       One vertical step between page sections. Change this number and the whole
+       site re-spaces. */
+    --spacing-section: 2rem;
+
+    /* One control height across inputs, selects and buttons so anything sharing
+       a row lines up. 44px is also the WCAG 2.5.8 touch target. `control-sm` is
+       for dense desktop UI only and must never be the sole target on mobile. */
+    --spacing-control: 2.75rem;
+    --spacing-control-sm: 2.25rem;
+
+    /* The shared page frame — the header, the body and the footer all sit in it. */
+    --container-frame: 60rem;
+
+    /* The article reading column, derived rather than set: it has to equal the
+       frame minus its two lg gutters, because that is what puts the first
+       character of a paragraph under the first letter of the logo. Deriving it
+       means widening the frame can no longer break that alignment by accident. */
+    --container-reading: calc(var(--container-frame) - 4rem);
+
+    /* The one shadow in the system: a popover lifting off the page. */
+    --shadow-pop: 0 10px 30px -12px rgb(0 0 0 / 0.25);
 }
 
 @plugin "@tailwindcss/typography";
@@ -37,29 +90,415 @@
     }
 }
 
-/* Optimize font loading */
+/* Self-hosted webfonts, latin + latin-ext subsets. See public/fonts/. */
 @font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/poppins/poppins-regular.woff2') format('woff2');
+    src: url('/fonts/poppins/poppins-400-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/poppins/poppins-400-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/poppins/poppins-600-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/poppins/poppins-600-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/poppins/poppins-700-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/poppins/poppins-700-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* Critical CSS for above-the-fold content */
 body {
     font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
-    @apply text-gray-800;
+    color: var(--color-gray-800);
     /* Optimize text rendering */
     text-rendering: optimizeSpeed;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Optimize images */
-img {
-    max-width: 100%;
-    height: auto;
+/* Optimize images.
+   Must live in @layer base: an unlayered rule outranks every Tailwind utility, so
+   `height: auto` silently beat `size-14` and let flex stretch avatars into ovals. */
+@layer base {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   News: the editorial reading layer.
+
+   Every element on the page shares one width: --container-reading, the header's inner
+   width, so the first character of a paragraph sits under the first letter of the logo.
+   There is no breakout — text, images, tables and the table of contents all start and
+   end together.
+   ───────────────────────────────────────────────────────────────────────────── */
+.news-body {
+    /* Mirrors the frame's px-4 / sm:px-6 / lg:px-8. It used to be a flat 1rem, which
+       left the article text overhanging the header by 8px a side between 768px and
+       1024px — the one width where the frame's gutter is 1.5rem. */
+    --news-gutter: 1rem;
+
+    display: grid;
+    /* The same frame as every other page, so the article aligns with the header. */
+    max-width: var(--container-frame);
+    margin-inline: auto;
+    grid-template-columns:
+        [full-start] minmax(var(--news-gutter), 1fr)
+        /* min() rather than minmax(): the measure must not shrink while there is
+           still room in the margins. */
+        [text-start] min(var(--container-reading), 100% - 2 * var(--news-gutter)) [text-end]
+        minmax(var(--news-gutter), 1fr) [full-end];
+}
+
+@media (width >= 40rem) {
+    .news-body {
+        --news-gutter: 1.5rem;
+    }
+}
+
+@media (width >= 64rem) {
+    .news-body {
+        --news-gutter: 2rem;
+    }
+}
+
+/* The width classes are kept so `width="wide"` in an article file stays valid, but
+   they all resolve to the same column. */
+.news-body > *,
+.news-block--wide,
+.news-block--full {
+    grid-column: text;
+}
+
+/* The reading typography. One typeface across the whole site — Poppins, a notch larger
+   and more open than elsewhere because these are long texts. Deliberately not on
+   .news-body: that class is only the grid. */
+.news-prose {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-gray-800);
+}
+
+/* Spacing lives on one side only. .news-prose is a grid container, and grid never
+   collapses adjacent margins — a bottom margin plus the next element's top margin
+   added up to double the intended rhythm. */
+.news-prose > * + * {
+    margin-block-start: 1.4rem;
+}
+
+/* Sizes come from the shared type scale so an article heading is the same size
+   as the equivalent heading anywhere else on the site. */
+.news-prose > h2,
+.news-prose > h3 {
+    text-wrap: balance;
+    scroll-margin-top: 5rem;
+    color: var(--color-gray-900);
+}
+
+.news-prose > h2 {
+    margin-block-start: 3rem;
+    font-size: var(--text-title);
+    line-height: var(--text-title--line-height);
+    letter-spacing: var(--text-title--letter-spacing);
+    font-weight: 700;
+}
+
+.news-prose > h3 {
+    margin-block-start: 2.25rem;
+    font-size: var(--text-subheading);
+    line-height: var(--text-subheading--line-height);
+    font-weight: 600;
+}
+
+/* A heading and the paragraph under it belong together. */
+.news-prose > h2 + *,
+.news-prose > h3 + * {
+    margin-block-start: 0.6rem;
+}
+
+.news-prose ul,
+.news-prose ol {
+    padding-inline-start: 1.5rem;
+}
+
+/* Nested lists too — targeting only direct children left sub-items without any
+   marker at all, which read as stray paragraphs. */
+.news-prose ul {
+    list-style: disc;
+}
+
+.news-prose ol {
+    list-style: decimal;
+}
+
+.news-prose ul ul {
+    list-style: circle;
+}
+
+.news-prose li + li {
+    margin-block-start: 0.4rem;
+}
+
+.news-prose li > ul,
+.news-prose li > ol {
+    margin-block-start: 0.4rem;
+}
+
+.news-prose a {
+    color: var(--color-brand);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+}
+
+.news-prose a:hover {
+    text-decoration-thickness: 2px;
+}
+
+.news-prose strong {
+    font-weight: 600;
+}
+
+.news-prose code {
+    font-size: 0.9em;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-pill);
+    padding: 0.1em 0.35em;
+}
+
+.news-prose pre {
+    overflow-x: auto;
+    border-radius: var(--radius-panel);
+    background-color: var(--color-zinc-950);
+    color: var(--color-zinc-100);
+    padding: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.news-prose pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+}
+
+/* Tables get their own scroll container so the page body never scrolls sideways. */
+.news-prose > table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+    font-size: 1rem;
+    border-collapse: collapse;
+}
+
+.news-prose th,
+.news-prose td {
+    text-align: start;
+    padding: 0.75rem 1.5rem 0.75rem 0;
+    border-block-end: 1px solid var(--color-border-soft);
+}
+
+.news-prose th {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted);
+    border-block-end-color: var(--color-border);
+}
+
+.news-block {
+    margin-block-start: 2.5rem;
+}
+
+.news-caption {
+    margin-block-start: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-muted);
+    text-align: center;
+}
+
+.news-quote {
+    margin-block-start: 3rem;
+    text-align: center;
+}
+
+.news-quote__text {
+    font-size: var(--text-title);
+    line-height: var(--text-title--line-height);
+    color: var(--color-gray-900);
+    text-wrap: balance;
+}
+
+.news-quote__cite {
+    display: block;
+    margin-block-start: 1rem;
+    font-size: 0.875rem;
+    font-style: normal;
+    color: var(--color-muted);
+}
+
+.news-callout {
+    border-width: 1px;
+    border-radius: var(--radius-panel);
+    padding: 1.5rem;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+.news-callout__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.news-callout__body > p:first-child {
+    margin-block-start: 0.5rem;
+}
+
+.news-steps {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.news-steps__item {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.news-steps__item + .news-steps__item {
+    margin-block-start: 1.75rem;
+}
+
+.news-steps__number {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--color-brand);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-brand);
+}
+
+.news-steps__title {
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.news-steps__body {
+    margin-block-start: 0.35rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+}
+
+/* The table of contents: a quiet panel above the article, aligned with the reading
+   column. Navigation, not prose — it keeps the UI face and drops the underline the
+   body text sets on links. */
+.news-toc {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    border-radius: var(--radius-panel);
+    background-color: var(--color-surface);
+    padding: 1.25rem 1.5rem;
+}
+
+.news-toc__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+}
+
+.news-toc__list {
+    margin-block-start: 0.75rem;
+    list-style: none;
+    padding-inline-start: 0;
+    border-inline-start: 1px solid var(--color-border);
+}
+
+.news-toc__list > li + li {
+    margin-block-start: 0.5rem;
+}
+
+.news-toc a {
+    display: block;
+    padding-inline-start: 1rem;
+    color: var(--color-gray-700);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.news-toc__sub a {
+    padding-inline-start: 2.25rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+}
+
+.news-toc a:hover {
+    color: var(--color-brand);
+}
+
+/* These links are styled here rather than in Blade, so their focus ring lives here
+   too — a keyboard user must be able to see where they are in the contents. */
+.news-toc a:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: var(--radius-pill);
+}
+
+.news-toc a[aria-current='true'] {
+    color: var(--color-brand);
+    font-weight: 600;
+    box-shadow: inset 2px 0 0 var(--color-brand);
 }
 
 .legal-prose ul {

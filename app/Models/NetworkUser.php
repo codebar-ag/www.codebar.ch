@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Support\CloudinaryUrl;
@@ -17,6 +19,22 @@ class NetworkUser extends Model
     use HasFactory;
 
     use Notifiable;
+
+    /** @var list<string> */
+    protected $fillable = [
+        'network_key',
+        'name',
+        'role',
+        'avatar_disk',
+        'avatar_path',
+        'avatar_url',
+        'email',
+        'public_email',
+        'linkedin',
+        'phone',
+        'published',
+        'sort',
+    ];
 
     protected $casts = [
         'published' => 'boolean',

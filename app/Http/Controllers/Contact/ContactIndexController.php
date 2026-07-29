@@ -1,37 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Contact;
 
 use App\Actions\PageAction;
 use App\Http\Controllers\Controller;
+use App\Seo\SchemaNodes;
 use Illuminate\View\View;
 
 class ContactIndexController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function __invoke(): View
     {
         return view('app.contact.index')->with([
             'page' => (new PageAction(locale: null, routeName: 'contact.index'))->default(),
-            'openingHours' => $this->openingHours(),
+            'openingHours' => config('company.opening_hours'),
+            'locations' => config('company.locations'),
+            'schema' => SchemaNodes::locations(),
         ]);
-    }
-
-    /**
-     * @return array<int, array{day: string, open: ?string, close: ?string}>
-     */
-    private function openingHours(): array
-    {
-        return [
-            ['day' => 'Monday', 'open' => '08:00', 'close' => '18:00'],
-            ['day' => 'Tuesday', 'open' => '08:00', 'close' => '18:00'],
-            ['day' => 'Wednesday', 'open' => '08:00', 'close' => '18:00'],
-            ['day' => 'Thursday', 'open' => '08:00', 'close' => '18:00'],
-            ['day' => 'Friday', 'open' => '08:00', 'close' => '18:00'],
-            ['day' => 'Saturday', 'open' => '08:00', 'close' => '12:00'],
-            ['day' => 'Sunday', 'open' => null, 'close' => null],
-        ];
     }
 }

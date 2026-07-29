@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\AiModelCategoryEnum;
@@ -12,6 +14,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class AiModel extends Model
 {
+    /** @var list<string> */
+    protected $fillable = [
+        'category',
+        'order',
+        'name',
+        'provider',
+        'ram',
+        'license',
+        'role',
+        'link_label',
+        'link_url',
+        'archived_at',
+        'replaced_by_id',
+    ];
+
     protected $casts = [
         'category' => AiModelCategoryEnum::class,
         'role' => 'json',

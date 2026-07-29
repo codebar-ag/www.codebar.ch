@@ -1,3 +1,5 @@
 @props(['title'])
 
-<h1 class="mb-3 text-3xl md:text-4xl font-bold">{{ $title }}</h1>
+{{-- Size, line height and tracking come from the --text-display token, which is
+     fluid, so no md: step is needed to shrink this on a phone. --}}
+<h1 {{ $attributes->merge(['class' => 'mb-3 text-display font-bold text-balance']) }}>{{ $title }}</h1>

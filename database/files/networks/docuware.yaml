@@ -1,0 +1,11 @@
+key: docuware
+category: software
+sort: 30
+cover_url: 'https://res.cloudinary.com/codebar/image/upload/w_900,h_300,c_fill,f_auto,q_auto/www-codebar-ch/network/docuware-3x1-black.svg'
+website: 'https://start.docuware.com'
+name:
+  de_CH: DocuWare
+  en_CH: DocuWare
+excerpt:
+  de_CH: DMS/ECM
+  en_CH: DMS/ECM

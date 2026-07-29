@@ -1,7 +1,9 @@
 <x-app-layout :page="$page">
 
-    <x-h1 :title="$name"/>
-    <x-h1-teaser :teaser="$teaser"/>
+    <x-layout.page-header :title="$name" :intro="$teaser" :breadcrumbs="[
+        ['label' => __('Services'), 'url' => localized_route('services.index')],
+        ['label' => $name],
+    ]"/>
 
     <x-layout.section>
         <x-ui.prose>

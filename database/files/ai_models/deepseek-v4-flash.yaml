@@ -1,0 +1,12 @@
+key: deepseek-v4-flash
+name: 'deepseek-v4:flash'
+category: reasoning_coding
+order: 1
+provider: 'DeepSeek AI (CN)'
+ram: '~102 GB RAM'
+license: MIT
+role:
+  de: 'Flaggschiff: Analysen, Buchungslogik, komplexes Coding'
+  en: 'Flagship: analysis, booking logic, complex coding'
+link_label: 'Hugging Face'
+link_url: 'https://huggingface.co/unsloth'

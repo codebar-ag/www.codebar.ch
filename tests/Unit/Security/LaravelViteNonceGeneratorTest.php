@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Security\Generator\LaravelViteNonceGenerator;
 use Illuminate\Support\Facades\Vite;
 

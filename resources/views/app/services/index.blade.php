@@ -1,24 +1,10 @@
-<x-app-layout :page="$page">
+<x-app-layout :page="$page" :schema="$schema">
     <x-layout.page-header :title="__('Services')" :intro="__('components.services.header')"/>
 
     <x-layout.section>
         <x-layout.list>
             @foreach($services as $entry)
-                <div class="py-4">
-                    <div class="flex flex-col gap-1">
-                        <h2 class="text-xl font-semibold text-gray-800">
-                            {{ $entry->name }}
-                        </h2>
-
-                        @if(filled($entry->teaser))
-                            <div class="text-muted">
-                                {{ $entry->teaser }}
-                            </div>
-                        @endif
-
-                        <x-data.tag-list :tags="$entry->tags" class="mt-1"/>
-                    </div>
-                </div>
+                <x-card.item-card :title="$entry->name" :teaser="$entry->teaser" :tags="$entry->tags" :level="2"/>
             @endforeach
         </x-layout.list>
     </x-layout.section>

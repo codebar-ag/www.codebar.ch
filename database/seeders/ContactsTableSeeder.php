@@ -1,28 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use App\Models\Contact;
-use Database\Seeders\Concerns\ReadsCsv;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
+/**
+ * Team members live as one YAML file per person under database/files/team/.
+ * Adding or changing someone means editing that file and running
+ * `php artisan team:import`; no code change is needed.
+ *
+ * This replaced a semicolon-separated CSV that carried JSON inside its cells —
+ * unreadable in a diff and effectively uneditable by hand.
+ */
 class ContactsTableSeeder extends Seeder
 {
-    use ReadsCsv;
-
     public function run(): void
     {
-        foreach ($this->readCsv('contacts.csv') as $row) {
-            Contact::updateOrCreate(
-                ['id' => $row['id']],
-                [
-                    'name' => $row['name'],
-                    'published' => filter_var($row['published'], FILTER_VALIDATE_BOOLEAN),
-                    'sections' => $this->decodeJson($row['sections']),
-                    'icons' => $this->decodeJson($row['icons']),
-                    'image' => $row['image'],
-                ]
-            );
-        }
+        Artisan::call('team:import', [], $this->command->getOutput());
     }
 }

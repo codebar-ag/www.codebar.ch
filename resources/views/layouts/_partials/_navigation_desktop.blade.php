@@ -1,31 +1,15 @@
-<div class="hidden md:flex justify-between w-full">
-    <div class="flex gap-2 items-center">
+{{-- One list, driven by the same PageNavigation source the explore grid and the
+     next-page chain use, so the menu can never drift out of step with them.
+     Technologies stays out of the menu — it is reachable from the pages that
+     reference it. --}}
+<div class="hidden w-full justify-between md:flex">
+    <div class="flex items-center gap-2">
+        @foreach(\App\Support\PageNavigation::pages() as $item)
+            <x-nav.link :route="$item['route']" :label="$item['label']"/>
 
-        <x-ui.link :href="localized_route('start.index')" label="{{ __('Home') }}" class="text-xl md:text-2xl" />
-
-        <span class="text-gray-300" aria-hidden="true">|</span>
-
-        <x-ui.link :href="localized_route('services.index')" label="{{ __('Services') }}" class="text-xl md:text-2xl" />
-
-        {{-- <span class="text-gray-300" aria-hidden="true">|</span>
-
-        <x-ui.link :href="localized_route('about-us.index')" label="{{ __('Team') }}" class="text-xl md:text-2xl" />
-
-        <span class="text-gray-300" aria-hidden="true">|</span>
-
-        <x-ui.link :href="localized_route('technologies.index')" label="{{ __('Technologies') }}" class="text-xl md:text-2xl" /> --}}
-
-        <span class="text-gray-300" aria-hidden="true">|</span>
-
-        <x-ui.link :href="localized_route('ai.index')" label="{{ __('AI') }}" class="text-xl md:text-2xl" />
-
-        <span class="text-gray-300" aria-hidden="true">|</span>
-
-        <x-ui.link :href="localized_route('network.index')" label="{{ __('Network') }}" class="text-xl md:text-2xl" />
-
-        <span class="text-gray-300" aria-hidden="true">|</span>
-
-        <x-ui.link :href="localized_route('contact.index')" label="{{ __('Contact') }}" class="text-xl md:text-2xl" />
-
+            @if(! $loop->last)
+                <span class="text-gray-300" aria-hidden="true">|</span>
+            @endif
+        @endforeach
     </div>
 </div>

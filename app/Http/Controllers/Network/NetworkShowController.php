@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Network;
 
 use App\Actions\PageAction;
@@ -21,7 +23,11 @@ class NetworkShowController extends Controller
         abort_unless(view()->exists('app.network.pages.'.$slug), 404);
 
         return view('app.network.pages.'.$slug)->with([
-            'page' => (new PageAction(locale: null, routeName: 'network.index'))->default(),
+            // Built from the Network itself, not from the index page: otherwise
+            // every partner page inherits the index's title and description and
+            // its hreflang alternates point back at /netzwerk instead of at the
+            // partner page's own translation.
+            'page' => (new PageAction)->network(network: $network),
             'network' => $network,
             'users' => $network->publishedUsers()->get(),
         ]);

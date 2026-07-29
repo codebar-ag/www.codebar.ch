@@ -1,0 +1,10 @@
+key: melanie-buergin-fix
+name: 'Melanie Bürgin-Fix'
+published: true
+sort: 2
+image: 'https://res.cloudinary.com/codebar/image/upload/e_background_removal/c_thumb,g_face,z_0.7,w_500,h_500,b_rgb:E4E6E9/f_auto,q_auto/www-codebar-ch/team/Melanive_v3.webp'
+sections:
+  board_members: {}
+icons:
+  email: melanie.buergin@codebar.ch
+  linkedin: 'https://www.linkedin.com/in/melanie-buergin'

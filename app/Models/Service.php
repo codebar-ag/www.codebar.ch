@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Traits\HasLocalizedRouteBinding;
@@ -18,6 +20,20 @@ class Service extends Model
 
     /** @var array<int, string> */
     protected array $translatable = ['name', 'teaser', 'content'];
+
+    /** @var list<string> */
+    protected $fillable = [
+        'published',
+        'group',
+        'order',
+        'name',
+        'teaser',
+        'slug',
+        'content',
+        'image',
+        'url',
+        'tags',
+    ];
 
     protected $casts = [
         'published' => 'boolean',
