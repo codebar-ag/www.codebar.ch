@@ -8,6 +8,8 @@ return [
         'window' => 'We are codebar',
         'legend' => 'What would you like to know about us?',
         'shortcuts' => 'Switch section: number keys 1 to 3, or the left and right arrow keys.',
+        'prev_section' => 'Previous section',
+        'next_section' => 'Next section',
         'next' => 'next: :title',
         'cta' => 'tell us about your project',
         'who_we_are' => [

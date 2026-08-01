@@ -197,3 +197,44 @@ describe('keyboard navigation', () => {
         expect(checkedIndex()).toBe(0)
     })
 })
+
+describe('arrow buttons', () => {
+    it('moves to the next tab when step(1) runs, same as the right arrow', () => {
+        const { component } = mount()
+
+        component.step(1)
+
+        expect(checkedIndex()).toBe(1)
+        expect(window.sessionStorage.getItem(INTRO_TAB_KEY)).toBe('1')
+    })
+
+    it('moves to the previous tab when step(-1) runs, same as the left arrow', () => {
+        const { component } = mount()
+
+        component.step(-1)
+
+        expect(checkedIndex()).toBe(3)
+    })
+
+    it('wraps forward past the last tab back to the first', () => {
+        const { component } = mount()
+
+        component.step(1)
+        component.step(1)
+        component.step(1)
+        expect(checkedIndex()).toBe(3)
+
+        component.step(1)
+        expect(checkedIndex()).toBe(1)
+    })
+
+    it('never lands back on the start panel', () => {
+        const { component } = mount()
+
+        for (let i = 0; i < 10; i++) component.step(1)
+        expect(checkedIndex()).not.toBe(0)
+
+        for (let i = 0; i < 10; i++) component.step(-1)
+        expect(checkedIndex()).not.toBe(0)
+    })
+})

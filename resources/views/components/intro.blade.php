@@ -40,9 +40,11 @@
                 </label>
             @endforeach
 
-            <span class="ml-auto hidden shrink-0 items-center gap-1.5 px-4 sm:flex" aria-hidden="true">
-                <kbd class="{{ $cap }}">←</kbd>
-                <kbd class="{{ $cap }}">→</kbd>
+            <span class="ml-auto hidden shrink-0 items-center gap-1.5 px-4 sm:flex">
+                <button type="button" @click="step(-1)" aria-label="{{ __('components.intro.prev_section') }}"
+                        class="{{ $cap }} cursor-pointer transition hover:bg-white focus-ring">←</button>
+                <button type="button" @click="step(1)" aria-label="{{ __('components.intro.next_section') }}"
+                        class="{{ $cap }} cursor-pointer transition hover:bg-white focus-ring">→</button>
             </span>
         </div>
 

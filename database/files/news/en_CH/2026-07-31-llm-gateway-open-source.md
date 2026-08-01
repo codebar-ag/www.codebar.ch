@@ -22,26 +22,25 @@ discarded a fair amount of it again, and found a handful of things that genuinel
 day-to-day work. Over the coming weeks and months we would like to show more of that.
 
 We are starting with a small tool we built for ourselves, because something kept getting in our way.
-More interesting than the tool, though, is the problem behind it — and everyone running models
-in-house has it.
+More on that shortly.
+
+---
 
 We, codebar Solutions AG, build custom software and look after document management systems for Swiss
 SMEs and large companies, from the initial concept through implementation to day-to-day operation.
 Where things have actually changed for us:
 
-- **Concept and prototyping.** Prototypes come together faster. Our customers got to see something
-  before as well, it simply took longer. Today we get through considerably more rounds in the same
-  time: show a state, collect feedback, adjust, show it again. Those iterations are the real gain.
-  Decisions are made earlier, and the next step becomes clear sooner.
-- **Custom software development.** Anyone who expected a single prompt to produce the perfect result
-  will be disappointed. Anyone who already had clean processes and applies AI deliberately to the
-  individual steps benefits considerably. What remains essential is the person in the loop: clarify
-  requirements, check results, review code. Nobody takes that off your hands.
-- **DMS and ECM.** Extracting document data and multi-agent workflows mean that fewer and fewer
-  documents ever need to be touched by hand.
+- **Concept and prototyping.** Prototypes come together faster, and we get through considerably more
+  rounds in the same time: show a state, collect feedback, adjust. Decisions get made earlier as a
+  result.
+- **Custom software development.** AI helps most where clean processes already existed, taking on
+  individual steps deliberately. Clarifying requirements, checking results, and reviewing code stays
+  with the person in the loop.
+- **DMS and ECM.** Extracting document data and multi-agent workflows now handle a growing share of
+  the work. Fewer and fewer documents still need to be touched by hand.
 
-Behind all three areas sits the same thing in the end: a model doing the computing. Where it does
-that was a deliberate decision for us from the outset.
+A model does the computing in all three areas. Where that model runs was a deliberate decision for
+us from the outset.
 
 ## Control and data sovereignty
 

@@ -127,6 +127,14 @@ it('names the shortcuts for screen readers', function () {
     expect(introMarkup())->toContain(__('components.intro.shortcuts'));
 });
 
+it('renders the arrow hints as real, labelled, clickable buttons', function () {
+    $html = introMarkup();
+
+    expect($html)
+        ->toContain('<button type="button" @click="step(-1)" aria-label="'.__('components.intro.prev_section').'"')
+        ->toContain('<button type="button" @click="step(1)" aria-label="'.__('components.intro.next_section').'"');
+});
+
 it('opens the start tab with nothing but the three teasers', function () {
     expect(introPanel(introMarkup(), 0))->not->toContain(__('components.intro.title'));
 });

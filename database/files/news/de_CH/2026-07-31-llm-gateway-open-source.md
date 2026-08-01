@@ -22,26 +22,25 @@ viel ausprobiert, einiges wieder verworfen und ein paar Dinge gefunden, die bei 
 tatsächlich etwas bringen. Davon möchten wir in den nächsten Wochen und Monaten etwas mehr zeigen.
 
 Den Anfang macht ein kleines Werkzeug, das wir für uns selbst gebaut haben, weil uns etwas im Weg
-stand. Interessanter als das Werkzeug ist aber das Problem dahinter — und das hat jeder, der Modelle
-im eigenen Haus betreibt.
+stand. Dazu gleich mehr.
+
+---
 
 Wir, die codebar Solutions AG, entwickeln individuelle Software und betreuen
 Dokumentenmanagement-Systeme für Schweizer KMU und Konzerne, von der Konzeption über die Umsetzung
 bis zum Betrieb. Wo sich bei uns konkret etwas verändert hat:
 
-- **Konzeption und Prototyping.** Prototypen entstehen schneller. Etwas zu sehen bekamen unsere
-  Kunden auch vorher, es hat einfach länger gedauert. Heute drehen wir in der gleichen Zeit deutlich
-  mehr Runden: einen Stand zeigen, Feedback holen, anpassen, wieder zeigen. Diese Iterationen sind
-  der eigentliche Gewinn. Entscheide fallen früher, und der nächste Schritt ist schneller klar.
-- **Individuelle Softwareentwicklung.** Wer geglaubt hat, aus einem einzigen Prompt falle das
-  perfekte Ergebnis, wird enttäuscht. Wer dagegen schon vorher saubere Prozesse hatte und KI gezielt
-  für die einzelnen Schritte einsetzt, profitiert deutlich. Wichtig bleibt der Mensch im Ablauf:
-  Anforderungen klären, Ergebnisse prüfen, Code reviewen. Das nimmt einem niemand ab.
-- **DMS und ECM.** Extraktion von Dokumentdaten und Multi-Agent-Workflows sorgen dafür, dass immer
-  weniger Dokumente überhaupt noch von Hand angefasst werden müssen.
+- **Konzeption und Prototyping.** Prototypen entstehen schneller, und wir drehen in der gleichen
+  Zeit deutlich mehr Runden: einen Stand zeigen, Feedback holen, anpassen. Entscheide fallen dadurch
+  früher.
+- **Individuelle Softwareentwicklung.** KI hilft dort am meisten, wo vorher schon saubere Prozesse
+  standen, und übernimmt gezielt einzelne Schritte. Anforderungen klären, Ergebnisse prüfen und Code
+  reviewen bleibt beim Menschen.
+- **DMS und ECM.** Extraktion von Dokumentdaten und Multi-Agent-Workflows übernehmen einen
+  wachsenden Teil der Arbeit. Immer weniger Dokumente müssen dafür noch von Hand angefasst werden.
 
-Hinter allen drei Bereichen steckt am Ende dasselbe: ein Modell, das rechnet. Wo es das tut, war für
-uns von Anfang an eine bewusste Entscheidung.
+In allen drei Bereichen rechnet am Ende ein Modell. Wo dieses Modell läuft, war für uns von Anfang
+an eine bewusste Entscheidung.
 
 ## Kontrolle und Datenhoheit
 

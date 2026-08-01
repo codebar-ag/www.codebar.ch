@@ -8,6 +8,8 @@ return [
         'window' => 'Wir sind codebar',
         'legend' => 'Was möchtest du über uns wissen?',
         'shortcuts' => 'Abschnitt wechseln: Zifferntasten 1 bis 3 oder die Pfeiltasten links und rechts.',
+        'prev_section' => 'Vorheriger Abschnitt',
+        'next_section' => 'Nächster Abschnitt',
         'next' => 'weiter: :title',
         'cta' => 'erzähl uns von deinem Projekt',
         'who_we_are' => [

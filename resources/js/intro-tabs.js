@@ -20,20 +20,11 @@ export const introTabs = () => ({
                 return
             }
 
-            const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
-            if (step === 0 || !this.inView()) return
-
-            const tabs = this.shortcuts()
-            const current = tabs.findIndex((tab) => tab.checked)
+            const direction = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
+            if (direction === 0 || !this.inView()) return
 
             event.preventDefault()
-
-            if (current === -1) {
-                this.select(step > 0 ? tabs[0] : tabs[tabs.length - 1])
-                return
-            }
-
-            this.select(tabs[(current + step + tabs.length) % tabs.length])
+            this.step(direction)
         }
 
         window.addEventListener('keydown', this.onKey)
@@ -50,6 +41,18 @@ export const introTabs = () => ({
     select(tab) {
         tab.checked = true
         this.remember()
+    },
+
+    step(direction) {
+        const tabs = this.shortcuts()
+        const current = tabs.findIndex((tab) => tab.checked)
+
+        if (current === -1) {
+            this.select(direction > 0 ? tabs[0] : tabs[tabs.length - 1])
+            return
+        }
+
+        this.select(tabs[(current + direction + tabs.length) % tabs.length])
     },
 
     inView() {
