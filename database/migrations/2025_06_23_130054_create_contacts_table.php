@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('image');
             $table->json('icons')->nullable();
             $table->timestamps();
+
+            $table->index(['published', 'sort']);
         });
     }
 

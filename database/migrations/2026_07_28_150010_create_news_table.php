@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-            // Cross-language anchor: the de_CH and en_CH markdown files of one article share it.
             $table->string('key')->unique();
             $table->json('slug');
             $table->json('title');
             $table->json('teaser');
             $table->json('content')->nullable();
             $table->string('hero_image')->nullable();
-            // The square the index shows next to a list row. Its own file rather than a crop
-            // of the hero: the hero carries the title, and a square crop cuts the words.
             $table->string('thumb_image')->nullable();
             $table->json('hero_caption')->nullable();
             $table->json('hero_alt')->nullable();
@@ -36,12 +33,10 @@ return new class extends Migration
             $table->unsignedSmallInteger('reading_minutes')->nullable();
             $table->json('tags')->nullable();
             $table->timestamps();
+
+            $table->index(['published', 'published_at']);
         });
 
-        // A JSON column cannot carry a plain unique constraint — index the extracted
-        // per-locale value instead, so each language keeps its own unique slug.
-        // PostgreSQL only: `->>` here takes a bare key, which is not valid MySQL.
-        // The whole application targets pgsql (see config/database.php).
         foreach (['de_CH', 'en_CH'] as $locale) {
             $index = 'news_slug_'.strtolower(str_replace('_', '', $locale)).'_unique';
             DB::statement("CREATE UNIQUE INDEX {$index} ON news (( slug->>'{$locale}' ))");

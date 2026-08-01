@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Security\Replacers\CspHeaderReplacer;
 use Spatie\ResponseCache\CacheProfiles\CacheAllSuccessfulGetRequests;
 use Spatie\ResponseCache\Hasher\DefaultHasher;
 use Spatie\ResponseCache\Replacers\CsrfTokenReplacer;
@@ -123,5 +124,6 @@ return [
      */
     'replacers' => [
         CsrfTokenReplacer::class,
+        CspHeaderReplacer::class,
     ],
 ];
