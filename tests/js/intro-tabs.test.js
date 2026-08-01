@@ -2,16 +2,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { INTRO_TAB_KEY, introTabs } from '../../resources/js/intro-tabs.js'
 
-const TABS = [1, 2, 3]
+const TABS = [0, 1, 2]
 
 function mount() {
     document.body.innerHTML = `
         <fieldset class="intro-tabs">
-            <input type="radio" name="intro-tab" id="intro-tab-0" data-tab="0" checked>
             ${TABS.map((index) => `
                 <label for="intro-tab-${index}">
                     <input type="radio" name="intro-tab" id="intro-tab-${index}"
-                           data-tab="${index}" data-shortcut="${index}">
+                           data-tab="${index}" data-shortcut="${index + 1}" ${index === 0 ? 'checked' : ''}>
                 </label>
             `).join('')}
             <input type="text" id="somewhere-else">
@@ -48,7 +47,7 @@ afterEach(() => {
 })
 
 describe('remembering the tab for the session', () => {
-    it('opens on the start panel when the session is new', () => {
+    it('opens on the first section when the session is new', () => {
         mount()
 
         expect(checkedIndex()).toBe(0)
@@ -70,8 +69,8 @@ describe('remembering the tab for the session', () => {
 
         press('3')
 
-        expect(checkedIndex()).toBe(3)
-        expect(window.sessionStorage.getItem(INTRO_TAB_KEY)).toBe('3')
+        expect(checkedIndex()).toBe(2)
+        expect(window.sessionStorage.getItem(INTRO_TAB_KEY)).toBe('2')
     })
 
     it('stores the tab the arrow keys land on', () => {
@@ -111,7 +110,7 @@ describe('remembering the tab for the session', () => {
             press('3')
         }).not.toThrow()
 
-        expect(checkedIndex()).toBe(3)
+        expect(checkedIndex()).toBe(2)
     })
 })
 
@@ -120,21 +119,21 @@ describe('keyboard navigation', () => {
         mount()
 
         for (const index of TABS) {
-            press(String(index))
-            expect(checkedIndex(), `key ${index}`).toBe(index)
+            press(String(index + 1))
+            expect(checkedIndex(), `key ${index + 1}`).toBe(index)
         }
     })
 
-    it('has no shortcut left for the start panel', () => {
+    it('has no shortcut left over for a fourth tab', () => {
         mount()
 
         press('3')
         press('4')
 
-        expect(checkedIndex()).toBe(3)
+        expect(checkedIndex()).toBe(2)
     })
 
-    it('enters the tabs from the start panel with the right arrow', () => {
+    it('moves to the next tab with the right arrow', () => {
         mount()
 
         press('ArrowRight')
@@ -142,23 +141,23 @@ describe('keyboard navigation', () => {
         expect(checkedIndex()).toBe(1)
     })
 
-    it('enters the tabs from the start panel with the left arrow', () => {
+    it('wraps to the last tab with the left arrow', () => {
         mount()
 
         press('ArrowLeft')
 
-        expect(checkedIndex()).toBe(3)
+        expect(checkedIndex()).toBe(2)
     })
 
-    it('wraps the arrow keys through the three tabs, never back to the start panel', () => {
+    it('wraps the arrow keys through the three tabs', () => {
         mount()
 
         press('3')
         press('ArrowRight')
-        expect(checkedIndex()).toBe(1)
+        expect(checkedIndex()).toBe(0)
 
         press('ArrowLeft')
-        expect(checkedIndex()).toBe(3)
+        expect(checkedIndex()).toBe(2)
     })
 
     it('ignores shortcuts while the visitor is typing in a field', () => {
@@ -213,7 +212,7 @@ describe('arrow buttons', () => {
 
         component.step(-1)
 
-        expect(checkedIndex()).toBe(3)
+        expect(checkedIndex()).toBe(2)
     })
 
     it('wraps forward past the last tab back to the first', () => {
@@ -221,20 +220,9 @@ describe('arrow buttons', () => {
 
         component.step(1)
         component.step(1)
-        component.step(1)
-        expect(checkedIndex()).toBe(3)
+        expect(checkedIndex()).toBe(2)
 
         component.step(1)
-        expect(checkedIndex()).toBe(1)
-    })
-
-    it('never lands back on the start panel', () => {
-        const { component } = mount()
-
-        for (let i = 0; i < 10; i++) component.step(1)
-        expect(checkedIndex()).not.toBe(0)
-
-        for (let i = 0; i < 10; i++) component.step(-1)
-        expect(checkedIndex()).not.toBe(0)
+        expect(checkedIndex()).toBe(0)
     })
 })

@@ -5,9 +5,7 @@ declare(strict_types=1);
 return [
     'intro' => [
         'title' => 'Schön, bist du da',
-        'window' => 'Wir sind codebar',
         'legend' => 'Was möchtest du über uns wissen?',
-        'overview' => 'Übersicht',
         'shortcuts' => 'Abschnitt wechseln: Zifferntasten 1 bis 3 oder die Pfeiltasten links und rechts.',
         'prev_section' => 'Vorheriger Abschnitt',
         'next_section' => 'Nächster Abschnitt',

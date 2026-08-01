@@ -34,14 +34,14 @@ function introPanel(string $html, int $index): string
         : $panel->before('</fieldset>')->toString();
 }
 
-it('renders all four sections as panels at once', function () {
+it('renders the three sections as panels at once', function () {
     $html = introMarkup();
 
-    foreach (range(0, 3) as $index) {
+    foreach (range(0, 2) as $index) {
         expect($html)->toContain('data-panel="'.$index.'"');
     }
 
-    expect($html)->not->toContain('data-panel="4"');
+    expect($html)->not->toContain('data-panel="3"');
 });
 
 it('has a stylesheet rule for every tab it renders', function () {
@@ -72,7 +72,7 @@ it('keeps every section readable without javascript', function () {
 });
 
 it('keeps the four areas on one line each', function () {
-    $panel = introPanel(introMarkup(), 2);
+    $panel = introPanel(introMarkup(), 1);
 
     foreach (introItems() as $item) {
         expect($panel)->toContain('<span class="[&_b]:font-normal [&_b]:text-brand">'.$item.'</span>');
@@ -82,34 +82,40 @@ it('keeps the four areas on one line each', function () {
 it('switches without javascript through radio inputs', function () {
     $html = introMarkup();
 
-    foreach (range(0, 3) as $index) {
+    foreach (range(0, 2) as $index) {
         expect($html)
             ->toContain('id="intro-tab-'.$index.'"')
-            ->toContain('data-tab="'.$index.'"');
-    }
-
-    foreach (range(1, 3) as $index) {
-        expect($html)->toContain('for="intro-tab-'.$index.'"');
+            ->toContain('data-tab="'.$index.'"')
+            ->toContain('for="intro-tab-'.$index.'"');
     }
 
     expect($html)->toContain('name="intro-tab"');
 });
 
-it('leaves the start panel out of the tab bar', function () {
+it('puts every section into the tab bar, and nothing else', function () {
     $bar = Str::of(introMarkup())->after('</legend>')->before('intro-tabs__panels')->toString();
 
-    expect($bar)->not->toContain('for="intro-tab-0"')
-        ->and(substr_count($bar, '<label'))->toBe(3);
+    expect(substr_count($bar, '<label'))->toBe(3)
+        ->and($bar)->toContain('for="intro-tab-0"');
 });
 
-it('opens on the start tab', function () {
+it('opens on the first section instead of an overview', function () {
     $html = introMarkup();
 
     $first = Str::of($html)->after('id="intro-tab-0"')->before('/>')->toString();
     $second = Str::of($html)->after('id="intro-tab-1"')->before('/>')->toString();
 
     expect($first)->toContain('checked')
-        ->and($second)->not->toContain('checked');
+        ->and($second)->not->toContain('checked')
+        ->and(introPanel($html, 0))->toContain(__('components.intro.who_we_are.text'));
+});
+
+it('no longer lists the sections as teasers anywhere', function () {
+    $window = Str::of(introMarkup())->after('<fieldset')->before('</fieldset>')->toString();
+
+    foreach (['who_we_are', 'what_we_do', 'how_we_work'] as $key) {
+        expect($window)->not->toContain(__('components.intro.'.$key.'.teaser'));
+    }
 });
 
 it('exposes one number key per tab', function () {
@@ -135,32 +141,15 @@ it('renders the arrow hints as real, labelled, clickable buttons', function () {
         ->toContain('<button type="button" @click="step(1)" aria-label="'.__('components.intro.next_section').'"');
 });
 
-it('opens the start tab with nothing but the three teasers', function () {
-    expect(introPanel(introMarkup(), 0))->not->toContain(__('components.intro.title'));
-});
-
-it('links from the start tab to each of the other three, with the full sentence as the link', function () {
-    $panel = introPanel(introMarkup(), 0);
-
-    foreach ([1, 2, 3] as $index) {
-        expect($panel)->toContain('for="intro-tab-'.$index.'"');
-    }
-
-    foreach (['who_we_are', 'what_we_do', 'how_we_work'] as $key) {
-        expect($panel)->toContain(__('components.intro.'.$key.'.teaser'))
-            ->and($panel)->not->toContain(__('components.intro.'.$key.'.command').'</span>');
-    }
-});
-
-it('offers the next section below the two middle panels', function () {
+it('offers the next section below the first two panels', function () {
     $html = introMarkup();
 
-    expect(introPanel($html, 1))->toContain('for="intro-tab-2"')
-        ->and(introPanel($html, 2))->toContain('for="intro-tab-3"');
+    expect(introPanel($html, 0))->toContain('for="intro-tab-1"')
+        ->and(introPanel($html, 1))->toContain('for="intro-tab-2"');
 });
 
 it('ends the last panel on the contact page instead of another tab', function () {
-    $panel = introPanel(introMarkup(), 3);
+    $panel = introPanel(introMarkup(), 2);
 
     expect($panel)
         ->toContain(localized_route('contact.index'))
@@ -195,12 +184,19 @@ it('spends no vertical space on prompt lines', function () {
     expect(introMarkup())->not->toContain('➜');
 });
 
-it('numbers the three teasers like the tabs they open', function () {
-    $panel = introPanel(introMarkup(), 0);
+it('lets the panel height follow the content on mobile and freezes it on desktop', function () {
+    $intro = Str::after(file_get_contents(resource_path('css/app.css')), '.intro-tabs__panels');
 
-    foreach (range(1, 3) as $index) {
-        expect($panel)->toContain('>'.$index.'</kbd>');
-    }
+    $mobile = Str::before($intro, '@media');
+    $desktop = Str::after($intro, '@media (width >= 40rem)');
+
+    expect($mobile)->toContain('display: none')
+        ->and($mobile)->not->toContain('display: grid')
+        ->and($desktop)->toContain('display: grid')
+        ->and($desktop)->toContain('grid-area: 1 / 1');
+
+    expect(Str::before($intro, '.intro-tabs__panel:not(:first-child)'))
+        ->toContain('@supports not selector(:has(*))');
 });
 
 it('translates the commands per locale', function () {
