@@ -1,108 +1,108 @@
 ---
 key: llm-gateway-open-source
 slug: llm-gateway-open-source
-title: 'Running local LLMs: queues instead of timeouts'
+title: 'AI in our own server room: when too many requests arrive at once'
 teaser: >-
-  Running models in-house pays off – until requests grow and your own resources turn into the
-  bottleneck. Here's what we built against it.
+    Our AI models run on our own hardware. When too many requests arrive at the same time, they
+    fail for want of resources. What helped us wasn't more hardware, but a clear order in which
+    they get processed.
 published_at: 2026-07-31
+updated_at: 2026-07-31
 published: true
 author: sebastian.buergin@codebar.ch
 hero: images/news/llm-gateway-open-source.svg
-hero_alt: Concurrent requests now run through a queue that a gateway works off one at a time
+hero_alt: >-
+    Several simultaneous requests line up in a queue and are passed on to a language model one
+    after another
 thumb: images/news/llm-gateway-open-source-card.svg
-tags: [Open Source, KI]
+tags: [Open Source, AI]
 featured: false
 ---
 
 ## Six months of AI in our daily work
 
-For about six months now, no topic has occupied us as much as AI. We have tried a lot in that time,
-discarded a fair amount of it again, and found a handful of things that genuinely help in our
-day-to-day work. Over the coming weeks and months we would like to show more of that.
+For about six months now, no topic has occupied us as much as AI. We have tried a great deal,
+discarded some of it again, and found a few things that genuinely help day to day: prototypes come
+together faster, receipts turn into data without anyone typing them out, and when programming, we
+write less ourselves and review more instead.
 
-We are starting with a small tool we built for ourselves, because something kept getting in our way.
-More on that shortly.
+One experience runs through all of it, at least for us: AI delivers real value and genuine
+efficiency gains where the processes are already sound. Where they are not, AI will not make the
+quality any better either.
 
----
+We will be showing more of this over the coming weeks. First up is a tool we built for ourselves,
+because our own hardware reached its limit.
 
-We, codebar Solutions AG, build custom software and look after document management systems for Swiss
-SMEs and large companies, from the initial concept through implementation to day-to-day operation.
-Where things have actually changed for us:
+## Why we keep the models in-house
 
-- **Concept and prototyping.** Prototypes come together faster, and we get through considerably more
-  rounds in the same time: show a state, collect feedback, adjust. Decisions get made earlier as a
-  result.
-- **Custom software development.** AI helps most where clean processes already existed, taking on
-  individual steps deliberately. Clarifying requirements, checking results, and reviewing code stays
-  with the person in the loop.
-- **DMS and ECM.** Extracting document data and multi-agent workflows now handle a growing share of
-  the work. Fewer and fewer documents still need to be touched by hand.
+Wherever possible, we run AI on local models: on our own infrastructure or on our customers'.
+Customer data, contracts and internal documents stay where they already are. Which model does the
+computing is therefore not a purely technical question for us. It has to suit the customer and the
+way they want to work with LLMs.
 
-A model does the computing in all three areas. Where that model runs was a deliberate decision for
-us from the outset.
+Our impression: for a long time, local also meant noticeably weaker. For our use cases, that has
+changed. Local models are now sufficient for most of our processes, and here less is often more. A
+small model with a precise instruction frequently gets us further than a large one without –
+further, too, than Claude or the models from OpenAI – while being considerably more efficient. Not
+always, but more often than we expected.
 
-## Control and data sovereignty
+For this we have a MacBook sitting in the server room. M5 Max, 128 GB of memory, running Ollama
+and LiteLLM – and open to everyone in the company.
 
-It was clear to us early on that we wanted our own models on our own infrastructure. The moment a
-prompt contains customer data, contracts or internal documents, the question is no longer which
-model answers best, but who gets to see the request. If the model runs in-house, that question
-answers itself.
+- [codebar.ch/ki/llm](https://www.codebar.ch/ki/llm) – which models we run
+- [codebar.ch/ki/llm-analytics](https://www.codebar.ch/ki/llm-analytics) – what they actually get
+  asked to do
 
-On top of that comes a point that looked different only a year ago: local models are now capable
-enough to handle most of our tasks without trouble. The real challenge lies elsewhere, namely in
-asking the right questions and giving good instructions. Anyone who invests time in solid prompt
-engineering will often get there with a local model too.
+## Where things start to seize up
 
-We keep this deliberately pragmatic. Our models run in-house on a single machine with 128 GB of
-unified memory, on protected power. It runs Ollama and LiteLLM, the models we need for our tasks,
-plus the tooling for analysis and operations.
+There is no single perfect model, not for us at least. In our workflows, each agent therefore runs
+on the model that suits its task: extracting data from receipts calls for a different one than
+writing a summary, and for a classification a small, fast model will do.
 
-- [codebar.ch/ai/llm](https://www.codebar.ch/ai/llm) — which models we run
-- [codebar.ch/ai/llm-analytics](https://www.codebar.ch/ai/llm-analytics) — what they actually get to
-  do
+And that is exactly where the problem sits. A model has to be loaded into memory before it can
+answer. Ours need anywhere between a few and well over a hundred gigabytes of it – loading them
+all at once is not possible with the resources we have. Every switch therefore means: load first,
+then compute. And while one request is being processed, no second one can slip in.
 
-## Where it starts to bind
+In practice it looked like this: two people and an agent each start something within moments of
+one another. The first request gets processed, the other two wait – and eventually run into a
+timeout. Not because the machine is too slow, but because three of them asked at the same time.
 
-We do not work with one perfect model, but with several. Agents run in our workflows, and each agent
-gets the model that suits its task: extracting data from receipts calls for a different one than
-writing a summary, and a classification is handled by a small, fast model for which a large one
-would be overkill. On top of that come the requests from the team and from running processes. In the
-end, everything points at the same machine.
-
-And that is exactly where the limit is. A model has to be loaded before it can answer, and that
-occupies memory. Our models need anywhere between a few
-GB and over 100 GB of it, the largest one around 102 GB on its own. Then there is the context: the
-longer the request and the more documents sent along with it, the more is added on top. That leaves
-little of the 128 GB — enough for exactly one task to be worked on at a time. And every switch
-to a different model means loading first, computing second. Anything beyond that does not achieve
-more, it merely makes everything slower.
-
-Without orchestration, requests fail. Agents, processes and the people working with the models run
-into timeouts, and nobody can say whether something is still computing or was lost long ago.
+A bigger machine would take the edge off. Only it isn't possible everywhere, it is rarely the most
+efficient answer, and it merely pushes the limit out until the next model comes along. What really
+moved us forward was a clear order in which the requests get processed.
 
 ## What we built
 
-A brief look at the technology, because it explains the core of it: in practice, the format defined
-by OpenAI has established itself as the common denominator. Almost every local inference solution —
-Ollama, LiteLLM, vLLM, llama.cpp — offers an OpenAI-compatible endpoint, even when there is no
-OpenAI behind it at all. The usual call, `POST /v1/chat/completions`, is synchronous: you send the
-request and hold the connection open until the answer arrives.
+So we built ourselves a gateway. It sits between the requests and the model and does something
+very simple: it accepts every request, immediately returns a number that the request can later be
+identified by, and puts it in a queue. It gets processed as soon as the model is free. The answer
+is then collected using that number.
 
-For precisely this problem the same standard already provides an answer: the newer Responses API.
-Instead of going to `POST /v1/chat/completions`, the request goes to `POST /v1/responses`, an
-ID comes back immediately, and the result is collected later via `GET /v1/responses/{id}` — exactly
-the asynchronous behaviour we need. You cannot rely on it, though: by no means every model and every
-endpoint supports it, and even where it is available, the calling application has to explicitly ask
-for it. Anyone who does not, or cannot, keeps sending synchronously — and ends up back in the
-holding pattern.
+Two things mattered to us here. First, nothing about sending should change: whoever used to send
+straight to the model sends exactly the same thing as before, and only collecting the answer is
+added as a second step. Second, nobody can bypass the queue – otherwise we would be right back
+where we started.
 
-That is the order we reversed. It is not the calling tool that decides whether work happens
-asynchronously, it is the queue: our application sits between the calling tools and the local model
-interface and turns every request into an asynchronous job, including one meant to be
-synchronous. No tool has to be adapted for it, and none can bypass the queue.
+Along with the number come the position in the queue and an estimate of the waiting time,
+extrapolated from the most recent actual response times of the same model. Not a promise, but a
+figure that a program or a person can work with.
 
-So you keep sending what you would send anyway:
+## The technology behind it
+
+The format defined by OpenAI is a workable standard. Almost every piece of software that runs
+models locally – Ollama, LiteLLM, vLLM, llama.cpp – offers an OpenAI-compatible endpoint, even
+when there is no OpenAI behind it at all. The usual call, `POST /v1/chat/completions`, is
+synchronous: you send the request and hold the connection open until the answer arrives.
+
+The same standard already provides for this with the Responses API. Instead of going to
+`POST /v1/chat/completions`, the request goes to `POST /v1/responses`, an ID comes straight back,
+and you collect the result later via `GET /v1/responses/{id}` – precisely the asynchronous
+behaviour we need. It just isn't available everywhere, and even where it is, the client has to ask
+for it explicitly. Anyone who doesn't, or can't, keeps sending synchronously.
+
+We therefore treat every request as an asynchronous job, including one submitted synchronously. So
+you carry on sending what you would have sent anyway:
 
 ```bash
 curl -s https://llm.async.example.com/v1/chat/completions \
@@ -112,47 +112,55 @@ curl -s https://llm.async.example.com/v1/chat/completions \
        "messages":[{"role":"user","content":"Summarise these minutes in five sentences."}]}'
 ```
 
-What comes back is not the answer, however, but a receipt, in milliseconds:
+What comes back, though, is not the answer but an ID:
 
 ```json
 {
-  "id": "resp_019fb90bbb8872ef9cbd309e471092c0",
-  "object": "chat.completion.queued",
-  "status": "queued",
-  "model": "qwen3.6:35b",
-  "created": 1785515981,
-  "poll_url": "/v1/responses/resp_019fb90bbb8872ef9cbd309e471092c0",
-  "queue": {
-    "position": 1,
-    "depth": 1,
-    "workers": 1,
-    "estimated_seconds": 18,
-    "estimated_completion_at": 1785515999
-  }
+    "id": "resp_019fb90bbb8872ef9cbd309e471092c0",
+    "object": "chat.completion.queued",
+    "status": "queued",
+    "model": "qwen3.6:35b",
+    "created": 1785515981,
+    "poll_url": "/v1/responses/resp_019fb90bbb8872ef9cbd309e471092c0",
+    "queue": {
+        "position": 1,
+        "depth": 1,
+        "workers": 1,
+        "estimated_seconds": 18,
+        "estimated_completion_at": 1785515999
+    }
 }
 ```
 
-The connection is free again immediately. What comes with it is the position in the queue and an
-estimate of how long it will take — a projection from the most recent actual response times for
-the same model. Not a promise, but the number you can show a person who is waiting. The answer is
-collected later via the `poll_url` — the route the Responses API provides for anyway.
+The connection is free again immediately. `estimated_seconds` is the figure a client can align its
+polling interval with; the answer is collected via the `poll_url`, the route the Responses API
+provides for.
 
-What changes in operation: requests are collected and worked through according to the resources
-available, instead of all being let loose on the model at once. That removes the main cause of
-failures, namely timeouts and overload through concurrency. And because every job sits in the
-database, a slow answer is no longer a lost job, merely an answer that has not been collected yet.
-If a call fails, it is retried. Only once the retry budget is used up does the job land visibly in
-the `failed` status, with an error message instead of silence.
+Under the bonnet, the application is written in Laravel and files every job in a database queue.
+Queue workers pick it up from there and hand it on, one at a time, to the local model interface –
+Ollama and LiteLLM in our case. The gateway is reachable through a Cloudflare Tunnel and is
+started as a launchd agent directly on the machine the models run on.
 
-## The technology behind it
-
-The application is written in Laravel and puts every job into PostgreSQL. Queue workers pick it up
-from there and pass it on to the local model interface one at a time, in our case Ollama and
-LiteLLM. The gateway is reachable through a Cloudflare Tunnel, and it is started as a launchd agent
-directly on the machine the models run on.
-
-The code is public on GitHub, under the MIT license and exactly as we use it. Also in the
-repository: a complete OpenAPI description of the endpoints, a Bruno collection for trying it out,
-and the operating configuration including launchd agents and ingress rules.
+The code is publicly available on GitHub, exactly as we use it. Also in the repository: an OpenAPI
+description of the endpoints, a Bruno collection to try things out, and the operating
+configuration.
 
 - [codebar-ag/llm-gateway.codebar.ai on GitHub](https://github.com/codebar-ag/llm-gateway.codebar.ai)
+
+## How does it look at your end?
+
+We are glad to help if you want to run AI on your own infrastructure: choosing the models,
+building the workflows, and setting the order in which the requests get processed.
+
+We prefer to start from your actual use case. Tell us about it –
+[let's talk](https://www.codebar.ch/kontakt).
+
+## Sources
+
+- [OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses) – the standard
+  for asynchronous calls
+- [Ollama](https://ollama.com) and [LiteLLM](https://www.litellm.ai) – the model interfaces we run
+- [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
+  – how the gateway is reachable
+- [Bruno](https://www.usebruno.com) – what the collection in the repository is built with
+- [Laravel](https://laravel.com) – the framework the application is written in

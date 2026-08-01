@@ -4,6 +4,7 @@ import Alpine from '@alpinejs/csp'
 import focus from '@alpinejs/focus'
 
 import { introTabs } from './intro-tabs'
+import { languageSuggestion } from './language-suggestion'
 
 window.Alpine = Alpine
 Alpine.plugin(focus)
@@ -126,6 +127,8 @@ Alpine.data('combobox', () => ({
 }))
 
 Alpine.data('introTabs', introTabs)
+
+Alpine.data('languageSuggestion', languageSuggestion)
 
 Alpine.data('navigation', () => ({
     open: false,

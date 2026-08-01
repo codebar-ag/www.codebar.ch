@@ -1,15 +1,19 @@
 ---
 key: llm-gateway-open-source
 slug: llm-gateway-open-source
-title: 'Lokale LLMs betreiben: Warteschlangen statt Timeouts'
+title: 'KI im eigenen Serverraum: wenn zu viele Anfragen auf einmal kommen'
 teaser: >-
-  Modelle im eigenen Haus zu betreiben, lohnt sich – bis die Anfragen steigen und die eigenen
-  Ressourcen zum Engpass werden. Was wir dagegen gebaut haben.
+    Unsere KI-Modelle laufen auf eigener Hardware. Kommen zu viele Anfragen gleichzeitig, scheitern
+    sie an den Ressourcen. Geholfen hat uns nicht mehr Hardware, sondern eine klare Reihenfolge, in
+    der sie abgearbeitet werden.
 published_at: 2026-07-31
+updated_at: 2026-07-31
 published: true
 author: sebastian.buergin@codebar.ch
 hero: images/news/llm-gateway-open-source.svg
-hero_alt: Gleichzeitige Anfragen laufen neu über eine Warteschlange, die ein Gateway der Reihe nach abarbeitet
+hero_alt: >-
+    Mehrere gleichzeitige Anfragen reihen sich in einer Warteschlange auf und werden der Reihe nach
+    an ein Sprachmodell weitergegeben
 thumb: images/news/llm-gateway-open-source-card.svg
 tags: [Open Source, KI]
 featured: false
@@ -17,95 +21,88 @@ featured: false
 
 ## Ein halbes Jahr KI im Alltag
 
-Seit rund einem halben Jahr beschäftigt uns kein Thema so stark wie KI. Wir haben in dieser Zeit
-viel ausprobiert, einiges wieder verworfen und ein paar Dinge gefunden, die bei uns im Alltag
-tatsächlich etwas bringen. Davon möchten wir in den nächsten Wochen und Monaten etwas mehr zeigen.
+Seit rund einem halben Jahr beschäftigt uns kein Thema so stark wie KI. Wir haben viel
+ausprobiert, einiges wieder verworfen und ein paar Dinge gefunden, die im Alltag wirklich helfen:
+Prototypen entstehen schneller, aus Belegen werden Daten, ohne dass jemand sie abtippt, und beim
+Programmieren schreiben wir weniger selbst und prüfen dafür mehr.
 
-Den Anfang macht ein kleines Werkzeug, das wir für uns selbst gebaut haben, weil uns etwas im Weg
-stand. Dazu gleich mehr.
+Eine Erfahrung zieht sich für uns durch alles: Einen erheblichen Mehrwert und echte
+Effizienzgewinne bringt KI dort, wo die Prozesse schon sauber sind. Wo sie es nicht sind, wird die
+Qualität auch mit KI nicht besser.
 
----
+Davon zeigen wir in den nächsten Wochen mehr. Den Anfang macht ein Werkzeug, das wir für uns
+selbst gebaut haben – weil unsere eigene Hardware an die Grenze kam.
 
-Wir, die codebar Solutions AG, entwickeln individuelle Software und betreuen
-Dokumentenmanagement-Systeme für Schweizer KMU und Konzerne, von der Konzeption über die Umsetzung
-bis zum Betrieb. Wo sich bei uns konkret etwas verändert hat:
+## Warum die Modelle bei uns im Haus stehen
 
-- **Konzeption und Prototyping.** Prototypen entstehen schneller, und wir drehen in der gleichen
-  Zeit deutlich mehr Runden: einen Stand zeigen, Feedback holen, anpassen. Entscheide fallen dadurch
-  früher.
-- **Individuelle Softwareentwicklung.** KI hilft dort am meisten, wo vorher schon saubere Prozesse
-  standen, und übernimmt gezielt einzelne Schritte. Anforderungen klären, Ergebnisse prüfen und Code
-  reviewen bleibt beim Menschen.
-- **DMS und ECM.** Extraktion von Dokumentdaten und Multi-Agent-Workflows übernehmen einen
-  wachsenden Teil der Arbeit. Immer weniger Dokumente müssen dafür noch von Hand angefasst werden.
+Wo immer möglich, setzen wir KI mit lokalen Modellen um: auf unserer eigenen Infrastruktur oder
+auf der unserer Kunden. Kundendaten, Verträge und interne Dokumente bleiben damit dort, wo sie
+ohnehin liegen. Welches Modell rechnet, ist für uns deshalb keine rein technische Frage. Es muss
+zum Kunden passen und dazu, wie er mit LLMs umgehen will.
 
-In allen drei Bereichen rechnet am Ende ein Modell. Wo dieses Modell läuft, war für uns von Anfang
-an eine bewusste Entscheidung.
+Unser Eindruck: Lokal hiess lange auch spürbar schwächer. Das hat sich für unsere Anwendungsfälle
+geändert. Inzwischen reichen lokale Modelle für die meisten unserer Prozesse, und dabei gilt oft:
+weniger ist mehr. Ein kleines Modell mit präziser Instruktion kommt bei uns häufig weiter als ein
+grosses ohne – auch weiter als Claude oder die Modelle von OpenAI – und ist dabei deutlich
+effizienter. Nicht immer, aber öfter, als wir erwartet hätten.
 
-## Kontrolle und Datenhoheit
+Dafür steht bei uns ein MacBook im Serverraum. M5 Max, 128 GB Arbeitsspeicher, darauf Ollama und
+LiteLLM – und Zugriff für alle im Unternehmen.
 
-Für uns war früh klar, dass wir eigene Modelle auf eigener Infrastruktur wollen. Sobald ein Prompt
-Kundendaten, Verträge oder interne Dokumente enthält, ist die Frage nicht mehr, welches Modell am
-besten antwortet, sondern wer die Anfrage zu sehen bekommt. Läuft das Modell im eigenen Haus,
-erübrigt sich diese Frage.
-
-Dazu kommt ein Punkt, der noch vor einem Jahr anders aussah: Lokale Modelle sind inzwischen so
-leistungsfähig, dass sie die meisten unserer Aufgaben problemlos erledigen. Die eigentliche
-Herausforderung liegt woanders, nämlich darin, die richtigen Fragen zu stellen und gute
-Instruktionen zu geben. Wer Zeit in sauberes Prompt Engineering investiert, kommt oft auch mit einem
-lokalen Modell zum Ziel.
-
-Wir halten das bewusst pragmatisch. Die Modelle laufen bei uns im Haus auf einer einzelnen Maschine
-mit 128 GB Unified Memory, unterbrechungsfrei abgesichert. Darauf laufen Ollama und LiteLLM, die
-Modelle, die wir für unsere Aufgaben brauchen, dazu die Werkzeuge für Auswertung und Betrieb.
-
-- [codebar.ch/ki/llm](https://www.codebar.ch/ki/llm) — welche Modelle bei uns laufen
-- [codebar.ch/ki/llm-analytics](https://www.codebar.ch/ki/llm-analytics) — was sie tatsächlich zu
+- [codebar.ch/ki/llm](https://www.codebar.ch/ki/llm) – welche Modelle bei uns laufen
+- [codebar.ch/ki/llm-analytics](https://www.codebar.ch/ki/llm-analytics) – was sie tatsächlich zu
   tun bekommen
 
 ## Wo es anfängt zu klemmen
 
-Wir arbeiten nicht mit dem einen perfekten Modell, sondern mit mehreren. In unseren Workflows
-laufen Agenten, und jeder Agent bekommt das Modell, das zu seiner Aufgabe passt: Für die Extraktion
-aus Belegen eignet sich ein anderes als für eine Zusammenfassung, und eine Klassifizierung erledigt
-ein kleines, schnelles Modell, für das ein grosses überdimensioniert wäre. Dazu kommen die Anfragen
-aus dem Team und aus laufenden Prozessen. Am Ende zeigt alles auf dieselbe Maschine.
+Das eine perfekte Modell gibt es für uns nicht. In unseren Workflows läuft deshalb jeder Agent auf
+dem Modell, das zu seiner Aufgabe passt: Für die Extraktion aus Belegen eignet sich ein anderes
+als für eine Zusammenfassung, und für eine Klassifizierung genügt ein kleines, schnelles.
 
-Und genau da liegt die Grenze. Ein Modell muss geladen sein, bevor es antworten kann, und belegt
-dabei Speicher. Unsere Modelle brauchen davon zwischen
-wenigen GB und über 100 GB, das grösste allein rund 102 GB. Dazu kommt der Kontext: Je länger die
-Anfrage und je mehr Dokumente mitgeschickt werden, desto mehr kommt obendrauf. Von 128 GB bleibt
-damit wenig übrig — genug für genau eine Aufgabe, die gleichzeitig abgearbeitet werden kann. Und
-jeder Wechsel auf ein anderes Modell bedeutet erst laden, dann rechnen. Alles darüber macht nicht
-mehr, sondern nur alles langsamer.
+Genau daran hängt das Problem. Ein Modell muss im Arbeitsspeicher geladen sein, bevor es antworten
+kann. Unsere Modelle brauchen davon zwischen wenigen und über hundert Gigabyte – alle gleichzeitig
+zu laden, geht mit unseren Ressourcen nicht. Jeder Wechsel heisst also: zuerst laden, dann
+rechnen. Und solange eine Anfrage rechnet, kommt keine zweite dazwischen.
 
-Ohne Orchestrierung schlagen Anfragen fehl. Agenten, Prozesse und Mitarbeitende, die mit den
-Modellen arbeiten, laufen in Timeouts, und niemand kann sagen, ob etwas noch rechnet oder längst
-verloren ist.
+Im Alltag sah das so aus: Zwei Personen und ein Agent starten kurz nacheinander etwas. Die erste
+Anfrage wird gerechnet, die beiden anderen warten – und laufen irgendwann in einen Timeout. Nicht
+weil die Maschine zu langsam wäre, sondern weil drei zur gleichen Zeit gefragt haben.
+
+Eine grössere Maschine würde das entschärfen. Nur ist sie nicht überall möglich, selten die
+effizienteste Antwort und verschiebt die Grenze bloss bis zum nächsten Modell. Was uns wirklich
+weitergebracht hat, ist eine klare Reihenfolge, in der die Anfragen abgearbeitet werden.
 
 ## Was wir gebaut haben
 
-Ein kurzer Blick auf die Technik, weil er den Kern erklärt: In der Praxis hat sich das von OpenAI
-definierte Format als gemeinsamer Nenner durchgesetzt. Fast jede lokale Inferenz-Lösung — Ollama,
-LiteLLM, vLLM, llama.cpp — bietet einen OpenAI-kompatiblen Endpunkt an, auch wenn dahinter gar kein
-OpenAI steckt. Der übliche Aufruf `POST /v1/chat/completions` ist dabei synchron: Man sendet die
-Anfrage und hält die Verbindung offen, bis die Antwort da ist.
+Also haben wir uns ein Gateway gebaut. Es sitzt zwischen den Anfragen und dem Modell und macht
+etwas sehr Einfaches: Es nimmt jede Anfrage entgegen, gibt sofort eine Nummer zurück, über die
+sich die Anfrage später wiederfinden lässt, und stellt sie in eine Warteschlange. Abgearbeitet
+wird sie, sobald das Modell frei ist. Die Antwort holt man anschliessend über die Nummer ab.
 
-Für genau dieses Problem sieht derselbe Standard bereits eine Lösung vor: die neuere Responses API.
-Statt an `POST /v1/chat/completions` geht die Anfrage an `POST /v1/responses`, zurück kommt
-sofort eine ID, und das Ergebnis holt man später über `GET /v1/responses/{id}` ab — also exakt das
-asynchrone Verhalten, das wir brauchen. Verlassen kann man sich darauf aber nicht: Längst nicht
-jedes Modell und jede Gegenstelle unterstützt sie, und selbst wo sie vorhanden ist, muss die
-aufrufende Anwendung sie ausdrücklich verlangen. Wer das nicht tut oder nicht kann, schickt weiter
-synchron — und steht wieder in der Warteschleife.
+Zwei Dinge waren uns dabei wichtig. Erstens sollte sich am Absenden nichts ändern: Wer bisher
+direkt ans Modell geschickt hat, schickt genau gleich weiter, und nur das Abholen der Antwort
+kommt als zweiter Schritt dazu. Zweitens kann niemand die Warteschlange umgehen – sonst hätten wir
+das Problem gleich wieder.
 
-Genau diese Reihenfolge haben wir umgedreht. Nicht das aufrufende Werkzeug entscheidet, ob
-asynchron gearbeitet wird, sondern die Warteschlange: Unsere Anwendung steht zwischen den
-aufrufenden Werkzeugen und dem lokalen Modell-Interface und wandelt jede Anfrage in einen
-asynchronen Auftrag um, auch eine synchron gemeinte. Kein Werkzeug muss dafür angepasst werden, und
-keines kann die Warteschlange umgehen.
+Mitgeliefert wird die Position in der Warteschlange und eine Schätzung der Wartezeit,
+hochgerechnet aus den letzten tatsächlichen Antwortzeiten desselben Modells. Keine Zusage, aber
+ein Wert, an dem sich ein Programm oder ein Mensch orientieren kann.
 
-Du schickst also weiter das, was du ohnehin schicken würdest:
+## Die Technik dahinter
+
+Das von OpenAI definierte Format ist ein praktikabler Standard. Fast jede Software, die Modelle
+lokal ausführt – Ollama, LiteLLM, vLLM, llama.cpp – bietet einen OpenAI-kompatiblen Endpunkt an,
+auch wenn dahinter gar kein OpenAI steckt. Der übliche Aufruf `POST /v1/chat/completions` ist
+synchron: Man sendet die Anfrage und hält die Verbindung offen, bis die Antwort da ist.
+
+Derselbe Standard kennt dafür bereits die Responses API. Statt an `POST /v1/chat/completions` geht
+die Anfrage an `POST /v1/responses`, zurück kommt sofort eine ID, und das Ergebnis holt man später
+über `GET /v1/responses/{id}` ab – genau das asynchrone Verhalten, das wir brauchen. Nur ist sie
+nicht überall verfügbar, und selbst wo sie es ist, muss der Client sie ausdrücklich verlangen. Wer
+das nicht tut oder nicht kann, schickt weiter synchron.
+
+Wir behandeln deshalb jede Anfrage als asynchronen Auftrag, auch eine synchron gestellte. Du
+schickst also weiter das, was du ohnehin schicken würdest:
 
 ```bash
 curl -s https://llm.async.example.com/v1/chat/completions \
@@ -115,7 +112,7 @@ curl -s https://llm.async.example.com/v1/chat/completions \
        "messages":[{"role":"user","content":"Fasse dieses Protokoll in fünf Sätzen zusammen."}]}'
 ```
 
-Zurück kommt aber nicht die Antwort, sondern in Millisekunden eine Quittung:
+Zurück kommt aber nicht die Antwort, sondern eine ID:
 
 ```json
 {
@@ -135,29 +132,38 @@ Zurück kommt aber nicht die Antwort, sondern in Millisekunden eine Quittung:
 }
 ```
 
-Die Verbindung ist damit sofort wieder frei. Mitgeliefert werden die Position in der Warteschlange
-und eine Schätzung, wie lange es dauert — eine Hochrechnung aus den letzten
-tatsächlichen Antwortzeiten desselben Modells. Keine Zusage, aber die Zahl, die man einem wartenden
-Menschen zeigen kann. Abgeholt wird die Antwort später über die `poll_url` — den Weg, den die
-Responses API ohnehin vorsieht.
+Die Verbindung ist damit sofort wieder frei. `estimated_seconds` ist der Wert, an dem der Client
+sein Polling-Intervall ausrichten kann; abgeholt wird die Antwort über die `poll_url`, den Weg,
+den die Responses API vorsieht.
 
-Was sich dadurch im Betrieb ändert: Die Anfragen werden gesammelt und nach den vorhandenen
-Ressourcen abgearbeitet, statt alle gleichzeitig auf das Modell loszulassen. Damit verschwindet die
-Hauptursache für Ausfälle, nämlich Timeouts und Überlast durch Gleichzeitigkeit. Und weil jeder
-Auftrag in der Datenbank liegt, ist eine langsame Antwort kein verlorener Auftrag mehr, sondern nur
-eine Antwort, die noch nicht abgeholt wurde. Schlägt ein Aufruf fehl, wird er erneut versucht. Erst
-wenn das Versuchsbudget aufgebraucht ist, landet der Auftrag sichtbar im Status `failed`, mit
-Fehlermeldung statt Schweigen.
+Unter der Haube ist die Anwendung in Laravel geschrieben und legt jeden Auftrag in einer
+Datenbank-Queue ab. Queue-Worker holen ihn dort ab und geben ihn der Reihe nach an das lokale
+Modell-Interface weiter, bei uns Ollama und LiteLLM. Erreichbar ist das Gateway über einen
+Cloudflare Tunnel, gestartet wird es als launchd-Agent direkt auf der Maschine, auf der auch die
+Modelle rechnen.
 
-## Die Technik dahinter
-
-Die Anwendung ist in Laravel geschrieben und legt jeden Auftrag in PostgreSQL ab. Queue-Worker holen
-ihn dort ab und geben ihn der Reihe nach an das lokale Modell-Interface weiter, bei uns Ollama und
-LiteLLM. Erreichbar ist das Gateway über einen Cloudflare Tunnel, gestartet wird es als
-launchd-Agent direkt auf der Maschine, auf der auch die Modelle rechnen.
-
-Der Code liegt öffentlich auf GitHub, unter MIT-Lizenz und genau so, wie wir ihn einsetzen. Dazu im
-Repository: eine vollständige OpenAPI-Beschreibung der Endpunkte, eine Bruno-Sammlung zum
-Ausprobieren und die Betriebskonfiguration inklusive launchd-Agents und Ingress-Regeln.
+Der Code liegt öffentlich auf GitHub, genau so, wie wir ihn einsetzen. Dazu im Repository: eine
+OpenAPI-Beschreibung der Endpunkte, eine Bruno-Sammlung zum Ausprobieren und die
+Betriebskonfiguration.
 
 - [codebar-ag/llm-gateway.codebar.ai auf GitHub](https://github.com/codebar-ag/llm-gateway.codebar.ai)
+
+## Wie sieht es bei euch aus?
+
+Wir helfen gerne weiter, wenn ihr KI auf eigener Infrastruktur betreiben wollt: bei der Auswahl
+der Modelle, beim Aufbau der Workflows und bei der Reihenfolge, in der die Anfragen abgearbeitet
+werden.
+
+Am liebsten starten wir bei eurem konkreten Anwendungsfall. Erzählt uns davon –
+[lass uns sprechen](https://www.codebar.ch/kontakt).
+
+## Quellen
+
+- [OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses) – der Standard
+  für asynchrone Aufrufe
+- [Ollama](https://ollama.com) und [LiteLLM](https://www.litellm.ai) – die Modell-Interfaces, die
+  bei uns laufen
+- [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
+  – darüber ist das Gateway erreichbar
+- [Bruno](https://www.usebruno.com) – damit ist die Sammlung im Repository aufgebaut
+- [Laravel](https://laravel.com) – das Framework, in dem die Anwendung geschrieben ist

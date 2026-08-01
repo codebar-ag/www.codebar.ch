@@ -48,15 +48,15 @@
   "news/llm-gateway-open-source": {
     "sentence": "agents, processes and people all call one in-house machine at once until its memory is full → queueing → a gateway that stores every request and feeds the model one at a time",
     "act": "queue",
-    "actSource": "wandelt jede Anfrage in einen asynchronen Auftrag um",
+    "actSource": "Wir behandeln deshalb jede Anfrage als asynchronen Auftrag",
     "objects": {
-      "agent and team requests": "Dazu kommen die Anfragen aus dem Team und aus laufenden Prozessen.",
-      "request lanes": "Am Ende zeigt alles auf dieselbe Maschine.",
-      "single in-house machine": "Die Modelle laufen bei uns im Haus auf einer einzelnen Maschine",
-      "full memory bar": "mit 128 GB Unified Memory",
+      "agent and team requests": "Agenten und Benutzer, die mit den Modellen arbeiten",
+      "request lanes": "Ohne Orchestrierung schlagen Anfragen fehl",
+      "single in-house machine": "ein dediziertes MacBook mit M5 Max",
+      "full memory bar": "128 GB Unified Memory",
       "stored queue": "Die Anfragen werden gesammelt und nach den vorhandenen Ressourcen abgearbeitet",
-      "job database": "weil jeder Auftrag in der Datenbank liegt",
-      "model chip": "Ein Modell muss geladen sein, bevor es antworten kann",
+      "job database": "legt jeden Auftrag in einer Datenbank-Queue ab",
+      "model chip": "Ein Modell muss im Arbeitsspeicher geladen sein, bevor es antworten kann",
       "fork mark": "Der Code liegt öffentlich auf GitHub"
     }
   },

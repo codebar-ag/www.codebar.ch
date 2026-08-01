@@ -176,4 +176,10 @@ return [
             ],
         ],
     ],
+
+    'language_suggestion' => [
+        'message' => 'This page is also available in English.',
+        'action' => 'Switch to English',
+        'dismiss' => 'Dismiss this notice',
+    ],
 ];

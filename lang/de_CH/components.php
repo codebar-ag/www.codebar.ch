@@ -176,4 +176,10 @@ return [
             ],
         ],
     ],
+
+    'language_suggestion' => [
+        'message' => 'Diese Seite gibt es auch auf Deutsch.',
+        'action' => 'Auf Deutsch wechseln',
+        'dismiss' => 'Hinweis schliessen',
+    ],
 ];

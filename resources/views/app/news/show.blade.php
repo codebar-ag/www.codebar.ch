@@ -25,7 +25,7 @@
                             <x-ui.badge :label="$tag" size="sm"/>
                         @endforeach
 
-                        <p class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+                        <p class="flex flex-col gap-y-1 text-sm text-muted sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2">
                             @if($news->published_at)
                                 <time datetime="{{ $news->published_at->toDateString() }}">
                                     @if($news->revised_at)
@@ -38,7 +38,7 @@
 
                             @if($news->revised_at)
                                 @if($news->published_at)
-                                    <span aria-hidden="true">·</span>
+                                    <span aria-hidden="true" class="hidden sm:inline">·</span>
                                 @endif
                                 <time datetime="{{ $news->revised_at->toDateString() }}">
                                     {{ __('Updated :date', ['date' => $news->revised_at->translatedFormat('j. F Y')]) }}
@@ -47,7 +47,7 @@
 
                             @if($news->reading_minutes)
                                 @if($news->published_at || $news->revised_at)
-                                    <span aria-hidden="true">·</span>
+                                    <span aria-hidden="true" class="hidden sm:inline">·</span>
                                 @endif
                                 <span>{{ __(':count min read', ['count' => $news->reading_minutes]) }}</span>
                             @endif

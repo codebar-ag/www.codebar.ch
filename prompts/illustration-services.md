@@ -19,6 +19,7 @@ other three only add what is specific to their subject: an article, an index row
 | `illustration-news.md` | an article | 1600×840 hero, displayed cropped |
 | `illustration-news-card.md` | an index row | 344×344 |
 | `illustration-seo-card.md` | a page — the picture its link travels with | 1200×630, no card |
+| `illustration-linkedin.md` | an article, uploaded to a LinkedIn post | 1200×627, **carries type** |
 
 Two older families still exist and are not this: the generated news placeholders in
 `images-news.md` / `images-news-square.md` (v1 — a title in Poppins, `make-news-hero.py`, one
@@ -154,6 +155,11 @@ load-bearing twice over:
 
 `<title>` is not `<text>`: it renders no glyphs, it is what a screen reader announces, and every
 drawing in this family has one. Write it in German, describing the change.
+
+The one place this rule is off is `illustration-linkedin.md` — a picture uploaded to a feed has no
+headline next to it, so it carries its own, with Poppins embedded as base64 to survive
+`rsvg-convert`. It stays a single file only because we post in German and draw nothing else. That
+family lives in its own directory and outside the gate. Nothing here changes.
 
 Squiggle rules: ragged right edge, never justified; word lengths mixed 1–4 waves within a line;
 line length varies between lines; the last line of a block is short. A block of identical-length
