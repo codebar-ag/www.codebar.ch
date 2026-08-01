@@ -26,9 +26,9 @@ ausprobiert, einiges wieder verworfen und ein paar Dinge gefunden, die im Alltag
 Prototypen entstehen schneller, aus Belegen werden Daten, ohne dass jemand sie abtippt, und beim
 Programmieren schreiben wir weniger selbst und prüfen dafür mehr.
 
-Eine Erfahrung zieht sich für uns durch alles: Einen erheblichen Mehrwert und echte
-Effizienzgewinne bringt KI dort, wo die Prozesse schon sauber sind. Wo sie es nicht sind, wird die
-Qualität auch mit KI nicht besser.
+Eine Erfahrung zieht sich für uns durch alles: Erheblichen Mehrwert und echte Effizienzgewinne
+bringt KI dort, wo die Prozesse sauber etabliert sind und die Datenqualität stimmt. Fehlt diese
+Grundlage, werden Qualität und Effizienz auch mit KI nur bedingt besser – und selten dauerhaft.
 
 Davon zeigen wir in den nächsten Wochen mehr. Den Anfang macht ein Werkzeug, das wir für uns
 selbst gebaut haben – weil unsere eigene Hardware an die Grenze kam.
@@ -40,11 +40,11 @@ auf der unserer Kunden. Kundendaten, Verträge und interne Dokumente bleiben dam
 ohnehin liegen. Welches Modell rechnet, ist für uns deshalb keine rein technische Frage. Es muss
 zum Kunden passen und dazu, wie er mit LLMs umgehen will.
 
-Unser Eindruck: Lokal hiess lange auch spürbar schwächer. Das hat sich für unsere Anwendungsfälle
-geändert. Inzwischen reichen lokale Modelle für die meisten unserer Prozesse, und dabei gilt oft:
-weniger ist mehr. Ein kleines Modell mit präziser Instruktion kommt bei uns häufig weiter als ein
-grosses ohne – auch weiter als Claude oder die Modelle von OpenAI – und ist dabei deutlich
-effizienter. Nicht immer, aber öfter, als wir erwartet hätten.
+Unser Eindruck: Lange arbeiteten lokale Modelle Instruktionen zu unzuverlässig ab. Für unsere
+Anwendungsfälle hat sich das geändert. In den meisten unserer Prozesse halten sie sich heute
+verlässlich an das, was wir ihnen vorgeben, und dabei gilt oft: weniger ist mehr. Ein kleines
+Modell mit präziser Instruktion kommt bei uns häufig weiter als ein grosses ohne und ist dabei
+deutlich effizienter.
 
 Dafür steht bei uns ein MacBook im Serverraum. M5 Max, 128 GB Arbeitsspeicher, darauf Ollama und
 LiteLLM – und Zugriff für alle im Unternehmen.
@@ -79,10 +79,8 @@ etwas sehr Einfaches: Es nimmt jede Anfrage entgegen, gibt sofort eine Nummer zu
 sich die Anfrage später wiederfinden lässt, und stellt sie in eine Warteschlange. Abgearbeitet
 wird sie, sobald das Modell frei ist. Die Antwort holt man anschliessend über die Nummer ab.
 
-Zwei Dinge waren uns dabei wichtig. Erstens sollte sich am Absenden nichts ändern: Wer bisher
-direkt ans Modell geschickt hat, schickt genau gleich weiter, und nur das Abholen der Antwort
-kommt als zweiter Schritt dazu. Zweitens kann niemand die Warteschlange umgehen – sonst hätten wir
-das Problem gleich wieder.
+Wichtig war uns dabei, dass sich am Absenden nichts ändert: Wer bisher direkt ans Modell geschickt
+hat, schickt genau gleich weiter, und nur das Abholen der Antwort kommt als zweiter Schritt dazu.
 
 Mitgeliefert wird die Position in der Warteschlange und eine Schätzung der Wartezeit,
 hochgerechnet aus den letzten tatsächlichen Antwortzeiten desselben Modells. Keine Zusage, aber

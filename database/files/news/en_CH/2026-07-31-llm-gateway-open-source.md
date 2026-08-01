@@ -27,8 +27,8 @@ together faster, receipts turn into data without anyone typing them out, and whe
 write less ourselves and review more instead.
 
 One experience runs through all of it, at least for us: AI delivers real value and genuine
-efficiency gains where the processes are already sound. Where they are not, AI will not make the
-quality any better either.
+efficiency gains where processes are properly established and the data quality holds up. Without
+that foundation, quality and efficiency improve only so far with AI – and rarely for long.
 
 We will be showing more of this over the coming weeks. First up is a tool we built for ourselves,
 because our own hardware reached its limit.
@@ -40,11 +40,10 @@ Customer data, contracts and internal documents stay where they already are. Whi
 computing is therefore not a purely technical question for us. It has to suit the customer and the
 way they want to work with LLMs.
 
-Our impression: for a long time, local also meant noticeably weaker. For our use cases, that has
-changed. Local models are now sufficient for most of our processes, and here less is often more. A
-small model with a precise instruction frequently gets us further than a large one without –
-further, too, than Claude or the models from OpenAI – while being considerably more efficient. Not
-always, but more often than we expected.
+Our impression: for a long time, local models followed instructions too unreliably. For our use
+cases, that has changed. In most of our processes they now hold reliably to what we give them, and
+here less is often more. A small model with a precise instruction frequently gets us further than
+a large one without, while being considerably more efficient.
 
 For this we have a MacBook sitting in the server room. M5 Max, 128 GB of memory, running Ollama
 and LiteLLM – and open to everyone in the company.
@@ -79,10 +78,9 @@ very simple: it accepts every request, immediately returns a number that the req
 identified by, and puts it in a queue. It gets processed as soon as the model is free. The answer
 is then collected using that number.
 
-Two things mattered to us here. First, nothing about sending should change: whoever used to send
+What mattered to us here was that nothing about sending should change: whoever used to send
 straight to the model sends exactly the same thing as before, and only collecting the answer is
-added as a second step. Second, nobody can bypass the queue – otherwise we would be right back
-where we started.
+added as a second step.
 
 Along with the number come the position in the queue and an estimate of the waiting time,
 extrapolated from the most recent actual response times of the same model. Not a promise, but a
