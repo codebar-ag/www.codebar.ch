@@ -1,6 +1,6 @@
 id;network_key;name;role;avatar_disk;avatar_path;avatar_url;email;public_email;linkedin;phone;published;sort;created_at;updated_at
-1;wieland-business-solutions;Dario Wieland;;;;;dario.wieland@business-solutions.gmbh;dario.wieland@business-solutions.gmbh;https://www.linkedin.com/in/dario-wieland/;+41 81 560 21 20;false;10;2026-07-23 08:16:38;2026-07-25 10:02:48
-2;pst;Sarah Fässler;;;;;sarah.faessler@pstgmbh.ch;sarah.faessler@pstgmbh.ch;;;false;10;2026-07-23 08:16:38;2026-07-23 08:16:38
+1;wieland-business-solutions;Dario Wieland;;;;;dario.wieland@business-solutions.gmbh;dario.wieland@business-solutions.gmbh;https://www.linkedin.com/in/dario-wieland/;+41 81 560 21 20;true;10;2026-07-23 08:16:38;2026-07-25 10:02:48
+2;pst;Sarah Fässler;;;;;sarah.faessler@pstgmbh.ch;sarah.faessler@pstgmbh.ch;https://www.linkedin.com/in/sarah-f%C3%A4ss%C4%BAer-30492b152/;;true;10;2026-07-23 08:16:38;2026-07-23 08:16:38
 3;docuware;Vincenzo Carbone;DocuWare Schweiz;;;/images/placeholders/avatar-sample.svg;vincenzo.carbone@docuware.com;vincenzo.carbone@docuware.com;;;false;10;2026-07-23 08:16:38;2026-07-23 08:16:38
 4;odoo;Domenik Friedrich;;;;;domf@odoo.com;domf@odoo.com;;;false;10;2026-07-23 08:16:38;2026-07-23 08:16:38
 5;baselhack;BaselHack;;;;;info@baselhack.ch;info@baselhack.ch;;;false;10;2026-07-23 08:16:38;2026-07-23 08:16:38

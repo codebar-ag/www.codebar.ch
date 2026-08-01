@@ -7,6 +7,7 @@ return [
         'title' => 'Good to have you here',
         'window' => 'We are codebar',
         'legend' => 'What would you like to know about us?',
+        'overview' => 'Overview',
         'shortcuts' => 'Switch section: number keys 1 to 3, or the left and right arrow keys.',
         'prev_section' => 'Previous section',
         'next_section' => 'Next section',
