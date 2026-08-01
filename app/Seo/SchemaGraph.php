@@ -95,6 +95,7 @@ class SchemaGraph
             'telephone' => Company::phone(),
             'vatID' => Company::uid(),
             'address' => $this->postalAddress(Company::primaryLocation()),
+            'foundingDate' => Company::foundingDate(),
             'areaServed' => 'CH',
             'knowsAbout' => Company::knowsAbout(),
             'numberOfEmployees' => [

@@ -216,14 +216,14 @@
     }
   },
   "pages/jobs.index": {
-    "sentence": "work handed over a wall to a department → putting it on a board instead → one lane crossing several roles, from the customer conversation to the code",
+    "sentence": "a newcomer kept at the edge of the project, watching → putting the work on a board → one person's card crossing every role, from the customer conversation to the code",
     "act": "board",
     "actSource": "Jede:r deckt mehrere Rollen ab, vom Kundengespräch bis zum Code.",
     "objects": {
-      "handover wall": "Bei uns gibt es keine Abteilungen, an die man Arbeit abgibt",
-      "department box": "keine Abteilungen, an die man Arbeit abgibt",
+      "onlooker card": "mitten im Projektalltag statt am Rand",
+      "project panel": "übernimmt vom ersten Tag Verantwortung in echten Projekten",
       "role board": "Jede:r deckt mehrere Rollen ab, vom Kundengespräch bis zum Code",
-      "first day check": "übernimmt vom ersten Tag Verantwortung in echten Projekten"
+      "first day check": "Wer bei uns anfängt, übernimmt vom ersten Tag Verantwortung"
     }
   },
   "pages/co-working.index": {
@@ -257,6 +257,61 @@
       "shared spine": "Unser Netzwerk lebt vom Open-Source-Gedanken und von echten Partnerschaften.",
       "tier badges": "und die Labels, die dahinterstehen",
       "community group": "unser Engagement in der Community"
+    }
+  },
+  "pages/legal.imprint.index": {
+    "sentence": "a company you only know by the name on its website → looking it up → the register behind it: legal form, UID, and the people who sign",
+    "act": "magnifier",
+    "actSource": "Rechtliche Angaben zur codebar Solutions AG",
+    "objects": {
+      "site tile": "Alle Inhalte dieser Website wurden mit Sorgfalt erstellt",
+      "register rows": "Rechtsform, UID-Nummer, Handelsregistereintrag",
+      "role chips": "Präsident des Verwaltungsrates, Geschäftsführer",
+      "signature card": "Einzelunterschrift"
+    }
+  },
+  "pages/legal.privacy.index": {
+    "sentence": "data that simply accumulates and disappears into a closed box → disclosing it → every category with its purpose, its retention period and your rights",
+    "act": "disclose",
+    "actSource": "Beim Besuch dieser Website verarbeiten wir folgende Datenkategorien",
+    "objects": {
+      "data cards": "Server-Logdaten (IP-Adresse, Datum und Uhrzeit des Zugriffs, Browsertyp, besuchte Seiten)",
+      "processing box": "Wir verarbeiten diese Daten, um die Website zu betreiben und abzusichern",
+      "retention pills": "Server-Logs werden bis zu 90 Tage aufbewahrt.",
+      "rights card": "hast du das Recht auf Auskunft, Berichtigung unrichtiger Daten"
+    }
+  },
+  "pages/legal.terms.index": {
+    "sentence": "an offer and a project with everything between them left unsaid → agreeing it → what is delivered, what it costs and who is liable, signed",
+    "act": "agree",
+    "actSource": "wenn der Kunde das Angebot schriftlich bestätigt oder digital signiert",
+    "objects": {
+      "offer card": "Offerten sind 30 Tage gültig",
+      "project card": "Dienstleistungen & Projektabwicklung",
+      "section blocks": "Nutzungsrechte & geistiges Eigentum",
+      "signature line": "Die Abnahme erfolgt formal durch Abnahmeprotokoll"
+    }
+  },
+  "pages/media.index": {
+    "sentence": "a mark lifted off a screenshot at the wrong size → handing over the files → the official marks in every variant, light and dark",
+    "act": "download",
+    "actSource": "Offizielle codebar-Logos zum Download für Presse, Partner und Publikationen",
+    "objects": {
+      "screenshot tile": "Nicht in Ordnung sind Verzerrungen, eigene Farbgebungen, Effekte",
+      "logo files": "als PNG und SVG, hell wie dunkel",
+      "dark variant": "die farbige Variante auf hellem Grund, die invertierte auf dunklem",
+      "format chips": "als PNG und SVG"
+    }
+  },
+  "pages/network.request.index": {
+    "sentence": "a partner profile only we could change → handing over the controls → a personal link that opens it as a form the partner edits themselves",
+    "act": "cursor",
+    "actSource": "Persönlichen Link anfordern, um das eigene Profil im codebar Netzwerk zu aktualisieren.",
+    "objects": {
+      "locked profile card": "das eigene Profil im codebar Netzwerk zu aktualisieren",
+      "link note": "Falls die E-Mail-Adresse registriert ist, haben wir dir einen Link gesendet.",
+      "editable fields": "Aktualisiere dein codebar Netzwerk-Profil",
+      "save button": "Netzwerk-Profil aktualisieren"
     }
   }
 }

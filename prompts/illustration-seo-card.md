@@ -30,7 +30,7 @@ not repeated here:
 What this file adds is everything specific to a *page*: what the sentence is when the subject is
 not a change and not an offering (§2), where the files go and what setting `image:` switches on
 (§3), how small the drawing is actually seen (§4), which pages get one and which deliberately do
-not (§5), the set (§6), the six acts this family added to the vocabulary (§7), and what the gate
+not (§5), the set (§6), the nine acts this family added to the vocabulary (§7), and what the gate
 checks that it does not check anywhere else (§8).
 
 ### The name is a trap
@@ -203,15 +203,22 @@ One soft rule the gate does not check: a few clients (compact Slack rows, some m
 crop a preview to something near square. Keep the act chip and one recognisable object inside the
 centre square, **x 285–915**. Anything outside that is worth having but must not be load-bearing.
 
-## 5. Who gets one, and who does not
+## 5. Every page gets one
 
-Fourteen pages get a card. Five do not, and that is a decision rather than a backlog:
+**One file in `database/files/pages/` means one drawing.** All nineteen, including the three
+legal pages and the `noindex` profile-request page.
 
-| Not drawn | Why |
-|---|---|
-| `legal.imprint.index`, `legal.privacy.index`, `legal.terms.index` | Nobody shares an imprint into a chat. The default card is correct for them, and three legal drawings would be three drawings nobody sees. |
-| `network.request.index` | `robots: noindex,nofollow`. A card for a page that must not be indexed is work aimed at nothing. |
-| `media.index` | The page is about the codebar logo. `og-codebar.png` **is** the logo card — it is the one page where the fallback is the right answer, not a gap. |
+The first pass drew fourteen and argued the other five out: nobody shares an imprint, a `noindex`
+page is not worth the work, and `og-codebar.png` already *is* the right picture for a page about
+the logo. Each of those is true on its own and all of them together are still wrong, because the
+fallback is not neutral. A link carrying the generic card looks like a link to the front page.
+Paste `/rechtliches/datenschutz` and `/medien` into one chat and they are indistinguishable from
+each other and from `/de-ch` — and the legal pages are exactly the ones somebody sends when they
+want one specific answer. A card that says *which page this is* beats a card that says *which
+company this is*, everywhere.
+
+`images/seo/og-codebar.png` is now what it should have been all along: the fallback for a page
+that does not have a drawing yet, not the standing image of five that never would.
 
 Detail pages are not in this family at all. Services, products, technologies, news, open source
 and network entries each carry their own `image` from their own source, and
@@ -235,10 +242,15 @@ one (§8, set gate).
 | `ai.llm.index` | three rented model tiles with no machine under them | `host` | the three model categories on one laptop in a basement, a UPS beside it and a tunnel out |
 | `ai.llm.analytics.index` | requests running past, nothing counting them | `measure` | a month column of token bars per model, with a total pill |
 | `news.index` | a whiteboard at the end of a project day — everything learned, staying in the room | `bell` | a dated list of articles, and somebody being told |
-| `jobs.index` | work handed over a wall to a department | `board` | one lane crossing several roles, from the customer conversation to the code, with a person card on it |
+| `jobs.index` | a newcomer at the edge of the project, watching the work happen inside it | `board` | the same person's card inside, crossing three roles from the customer conversation to the code |
 | `co-working.index` | a laptop on a kitchen table at home | `transfer` | a desk in a room with a team in it, a 250 Mbit/s line into it |
 | `contact.index` | a note with a question on it and no address | `call` | a handset, a named contact person, and two address cards |
 | `network.index` | partner names listed apart, nothing between them | `nodes` | partners on a shared spine around one hub, tier badges on two of them |
+| `legal.imprint.index` | a site you only know by the name in its address bar | `magnifier` | the register behind it: legal form, UID, and the people who sign |
+| `legal.privacy.index` | data arriving on three lanes into a box with a closed lid | `disclose` | every category with its purpose and a retention period, and your rights under it |
+| `legal.terms.index` | an offer and a project, both blank between them | `agree` | numbered sections, and a signature line |
+| `media.index` | a mark lifted off a screenshot at the wrong size | `download` | the four official variants, light and dark, PNG and SVG |
+| `network.request.index` | a partner profile with a lock on it | `cursor` | a personal link, and the profile as a form with a focused field |
 
 Each object in each row has to cite a phrase from that page's own copy — the YAML, and the
 `lang/` strings the page's Blade template renders. That is Gate 1, and §8 is what makes it
@@ -255,12 +267,16 @@ an article hero are never seen side by side. Two pages sharing an act is the fai
 exists for: paste three codebar links into one chat and three identical purple chips is exactly
 the "list of one repeated drawing" that `illustration-services.md` §11 Gate 5 describes.
 
-## 7. Six acts the vocabulary does not have yet
+## 7. Nine acts the vocabulary did not have
 
 The thirteen acts in `illustration-services.md` §10 were written for **systems changing**. A page
-card says what a company does for a reader, and six of those verbs do not exist yet. Each one
-below passes the §10 test — it is a verb, the subject genuinely performs it, it reads as a
-silhouette at 40 px, and none of them is an existing act under another name.
+card says what a company does for a reader, and nine of those verbs did not exist. Each one below
+passes the §10 test — it is a verb, the subject genuinely performs it, it reads as a silhouette at
+40 px, and none of them is an existing act under another name.
+
+**Nineteen pages need nineteen acts**, because no two in a family may share one. That is what
+made this the family that grew the vocabulary from thirteen to twenty-two, and it is the
+arithmetic to do before adding a twentieth page: the verb has to exist, or it has to be earned.
 
 All six are in `ACTS` in `scripts/check-illustrations.py`. A seventh is added the same way, and
 only under `illustration-services.md` §10's rules — it must be a verb, it must be legible at
@@ -274,6 +290,9 @@ only under `illustration-services.md` §10's rules — it must be a verb, it mus
 | `fork` | two nodes branching from one | it is given back, and someone else can take it further |
 | `host` | a roof over a chip | it runs on our own hardware, in our own building |
 | `measure` | a gauge | the change is that it is counted and shown |
+| `download` | an arrow into a tray | the official file is handed over instead of copied off a screen |
+| `disclose` | a page with its content shown | what was collected quietly is written down and limited |
+| `agree` | a signature over a line | what both sides owe each other is signed rather than assumed |
 
 ```xml
 <!-- listen — theirs is filled and large, ours is outlined and small -->
@@ -308,6 +327,18 @@ only under `illustration-services.md` §10's rules — it must be a verb, it mus
 <path d="M4 46a26 26 0 0 1 52 0" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round"/>
 <path d="M30 46 45 27" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round"/>
 <circle cx="30" cy="46" r="7" fill="url(#accent)"/>
+
+<!-- download -->
+<path d="M30 4v22M6 38v12a4 4 0 0 0 4 4h40a4 4 0 0 0 4-4V38" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30 42 11 22h38Z" fill="url(#accent)"/>
+
+<!-- disclose — the folded corner is a white cut-out, not a second stroke -->
+<path d="M12 4h24l14 14v38a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" fill="url(#accent)"/>
+<path d="M36 4l14 14H40a4 4 0 0 1-4-4Z" fill="#ffffff"/>
+<g fill="#ffffff"><rect x="16" y="30" width="28" height="5" rx="2.5"/><rect x="16" y="42" width="20" height="5" rx="2.5"/></g>
+
+<!-- agree — signature and baseline are ONE path on purpose, see §5 of services -->
+<path d="M6 42c8-12 14-24 20-24 8 0 2 24 10 24 6 0 10-8 14-16M4 54h52" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round"/>
 ```
 
 All six are drawn in the 60×60 box, use nothing but `url(#accent)`, and were rendered at 40 px
@@ -339,7 +370,7 @@ directory. Five things in it are specific to the family and worth knowing before
 - **The safe area is `PAGE_SAFE`** — `(18, 18, 1182, 612)`, measured the same way as a news crop
   even though nothing crops: it catches a shadow or a stack running off the right edge, which is
   what `technologies.index` did on its first pass.
-- **The set rules run over all fourteen** — no two acts, no two opening objects. The opening
+- **The set rules run over all nineteen** — no two acts, no two opening objects. The opening
   object is the *first* key in the manifest's `objects`, so its order is load-bearing.
 - **`pages/*-card.svg` fails outright**, with §0's reason. It is not a missing feature.
 

@@ -6,32 +6,32 @@
         ['key' => 'how_we_work', 'command' => __('components.intro.how_we_work.command'), 'next' => null],
     ];
 
-    $cap = 'inline-flex min-w-5 items-center justify-center rounded-[3px] border border-zinc-700 bg-zinc-800 px-1 py-0.5 font-mono text-[0.6875rem] leading-none text-zinc-300';
-    $pill = 'inline-flex min-h-control cursor-pointer items-center gap-2 rounded-pill px-4 text-sm transition select-none';
+    $cap = 'inline-flex min-w-5 items-center justify-center rounded-[3px] border border-gray-400 bg-gray-50 px-1 py-0.5 font-mono text-[0.6875rem] leading-none text-gray-700';
+    $pill = 'inline-flex min-h-control cursor-pointer items-center gap-2 rounded-pill px-4 text-sm font-medium transition select-none';
 @endphp
 
 <x-layout.section class="mt-0!">
     <x-h1 :title="__('components.intro.title')"/>
 
-    <fieldset class="intro-tabs min-w-0 overflow-hidden rounded-panel border border-zinc-800 bg-zinc-950" x-data="introTabs">
+    <fieldset class="intro-tabs min-w-0 overflow-hidden rounded-panel border border-gray-300 bg-gray-100" x-data="introTabs">
         <legend class="sr-only">{{ __('components.intro.legend') }}</legend>
         <p class="sr-only">{{ __('components.intro.shortcuts') }}</p>
 
-        <div class="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
-            <span class="size-3 rounded-full bg-red-500/80" aria-hidden="true"></span>
-            <span class="size-3 rounded-full bg-amber-400/80" aria-hidden="true"></span>
-            <span class="size-3 rounded-full bg-emerald-500/80" aria-hidden="true"></span>
-            <span class="ml-3 truncate font-mono text-xs text-zinc-400">
-                Hello World <span class="text-zinc-500">@</span> {{ config('company.legal_name') }}
+        <div class="flex items-center gap-2 border-b border-gray-300 bg-gray-200 px-4 py-3">
+            <span class="size-3 rounded-full bg-red-400" aria-hidden="true"></span>
+            <span class="size-3 rounded-full bg-amber-400" aria-hidden="true"></span>
+            <span class="size-3 rounded-full bg-emerald-400" aria-hidden="true"></span>
+            <span class="ml-3 truncate font-mono text-xs text-gray-700">
+                {{ __('components.intro.window') }} <span class="text-gray-500">–</span> {{ config('company.legal_name') }}
             </span>
         </div>
 
         <input type="radio" name="intro-tab" id="intro-tab-0" data-tab="0" checked class="sr-only"/>
 
-        <div class="flex flex-col border-b border-zinc-800 bg-zinc-900/60 sm:flex-row sm:overflow-x-auto">
+        <div class="flex flex-col border-b border-gray-300 bg-gray-200 sm:flex-row sm:overflow-x-auto">
             @foreach(array_slice($sections, 1) as $section)
                 <label for="intro-tab-{{ $loop->iteration }}"
-                       class="flex shrink-0 cursor-pointer items-center gap-2.5 border-b border-l-2 border-b-zinc-800 border-l-transparent px-4 py-3 font-mono text-sm text-zinc-400 transition select-none last:border-b-0 hover:text-zinc-100 has-checked:border-l-emerald-400 has-checked:bg-zinc-950 has-checked:text-white has-focus-visible:outline-2 has-focus-visible:-outline-offset-2 has-focus-visible:outline-emerald-400 sm:border-t-2 sm:border-r sm:border-b-0 sm:border-l-0 sm:border-t-transparent sm:border-r-zinc-800 sm:has-checked:border-t-emerald-400">
+                       class="flex shrink-0 cursor-pointer items-center gap-2.5 border-b border-l-2 border-b-gray-300 border-l-transparent px-4 py-3 font-mono text-sm text-gray-600 transition select-none last:border-b-0 hover:text-gray-900 has-checked:border-l-brand has-checked:bg-gray-100 has-checked:text-gray-900 has-focus-visible:outline-2 has-focus-visible:-outline-offset-2 has-focus-visible:outline-brand sm:border-t-2 sm:border-r sm:border-b-0 sm:border-l-0 sm:border-t-transparent sm:border-r-gray-300 sm:has-checked:border-t-brand">
                     <input type="radio" name="intro-tab" id="intro-tab-{{ $loop->iteration }}"
                            data-tab="{{ $loop->iteration }}" data-shortcut="{{ $loop->iteration }}"
                            class="sr-only"/>
@@ -46,7 +46,7 @@
             </span>
         </div>
 
-        <div class="intro-tabs__panels p-5 font-mono text-sm leading-relaxed sm:p-8">
+        <div class="intro-tabs__panels p-5 font-mono text-sm leading-relaxed text-gray-800 sm:p-8">
             @foreach($sections as $section)
                 <div class="intro-tabs__panel min-w-0" data-panel="{{ $loop->index }}">
                     <div>
@@ -57,7 +57,7 @@
                                         <label for="intro-tab-{{ $loop->iteration }}"
                                                class="flex max-w-[68ch] cursor-pointer items-start gap-3 select-none">
                                             <kbd class="{{ $cap }} mt-0.5" aria-hidden="true">{{ $loop->iteration }}</kbd>
-                                            <span class="text-fuchsia-400 underline-offset-4 hover:underline">
+                                            <span class="text-brand underline-offset-4 hover:underline">
                                                 {{ __('components.intro.'.$target['key'].'.teaser') }}
                                             </span>
                                         </label>
@@ -68,7 +68,7 @@
                             <h2 class="sr-only">{{ __('components.intro.'.$section['key'].'.title') }}</h2>
 
                             @foreach (\Illuminate\Support\Arr::wrap(__('components.intro.'.$section['key'].'.text')) as $paragraph)
-                                <p @class(['max-w-[68ch] text-zinc-300', 'mt-3' => ! $loop->first])>{!! $paragraph !!}</p>
+                                <p @class(['max-w-[68ch]', 'mt-3' => ! $loop->first])>{!! $paragraph !!}</p>
                             @endforeach
 
                             @php($items = __('components.intro.'.$section['key'].'.items'))
@@ -76,8 +76,8 @@
                                 <ul class="mt-4 space-y-2">
                                     @foreach ($items as $item)
                                         <li class="flex max-w-[68ch] gap-3">
-                                            <span class="text-emerald-400" aria-hidden="true">·</span>
-                                            <span class="text-zinc-300 [&_b]:font-normal [&_b]:text-fuchsia-400">{!! $item !!}</span>
+                                            <span class="text-gray-500" aria-hidden="true">·</span>
+                                            <span class="[&_b]:font-normal [&_b]:text-brand">{!! $item !!}</span>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -88,13 +88,13 @@
                             <p class="mt-6">
                                 @if($section['next'] !== null)
                                     <label for="intro-tab-{{ $section['next'] }}"
-                                           class="{{ $pill }} bg-white/10 text-white hover:bg-white/20">
+                                           class="{{ $pill }} border border-brand bg-white text-brand hover:bg-brand hover:text-white">
                                         <span aria-hidden="true">→</span>
                                         {{ __('components.intro.next', ['title' => $sections[$section['next']]['command']]) }}
                                     </label>
                                 @else
                                     <a href="{{ localized_route('contact.index') }}"
-                                       class="{{ $pill }} bg-emerald-500/20 text-emerald-200 hover:bg-emerald-500/30 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400">
+                                       class="{{ $pill }} focus-ring bg-brand text-white hover:bg-brand-strong">
                                         <span aria-hidden="true">→</span>
                                         {{ __('components.intro.cta') }}
                                     </a>

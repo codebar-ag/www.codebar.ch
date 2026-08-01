@@ -75,7 +75,7 @@ it('keeps the four areas on one line each', function () {
     $panel = introPanel(introMarkup(), 2);
 
     foreach (introItems() as $item) {
-        expect($panel)->toContain('<span class="text-zinc-300 [&_b]:font-normal [&_b]:text-fuchsia-400">'.$item.'</span>');
+        expect($panel)->toContain('<span class="[&_b]:font-normal [&_b]:text-brand">'.$item.'</span>');
     }
 });
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'intro' => [
         'title' => 'Good to have you here',
+        'window' => 'We are codebar',
         'legend' => 'What would you like to know about us?',
         'shortcuts' => 'Switch section: number keys 1 to 3, or the left and right arrow keys.',
         'next' => 'next: :title',

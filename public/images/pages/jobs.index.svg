@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img">
-    <title>Arbeit wird nicht über die Mauer an eine Abteilung gegeben, sondern über mehrere Rollen hinweg übernommen</title>
+    <title>Wer anfängt, arbeitet nicht am Rand mit, sondern übernimmt vom ersten Tag eine Rolle im Projekt</title>
     <defs>
         <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#C026D3"/>
@@ -28,15 +28,21 @@
 
     <ellipse cx="600" cy="315" rx="92" ry="116" fill="url(#accent)" filter="url(#glow)" opacity="0.55"/>
 
-    <rect x="88" y="252" width="152" height="104" rx="14" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
-    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round"><use href="#w2" x="112" y="302"/><use href="#w1" x="170" y="302"/><use href="#w2" x="112" y="330"/></g>
-    <rect x="264" y="214" width="42" height="256" rx="8" fill="#09090b" opacity="0.12"/>
-    <rect x="264" y="214" width="42" height="256" rx="8" fill="none" stroke="#09090b" stroke-width="3"/>
-    <path d="M250 214h70" data-detail="wall cap" stroke="#09090b" stroke-width="4" fill="none" opacity="0.55"/>
-    <path d="M264 288h42M264 362h42M264 436h42" data-detail="wall courses" stroke="#09090b" stroke-width="2.5" fill="none" opacity="0.3"/>
-    <path class="connector" d="M240 300v-124h108" stroke="#09090b" stroke-width="3" fill="none" opacity="0.45" stroke-linejoin="round" stroke-linecap="round"/>
-    <rect x="348" y="126" width="122" height="106" rx="14" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
-    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.45"><use href="#w2" x="370" y="174"/><use href="#w1" x="370" y="200"/></g>
+    <g transform="rotate(-4 270 315)">
+    <rect x="100" y="188" width="264" height="274" rx="20" fill="#09090b" opacity="0.3"/>
+    <rect x="88" y="176" width="264" height="274" rx="20" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M88 232h264" data-detail="panel header rule" stroke="#09090b" stroke-width="2.5" fill="none" opacity="0.5"/>
+    <rect x="112" y="194" width="86" height="24" rx="12" fill="#09090b" opacity="0.18"/>
+    <rect x="112" y="254" width="216" height="54" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round"><use href="#w3" x="134" y="286"/></g>
+    <rect x="112" y="320" width="216" height="54" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round"><use href="#w2" x="134" y="352"/><use href="#w1" x="192" y="352"/></g>
+    <rect x="112" y="386" width="216" height="54" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round"><use href="#w2" x="134" y="418"/></g>
+    <rect x="396" y="286" width="104" height="100" rx="14" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="428" cy="320" r="15" fill="none" stroke="#09090b" stroke-width="3"/>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.45"><use href="#w1" x="414" y="362"/></g>
+    </g>
 
     <rect x="764" y="170" width="388" height="314" rx="20" fill="#09090b" opacity="0.3"/>
     <rect x="752" y="158" width="388" height="314" rx="20" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
@@ -45,13 +51,16 @@
     <rect x="898" y="180" width="86" height="24" rx="12" fill="#500472" opacity="0.18"/>
     <rect x="1026" y="180" width="86" height="24" rx="12" fill="#500472" opacity="0.18"/>
     <rect x="772" y="226" width="86" height="74" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
-    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round"><use href="#w1" x="788" y="262"/></g>
+    <circle cx="800" cy="252" r="13" fill="url(#accent)"/>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round"><use href="#w1" x="786" y="288"/></g>
     <rect x="898" y="300" width="86" height="74" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
-    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round"><use href="#w1" x="914" y="336"/></g>
+    <circle cx="926" cy="326" r="13" fill="url(#accent)"/>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round"><use href="#w1" x="912" y="362"/></g>
     <rect x="1026" y="374" width="86" height="74" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
-    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round"><use href="#w1" x="1042" y="410"/></g>
+    <circle cx="1054" cy="400" r="13" fill="url(#accent)"/>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round"><use href="#w1" x="1040" y="436"/></g>
     <path class="connector" d="M858 264h82v74h84v74h48" stroke="#09090b" stroke-width="3" fill="none" opacity="0.45" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="1092" cy="412" r="16" fill="url(#accent)"/><path d="M1084 412l6 7 12-14" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1098" cy="448" r="16" fill="url(#accent)"/><path d="M1090 448l6 7 12-14" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 
     <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round">
         <path class="arrow" d="M482 315h44"/>

@@ -58,6 +58,9 @@ return [
 
     'legal_form' => 'Aktiengesellschaft (AG)',
 
+    /* ISO 8601, as schema.org foundingDate expects it. */
+    'founding_date' => '2020-12-28',
+
     /* Swiss business identification number (UID/CHE), as shown in the imprint. */
     'uid' => 'CHE-257.955.682',
     'zefix_url' => 'https://zefix.ch/de/search/entity/list/firm/1466584',
