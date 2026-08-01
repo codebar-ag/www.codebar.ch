@@ -26,7 +26,8 @@
             </span>
         </div>
 
-        <input type="radio" name="intro-tab" id="intro-tab-0" data-tab="0" checked class="sr-only"/>
+        <input type="radio" name="intro-tab" id="intro-tab-0" data-tab="0" checked class="sr-only"
+               aria-label="{{ __('components.intro.overview') }}"/>
 
         <div class="flex flex-col border-b border-gray-300 bg-gray-200 sm:flex-row sm:overflow-x-auto">
             @foreach(array_slice($sections, 1) as $section)

@@ -2,8 +2,8 @@ key: news.index
 robots: index,follow
 image: images/pages/news.index.svg
 title:
-  de_CH: 'Neuigkeiten & Insights – codebar Solutions AG'
-  en_CH: 'News & Insights – codebar Solutions AG'
+  de_CH: 'Neuigkeiten & Insights'
+  en_CH: 'News & Insights'
 description:
   de_CH: 'Aktuelle News, Fachbeiträge und Trends rund um Softwareentwicklung, offene Technologien und digitale Innovation von codebar.'
   en_CH: 'Latest news and expert insights on software development, open technologies and digital innovation from codebar.'

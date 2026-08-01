@@ -41,13 +41,8 @@
                     })
             )
             ->sortKeys();
-
-        $brand = config()->string('app.name');
-        $documentTitle = $page->isArticle() || str_contains($page->title, $brand)
-            ? $page->title
-            : $page->title.' – '.$brand;
     @endphp
-    <title>{{ $documentTitle }}</title>
+    <title>{{ $page->title }}</title>
     <meta name="robots" content="{{ $page->robots }}">
     <meta name="description" content="{{ $page->description }}">
     <link rel="canonical" href="{{ $page->url() }}">

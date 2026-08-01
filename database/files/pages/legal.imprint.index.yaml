@@ -2,8 +2,8 @@ key: legal.imprint.index
 robots: index,follow
 image: images/pages/legal.imprint.index.svg
 title:
-  de_CH: 'Impressum – codebar Solutions AG'
-  en_CH: 'Imprint – codebar Solutions AG'
+  de_CH: 'Impressum'
+  en_CH: 'Imprint'
 description:
   de_CH: 'Rechtliche Angaben zur codebar Solutions AG: Rechtsform, UID-Nummer, Handelsregistereintrag, Zeichnungsberechtigte sowie Kontaktdaten und Haftungsausschluss.'
   en_CH: 'Legal details of codebar Solutions AG: legal form, UID number, commercial register entry, authorised representatives, contact details and disclaimer.'

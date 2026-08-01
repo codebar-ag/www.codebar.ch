@@ -2,8 +2,8 @@ key: services.index
 robots: index,follow
 image: images/pages/services.index.svg
 title:
-  de_CH: 'Konzeption, Software, DMS & ERP | codebar Solutions AG'
-  en_CH: 'Concept, Software, DMS & ERP | codebar Solutions AG'
+  de_CH: 'Konzeption, Software, DMS & ERP'
+  en_CH: 'Concept, Software, DMS & ERP'
 description:
   de_CH: 'Vier Bereiche, ein Weg: von der ersten Idee bis zum laufenden Betrieb – Konzeption, Softwareentwicklung, Dokumentenmanagement und ERP.'
   en_CH: 'Four areas, one path: from the first idea to day-to-day operations – concept design, software development, document management and ERP.'

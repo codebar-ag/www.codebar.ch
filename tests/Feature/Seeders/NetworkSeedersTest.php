@@ -51,7 +51,7 @@ it('seeds the tiers and categories', function () {
         ->and($baselhack->page_slug)->toBeNull();
 })->group('network', 'seeders');
 
-it('seeds unpublished contact persons with real channels where known', function () {
+it('seeds contact persons with real channels where known, published only where flagged', function () {
     seed(NetworkUsersTableSeeder::class);
 
     $vincenzo = NetworkUser::where('network_key', 'docuware')->firstOrFail();
@@ -62,13 +62,19 @@ it('seeds unpublished contact persons with real channels where known', function 
     $baselhack = NetworkUser::where('network_key', 'baselhack')->firstOrFail();
 
     expect(NetworkUser::count())->toBe(6)
-        ->and(NetworkUser::where('published', true)->count())->toBe(0)
+        ->and($dario->published)->toBeTrue()
+        ->and($sarah->published)->toBeTrue()
+        ->and($vincenzo->published)->toBeFalse()
+        ->and($domenik->published)->toBeFalse()
+        ->and($patrick->published)->toBeFalse()
+        ->and($baselhack->published)->toBeFalse()
         ->and($vincenzo->name)->toBe('Vincenzo Carbone')
         ->and($vincenzo->role)->toBe('DocuWare Schweiz')
         ->and($vincenzo->email)->toBe('vincenzo.carbone@docuware.com')
         ->and($vincenzo->avatar_url)->toBe('/images/placeholders/avatar-sample.svg')
         ->and($dario->email)->toBe('dario.wieland@business-solutions.gmbh')
         ->and($sarah->email)->toBe('sarah.faessler@pstgmbh.ch')
+        ->and($sarah->linkedin)->not->toBeNull()
         ->and($domenik->name)->toBe('Domenik Friedrich')
         ->and($domenik->email)->toBe('domf@odoo.com')
         ->and($patrick->linkedin)->not->toBeNull()

@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 
 /**
  * Contact channels are real where known, otherwise placeholder (*@example.com).
- * All rows seed as unpublished — a contact only appears on the network page once
+ * Rows seed unpublished by default — a contact only appears on the network page once
  * explicitly published.
  *
  * Sourced from network_users.csv — the current data export — not hand-authored,

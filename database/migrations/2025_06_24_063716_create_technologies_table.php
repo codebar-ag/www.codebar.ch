@@ -26,6 +26,8 @@ return new class extends Migration
             $table->json('tags')->nullable();
             $table->string('link')->nullable();
             $table->timestamps();
+
+            $table->index(['published', 'order']);
         });
     }
 

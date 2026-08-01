@@ -26,7 +26,7 @@ return [
         /*
          * Notifications will only get sent if this option is set to `true`.
          */
-        'enabled' => true,
+        'enabled' => (bool) env('HEALTH_NOTIFICATION_EMAIL'),
 
         'notifications' => [
             CheckFailedNotification::class => ['mail'],

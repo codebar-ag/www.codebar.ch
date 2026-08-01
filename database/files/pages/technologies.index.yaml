@@ -2,8 +2,8 @@ key: technologies.index
 robots: index,follow
 image: images/pages/technologies.index.svg
 title:
-  de_CH: 'Offene Technologien & Standards – codebar Solutions AG'
-  en_CH: 'Open Technologies & Standards – codebar Solutions AG'
+  de_CH: 'Offene Technologien & Standards'
+  en_CH: 'Open Technologies & Standards'
 description:
   de_CH: 'Die offenen Technologien und Standards, auf denen unsere Software basiert – bewährt, transparent und herstellerunabhängig.'
   en_CH: 'The open technologies and standards we build our software on – proven, transparent and vendor-independent.'

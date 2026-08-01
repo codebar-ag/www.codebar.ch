@@ -2,8 +2,8 @@ key: products.index
 robots: index,follow
 image: images/pages/products.index.svg
 title:
-  de_CH: 'Nutzerzentrierte Softwarelösungen – codebar Solutions AG'
-  en_CH: 'User-Centric Software Solutions – codebar Solutions AG'
+  de_CH: 'Nutzerzentrierte Softwarelösungen'
+  en_CH: 'User-Centric Software Solutions'
 description:
   de_CH: 'Nutzerzentrierte Softwarelösungen mit echtem Mehrwert – entwickelt mit offenen Technologien und Standards.'
   en_CH: 'Our software solutions are built around the needs of users, delivering real value through open technologies and standards.'

@@ -27,10 +27,12 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->unsignedSmallInteger('since_year')->nullable();
             $table->unsignedSmallInteger('until_year')->nullable();
-            $table->string('page_slug')->nullable();
+            $table->string('page_slug')->nullable()->unique();
             $table->boolean('published')->default(true);
             $table->unsignedInteger('sort')->default(0);
             $table->timestamps();
+
+            $table->index(['published', 'status', 'sort']);
         });
     }
 

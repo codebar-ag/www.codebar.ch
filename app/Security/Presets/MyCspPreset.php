@@ -35,6 +35,10 @@ class MyCspPreset implements Preset
 
         $policy->add(Directive::SCRIPT_ELEM, $scriptSources);
 
+        $policy->addNonce(Directive::SCRIPT);
+
+        $policy->addNonce(Directive::SCRIPT_ELEM);
+
         $styleSources = array_filter([
             Keyword::SELF,
             $cdnHost ?: null,
