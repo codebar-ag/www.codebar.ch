@@ -151,14 +151,14 @@ it('keeps a long article title inside the length search results render', functio
     expect(mb_strlen(titleOf($article)))->toBeLessThanOrEqual(60);
 })->group('seo');
 
-it('appends the company name to a page title that does not already carry it', function () {
+it('renders a page title verbatim without appending the company name', function () {
     Page::where('key', 'start.index')->update([
         'title' => ['de_CH' => 'Ohne Marke im Titel', 'en_CH' => 'Without the brand'],
     ]);
 
     $html = (string) get(route('de-ch.start.index'))->assertOk()->getContent();
 
-    expect(titleOf($html))->toBe('Ohne Marke im Titel – '.config()->string('app.name'));
+    expect(titleOf($html))->toBe('Ohne Marke im Titel');
 })->group('seo');
 
 it('serves a page image as PNG even when the page stores an SVG', function () {

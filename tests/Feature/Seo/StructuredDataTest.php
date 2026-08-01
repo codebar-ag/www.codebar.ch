@@ -117,22 +117,23 @@ it('declares both the full legal name and the short brand', function () {
     }
 })->group('seo', 'schema');
 
-it('carries the full company name in every indexable page title', function () {
-    // A title without the brand wastes the strongest signal a search result has.
+it('keeps the legal company name out of every page title', function () {
+    // The brand belongs in og:site_name and the Organization node; repeating it in
+    // every title only eats the characters a search result actually shows.
     // Collected rather than asserted one by one so a failure names every offender.
-    $missing = [];
+    $offenders = [];
 
-    Page::all()->each(function (Page $page) use (&$missing): void {
+    Page::all()->each(function (Page $page) use (&$offenders): void {
         foreach (['de_CH', 'en_CH'] as $locale) {
             $title = $page->getTranslation('title', $locale);
 
-            if (is_string($title) && $title !== '' && ! str_contains($title, 'codebar Solutions AG')) {
-                $missing[] = "{$page->key} [{$locale}]: {$title}";
+            if (is_string($title) && str_contains($title, 'codebar Solutions AG')) {
+                $offenders[] = "{$page->key} [{$locale}]: {$title}";
             }
         }
     });
 
-    expect($missing)->toBe([]);
+    expect($offenders)->toBe([]);
 })->group('seo');
 
 it('links WebSite and WebPage back to the organization by id', function () {

@@ -2,8 +2,8 @@ key: ai.index
 robots: index,follow
 image: images/pages/ai.index.svg
 title:
-  de_CH: 'Lokale KI auf eigener Infrastruktur | codebar Solutions AG'
-  en_CH: 'Local AI on Our Own Infrastructure | codebar Solutions AG'
+  de_CH: 'Lokale KI auf eigener Infrastruktur'
+  en_CH: 'Local AI on Our Own Infrastructure'
 description:
   de_CH: 'Transparenz statt Buzzwords: Wir zeigen offen, wie wir KI in der eigenen Arbeit einsetzen – mit lokalen Open-Source-Modellen und echten Nutzungszahlen.'
   en_CH: 'Transparency over buzzwords: an open look at how we use AI in our own work – with local open-source models and real usage figures.'

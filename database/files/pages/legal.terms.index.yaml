@@ -2,8 +2,8 @@ key: legal.terms.index
 robots: index,follow
 image: images/pages/legal.terms.index.svg
 title:
-  de_CH: 'AGB – codebar Solutions AG'
-  en_CH: 'Terms & Conditions – codebar Solutions AG'
+  de_CH: 'AGB'
+  en_CH: 'Terms & Conditions'
 description:
   de_CH: 'Die Allgemeinen Geschäftsbedingungen der codebar Solutions AG: Angebote, Projektabwicklung, Nutzungsrechte, Haftung und Support.'
   en_CH: 'The general terms and conditions of codebar Solutions AG: offers, project delivery, rights of use, liability and support.'

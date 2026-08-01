@@ -229,8 +229,8 @@ class SchemaGraph
     }
 
     /**
-     * Title of the page being rendered, stripped of the " – codebar Solutions AG"
-     * suffix that belongs in <title> but not in a breadcrumb.
+     * Title of the page being rendered, reduced to the part before the first
+     * separator: a breadcrumb carries the label, not the full title.
      */
     private function currentPageName(): ?string
     {

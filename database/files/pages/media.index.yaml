@@ -2,8 +2,8 @@ key: media.index
 robots: index,follow
 image: images/pages/media.index.svg
 title:
-  de_CH: 'Medien & Markenassets – codebar Solutions AG'
-  en_CH: 'Media & Brand Assets – codebar Solutions AG'
+  de_CH: 'Medien & Markenassets'
+  en_CH: 'Media & Brand Assets'
 description:
   de_CH: 'Offizielle codebar-Logos für Presse und Partner – farbig, invertiert, schwarz-weiss, als PNG und SVG.'
   en_CH: 'Official codebar logos for press and partners – colour, inverted, black and white, as PNG and SVG.'
