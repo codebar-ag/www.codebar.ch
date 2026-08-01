@@ -47,11 +47,13 @@
                 :text="__('components.ai_llm.infrastructure.items.power.text')"/>
     </x-layout.section>
 
-    @if ($llmSummary['requests'] > 0)
+    @if ($hasUsage)
         <x-layout.section>
             <x-layout.section-header :title="__('components.ai_llm.stats.title')" :intro="__('components.ai_llm.stats.intro')"/>
 
-            <x-ai-llm.usage-summary :summary="$llmSummary"/>
+            @if ($llmSummary['requests'] > 0)
+                <x-ai-llm.usage-summary :summary="$llmSummary"/>
+            @endif
 
             <div class="mt-4">
                 <x-ui.arrow-link :href="localized_route('ai.llm.analytics.index')" :label="__('components.ai.to_analytics')"/>

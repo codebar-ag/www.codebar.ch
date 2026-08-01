@@ -28,15 +28,46 @@ return [
     'alternate_names' => [
         'codebar Solutions',
         'codebar',
+        // Officially registered name translations, per the Zefix record.
+        'codebar Solutions Ltd',
+        'codebar Solutions SA',
+    ],
+
+    /*
+     * Headcount for schema.org numberOfEmployees. Counts people who actually work
+     * here — board members who are not employees do not belong in this number.
+     * Keep in sync with the `employees` section of database/files/team.
+     */
+    'number_of_employees' => 4,
+
+    /*
+     * What this company is demonstrably competent in — schema.org knowsAbout.
+     * This is the field that gets us surfaced in AI-generated answers, so it must
+     * mirror the expertise page rather than list aspirations.
+     */
+    'knows_about' => [
+        'Individualsoftware-Entwicklung',
+        'Laravel',
+        'Dokumentenmanagement (DMS/ECM)',
+        'DocuWare',
+        'Open-Source-ERP',
+        'Odoo',
+        'Lokale Large Language Models',
+        'Konzeption und Prototyping',
     ],
 
     'legal_form' => 'Aktiengesellschaft (AG)',
+
+    /* ISO 8601, as schema.org foundingDate expects it. */
+    'founding_date' => '2020-12-28',
 
     /* Swiss business identification number (UID/CHE), as shown in the imprint. */
     'uid' => 'CHE-257.955.682',
     'zefix_url' => 'https://zefix.ch/de/search/entity/list/firm/1466584',
 
     'email' => 'info@codebar.ch',
+
+    'contact_person' => 'sebastian-buergin-fix',
 
     /*
      * 'e164' is the machine-readable form for schema.org and tel: links,
@@ -86,7 +117,7 @@ return [
             'key' => 'oberwil',
             'primary' => false,
             'city' => 'Oberwil',
-            'label' => 'Office',
+            'label' => 'Branch office',
             'street' => 'Langegasse 39',
             'postal_code' => '4104',
             'country' => 'CH',

@@ -6,7 +6,7 @@ provider: 'Moonshot AI (CN)'
 ram: '30 GB RAM'
 license: MIT
 role:
-  de: 'Alltags-Sprinter, lange Dokumente & Kontextverständnis'
-  en: 'Everyday sprinter, long documents & context understanding'
+  de_CH: 'Alltags-Sprinter, lange Dokumente & Kontextverständnis'
+  en_CH: 'Everyday sprinter, long documents & context understanding'
 link_label: 'Hugging Face'
 link_url: 'https://huggingface.co/moonshotai'

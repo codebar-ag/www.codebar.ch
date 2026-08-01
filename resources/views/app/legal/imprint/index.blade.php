@@ -12,12 +12,13 @@
     <x-layout.section class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
         <div>
             <x-h2 :title="__('Email')"/>
-            <x-ui.link href="mailto:{{ config('company.email') }}" label="{{ __('info(at)codebar.ch') }}"
-                       class="block"/>
+            <x-ui.link :href="'mailto:' . config('company.email')" :label="config('company.email')"
+                       :title="__('Contact email address')" class="block"/>
         </div>
         <div>
             <x-h2 :title="__('Phone')"/>
-            <x-ui.link href="tel:{{ config('company.phone.e164') }}" label="{{ __('+41 61 515 60 90') }}" class="block"/>
+            <x-ui.link :href="'tel:' . config('company.phone.e164')" :label="config('company.phone.display')"
+                       :title="__('Contact Phone number')" class="block"/>
         </div>
     </x-layout.section>
 

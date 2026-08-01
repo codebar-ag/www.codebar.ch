@@ -61,7 +61,7 @@ The site ships in German (`de_CH`) and English (`en_CH`) under distinct, fully t
 
 - **Structured data** — a single `@graph` JSON-LD payload (`App\Seo\SchemaGraph` / `App\Seo\SchemaNodes`) built from `config/company.php`, the one source of truth for the company's name, addresses, phone and `sameAs` profiles. Every page ships `Organization`, `WebSite`, `WebPage` and `BreadcrumbList` nodes; content pages add `Service`, `Person`, `BlogPosting`, etc.
 - **Sitemap** — `App\Sitemap\SitemapBuilder` + `App\Http\Controllers\Sitemap\SitemapController` build `/sitemap.xml` from the same models the site renders, cached 24h via `Cache::remember`.
-- **Response cache** — `spatie/laravel-responsecache` caches full HTTP responses for up to 7 days. `App\Observers\SitemapCacheObserver` drops the sitemap's own data cache on every relevant model save, and `responsecache:clear` runs hourly via the scheduler (`routes/console.php`) as a backstop for the full-page cache layer — these are two independent caches and both need clearing after a bulk content change (`php artisan responsecache:clear` after a fresh `db:seed`, for instance).
+- **Response cache** — `spatie/laravel-responsecache` caches full HTTP responses for up to 7 days. Invalidation is event-driven, not scheduled: `App\Observers\SitemapCacheObserver` drops the sitemap's data cache and the content observers drop both the listing caches and the rendered pages on every relevant model save. Clearing goes through `App\Support\ResponseCacheFlusher`, which collapses the flush to once per import — the response cache has no per-URL invalidation, so an import that saves 50 rows would otherwise clear the whole site 50 times.
 - **Social images** — article heroes that are local SVG placeholders (no real photography yet) are not usable as `og:image` — social crawlers don't render SVG. `App\Support\NewsImage::ogImage()` falls back to a same-named `.png` rendered from the SVG when one exists, or the site's default share image otherwise.
 - **Tests** — `tests/Feature/Seo/` asserts on the actual rendered JSON-LD and meta tags (not just "does it look right"), and `tests/lighthouse/` audits real Lighthouse scores against the built (`npm run build`) output, not the Vite dev server.
 
@@ -100,6 +100,17 @@ valet open
 
 > Set `valetTls: 'your-domain.test'` below `refresh: true` in `vite.config.js` if you use `valet secure` / `herd secure`.
 
+### Background work
+
+`QUEUE_CONNECTION=database`, so a worker has to be running for anything queued to happen — the network profile link, the LLM usage sync. Deliberately not `sync`: running the mail job inside the request makes the intentionally constant response of `network.request.store` observable by its timing.
+
+```bash
+php artisan queue:work      # network profile mails, LLM usage sync
+php artisan schedule:work   # hourly LLM sync, health checks
+```
+
+Without the scheduler, `health:check` never runs and `/health` reports stale results. A dispatched job with no worker is a silent black hole — `JobsCheck` exists to catch exactly that, and reports through `/health`.
+
 ## Testing & code quality
 
 ```bash
@@ -115,8 +126,11 @@ The site runs on [Laravel Cloud](https://cloud.laravel.com), behind Cloudflare. 
 
 - `CSP_ENABLED=true` — enables Content-Security-Policy enforcement via Spatie CSP middleware
 - `FPH_ENABLED=true` — enables Permissions-Policy headers
+- `HEALTH_NOTIFICATION_EMAIL` — where a failing health check reports to; unset means no notification is sent
 
-HSTS, COOP, `X-Content-Type-Options`, `Referrer-Policy` and `X-Frame-Options` are applied automatically by the `SecurityHeaders` middleware on every web response.
+HSTS, COOP, CORP, `X-Content-Type-Options`, `Referrer-Policy` and `X-Frame-Options` are applied automatically by the `SecurityHeaders` middleware on every web response.
+
+`/health` returns the Spatie Health JSON result set. It is rate limited and never response-cached; it needs `schedule:work` running to hold current results.
 
 **Lighthouse note:** deprecated-API warnings for `/cdn-cgi/challenge-platform/scripts/jsd/main.js` come from Cloudflare's bot protection, injected at the edge — not from application code. Run Lighthouse in incognito without extensions for an accurate score, and prefer `tests/lighthouse/` (which audits the built output) over ad-hoc runs against the dev server.
 
@@ -124,7 +138,7 @@ HSTS, COOP, `X-Content-Type-Options`, `Referrer-Policy` and `X-Frame-Options` ar
 
 - **Content & storage** — `spatie/laravel-translatable`, `codebar-ag/laravel-flysystem-cloudinary` (editorial images), `league/flysystem-aws-s3-v3` (DigitalOcean Spaces for other assets), `symfony/yaml`
 - **SEO** — `spatie/laravel-sitemap`, `spatie/laravel-responsecache`
-- **Security & health** — `spatie/laravel-csp`, `spatie/laravel-honeypot`, `spatie/laravel-permission`, `spatie/laravel-health`, `spatie/security-advisories-health-check`, `mazedlx/laravel-feature-policy`
+- **Security & health** — `spatie/laravel-csp`, `spatie/laravel-honeypot` (network request form), `spatie/laravel-permission`, `spatie/laravel-health`, `spatie/security-advisories-health-check`, `mazedlx/laravel-feature-policy`
 - **Ops** — `laravel/nightwatch` (observability), `symfony/postmark-mailer`
 - **Analytics** — [Fathom](https://usefathom.com) (privacy-friendly, no cookie banner)
 

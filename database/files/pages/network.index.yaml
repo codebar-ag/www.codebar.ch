@@ -1,5 +1,6 @@
 key: network.index
 robots: index,follow
+image: images/pages/network.index.svg
 title:
   de_CH: 'Netzwerk – Partner & Community | codebar Solutions AG'
   en_CH: 'Network – Partners & Community | codebar Solutions AG'

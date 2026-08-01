@@ -10,7 +10,6 @@ use Carbon\CarbonImmutable;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -44,16 +43,18 @@ class LlmUsageStatsAction
     }
 
     /**
-     * @return Collection<int, numeric-string>
+     * The calendar years usage has been recorded in, oldest first.
+     *
+     * @return Collection<int, string>
      */
     public function years(): Collection
     {
         return $this->remember('years', function () {
             return AiModelDailyUsage::query()
-                ->orderBy('date')
-                ->get(['date'])
-                ->map(fn (AiModelDailyUsage $row): string => $row->date->format('Y'))
-                ->unique()
+                ->selectRaw('DISTINCT EXTRACT(YEAR FROM date)::int AS year')
+                ->orderBy('year')
+                ->pluck('year')
+                ->map(fn (mixed $year): string => $this->toYear($year))
                 ->values();
         });
     }
@@ -78,31 +79,33 @@ class LlmUsageStatsAction
     }
 
     /**
-     * @return Collection<int, array{label: string, prompt_tokens: int<0, max>, completion_tokens: int<0, max>, total_tokens: int<0, max>, requests: int<0, max>}>
+     * @return Collection<int, array{label: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int}>
      */
     public function monthlyBreakdown(?string $year, ?string $month, ?string $model): Collection
     {
         $suffix = 'breakdown_'.($year ?? 'all').'_'.($month ?? 'all').'_'.($model ?? 'all');
 
         return $this->remember($suffix, function () use ($year, $month, $model) {
-            return AiModelDailyUsage::query()
-                ->when($model === self::OTHER_MODEL, fn (Builder $query) => $query->whereNull('ai_model_id'))
-                ->when($model && $model !== self::OTHER_MODEL, fn (Builder $query) => $query->where('model', $model))
+            // Grouped in the database rather than in PHP: this table grows by one row
+            // per model per day forever, and the page only ever shows the totals.
+            return $this->filtered($model)
                 ->when($year, fn (Builder $query) => $query->whereYear('date', $year))
                 ->when($month, fn (Builder $query) => $query->whereMonth('date', $month))
-                ->orderBy('date')
+                ->selectRaw("to_char(date, 'YYYY-MM') AS label")
+                ->selectRaw('COALESCE(SUM(prompt_tokens), 0)::bigint AS prompt_tokens')
+                ->selectRaw('COALESCE(SUM(completion_tokens), 0)::bigint AS completion_tokens')
+                ->selectRaw('COALESCE(SUM(total_tokens), 0)::bigint AS total_tokens')
+                ->selectRaw('COALESCE(SUM(requests), 0)::bigint AS requests')
+                ->groupByRaw("to_char(date, 'YYYY-MM')")
+                ->orderByRaw("to_char(date, 'YYYY-MM')")
                 ->get()
-                ->groupBy(fn (AiModelDailyUsage $row) => $row->date->format('Y-m'))
-                ->map(
-                    /** @param EloquentCollection<int, AiModelDailyUsage> $rows */
-                    fn (EloquentCollection $rows, string $label) => [
-                        'label' => $label,
-                        'prompt_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->prompt_tokens),
-                        'completion_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->completion_tokens),
-                        'total_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->total_tokens),
-                        'requests' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->requests),
-                    ]
-                )
+                ->map(fn (AiModelDailyUsage $row): array => [
+                    'label' => $this->toString($row->getAttribute('label')),
+                    'prompt_tokens' => $this->toInt($row->getAttribute('prompt_tokens')),
+                    'completion_tokens' => $this->toInt($row->getAttribute('completion_tokens')),
+                    'total_tokens' => $this->toInt($row->getAttribute('total_tokens')),
+                    'requests' => $this->toInt($row->getAttribute('requests')),
+                ])
                 ->values();
         });
     }
@@ -137,19 +140,54 @@ class LlmUsageStatsAction
     private function summary(string $suffix, ?CarbonImmutable $from, ?string $model = null): array
     {
         return $this->remember($suffix.'_'.($model ?? 'all'), function () use ($from, $model) {
-            $rows = AiModelDailyUsage::query()
+            $row = $this->filtered($model)
                 ->when($from, fn (Builder $query) => $query->where('date', '>=', $from))
-                ->when($model === self::OTHER_MODEL, fn (Builder $query) => $query->whereNull('ai_model_id'))
-                ->when($model && $model !== self::OTHER_MODEL, fn (Builder $query) => $query->where('model', $model))
-                ->get();
+                ->selectRaw('COALESCE(SUM(prompt_tokens), 0)::bigint AS prompt_tokens')
+                ->selectRaw('COALESCE(SUM(completion_tokens), 0)::bigint AS completion_tokens')
+                ->selectRaw('COALESCE(SUM(total_tokens), 0)::bigint AS total_tokens')
+                ->selectRaw('COALESCE(SUM(requests), 0)::bigint AS requests')
+                ->first();
 
             return [
-                'prompt_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->prompt_tokens),
-                'completion_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->completion_tokens),
-                'total_tokens' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->total_tokens),
-                'requests' => $rows->sum(fn (AiModelDailyUsage $row): int => $row->requests),
+                'prompt_tokens' => $this->toInt($row?->getAttribute('prompt_tokens')),
+                'completion_tokens' => $this->toInt($row?->getAttribute('completion_tokens')),
+                'total_tokens' => $this->toInt($row?->getAttribute('total_tokens')),
+                'requests' => $this->toInt($row?->getAttribute('requests')),
             ];
         });
+    }
+
+    /**
+     * Aggregate columns come back untyped — PostgreSQL hands SUM() over a bigint back as
+     * a string, and a grouped row carries no cast from the model.
+     */
+    private function toInt(mixed $value): int
+    {
+        return is_numeric($value) ? (int) $value : 0;
+    }
+
+    private function toString(mixed $value): string
+    {
+        return is_string($value) ? $value : '';
+    }
+
+    /** The filter compares against the query string, so a year travels as text. */
+    private function toYear(mixed $value): string
+    {
+        return (string) $this->toInt($value);
+    }
+
+    /**
+     * The model filter every aggregate shares: a named model, everything that is not a
+     * known model ("other"), or no filter at all.
+     *
+     * @return Builder<AiModelDailyUsage>
+     */
+    private function filtered(?string $model): Builder
+    {
+        return AiModelDailyUsage::query()
+            ->when($model === self::OTHER_MODEL, fn (Builder $query) => $query->whereNull('ai_model_id'))
+            ->when($model !== null && $model !== self::OTHER_MODEL, fn (Builder $query) => $query->where('model', $model));
     }
 
     /**

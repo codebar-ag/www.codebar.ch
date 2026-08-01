@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Sitemap;
 
 use App\DTO\PageDTO;
+use App\Support\NewsImage;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -31,11 +32,11 @@ class SitemapBuilder
         'news.show' => 0.7,
         'ai.index' => 0.7,
         'network.index' => 0.7,
-        'open-source.index' => 0.6,
-        'open-source.show' => 0.5,
+        // 'open-source.index' => 0.6, — disabled controller, see OpenSourceIndexController.
+        // 'open-source.show' => 0.5, — disabled controller, see OpenSourceShowController.
         'jobs.index' => 0.6,
         'ai.llm.index' => 0.6,
-        'network.show' => 0.5,
+        // 'network.show' => 0.5, — disabled controller, see NetworkShowController.
         'media.index' => 0.4,
         'ai.llm.analytics.index' => 0.3,
         'legal.imprint.index' => 0.2,
@@ -66,8 +67,10 @@ class SitemapBuilder
         );
         $url->setLastModificationDate(lastModificationDate: $page->lastModificationDate);
 
-        if (filled($page->image)) {
-            $url->addImage(url: $page->image, caption: $page->title);
+        $image = NewsImage::crawlable($page->image, config()->integer('seo.image_width'));
+
+        if ($image !== null) {
+            $url->addImage(url: $image, caption: $page->title);
         }
 
         if ($page->referencePages && ($firstReference = $page->referencePages->first())) {

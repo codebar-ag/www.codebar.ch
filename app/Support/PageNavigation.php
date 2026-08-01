@@ -16,10 +16,6 @@ class PageNavigation
         return [
             ['route' => 'start.index', 'label' => __('Home'), 'teaser' => __('components.explore.home')],
             ['route' => 'services.index', 'label' => __('Services'), 'teaser' => __('components.explore.services')],
-            // Position matches the header navigation. The `components.explore.team`
-            // translation existed all along; only this entry was missing, so the team
-            // page appeared in the header but in neither the explore grid nor the
-            // next-page chain.
             ['route' => 'about-us.index', 'label' => __('Team'), 'teaser' => __('components.explore.team')],
             ['route' => 'news.index', 'label' => __('News'), 'teaser' => __('components.explore.news')],
             ['route' => 'ai.index', 'label' => __('AI'), 'teaser' => __('components.explore.ai')],
@@ -29,16 +25,41 @@ class PageNavigation
     }
 
     /**
+     * Where a page sends its reader next, curated per page rather than derived from the
+     * menu order. Sources may sit outside pages(); every target must be one of them.
+     *
+     * @return array<string, string>
+     */
+    public static function chain(): array
+    {
+        return [
+            'services.index' => 'about-us.index',
+            'about-us.index' => 'contact.index',
+            'news.index' => 'ai.index',
+            'news.show' => 'services.index',
+            'ai.index' => 'services.index',
+            'ai.llm.index' => 'ai.index',
+            'ai.llm.analytics.index' => 'services.index',
+            'network.index' => 'contact.index',
+            'jobs.index' => 'about-us.index',
+            'media.index' => 'network.index',
+        ];
+    }
+
+    /**
      * @return array{route: string, label: string, teaser: string}|null
      */
     public static function next(string $routeName): ?array
     {
-        $pages = self::pages();
+        $target = self::chain()[$routeName] ?? null;
 
-        foreach ($pages as $index => $page) {
-            if ($page['route'] === $routeName) {
-                // No wrap-around: the last page (contact) shows no next card.
-                return $pages[$index + 1] ?? null;
+        if ($target === null) {
+            return null;
+        }
+
+        foreach (self::pages() as $page) {
+            if ($page['route'] === $target) {
+                return $page;
             }
         }
 

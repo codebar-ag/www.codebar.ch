@@ -19,8 +19,6 @@ use Illuminate\Support\Str;
  */
 enum CacheKeyEnum: string
 {
-    const string VALID_FILESYSTEMS_DEFAULT = 'valid_filesystems_defaullt';
-
     case CONTACTS_PUBLISHED = 'contacts_published';
 
     case NEWS_PUBLISHED = 'news_published';
@@ -32,6 +30,8 @@ enum CacheKeyEnum: string
     case TECHNOLOGIES_PUBLISHED = 'technologies_published';
 
     case OPEN_SOURCE_PUBLISHED = 'open_source_published';
+
+    case NETWORKS_PUBLISHED = 'networks_published';
 
     case AI_MODELS_ACTIVE = 'ai_models_active';
 

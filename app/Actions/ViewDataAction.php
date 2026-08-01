@@ -10,6 +10,7 @@ use App\Enums\CacheKeyEnum;
 use App\Enums\ContactSectionEnum;
 use App\Models\AiModel;
 use App\Models\Contact;
+use App\Models\Network;
 use App\Models\News;
 use App\Models\OpenSource;
 use App\Models\Product;
@@ -125,7 +126,13 @@ class ViewDataAction
         });
     }
 
-    public function contacts(string $locale): \stdClass
+    /**
+     * The published team, grouped by the section each person appears in. Every section
+     * is present, empty ones included, so a caller never has to guard the lookup.
+     *
+     * @return Collection<string, Collection<int, ContactDTO>>
+     */
+    public function contacts(string $locale): Collection
     {
         $key = CacheKeyEnum::CONTACTS_PUBLISHED->forLocale($locale);
 
@@ -138,21 +145,39 @@ class ViewDataAction
                 ->orderBy('name')
                 ->get();
 
-            return (object) collect([
-                ContactSectionEnum::EMPLOYEES,
-                ContactSectionEnum::COLLABORATIONS,
-                ContactSectionEnum::BOARD_MEMBERS,
-            ])->mapWithKeys(function (string $section) use ($publishedContacts, $locale): array {
-                $contacts = $publishedContacts
-                    ->filter(function (Contact $contact) use ($section): bool {
-                        $sections = $contact->sections ?? [];
+            return collect(ContactSectionEnum::cases())
+                ->mapWithKeys(fn (ContactSectionEnum $section): array => [
+                    $section->value => $publishedContacts
+                        ->filter(fn (Contact $contact): bool => array_key_exists($section->value, $contact->sections ?? []))
+                        ->map(fn (Contact $contact): ContactDTO => ContactDTO::fromModel($contact, $section, $locale))
+                        ->values(),
+                ]);
+        });
+    }
 
-                        return array_key_exists($section, $sections);
-                    })
-                    ->map(fn (Contact $contact) => ContactDTO::fromModel($contact, $section, $locale));
+    /**
+     * @return Collection<int, ContactDTO>
+     */
+    public function contactsInSection(string $locale, ContactSectionEnum $section): Collection
+    {
+        /** @var Collection<int, ContactDTO> $contacts */
+        $contacts = $this->contacts($locale)->get($section->value, new Collection);
 
-                return [$section => $contacts->values()];
-            })->all();
+        return $contacts;
+    }
+
+    /**
+     * @return Collection<int, Network>
+     */
+    public function networks(): Collection
+    {
+        return Cache::rememberForever(CacheKeyEnum::NETWORKS_PUBLISHED->value, function () {
+            return Network::query()
+                ->published()
+                ->active()
+                ->with('publishedUsers')
+                ->orderBy('sort')
+                ->get();
         });
     }
 }

@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
 
 @theme {
     /* ── Colour ───────────────────────────────────────────────────────────────
@@ -22,10 +22,37 @@
     --radius-pill: 0.375rem;
     --radius-panel: 0.75rem;
 
+    /* ── Type ─────────────────────────────────────────────────────────────────
+       One typeface across the whole site. Declared here rather than only on
+       `body`, so that `font-sans` is a true statement and Tailwind can derive
+       --default-font-family from it — an unlayered `body { font-family }` beat
+       every utility and made the class on <body> decorative.
+
+       Five weights are on the server, and there is no sixth. A `font-*` class
+       for a weight that is not loaded does not fail, it silently resolves to the
+       nearest one that is:
+           300  font-light     lead paragraphs only
+           400  font-normal    body copy, teasers, list metadata
+           500  font-medium    UI labels — buttons, badges, breadcrumbs, table heads
+           600  font-semibold  h2 / h3, list-row titles, eyebrows
+           700  font-bold      h1, and the article's own h2
+       Adding a weight means two woff2 subsets in resources/fonts/poppins/ and two
+       @font-face blocks below — never just a utility class. */
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
     /* ── Type scale ───────────────────────────────────────────────────────────
        Fluid rather than stepped: every heading interpolates between its 360px
        and its 768px size, so the responsive behaviour lives in the token and no
-       component needs a `md:` variant to shrink on a phone. */
+       component needs a `md:` variant to shrink on a phone.
+
+       Never put two of these on one element. Tailwind decides the order it emits
+       the .text-* rules in, and it is neither this declaration order nor the order
+       written in the Blade class string — at the time of writing it emits
+       eyebrow, display, title, heading, lead, subheading. So the winner of a
+       collision is whatever the build felt like, which is how
+       `<x-h2 class="text-title">` spent its life silently rendering text-heading.
+       The same trap applies to spacing: .mb-0 is emitted before .mb-1…mb-3, so
+       `mb-0` merged onto a heading component never wins. */
     --text-display: clamp(1.875rem, 1.544rem + 1.47vw, 2.25rem); /* 30 → 36 */
     --text-display--line-height: 1.15;
     --text-display--letter-spacing: -0.02em;
@@ -40,8 +67,21 @@
     --text-subheading: clamp(1.125rem, 1.015rem + 0.49vw, 1.25rem); /* 18 → 20 */
     --text-subheading--line-height: 1.4;
 
-    /* The lead paragraph under a page title. Same size as a heading, set light. */
-    --text-lead: clamp(1.25rem, 1.03rem + 0.98vw, 1.5rem);
+    /* The uppercase caption above a title — a series kicker, a topic, a table
+       head. Uppercase Poppins closes up, so the tracking belongs to the token:
+       four hand-picked values (0.15em, 0.12em, 0.05em, 0.025em) were in
+       circulation for this one role before it existed. `uppercase` stays a
+       utility — the text-* namespace cannot carry text-transform. */
+    --text-eyebrow: 0.875rem;
+    --text-eyebrow--line-height: 1.4;
+    --text-eyebrow--letter-spacing: 0.1em;
+    --text-eyebrow--font-weight: 600;
+
+    /* The lead paragraph under a page title: a heading's size at a lighter weight
+       and a looser line, so it reads as prose and not as a second title. Aliased
+       rather than copied — the two clamps had drifted into being the same number
+       written out twice, which is one edit away from no longer being true. */
+    --text-lead: var(--text-heading);
     --text-lead--line-height: 1.5;
 
     /* ── Spacing rhythm ───────────────────────────────────────────────────────
@@ -71,9 +111,16 @@
 @plugin "@tailwindcss/typography";
 
 @source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../js';
+@source '../../app';
 
 [x-cloak] {
+    display: none !important;
+}
+
+/* Utilities beat the user-agent rule, so an element carrying both `hidden` and a
+   display class would render. Anything toggled through the attribute needs this. */
+[hidden] {
     display: none !important;
 }
 
@@ -90,13 +137,97 @@
     }
 }
 
-/* Self-hosted webfonts, latin + latin-ext subsets. See public/fonts/. */
+@utility focus-ring {
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-brand);
+        outline-offset: 2px;
+    }
+}
+
+@utility focus-ring-inset {
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-brand);
+        outline-offset: -2px;
+    }
+}
+
+@utility focus-ring-wide {
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-brand);
+        outline-offset: 4px;
+    }
+}
+
+@utility focus-ring-light {
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: -2px;
+    }
+}
+
+@utility tap-target {
+    min-height: var(--spacing-control);
+
+    @media (width >= 40rem) {
+        min-height: 0;
+    }
+}
+
+@utility icon-button {
+    display: grid;
+    place-items: center;
+    width: var(--spacing-control);
+    height: var(--spacing-control);
+    border-radius: var(--radius-pill);
+}
+
+/* Self-hosted webfonts, latin + latin-ext subsets, in weight order. The files live in
+   resources/fonts/ and are referenced relatively, so Vite emits them into the build with a
+   content hash rather than leaving them at a hand-maintained path under public/ — which it
+   could not resolve and warned about on every build.
+   These blocks are the whole truth about which weights exist: a `font-*` utility for a
+   weight that is not here does not fail loudly, it silently resolves to the nearest face
+   that is — which is how `font-light` and `font-medium` spent their life rendering 400. */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-300-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-300-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @font-face {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/poppins/poppins-400-normal-latin-ext.woff2') format('woff2');
+    src: url('../fonts/poppins/poppins-400-normal-latin-ext.woff2') format('woff2');
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -105,7 +236,25 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/poppins/poppins-400-normal-latin.woff2') format('woff2');
+    src: url('../fonts/poppins/poppins-400-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-500-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-500-normal-latin.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -114,7 +263,7 @@
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('/fonts/poppins/poppins-600-normal-latin-ext.woff2') format('woff2');
+    src: url('../fonts/poppins/poppins-600-normal-latin-ext.woff2') format('woff2');
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -123,7 +272,7 @@
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url('/fonts/poppins/poppins-600-normal-latin.woff2') format('woff2');
+    src: url('../fonts/poppins/poppins-600-normal-latin.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -132,7 +281,7 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('/fonts/poppins/poppins-700-normal-latin-ext.woff2') format('woff2');
+    src: url('../fonts/poppins/poppins-700-normal-latin-ext.woff2') format('woff2');
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -141,14 +290,17 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('/fonts/poppins/poppins-700-normal-latin.woff2') format('woff2');
+    src: url('../fonts/poppins/poppins-700-normal-latin.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Critical CSS for above-the-fold content */
+/* Critical CSS for above-the-fold content.
+   No font-family here: it lives in --font-sans in the @theme block above. This rule
+   is unlayered and so outranks every utility — stating the typeface here made the
+   `font-sans` class on <body> a no-op and hid which stack was actually winning. */
 body {
-    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     color: var(--color-gray-800);
+    overflow-x: clip;
     /* Optimize text rendering */
     text-rendering: optimizeSpeed;
     -webkit-font-smoothing: antialiased;
@@ -215,8 +367,8 @@ body {
    and more open than elsewhere because these are long texts. Deliberately not on
    .news-body: that class is only the grid. */
 .news-prose {
-    font-size: 1.125rem;
-    line-height: 1.75;
+    font-size: var(--text-lg);
+    line-height: 1.625;
     color: var(--color-gray-800);
 }
 
@@ -255,6 +407,21 @@ body {
 .news-prose > h2 + *,
 .news-prose > h3 + * {
     margin-block-start: 0.6rem;
+}
+
+.news-prose > :first-child {
+    margin-block-start: 0;
+}
+
+.news-prose > hr {
+    height: 0;
+    border: 0;
+    border-block-start: 1px solid var(--color-border);
+    margin-block-start: 2.5rem;
+}
+
+.news-prose > hr + * {
+    margin-block-start: 2.5rem;
 }
 
 .news-prose ul,
@@ -301,20 +468,79 @@ body {
 }
 
 .news-prose code {
+    font-family: var(--font-mono);
     font-size: 0.9em;
     background-color: var(--color-surface);
     border-radius: var(--radius-pill);
     padding: 0.1em 0.35em;
 }
 
+/* The frame around a code block: it holds the language label and the copy button,
+   and it is not the scroll container — <pre> is. Anything positioned inside a
+   scrolling box slides out of view with the first long line. */
+.news-code {
+    position: relative;
+}
+
+.news-code__lang {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-start: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-hint);
+}
+
+/* Visible at all times: a control that appears on hover is a control a touch
+   device cannot discover. */
+.news-code__copy {
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-end: 0.5rem;
+    min-height: var(--spacing-control-sm);
+    padding-inline: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background-color: white;
+    color: var(--color-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.news-code__copy:hover {
+    color: var(--color-brand);
+    border-color: var(--color-brand);
+}
+
+.news-code__copy:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+}
+
+.news-code__copy.is-copied {
+    color: #15803d;
+    border-color: #15803d;
+}
+
+/* Code blocks read as a quiet panel in the page, not as a terminal cut into it:
+   the same light surface and hairline border as every other panel, so an article
+   that alternates prose and code keeps one brightness. The highlighter renders a
+   bare <pre> (no inner <code>), so the mono font has to be stated here. */
 .news-prose pre {
     overflow-x: auto;
     border-radius: var(--radius-panel);
-    background-color: var(--color-zinc-950);
-    color: var(--color-zinc-100);
-    padding: 1.25rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-gray-800);
+    /* The top inset is the row the language label and the copy button sit in. */
+    padding: 2.75rem 1.25rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    tab-size: 4;
 }
 
 .news-prose pre code {
@@ -324,12 +550,63 @@ body {
     color: inherit;
 }
 
+/* ── Syntax highlighting ──────────────────────────────────────────────────────
+   Emitted server-side by App\Markdown\NewsMarkdown; the class names come from
+   Tempest\Highlight's CssTheme. Hue carries the meaning, weight never does —
+   bold inside a monospace block reads as emphasis the code does not have.
+   Every colour below is measured against --color-surface (#f9fafb) and clears
+   4.5:1, because a string that only *looks* legible is unreadable to a fair
+   number of readers. */
+/* Which grammar hands out which class is worth knowing before changing a colour:
+   in JSON the object keys are KEYWORD and the braces are PROPERTY, in SQL the
+   columns are PROPERTY and the tables are TYPE, in Bash the flags are GENERIC. */
+.news-prose .hl-keyword {
+    color: #1d4ed8; /* 6.3:1 — JSON keys and SQL verbs, the most frequent token */
+}
+
+.news-prose .hl-value,
+.news-prose .hl-literal {
+    color: #15803d; /* 4.6:1 — strings */
+}
+
+.news-prose .hl-number {
+    color: #b45309; /* 4.6:1 */
+}
+
+.news-prose .hl-variable {
+    color: #be123c; /* 5.3:1 — $MY_API_KEY in a shell block */
+}
+
+.news-prose .hl-type {
+    color: #7e22ce; /* 6.1:1 — the one hue that echoes the brand purple */
+}
+
+.news-prose .hl-generic,
+.news-prose .hl-attribute {
+    color: #0f766e; /* 5.0:1 */
+}
+
+.news-prose .hl-attribute {
+    font-style: italic;
+}
+
+/* Punctuation and operators stay grey: they are structure, and colouring them
+   is what turns a code block into confetti. */
+.news-prose .hl-property,
+.news-prose .hl-operator {
+    color: var(--color-muted);
+}
+
+.news-prose .hl-comment {
+    color: var(--color-hint); /* 4.8:1 — present, but never louder than the code */
+}
+
 /* Tables get their own scroll container so the page body never scrolls sideways. */
 .news-prose > table {
     display: block;
     overflow-x: auto;
     width: 100%;
-    font-size: 1rem;
+    font-size: var(--text-base);
     border-collapse: collapse;
 }
 
@@ -341,10 +618,10 @@ body {
 }
 
 .news-prose th {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: var(--text-eyebrow);
+    font-weight: var(--text-eyebrow--font-weight);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--text-eyebrow--letter-spacing);
     color: var(--color-muted);
     border-block-end-color: var(--color-border);
 }
@@ -355,7 +632,7 @@ body {
 
 .news-caption {
     margin-block-start: 0.75rem;
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     line-height: 1.5;
     color: var(--color-muted);
     text-align: center;
@@ -369,6 +646,7 @@ body {
 .news-quote__text {
     font-size: var(--text-title);
     line-height: var(--text-title--line-height);
+    letter-spacing: var(--text-title--letter-spacing);
     color: var(--color-gray-900);
     text-wrap: balance;
 }
@@ -376,7 +654,7 @@ body {
 .news-quote__cite {
     display: block;
     margin-block-start: 1rem;
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     font-style: normal;
     color: var(--color-muted);
 }
@@ -385,15 +663,14 @@ body {
     border-width: 1px;
     border-radius: var(--radius-panel);
     padding: 1.5rem;
-    font-size: 1.15rem;
     line-height: 1.6;
 }
 
 .news-callout__title {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: var(--text-eyebrow);
+    font-weight: var(--text-eyebrow--font-weight);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--text-eyebrow--letter-spacing);
 }
 
 .news-callout__body > p:first-child {
@@ -422,7 +699,7 @@ body {
     height: 2.25rem;
     border: 1px solid var(--color-brand);
     border-radius: 9999px;
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-brand);
 }
@@ -434,35 +711,29 @@ body {
 
 .news-steps__body {
     margin-block-start: 0.35rem;
-    font-size: 1.2rem;
     line-height: 1.6;
     color: var(--color-gray-600);
 }
 
-/* The table of contents: a quiet panel above the article, aligned with the reading
-   column. Navigation, not prose — it keeps the UI face and drops the underline the
-   body text sets on links. */
 .news-toc {
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    border-radius: var(--radius-panel);
-    background-color: var(--color-surface);
-    padding: 1.25rem 1.5rem;
+    font-size: var(--text-lg);
+    line-height: 1.625;
+    color: var(--color-gray-800);
 }
 
-.news-toc__label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--color-muted);
+.news-toc__title {
+    margin-block-end: 0.6rem;
+    font-size: var(--text-title);
+    line-height: var(--text-title--line-height);
+    letter-spacing: var(--text-title--letter-spacing);
+    font-weight: 700;
+    text-wrap: balance;
+    color: var(--color-gray-900);
 }
 
 .news-toc__list {
-    margin-block-start: 0.75rem;
-    list-style: none;
-    padding-inline-start: 0;
-    border-inline-start: 1px solid var(--color-border);
+    list-style: disc;
+    padding-inline-start: 1.5rem;
 }
 
 .news-toc__list > li + li {
@@ -470,25 +741,26 @@ body {
 }
 
 .news-toc a {
-    display: block;
-    padding-inline-start: 1rem;
-    color: var(--color-gray-700);
+    color: var(--color-gray-800);
     text-decoration: none;
+    text-wrap: pretty;
     transition: color 0.15s;
-}
-
-.news-toc__sub a {
-    padding-inline-start: 2.25rem;
-    font-size: 0.875rem;
-    color: var(--color-muted);
 }
 
 .news-toc a:hover {
     color: var(--color-brand);
 }
 
-/* These links are styled here rather than in Blade, so their focus ring lives here
-   too — a keyboard user must be able to see where they are in the contents. */
+.news-toc__sub {
+    list-style: circle;
+    margin-inline-start: 1.5rem;
+}
+
+.news-toc__sub a {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+}
+
 .news-toc a:focus-visible {
     outline: 2px solid var(--color-brand);
     outline-offset: 2px;
@@ -498,7 +770,6 @@ body {
 .news-toc a[aria-current='true'] {
     color: var(--color-brand);
     font-weight: 600;
-    box-shadow: inset 2px 0 0 var(--color-brand);
 }
 
 .legal-prose ul {
@@ -522,6 +793,58 @@ body {
     background-color: var(--color-gray-800);
 }
 
+/* The shared row of /dienstleistungen and every news list. The padding is symmetric on
+   every row without exception, and that is load-bearing: the drawing is centred on the
+   row box, so a row that drops its top padding centres its drawing lower than its
+   neighbours and one illustration in the list stops lining up with its own title.
+
+   The gap a heading leaves above the list is therefore cancelled by the *container*
+   pulling up — see x-news.list — not by the first row giving up its padding. It lives
+   here rather than in the class string because `first:pt-0` cannot win in Tailwind
+   anyway: the responsive `sm:py-*` lands in a media query further down the stylesheet
+   and takes it on source order alone. */
+.illustration-row {
+    padding-block: 2rem;
+}
+
+@media (width >= 40rem) {
+    .illustration-row {
+        padding-block: 2.5rem;
+    }
+}
+
+@media (width >= 64rem) {
+    .illustration-row {
+        padding-block: 3rem;
+    }
+}
+
+/* The drawings that sit outside the page frame — on /dienstleistungen and on every news
+   row — lean toward the reader when their row is hovered. The angle comes from --tilt
+   rather than being fixed, because the drawing alternates sides down the list: a row with
+   the drawing on the left has to lean the opposite way to one with it on the right, or
+   every second row turns away from the text it belongs to. The row sets the variable;
+   this rule only knows there is one. */
+.illustration-row__art {
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+/* Pointer devices only. On a touchscreen :hover latches after a tap and the drawing
+   would stay tilted until something else is touched. */
+@media (hover: hover) {
+    .illustration-row:hover .illustration-row__art {
+        transform: perspective(900px) rotateY(var(--tilt, -12deg)) rotateX(5deg) scale(1.03);
+    }
+}
+
+/* The blanket rule below only shortens durations, which would leave this tilt snapping
+   into place rather than not happening at all. */
+@media (prefers-reduced-motion: reduce) {
+    .illustration-row:hover .illustration-row__art {
+        transform: none;
+    }
+}
+
 /* Optimize animations */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -530,5 +853,35 @@ body {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+.intro-tabs__panels {
+    display: grid;
+    min-width: 0;
+}
+
+.intro-tabs__panel {
+    grid-area: 1 / 1;
+}
+
+.intro-tabs__panel:not(:first-child) {
+    visibility: hidden;
+    opacity: 0;
+}
+
+@supports selector(:has(*)) {
+    .intro-tabs__panel {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 200ms ease;
+    }
+
+    .intro-tabs:has([data-tab='0']:checked) [data-panel='0'],
+    .intro-tabs:has([data-tab='1']:checked) [data-panel='1'],
+    .intro-tabs:has([data-tab='2']:checked) [data-panel='2'],
+    .intro-tabs:has([data-tab='3']:checked) [data-panel='3'] {
+        visibility: visible;
+        opacity: 1;
     }
 }

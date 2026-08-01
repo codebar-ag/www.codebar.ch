@@ -2,10 +2,8 @@
 key: konzeption-prototyping
 name: 'Concept design & prototyping'
 teaser: >-
-  We put your idea on paper – visually. Mockups and clickable prototypes create a shared
-  picture early on, before a single line of code is written. In the end, you hold a technical
-  concept in your hands, including the technology stack – as a basis for implementation, by
-  us or by others.
+  Mockups and clickable prototypes create a shared picture early on. In the end you hold a
+  technical concept in your hands, technology choice included.
 ---
 
 ## From idea to tangible concept

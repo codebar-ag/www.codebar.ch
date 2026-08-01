@@ -115,3 +115,36 @@ it('estimates reading time from the word count', function () {
     expect($short)->toBe(1)
         ->and($long)->toBe(5);
 })->group('unit', 'markdown');
+
+it('highlights a fenced code block and gives it a copy button', function () {
+    $html = markdown()->toHtml(<<<'MD'
+        ```json
+        {"status": "queued"}
+        ```
+        MD);
+
+    expect($html)
+        ->toContain('data-lang="json"')
+        // The key and the value have to end up in different token classes, otherwise
+        // the block is monochrome and the highlighter is not doing anything.
+        ->toContain('<span class="hl-keyword">&quot;status&quot;</span>')
+        ->toContain('<span class="hl-value">&quot;queued&quot;</span>')
+        ->toContain('x-data="codeBlock"')
+        ->toContain('news-code__copy')
+        // The button is markup-hidden until Alpine reveals it, so a reader without
+        // JavaScript never gets a control that cannot do anything.
+        ->toContain('hidden');
+})->group('unit', 'markdown');
+
+it('keeps code out of the reading time and the table of contents', function () {
+    $source = <<<'MD'
+        ## Titel
+
+        ```bash
+        curl -s https://example.com
+        ```
+        MD;
+
+    expect(markdown()->headings($source))->toHaveCount(1)
+        ->and(markdown()->readingMinutes($source))->toBe(1);
+})->group('unit', 'markdown');

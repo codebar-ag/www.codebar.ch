@@ -6,9 +6,7 @@ namespace App\Enums;
 
 enum ContactSectionEnum: string
 {
-    const string EMPLOYEES = 'employees';
-
-    const string COLLABORATIONS = 'collaborations';
-
-    const string BOARD_MEMBERS = 'board_members';
+    case EMPLOYEES = 'employees';
+    case COLLABORATIONS = 'collaborations';
+    case BOARD_MEMBERS = 'board_members';
 }

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Models\Network;
 use App\Models\News;
+use App\Models\Page;
 use Database\Seeders\PagesTableSeeder;
 
 use function Pest\Laravel\get;
@@ -129,41 +129,62 @@ it('shares a news article as an article and every other page as a website', func
     expect($index)->toContain('<meta property="og:type" content="website">');
 })->group('seo');
 
-it('appends the company name to a title that does not already carry it', function () {
-    // Page titles ship the brand themselves; an article title is the bare
-    // headline, because it also feeds og:title and the JSON-LD headline.
+it('leaves an article title as the bare headline', function () {
     $news = News::factory()->create(['title' => ['de_CH' => 'Ein Testartikel', 'en_CH' => 'A test article']]);
 
     $article = (string) get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
         ->assertOk()->getContent();
 
-    expect(titleOf($article))->toBe('Ein Testartikel – '.config()->string('app.name'))
-        // …but the brand must not leak into the sharing title or the headline.
+    expect(titleOf($article))->toBe('Ein Testartikel')
         ->and($article)->toContain('<meta property="og:title" content="Ein Testartikel">')
         ->and($article)->toContain('"headline":"Ein Testartikel"');
 })->group('seo');
 
-it('gives a network partner page its own title and self-referencing hreflang', function () {
-    // The controller used to build this page's metadata from the network index,
-    // so every partner page shared the index's title and description and its
-    // hreflang alternates pointed back at /netzwerk.
-    Network::factory()->create([
-        'key' => 'baselhack',
-        'name' => ['de_CH' => 'BaselHack', 'en_CH' => 'BaselHack'],
-        'page_slug' => 'baselhack',
-    ]);
+it('keeps a long article title inside the length search results render', function () {
+    $headline = 'Lokale LLMs betreiben: Warteschlangen statt Timeouts';
 
-    $detail = (string) get(route('de-ch.network.show', ['slug' => 'baselhack']))
+    $news = News::factory()->create(['title' => ['de_CH' => $headline, 'en_CH' => $headline]]);
+
+    $article = (string) get(route('de-ch.news.show', ['locale' => 'de_CH', 'news' => $news->slug]))
         ->assertOk()->getContent();
 
-    // The document title appends the company name; the partner's own name has
-    // to lead it, and must not collapse into the index title.
-    expect(titleOf($detail))->toBe('BaselHack – '.config()->string('app.name'))
-        ->and(titleOf($detail))->not->toBe(titleOf((string) get(route('de-ch.network.index'))->getContent()));
+    expect(mb_strlen(titleOf($article)))->toBeLessThanOrEqual(60);
+})->group('seo');
 
-    expect($detail)
-        ->toContain('hreflang="de-CH" href="'.route('de-ch.network.show', ['slug' => 'baselhack']).'"')
-        ->toContain('hreflang="en-CH" href="'.route('en-ch.network.show', ['slug' => 'baselhack']).'"');
+it('appends the company name to a page title that does not already carry it', function () {
+    Page::where('key', 'start.index')->update([
+        'title' => ['de_CH' => 'Ohne Marke im Titel', 'en_CH' => 'Without the brand'],
+    ]);
+
+    $html = (string) get(route('de-ch.start.index'))->assertOk()->getContent();
+
+    expect(titleOf($html))->toBe('Ohne Marke im Titel – '.config()->string('app.name'));
+})->group('seo');
+
+it('serves a page image as PNG even when the page stores an SVG', function () {
+    Page::where('key', 'start.index')->update(['image' => 'images/seo/og-codebar.svg']);
+
+    $html = (string) get(route('de-ch.start.index'))->assertOk()->getContent();
+
+    $png = url('images/seo/og-codebar.png');
+
+    expect($html)
+        ->toContain('<meta property="og:image" content="'.$png.'">')
+        ->toContain('<meta name="twitter:image" content="'.$png.'">')
+        ->toContain('"primaryImageOfPage":{"@type":"ImageObject","url":"'.$png.'"}');
+
+    expect($html)->not->toContain('og-codebar.svg');
+})->group('seo');
+
+it('falls back to the default image when an SVG has no PNG counterpart', function () {
+    Page::where('key', 'start.index')->update(['image' => 'images/seo/no-such-file.svg']);
+
+    $html = (string) get(route('de-ch.start.index'))->assertOk()->getContent();
+
+    expect($html)->toContain('<meta property="og:image" content="'.url(config()->string('seo.default_image')).'">');
+
+    expect($html)->not->toContain('no-such-file');
+    expect($html)->not->toContain('primaryImageOfPage');
 })->group('seo');
 
 it('links both language versions with crawlable anchors', function () {

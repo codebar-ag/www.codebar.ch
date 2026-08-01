@@ -1,5 +1,6 @@
 key: about-us.index
 robots: index,follow
+image: images/pages/about-us.index.svg
 title:
   de_CH: 'Team – die Menschen hinter codebar Solutions AG'
   en_CH: 'Team – the People Behind codebar Solutions AG'

@@ -1,0 +1,317 @@
+{
+  "news/docuware-7-12-is-here": {
+    "sentence": "an e-invoice arrives as a machine file nobody reads → extracting → the line items sit in a table and the same numbers again as a chart",
+    "act": "funnel",
+    "actSource": "Rechnungspositionen aus E-Rechnungen werden automatisch in Tabellenfelder übertragen",
+    "objects": {
+      "mail intake envelope": "so werden E-Mail-Anhänge bereits vor der Archivierung klassifiziert",
+      "machine-readable invoice": "Anhänge (z. B. PDF oder XML) werden direkt im Viewer angezeigt",
+      "line-item table": "ideal für Prüfung und Weiterverarbeitung",
+      "analytics chart": "Analysieren Sie Prozesse, erkennen Sie Optimierungspotenziale"
+    }
+  },
+  "news/docuware-7-13-is-here": {
+    "sentence": "the workflow designer is an installed desktop application → moving into the browser → a designer that runs in a tab, with an exception lane",
+    "act": "window",
+    "actSource": "im Browser, ohne dass auf dem Arbeitsplatz etwas installiert sein muss",
+    "objects": {
+      "installed designer": "Der Workflow Designer ist keine eigene Anwendung mehr.",
+      "browser designer": "ein Workflow Designer ohne Installation",
+      "workflow steps": "Mehrere Schritte lassen sich gemeinsam markieren, kopieren oder entfernen.",
+      "exception lane": "Für unerwartete Abbrüche kann eine eigene Reaktion hinterlegt werden."
+    }
+  },
+  "news/docuware-7-14-is-here": {
+    "sentence": "approvals pile up in an inbox nobody opens → notifying → tasks grouped by process on a phone that says when one arrives",
+    "act": "bell",
+    "actSource": "Push-Benachrichtigungen bei neuen Aufgaben",
+    "objects": {
+      "inbox of approvals": "weil niemand ins Postfach geschaut hat",
+      "waiting clock": "bleiben Freigaben nicht mehr tagelang liegen",
+      "rebuilt mobile app": "Die Mobile App wurde neu entwickelt.",
+      "tasks grouped by process": "Aufgaben nach Prozess gruppiert abarbeiten.",
+      "push waves": "Push-Benachrichtigungen bei neuen Aufgaben"
+    }
+  },
+  "news/bausteine-styleguide": {
+    "sentence": "content blocks lie around loose, each a different shape → composing → one page assembled from them in order, at one shared width",
+    "act": "grid",
+    "actSource": "zeigt jeden verfügbaren Inhaltsbaustein einmal in echt",
+    "objects": {
+      "loose content blocks": "als Referenz beim Schreiben",
+      "image block": "Bilder beginnen und enden dort, wo der Fliesstext beginnt und endet",
+      "comparison block": "Zwei Zustände direkt nebeneinander.",
+      "assembled page": "Alle Elemente teilen sich eine Breite",
+      "callout row": "Ein neutraler Hinweis für Zusatzinformationen"
+    }
+  },
+  "news/llm-gateway-open-source": {
+    "sentence": "agents, processes and people all call one in-house machine at once until its memory is full → queueing → a gateway that stores every request and feeds the model one at a time",
+    "act": "queue",
+    "actSource": "Wir behandeln deshalb jede Anfrage als asynchronen Auftrag",
+    "objects": {
+      "agent and team requests": "Agenten und Benutzer, die mit den Modellen arbeiten",
+      "request lanes": "Ohne Orchestrierung schlagen Anfragen fehl",
+      "single in-house machine": "ein dediziertes MacBook mit M5 Max",
+      "full memory bar": "128 GB Unified Memory",
+      "stored queue": "Die Anfragen werden gesammelt und nach den vorhandenen Ressourcen abgearbeitet",
+      "job database": "legt jeden Auftrag in einer Datenbank-Queue ab",
+      "model chip": "Ein Modell muss im Arbeitsspeicher geladen sein, bevor es antworten kann",
+      "fork mark": "Der Code liegt öffentlich auf GitHub"
+    }
+  },
+  "services/konzeption-prototyping": {
+    "sentence": "a sketched screen flow on paper → clicking → the same thing running in a browser and on a phone",
+    "act": "cursor",
+    "actSource": "Klickbare Prototypen machen Ideen früh greifbar und diskutierbar.",
+    "objects": {
+      "wireframe screens": "Mockups und klickbare Prototypen schaffen früh ein gemeinsames Bild",
+      "screen flow": "Wir erarbeiten Informationsarchitektur, Abläufe und Datenmodell",
+      "browser preview": "machen es als klickbaren Prototyp erlebbar",
+      "phone preview": "Feedback von echten Nutzer:innen fliesst direkt in die nächste Iteration ein."
+    }
+  },
+  "services/individuelle-softwareentwicklung": {
+    "sentence": "an ERP, a CRM and a DMS each with a port that goes nowhere → writing the code → one documented bus they all sit on, running on a schedule",
+    "act": "braces",
+    "actSource": "Wir entwickeln individuelle Lösungen, die sich nach deinen Prozessen richten",
+    "objects": {
+      "database cylinder": "Wir verbinden bestehende Systeme wie ERP, CRM oder DMS zu durchgängigen Abläufen.",
+      "service box": "Wir verbinden bestehende Systeme wie ERP, CRM oder DMS zu durchgängigen Abläufen.",
+      "records grid": "Wir verbinden bestehende Systeme wie ERP, CRM oder DMS zu durchgängigen Abläufen.",
+      "dangling ports": "Saubere, dokumentierte Schnittstellen, die Systeme zuverlässig verbinden.",
+      "code panel": "Automatisierte Tests, Code-Reviews und kontinuierliche Deployments",
+      "scheduled integration": "Portale, Schnittstellen, Automatisierungen"
+    }
+  },
+  "services/dms-ecm-consulting": {
+    "sentence": "a deep stack of paper nobody can search → indexing → a workflow that runs itself, with an approval, an archive and one exception lane",
+    "act": "magnifier",
+    "actSource": "Ablagestruktur, Indexierung, Berechtigungen und Aufbewahrung, sauber durchdacht.",
+    "objects": {
+      "paper stack": "Vom Papier zum papierlosen Büro",
+      "workflow chain": "automatisierte Dokumentenworkflows",
+      "approval step": "bis hin zu KI-gestützter Verarbeitung",
+      "archive drawer": "Ablagestruktur, Indexierung, Berechtigungen und Aufbewahrung"
+    }
+  },
+  "services/open-source-erp": {
+    "sentence": "a task list and a stopwatch kept beside each other by hand → wiring them together → one board where the work is planned and the hours are booked against it",
+    "act": "nodes",
+    "actSource": "Als Odoo-Partner bieten wir dir Schritt für Schritt an, was sich bei uns bewährt",
+    "objects": {
+      "task list": "die Einführung von Projektmanagement und Zeiterfassung",
+      "stopwatch": "Projektmanagement und Zeiterfassung",
+      "kanban board": "Odoo setzen wir seit Kurzem selbst als ERP ein",
+      "booked hours": "ohne Lizenz-Lock-in"
+    }
+  },
+  "pages/start.index": {
+    "sentence": "an idea that exists only as a sketch and a spoken sentence → listening to it first → software somebody works in every day",
+    "act": "listen",
+    "actSource": "Am Anfang hören wir dir zu.",
+    "objects": {
+      "sketch sheet": "von der ersten Skizze bis zur Software im täglichen Einsatz",
+      "idea stack": "von der ersten Idee bis zur Software im täglichen Einsatz",
+      "software panel": "Software im täglichen Einsatz",
+      "team card": "Ein kleines Team aus der Region Basel"
+    }
+  },
+  "pages/about-us.index": {
+    "sentence": "a request relayed down a chain of boxes before it reaches whoever builds it → meeting the builder directly → one table with the person who writes the code at it",
+    "act": "meet",
+    "actSource": "Wer dein Projekt baut, sitzt auch im Gespräch.",
+    "objects": {
+      "layer tiles": "Ein kleines Team, keine Zwischenebene",
+      "shared table": "Bei uns arbeitest du direkt mit den Menschen, die deine Lösung verstehen",
+      "two colleagues": "Das spart einen Übersetzungsschritt und macht Zusagen verbindlich.",
+      "code panel": "Wer dein Projekt baut, sitzt auch im Gespräch."
+    }
+  },
+  "pages/services.index": {
+    "sentence": "four offerings lying apart and unaligned → composing them into one sequence → the same four threaded on a single path from the first idea to day-to-day operations",
+    "act": "grid",
+    "actSource": "Vier Bereiche, ein Weg",
+    "objects": {
+      "prototype screen": "wir schärfen deine Anforderungen und machen Ideen mit klickbaren Prototypen früh greifbar",
+      "code tile": "Portale, Schnittstellen und Automatisierungen, entwickelt mit offenen Technologien wie Laravel",
+      "paper sheet": "begleiten wir dich ins papierlose Büro und automatisieren deine Prozesse",
+      "task board": "Odoo setzen wir selbst ein und begleiten dich als Odoo-Partner Schritt für Schritt bei der Einführung",
+      "one path spine": "von der ersten Idee über Konzept und Umsetzung bis zum Betrieb"
+    }
+  },
+  "pages/products.index": {
+    "sentence": "one project's panel, built once for one customer → writing it as a product → a released thing with versions behind it that is in use every day",
+    "act": "braces",
+    "actSource": "entwickelt mit offenen Technologien und Standards",
+    "objects": {
+      "project panel": "Produkte, die aus echter Projektarbeit entstanden sind",
+      "release stack": "laufend weiterentwickelt",
+      "version pill": "von uns entwickelt, im täglichen Einsatz und laufend weiterentwickelt",
+      "daily use row": "im täglichen Einsatz"
+    }
+  },
+  "pages/technologies.index": {
+    "sentence": "a long shelf of tools, most of them untouched → narrowing it deliberately → three that are kept, each with years stacked behind it",
+    "act": "funnel",
+    "actSource": "bewusst gewählt und über Jahre in der Tiefe beherrscht",
+    "objects": {
+      "tool shelf": "Die Werkzeuge und Technologien, mit denen wir täglich arbeiten",
+      "chosen tools": "bewusst gewählt",
+      "year stack": "über Jahre in der Tiefe beherrscht",
+      "open standard badge": "bewährt, transparent und herstellerunabhängig"
+    }
+  },
+  "pages/open-source.index": {
+    "sentence": "a package we wrote, sitting inside our own repository and nowhere else → giving it back → a public repository with somebody else's branch off it",
+    "act": "fork",
+    "actSource": "Wir bauen auf Open Source — und geben etwas zurück.",
+    "objects": {
+      "package tile": "Packages, Tools und Libraries, entwickelt und gepflegt von codebar",
+      "repository panel": "Unsere Beiträge an die Open-Source-Community",
+      "community branch": "Das sind die Projekte und Beiträge, die wir mit der Community teilen."
+    }
+  },
+  "pages/ai.index": {
+    "sentence": "customer documents leaving the building on a lane to a provider's rack → keeping them in → the same documents on our own machine, with the usage counted openly",
+    "act": "shield",
+    "actSource": "Kundendaten verlassen unsere Infrastruktur nicht.",
+    "objects": {
+      "customer documents": "Kundendaten verlassen unsere Infrastruktur nicht",
+      "provider rack": "statt Anfragen an einen Cloud-Anbieter zu schicken",
+      "our own machine": "warum wir Open-Source-Modelle selbst betreiben",
+      "usage counters": "Die Nutzungsstatistik zeigt ungefiltert, wie oft das tatsächlich vorkommt."
+    }
+  },
+  "pages/ai.llm.index": {
+    "sentence": "three model tiles with no machine under them → running them ourselves → the models on one laptop in our own basement, on our own power and reachable through one tunnel",
+    "act": "host",
+    "actSource": "alle laufen auf eigener Infrastruktur im hauseigenen Bürokeller",
+    "objects": {
+      "model tiles": "Auf diese lokalen Open-Source-Modelle setzen wir aktuell",
+      "laptop": "Hier laufen unsere lokalen Modelle.",
+      "power supply": "USV Ubiquiti UniFi.",
+      "tunnel": "Cloudflare Tunnel auf das lokale MacBook."
+    }
+  },
+  "pages/ai.llm.analytics.index": {
+    "sentence": "requests running past an empty counter → measuring them → token bars per month and model, with the total under them",
+    "act": "measure",
+    "actSource": "Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle",
+    "objects": {
+      "requests": "Anfragen diesen Monat",
+      "empty counter": "Noch keine Nutzungsdaten vorhanden.",
+      "monthly bars": "pro Monat und Modell, laufend aktualisiert",
+      "total pill": "Tokens total"
+    }
+  },
+  "pages/news.index": {
+    "sentence": "a whiteboard at the end of a project day, everything learned staying in the room → telling somebody → dated articles anyone can read",
+    "act": "bell",
+    "actSource": "was sonst gerade bei codebar passiert",
+    "objects": {
+      "whiteboard": "Einblicke aus unserem Alltag: was wir bauen, was wir dabei lernen",
+      "article rows": "Aktuelle News, Fachbeiträge und Trends rund um Softwareentwicklung",
+      "date pills": "Veröffentlicht am"
+    }
+  },
+  "pages/jobs.index": {
+    "sentence": "a newcomer kept at the edge of the project, watching → putting the work on a board → one person's card crossing every role, from the customer conversation to the code",
+    "act": "board",
+    "actSource": "Jede:r deckt mehrere Rollen ab, vom Kundengespräch bis zum Code.",
+    "objects": {
+      "onlooker card": "mitten im Projektalltag statt am Rand",
+      "project panel": "übernimmt vom ersten Tag Verantwortung in echten Projekten",
+      "role board": "Jede:r deckt mehrere Rollen ab, vom Kundengespräch bis zum Code",
+      "first day check": "Wer bei uns anfängt, übernimmt vom ersten Tag Verantwortung"
+    }
+  },
+  "pages/co-working.index": {
+    "sentence": "a laptop on the kitchen table at home → moving the workplace → an equipped desk on a fast line, with a team around it",
+    "act": "transfer",
+    "actSource": "einen ruhigen, professionellen Arbeitsplatz ohne eigenes Büro suchen",
+    "objects": {
+      "home laptop": "Ideal für Freelancer, Start-ups und Remote-Mitarbeitende",
+      "kitchen table": "ohne eigenes Büro",
+      "equipped desk": "vollausgestattete Arbeitsplätze in professionellem Co-Working-Ambiente in Oberwil",
+      "network line": "250 Mbit/s Private Virtual Network",
+      "team desks": "mitten in einem echten Tech-Team"
+    }
+  },
+  "pages/contact.index": {
+    "sentence": "a question written down with no address on it → calling → a named contact person and two places you can walk into",
+    "act": "call",
+    "actSource": "So erreichst du uns",
+    "objects": {
+      "unaddressed note": "Du hast eine Idee, ein Projekt oder einfach eine Frage?",
+      "contact person card": "Deine Ansprechperson",
+      "two address cards": "Telefon, E-Mail und unsere zwei Standorte in der Region Basel."
+    }
+  },
+  "pages/network.index": {
+    "sentence": "partners listed apart with nothing between them → wiring them together → partners on one shared spine, with the labels behind them and the community under it",
+    "act": "nodes",
+    "actSource": "Gute Software entsteht nicht im Alleingang.",
+    "objects": {
+      "partner tiles": "Projekt-, Software- und Infrastrukturpartner",
+      "shared spine": "Unser Netzwerk lebt vom Open-Source-Gedanken und von echten Partnerschaften.",
+      "tier badges": "und die Labels, die dahinterstehen",
+      "community group": "unser Engagement in der Community"
+    }
+  },
+  "pages/legal.imprint.index": {
+    "sentence": "a company you only know by the name on its website → looking it up → the register behind it: legal form, UID, and the people who sign",
+    "act": "magnifier",
+    "actSource": "Rechtliche Angaben zur codebar Solutions AG",
+    "objects": {
+      "site tile": "Alle Inhalte dieser Website wurden mit Sorgfalt erstellt",
+      "register rows": "Rechtsform, UID-Nummer, Handelsregistereintrag",
+      "role chips": "Präsident des Verwaltungsrates, Geschäftsführer",
+      "signature card": "Einzelunterschrift"
+    }
+  },
+  "pages/legal.privacy.index": {
+    "sentence": "data that simply accumulates and disappears into a closed box → disclosing it → every category with its purpose, its retention period and your rights",
+    "act": "disclose",
+    "actSource": "Beim Besuch dieser Website verarbeiten wir folgende Datenkategorien",
+    "objects": {
+      "data cards": "Server-Logdaten (IP-Adresse, Datum und Uhrzeit des Zugriffs, Browsertyp, besuchte Seiten)",
+      "processing box": "Wir verarbeiten diese Daten, um die Website zu betreiben und abzusichern",
+      "retention pills": "Server-Logs werden bis zu 90 Tage aufbewahrt.",
+      "rights card": "hast du das Recht auf Auskunft, Berichtigung unrichtiger Daten"
+    }
+  },
+  "pages/legal.terms.index": {
+    "sentence": "an offer and a project with everything between them left unsaid → agreeing it → what is delivered, what it costs and who is liable, signed",
+    "act": "agree",
+    "actSource": "wenn der Kunde das Angebot schriftlich bestätigt oder digital signiert",
+    "objects": {
+      "offer card": "Offerten sind 30 Tage gültig",
+      "project card": "Dienstleistungen & Projektabwicklung",
+      "section blocks": "Nutzungsrechte & geistiges Eigentum",
+      "signature line": "Die Abnahme erfolgt formal durch Abnahmeprotokoll"
+    }
+  },
+  "pages/media.index": {
+    "sentence": "a mark lifted off a screenshot at the wrong size → handing over the files → the official marks in every variant, light and dark",
+    "act": "download",
+    "actSource": "Offizielle codebar-Logos zum Download für Presse, Partner und Publikationen",
+    "objects": {
+      "screenshot tile": "Nicht in Ordnung sind Verzerrungen, eigene Farbgebungen, Effekte",
+      "logo files": "als PNG und SVG, hell wie dunkel",
+      "dark variant": "die farbige Variante auf hellem Grund, die invertierte auf dunklem",
+      "format chips": "als PNG und SVG"
+    }
+  },
+  "pages/network.request.index": {
+    "sentence": "a partner profile only we could change → handing over the controls → a personal link that opens it as a form the partner edits themselves",
+    "act": "cursor",
+    "actSource": "Persönlichen Link anfordern, um das eigene Profil im codebar Netzwerk zu aktualisieren.",
+    "objects": {
+      "locked profile card": "das eigene Profil im codebar Netzwerk zu aktualisieren",
+      "link note": "Falls die E-Mail-Adresse registriert ist, haben wir dir einen Link gesendet.",
+      "editable fields": "Aktualisiere dein codebar Netzwerk-Profil",
+      "save button": "Netzwerk-Profil aktualisieren"
+    }
+  }
+}

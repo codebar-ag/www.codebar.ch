@@ -1,5 +1,6 @@
 key: services.index
 robots: index,follow
+image: images/pages/services.index.svg
 title:
   de_CH: 'Konzeption, Software, DMS & ERP | codebar Solutions AG'
   en_CH: 'Concept, Software, DMS & ERP | codebar Solutions AG'

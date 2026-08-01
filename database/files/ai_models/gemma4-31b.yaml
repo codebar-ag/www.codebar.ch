@@ -6,7 +6,7 @@ provider: Google
 ram: '19 GB RAM'
 license: Gemma
 role:
-  de: 'Bild-Input + stilsichere Texte'
-  en: 'Image input + polished writing'
+  de_CH: 'Bild-Input + stilsichere Texte'
+  en_CH: 'Image input + polished writing'
 link_label: Ollama
 link_url: 'https://ollama.com/library/gemma4'

@@ -6,8 +6,6 @@
     <label class="block">
         <span class="block text-sm font-medium text-gray-800">{{ $label }}</span>
         <span class="relative mt-1.5 block">
-            {{-- The same x-form.input every other control uses, so the filter row on
-                 the analytics page lines up with a submit button beside it. --}}
             <x-form.input type="text" :name="$name" :value="$value" :placeholder="$placeholder"
                           autocomplete="off" data-1p-ignore data-lpignore="true" data-form-type="other"
                           role="combobox" aria-autocomplete="list" aria-controls="{{ $listboxId }}"
@@ -22,7 +20,7 @@
                           x-on:keydown.tab="close"
                           class="pr-20"/>
             <button type="button" x-on:click="clear" x-show="hasValue" x-cloak
-                    class="absolute right-10 top-1/2 grid size-control -translate-y-1/2 place-items-center rounded-pill text-muted transition hover:text-gray-800 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand"
+                    class="absolute right-10 top-1/2 -translate-y-1/2 icon-button text-muted transition hover:text-gray-800 focus-ring"
                     aria-label="{{ __('Clear') }}">
                 <x-icon.close/>
             </button>

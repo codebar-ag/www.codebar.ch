@@ -1,6 +1,5 @@
 @php
     $urlFor = fn ($entry) => localized_route('news.show', ['locale' => app()->getLocale(), 'news' => $entry]);
-    $kickerFor = fn ($entry) => $entry->series?->title ?? (is_array($entry->tags) ? ($entry->tags[0] ?? null) : null);
     $indexUrl = localized_route('news.index');
 @endphp
 
@@ -9,42 +8,47 @@
             :title="__('News')"
             :intro="__('Insights from our day-to-day work: what we are building, what we are learning, and what is happening at codebar.')"/>
 
+    {{--
     @if($topics->isNotEmpty())
-        <x-layout.section>
-            <nav class="flex flex-wrap gap-2" aria-label="{{ __('Filter by topic') }}">
-                <x-ui.badge :href="$indexUrl" :label="__('All')" size="md"
-                            :variant="$activeTopic === null ? 'solid' : 'outline'"
-                            :aria-current="$activeTopic === null ? 'page' : false"/>
+        <x-layout.section class="mt-10!">
+            <div class="flex flex-col gap-3 border-b-2 border-border sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+                <nav class="-mb-0.5 flex flex-wrap gap-x-7" aria-label="{{ __('Filter by topic') }}">
+                    <a href="{{ $indexUrl }}"
+                       @if($activeTopic === null) aria-current="page" @endif
+                       class="inline-flex tap-target items-center border-b-2 pb-3 transition focus-ring {{ $activeTopic === null ? 'border-brand font-semibold text-brand' : 'border-transparent text-muted hover:border-gray-300 hover:text-gray-900' }}">
+                        {{ __('All') }}
+                    </a>
 
-                @foreach($topics as $topic)
-                    @php($isActive = $activeTopic !== null && $activeTopic->is($topic))
-                    <x-ui.badge :href="$indexUrl . '?thema=' . $topic->slug" :label="$topic->title" size="md"
-                                :variant="$isActive ? 'solid' : 'outline'"
-                                :aria-current="$isActive ? 'page' : false"/>
-                @endforeach
-            </nav>
+                    @foreach($topics as $topic)
+                        @php($isActive = $activeTopic !== null && $activeTopic->is($topic))
+                        <a href="{{ $indexUrl }}?thema={{ $topic->slug }}"
+                           @if($isActive) aria-current="page" @endif
+                           class="inline-flex tap-target items-center border-b-2 pb-3 transition focus-ring {{ $isActive ? 'border-brand font-semibold text-brand' : 'border-transparent text-muted hover:border-gray-300 hover:text-gray-900' }}">
+                            {{ $topic->title }}
+                        </a>
+                    @endforeach
+                </nav>
 
-            {{-- Rendered in every state, filtered or not, so switching topics never adds
-                 or removes a line and the articles below stay where they are. --}}
-            <p class="mt-4 text-sm text-muted">
-                @if($activeTopic !== null)
-                    {{ trans_choice(':count news item on :topic|:count news items on :topic', $total, ['count' => $total, 'topic' => $activeTopic->title]) }}
-                @else
-                    {{ trans_choice(':count news item|:count news items', $total, ['count' => $total]) }}
-                @endif
-            </p>
+                <p class="pb-3 text-sm whitespace-nowrap text-muted">
+                    @if($activeTopic !== null)
+                        {{ trans_choice(':count news item on :topic|:count news items on :topic', $total, ['count' => $total, 'topic' => $activeTopic->title]) }}
+                    @else
+                        {{ trans_choice(':count news item|:count news items', $total, ['count' => $total]) }}
+                    @endif
+                </p>
+            </div>
         </x-layout.section>
     @endif
+    --}}
 
     @if($lead)
         <x-layout.section>
-            <x-news.card
-                    :lead="true"
+            <x-news.lead
                     :url="$urlFor($lead)"
                     :title="$lead->title"
                     :teaser="$lead->teaser"
                     :image="$lead->hero_image"
-                    :kicker="$kickerFor($lead)"
+                    :topics="$lead->topics()"
                     :published-at="$lead->published_at"
                     :reading-minutes="$lead->reading_minutes"
                     :author-name="$lead->authorName()"
@@ -55,22 +59,7 @@
 
     @if($news->isNotEmpty())
         <x-layout.section>
-            <div class="mt-10 divide-y divide-border-soft border-t border-border">
-                @foreach($news as $entry)
-                    <x-news.card
-                            class="py-10"
-                            :url="$urlFor($entry)"
-                            :title="$entry->title"
-                            :teaser="$entry->teaser"
-                            :image="$entry->hero_image"
-                            :kicker="$kickerFor($entry)"
-                            :published-at="$entry->published_at"
-                            :reading-minutes="$entry->reading_minutes"
-                            :author-name="$entry->authorName()"
-                            :author-image="$entry->authorContact?->image"
-                            :level="2"/>
-                @endforeach
-            </div>
+            <x-news.list :articles="$news" :level="2" :rule="true"/>
         </x-layout.section>
     @endif
 

@@ -1,7 +1,7 @@
 <x-app-layout :page="$page">
     <x-layout.page-header
             :title="__('Technologies')"
-            :intro="__('The tools and technologies we work with every day — chosen deliberately and mastered in depth.')"/>
+            :intro="__('The tools and technologies we work with every day — deliberately chosen, and mastered in real depth over the years.')"/>
     <x-layout.section>
         <x-layout.list>
             @foreach($technologies as $entry)

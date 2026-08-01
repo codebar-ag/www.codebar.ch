@@ -1,7 +1,7 @@
 <x-app-layout :page="$page">
     <x-layout.page-header :title="__('Privacy')" :intro="__('Privacy page intro')" :page="$page"/>
 
-    <p class="mb-2 text-muted">{{ __('Last updated at: :date', ['date' => __('Privacy last updated date')]) }}</p>
+    <x-layout.page-note>{{ __('Last updated at: :date', ['date' => __('Privacy last updated date')]) }}</x-layout.page-note>
 
     <x-layout.section>
         <x-h2 :title="__('Privacy controller heading')"/>

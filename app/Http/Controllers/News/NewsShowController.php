@@ -6,8 +6,10 @@ namespace App\Http\Controllers\News;
 
 use App\Actions\PageAction;
 use App\DTO\ContactDTO;
+use App\Enums\ContactSectionEnum;
 use App\Http\Controllers\Controller;
 use App\Markdown\NewsMarkdown;
+use App\Models\Contact;
 use App\Models\News;
 use App\Seo\SchemaNodes;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,7 +17,7 @@ use Illuminate\View\View;
 
 class NewsShowController extends Controller
 {
-    private const int RELATED_ARTICLES = 3;
+    private const int RELATED_ARTICLES = 2;
 
     private const int RELATED_CANDIDATE_POOL = 30;
 
@@ -31,7 +33,11 @@ class NewsShowController extends Controller
         $page = (new PageAction($locale))->news(news: $news, withReferences: true);
 
         $body = is_string($news->content) ? $news->content : '';
-        $author = $news->authorContact;
+
+        $authors = collect([$news->authorContact])
+            ->filter()
+            ->map(fn (Contact $contact): ContactDTO => ContactDTO::fromModel($contact, ContactSectionEnum::EMPLOYEES, $locale))
+            ->values();
 
         return view('app.news.show')->with([
             'page' => $page,
@@ -41,10 +47,7 @@ class NewsShowController extends Controller
             'tags' => collect($news->tags),
             'content' => $markdown->toHtml($body),
             'headings' => $markdown->headings($body),
-            'authorName' => $news->authorName(),
-            'authorRole' => $author !== null ? ContactDTO::fromModel($author, 'employees', $locale)->role : null,
-            'authorImage' => $author?->image,
-            'authorLinkedin' => $author !== null && is_array($author->icons) ? ($author->icons['linkedin'] ?? null) : null,
+            'authors' => $authors,
             'series' => $news->series,
             'seriesParts' => $news->seriesParts(),
             'related' => $this->relatedArticles($news),
@@ -60,7 +63,12 @@ class NewsShowController extends Controller
      */
     private function relatedArticles(News $news): Collection
     {
-        $curated = $news->relatedArticles()->published()->get();
+        // The footer rows are the same rows as the index and the start page — series
+        // chip, author picture and all — so they need the same relations loaded.
+        // Model::shouldBeStrict() turns a lazy load into an exception locally.
+        $related = ['series', 'authorContact'];
+
+        $curated = $news->relatedArticles()->with($related)->published()->get();
 
         if ($curated->count() >= self::RELATED_ARTICLES) {
             return $curated->take(self::RELATED_ARTICLES);
@@ -69,10 +77,11 @@ class NewsShowController extends Controller
         $tags = $this->tagStrings($news);
 
         $byTag = News::query()
+            ->with($related)
             ->published()
             // Only the card fields — `content` holds the full article body in both
             // languages, and scoring by tag overlap never looks at it.
-            ->select(['id', 'key', 'slug', 'title', 'teaser', 'hero_image', 'published_at', 'reading_minutes', 'tags', 'series_id', 'contact_id'])
+            ->select(['id', 'key', 'slug', 'title', 'teaser', 'hero_image', 'thumb_image', 'published_at', 'reading_minutes', 'tags', 'series_id', 'contact_id'])
             ->whereKeyNot($news->getKey())
             ->whereNotIn('id', $curated->modelKeys())
             ->when($news->series_id !== null, fn ($query) => $query->where(function ($inner) use ($news) {

@@ -1,7 +1,7 @@
 <x-app-layout :page="$page">
     <x-layout.page-header
             :title="__('Network')"
-            :intro="__('Good software is not created alone. Our network is built on the open source spirit, on learning together as a community, and on partnerships that matter to us.')"/>
+            :intro="__('Good software is never built alone. Our network is rooted in the open-source spirit and in partnerships that genuinely matter.')"/>
 
     @foreach($groups as $categoryValue => $networks)
         <x-layout.section>
@@ -57,7 +57,7 @@
                         @if($network->page_slug)
                             <a href="{{ localized_route('network.show', ['slug' => $network->page_slug]) }}"
                                title="{{ __('More about :name', ['name' => $network->name]) }}"
-                               class="flex min-h-control items-center justify-between gap-2 bg-brand px-4 text-sm font-medium text-white transition hover:bg-brand-strong focus:outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white">
+                               class="flex min-h-control items-center justify-between gap-2 bg-brand px-4 text-sm font-medium text-white transition hover:bg-brand-strong focus-ring-light">
                                 {{ __('Learn more') }}
                                 <x-icon.arrow-right class="size-4"/>
                             </a>

@@ -27,6 +27,9 @@ class ImportNewsCommand extends ImportCommand
 
     protected $description = 'Import news articles from database/files/news/{locale}/*.md';
 
+    /** @var array<string, int>|null */
+    private ?array $contactIds = null;
+
     public function handle(NewsMarkdown $markdown): int
     {
         // PARSE_DATETIME: without it a bare `published_at: 2026-07-28` arrives as a Unix timestamp.
@@ -42,13 +45,13 @@ class ImportNewsCommand extends ImportCommand
         }
 
         $dryRun = $this->isDryRun();
-        $only = $this->option('key');
+        $only = $this->nullableString($this->option('key'));
 
         $imported = 0;
         $skipped = 0;
 
         foreach ($documents as $key => $localeDocuments) {
-            if (is_string($only) && $only !== '' && $only !== $key) {
+            if ($only !== null && $only !== $key) {
                 continue;
             }
 
@@ -81,6 +84,12 @@ class ImportNewsCommand extends ImportCommand
             $imported++;
         }
 
+        // Skipped on a single-key run: that import sees one article and must never
+        // conclude the rest are orphans.
+        if (! $dryRun && $only === null) {
+            $this->removeOrphans(News::query(), 'key', array_keys($documents));
+        }
+
         if (! $dryRun && $imported > 0) {
             $this->linkRelatedArticles($documents);
             NewsObserver::flush();
@@ -106,7 +115,7 @@ class ImportNewsCommand extends ImportCommand
      */
     protected function checkFileName(string $path, string $key, array $front): void
     {
-        $publishedAt = $this->publishedAt($front['published_at'] ?? null);
+        $publishedAt = $this->date($front['published_at'] ?? null);
 
         if ($publishedAt === null) {
             return;
@@ -150,7 +159,9 @@ class ImportNewsCommand extends ImportCommand
         $news->fill([
             ...$translated,
             'hero_image' => $this->nullableString($primary['hero'] ?? null),
-            'published_at' => $this->publishedAt($primary['published_at'] ?? null),
+            'thumb_image' => $this->nullableString($primary['thumb'] ?? null),
+            'published_at' => $this->date($primary['published_at'] ?? null),
+            'revised_at' => $this->date($primary['updated_at'] ?? null),
             // Defaults to true: an article with a date is live unless it says otherwise.
             'published' => (bool) ($primary['published'] ?? true),
             'author' => $this->nullableString($primary['author_name'] ?? null),
@@ -189,7 +200,7 @@ class ImportNewsCommand extends ImportCommand
         })->first();
     }
 
-    private function publishedAt(mixed $value): ?Carbon
+    private function date(mixed $value): ?Carbon
     {
         if ($value === null || $value === '') {
             return null;
@@ -225,12 +236,7 @@ class ImportNewsCommand extends ImportCommand
 
         $needle = mb_strtolower($this->string($value));
 
-        $match = Contact::all()->first(function (Contact $contact) use ($needle): bool {
-            $icons = $contact->icons;
-            $email = is_array($icons) && isset($icons['email']) ? $this->string($icons['email']) : '';
-
-            return mb_strtolower($email) === $needle || mb_strtolower($contact->name) === $needle;
-        });
+        $match = $this->contactIdsByIdentifier()[$needle] ?? null;
 
         if ($match === null) {
             $this->components->warn(sprintf(
@@ -241,7 +247,34 @@ class ImportNewsCommand extends ImportCommand
             return null;
         }
 
-        return $match->id;
+        return $match;
+    }
+
+    /**
+     * Every contact addressable by name or by the email in its icons, resolved once per
+     * run rather than once per article.
+     *
+     * @return array<string, int>
+     */
+    private function contactIdsByIdentifier(): array
+    {
+        if ($this->contactIds !== null) {
+            return $this->contactIds;
+        }
+
+        $identifiers = [];
+
+        foreach (Contact::all() as $contact) {
+            $email = $this->string(data_get($contact->icons, 'email'));
+
+            if ($email !== '') {
+                $identifiers[mb_strtolower($email)] = $contact->id;
+            }
+
+            $identifiers[mb_strtolower($contact->name)] = $contact->id;
+        }
+
+        return $this->contactIds = $identifiers;
     }
 
     /**

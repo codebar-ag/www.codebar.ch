@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\CookieNameEnum;
 use App\Http\Middleware\PreventRequestForgery;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLanguage;
@@ -22,9 +23,13 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
-        then: function () {}
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Carries no data of its own and has to be readable by the language
+        // suggestion on the start page.
+        $middleware->encryptCookies(except: [
+            CookieNameEnum::ENTRY_REDIRECT->value,
+        ]);
         $middleware->web(append: [
             AddCspHeaders::class,
             AddFeaturePolicyHeaders::class,

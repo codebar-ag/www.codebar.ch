@@ -37,13 +37,18 @@ class MyCspPreset implements Preset
 
         $styleSources = array_filter([
             Keyword::SELF,
-            Keyword::UNSAFE_INLINE,
             $cdnHost ?: null,
         ]);
 
-        $policy->add(Directive::STYLE, $styleSources);
+        // Stylesheets are Vite-built files, never inline <style> blocks, so the element
+        // directive needs no exception. The attribute directive does: roughly fifty
+        // style="…" attributes carry per-instance values (CSS custom properties, the
+        // reading-progress bar, the footer's imported SVG label artwork).
+        $policy->add(Directive::STYLE, [...$styleSources, Keyword::UNSAFE_INLINE]);
 
         $policy->add(Directive::STYLE_ELEM, $styleSources);
+
+        $policy->add(Directive::STYLE_ATTR, Keyword::UNSAFE_INLINE);
 
         $policy->add(Directive::IMG, [
             Keyword::SELF,

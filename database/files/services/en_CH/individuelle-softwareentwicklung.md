@@ -2,9 +2,8 @@
 key: individuelle-softwareentwicklung
 name: 'Individual software development'
 teaser: >-
-  Portals, interfaces, automation: software that quietly does its job in the background. We
-  build with open technologies such as Laravel – and look after your solution long after
-  go-live.
+  Portals, interfaces, automation: software that quietly does its job in the background. Built
+  with open technologies such as Laravel – and looked after for years.
 ---
 
 ## Software that fits your processes

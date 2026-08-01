@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Ai;
 
 use App\Actions\LlmUsageStatsAction;
 use App\Actions\PageAction;
+use App\DTO\LlmUsageFilterDTO;
 use App\Helpers\Facades\HelperDate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,78 +23,78 @@ class AiLlmAnalyticsIndexController extends Controller
     {
         $models = $stats->models();
         $years = $stats->years();
-        $monthOptions = collect(range(1, 12))->mapWithKeys(fn (int $month) => [
-            str_pad((string) $month, 2, '0', STR_PAD_LEFT) => HelperDate::monthName($month),
-        ]);
+        $monthOptions = $this->monthOptions();
+        $hasOtherModels = $stats->hasOtherModels();
 
         $otherLabel = __('components.ai_llm_analytics.filter.other_models');
-        $modelOptions = $stats->hasOtherModels() ? $models->concat([$otherLabel]) : $models;
+        $otherLabel = is_string($otherLabel) ? $otherLabel : LlmUsageStatsAction::OTHER_MODEL;
 
-        $year = $years->first(fn (string $option) => $option === $request->query('year'));
-        $month = $this->resolveMonth($monthOptions, (string) $request->query('month'));
-        $model = $this->resolveModel($models, $otherLabel, (string) $request->query('model'), $stats->hasOtherModels());
+        $filter = LlmUsageFilterDTO::resolve($request, $years, $monthOptions, $models, $otherLabel, $hasOtherModels);
 
-        $breakdown = $stats->monthlyBreakdown($year, $month, $model)->reverse()->values();
+        $breakdown = $stats->monthlyBreakdown($filter->year, $filter->month, $filter->model)->reverse()->values();
 
+        return view('app.ai.llm.analytics')->with([
+            'page' => (new PageAction(locale: null, routeName: 'ai.llm.analytics.index'))->default(),
+            'monthSummary' => $stats->currentMonthSummary($filter->model),
+            'yearSummary' => $stats->currentYearSummary($filter->model),
+            'totalSummary' => $stats->totalSummary($filter->model),
+            'periods' => $this->paginate($breakdown, $filter),
+            'grandTotal' => $this->grandTotal($breakdown),
+            'modelOptions' => $hasOtherModels ? $models->concat([$otherLabel]) : $models,
+            'years' => $years,
+            'monthOptions' => $monthOptions,
+            'year' => $filter->year,
+            'month' => $filter->month,
+            'model' => $filter->model,
+            'modelLabel' => $filter->modelLabel($otherLabel),
+            'lastSyncedAt' => $stats->lastSyncedAt(),
+        ]);
+    }
+
+    /**
+     * @return Collection<string, string>
+     */
+    private function monthOptions(): Collection
+    {
+        return collect(range(1, 12))->mapWithKeys(fn (int $month): array => [
+            str_pad((string) $month, 2, '0', STR_PAD_LEFT) => HelperDate::monthName($month),
+        ]);
+    }
+
+    /**
+     * The breakdown is already one row per month, so it is paginated in memory rather
+     * than re-queried per page.
+     *
+     * @param  Collection<int, array{label: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int}>  $breakdown
+     * @return LengthAwarePaginator<int, array{label: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int}>
+     */
+    private function paginate(Collection $breakdown, LlmUsageFilterDTO $filter): LengthAwarePaginator
+    {
         $page = Paginator::resolveCurrentPage();
 
-        $periods = new LengthAwarePaginator(
+        return new LengthAwarePaginator(
             items: $breakdown->forPage($page, self::PER_PAGE)->values(),
             total: $breakdown->count(),
             perPage: self::PER_PAGE,
             currentPage: $page,
             options: [
                 'path' => Paginator::resolveCurrentPath(),
-                'query' => array_filter(['year' => $year, 'month' => $month, 'model' => $model]),
+                'query' => $filter->toQuery(),
             ],
         );
-
-        return view('app.ai.llm.analytics')->with([
-            'page' => (new PageAction(locale: null, routeName: 'ai.llm.analytics.index'))->default(),
-            'monthSummary' => $stats->currentMonthSummary($model),
-            'yearSummary' => $stats->currentYearSummary($model),
-            'totalSummary' => $stats->totalSummary($model),
-            'periods' => $periods,
-            'grandTotal' => [
-                'prompt_tokens' => $breakdown->sum(fn (array $row): int => $row['prompt_tokens']),
-                'completion_tokens' => $breakdown->sum(fn (array $row): int => $row['completion_tokens']),
-                'total_tokens' => $breakdown->sum(fn (array $row): int => $row['total_tokens']),
-                'requests' => $breakdown->sum(fn (array $row): int => $row['requests']),
-            ],
-            'modelOptions' => $modelOptions,
-            'years' => $years,
-            'monthOptions' => $monthOptions,
-            'year' => $year,
-            'month' => $month,
-            'model' => $model,
-            'modelLabel' => $model === LlmUsageStatsAction::OTHER_MODEL ? $otherLabel : $model,
-            'lastSyncedAt' => $stats->lastSyncedAt(),
-        ]);
     }
 
     /**
-     * @param  Collection<int, string>  $models
+     * @param  Collection<int, array{label: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int}>  $breakdown
+     * @return array<string, int>
      */
-    private function resolveModel(Collection $models, string $otherLabel, string $input, bool $hasOther): ?string
+    private function grandTotal(Collection $breakdown): array
     {
-        if ($hasOther && (strcasecmp($input, $otherLabel) === 0 || strcasecmp($input, LlmUsageStatsAction::OTHER_MODEL) === 0)) {
-            return LlmUsageStatsAction::OTHER_MODEL;
-        }
-
-        return $models->first(fn (string $option) => strcasecmp($option, $input) === 0);
-    }
-
-    /**
-     * @param  Collection<string, string>  $monthOptions
-     */
-    private function resolveMonth(Collection $monthOptions, string $input): ?string
-    {
-        if ($monthOptions->has($input)) {
-            return $input;
-        }
-
-        $key = $monthOptions->search(fn (string $label) => strcasecmp($label, $input) === 0);
-
-        return $key === false ? null : $key;
+        return [
+            'prompt_tokens' => $breakdown->sum(fn (array $row): int => $row['prompt_tokens']),
+            'completion_tokens' => $breakdown->sum(fn (array $row): int => $row['completion_tokens']),
+            'total_tokens' => $breakdown->sum(fn (array $row): int => $row['total_tokens']),
+            'requests' => $breakdown->sum(fn (array $row): int => $row['requests']),
+        ];
     }
 }

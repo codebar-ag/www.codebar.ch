@@ -90,3 +90,19 @@ it('throttles repeated requests', function () {
     post(route('de-ch.network.request.store'), ['email' => 'unknown@example.com'])
         ->assertStatus(429);
 })->group('network');
+
+/**
+ * The only unauthenticated POST on the site. The response is deliberately identical
+ * whether or not the address is registered, so enumeration costs a bot nothing but
+ * requests — the honeypot is what makes those requests unprofitable.
+ */
+it('drops a submission with the honeypot field filled', function () {
+    Bus::fake();
+
+    post(route('de-ch.network.request.store'), [
+        'email' => 'bot@example.com',
+        config()->string('honeypot.name_field_name') => 'i am a bot',
+    ]);
+
+    Bus::assertNotDispatched(SendNetworkManageLinkJob::class);
+})->group('network');

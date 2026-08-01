@@ -45,9 +45,9 @@ class NewsImage
 
     /**
      * The og:image counterpart of an SVG hero. Social crawlers cannot render
-     * SVG, so a same-named PNG rendered from it — see
-     * public/images/news/placeholders/ — is used when one exists; otherwise
-     * the caller falls back to the site default image.
+     * SVG, so a same-named PNG rendered from it — see public/images/news/ and
+     * public/images/services/ — is used when one exists; otherwise the caller
+     * falls back to the site default image.
      */
     public static function ogImage(string $svgReference): ?string
     {
@@ -58,6 +58,19 @@ class NewsImage
         $png = substr($svgReference, 0, -4).'.png';
 
         return is_file(public_path(ltrim($png, '/'))) ? asset(ltrim($png, '/')) : null;
+    }
+
+    public static function crawlable(?string $reference, int $width): ?string
+    {
+        if ($reference === null || trim($reference) === '') {
+            return null;
+        }
+
+        $reference = trim($reference);
+
+        return str_ends_with(strtolower($reference), '.svg')
+            ? self::ogImage($reference)
+            : self::src($reference, $width);
     }
 
     public static function srcset(?string $reference, int $maxWidth): ?string

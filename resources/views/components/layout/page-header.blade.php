@@ -1,18 +1,26 @@
-@props(['title', 'intro' => null, 'page' => null, 'breadcrumbs' => []])
+@props(['title', 'intro' => null, 'page' => null, 'breadcrumbs' => null])
 
 @php
-    // Explicit intro wins; otherwise fall back to the page's SEO description
-    // so every page header carries context without duplicating copy.
     $context = $intro ?? $page?->description;
+    $trail = $breadcrumbs === null ? [['label' => $title]] : $breadcrumbs;
 @endphp
 
-<x-breadcrumbs :items="$breadcrumbs"/>
+<div class="relative left-1/2 w-screen -translate-x-1/2 border-y border-border bg-surface">
+    <div class="mx-auto w-full max-w-frame px-4 py-8 sm:px-6 sm:py-10 lg:px-8 [&>:last-child]:mb-0">
+        <x-breadcrumbs :items="$trail"/>
 
-<x-h1 :title="$title"/>
+        @isset($eyebrow)
+            {{ $eyebrow }}
+        @endisset
 
-@if(filled($context))
-    {{-- One lead treatment for the whole site. Detail pages used to set this
-         semibold and index pages light, so the same slot read as two different
-         things depending on where you had come from. --}}
-    <p class="max-w-3xl text-lead font-light text-gray-800">{{ $context }}</p>
-@endif
+        <x-h1 :title="$title" :class="isset($eyebrow) ? 'mt-4' : ''"/>
+
+        @if(filled($context))
+            <x-layout.lead>{{ $context }}</x-layout.lead>
+        @endif
+
+        @isset($meta)
+            <div class="mt-6">{{ $meta }}</div>
+        @endisset
+    </div>
+</div>

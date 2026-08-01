@@ -3,6 +3,9 @@ import '../css/app.css'
 import Alpine from '@alpinejs/csp'
 import focus from '@alpinejs/focus'
 
+import { introTabs } from './intro-tabs'
+import { languageSuggestion } from './language-suggestion'
+
 window.Alpine = Alpine
 Alpine.plugin(focus)
 
@@ -123,6 +126,10 @@ Alpine.data('combobox', () => ({
     },
 }))
 
+Alpine.data('introTabs', introTabs)
+
+Alpine.data('languageSuggestion', languageSuggestion)
+
 Alpine.data('navigation', () => ({
     open: false,
     toggle() {
@@ -202,15 +209,64 @@ Alpine.data('videoEmbed', () => ({
     },
 }))
 
-Alpine.data('tabs', () => ({
-    active: 0,
+// Copy button on a code block. The button is server-rendered as hidden and only
+// revealed here, so a reader without JavaScript never sees a control that cannot work.
+Alpine.data('codeBlock', () => ({
+    label: '',
+    copied: false,
 
-    select(index) {
-        this.active = index
+    init() {
+        this.label = this.$root.dataset.labelCopy
+        this.$refs.button.hidden = false
     },
 
-    isActive(index) {
-        return this.active === index
+    get stateClass() {
+        return this.copied ? 'is-copied' : ''
+    },
+
+    copy() {
+        const text = this.$refs.code.innerText
+
+        // navigator.clipboard exists only in a secure context, and even there it
+        // rejects when the document is not focused — the hidden-textarea route is
+        // what keeps the button working over plain http and in older Safari.
+        const written = navigator.clipboard
+            ? navigator.clipboard.writeText(text).catch(() => this.writeFallback(text))
+            : Promise.resolve(this.writeFallback(text))
+
+        written.then((ok) => {
+            if (ok === false) return
+            this.confirm()
+        })
+    },
+
+    writeFallback(text) {
+        const field = document.createElement('textarea')
+        field.value = text
+        field.setAttribute('readonly', '')
+        field.style.position = 'fixed'
+        field.style.opacity = '0'
+        document.body.appendChild(field)
+        field.select()
+
+        const ok = document.execCommand('copy')
+        field.remove()
+
+        return ok
+    },
+
+    confirm() {
+        this.copied = true
+        this.label = this.$root.dataset.labelCopied
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() => {
+            this.copied = false
+            this.label = this.$root.dataset.labelCopy
+        }, 2000)
+    },
+
+    destroy() {
+        clearTimeout(this.timeout)
     },
 }))
 

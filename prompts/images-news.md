@@ -1,4 +1,10 @@
-# Generating news hero placeholders
+# Generating news hero placeholders (v1)
+
+> **Superseded by `illustration-news.md`.** New articles get a wordless, hand-authored hero in
+> the illustration family — three files instead of five, no locale suffix, no embedded font.
+> This file stays because `scripts/make-news-hero.py` and the placeholders under
+> `public/images/news/placeholders/` still exist and still work; use it to regenerate an existing
+> v1 hero, not to make a new article's.
 
 Follow this file whenever a news article needs a hero image and no real photograph or
 screenshot exists. The output is a **pair** of files per article — one SVG for the page,
@@ -43,6 +49,10 @@ hero_alt: Platzhaltergrafik zum DocuWare-Release 7.14
 `hero_alt` is real alt text and belongs in that locale's language — the script cannot write
 it for you. `App\Support\NewsImage` resolves the `images/…` prefix as a local path, and
 `NewsImage::ogImage()` swaps `.svg` for `.png` when emitting `og:image`.
+
+An article needs a second graphic on top of this one: the square the news index puts next to
+a list row. It is not a crop of the hero — the crop would cut the title in half — but its own
+file, without any type. See `prompts/images-news-square.md`.
 
 ## 2. The layout
 

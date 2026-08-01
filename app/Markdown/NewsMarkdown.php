@@ -7,12 +7,16 @@ namespace App\Markdown;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use League\CommonMark\Environment\Environment;
+use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
+use Tempest\Highlight\CommonMark\HighlightExtension;
+use Tempest\Highlight\Highlighter;
 
 /**
  * Renders an article body: GitHub-flavoured Markdown plus fenced block directives.
@@ -245,6 +249,22 @@ class NewsMarkdown
         return $items;
     }
 
+    private function openLinksInNewTab(DocumentParsedEvent $event): void
+    {
+        $walker = $event->getDocument()->walker();
+
+        while ($step = $walker->next()) {
+            $node = $step->getNode();
+
+            if (! $step->isEntering() || ! $node instanceof Link) {
+                continue;
+            }
+
+            $node->data->set('attributes/target', '_blank');
+            $node->data->set('attributes/rel', 'noopener noreferrer');
+        }
+    }
+
     private function convert(string $markdown): string
     {
         $environment = (new Environment([
@@ -254,7 +274,16 @@ class NewsMarkdown
             'allow_unsafe_links' => false,
         ]))
             ->addExtension(new CommonMarkCoreExtension)
-            ->addExtension(new GithubFlavoredMarkdownExtension);
+            ->addExtension(new GithubFlavoredMarkdownExtension)
+            // Highlighting happens here, at render time, and emits nothing but
+            // <span class="hl-…"> — no client-side highlighter, no inline styles,
+            // so the code block costs no JavaScript and needs no CSP exception.
+            // The colours of those classes live in resources/css/app.css.
+            ->addExtension(new HighlightExtension(new Highlighter(new CodeTheme)));
+
+        // Every link in an article leaves the article: a reader who follows a source
+        // keeps the text they were reading open behind it.
+        $environment->addEventListener(DocumentParsedEvent::class, $this->openLinksInNewTab(...));
 
         $converter = new MarkdownConverter($environment);
 

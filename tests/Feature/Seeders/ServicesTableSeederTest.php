@@ -36,7 +36,7 @@ it('seeds name, teaser and content per locale', function () {
     $concept = Service::where('slug', 'konzeption-prototyping')->firstOrFail();
 
     expect($concept->getTranslation('name', LocaleEnum::DE->value))->toBe('Konzeption & Prototyping')
-        ->and($concept->getTranslation('teaser', LocaleEnum::DE->value))->toBe('Wir bringen deine Idee aufs Papier – visuell. Mit Mockups und klickbaren Prototypen entsteht früh ein gemeinsames Bild, noch bevor die erste Zeile Code geschrieben ist. Am Ende hältst du ein technisches Konzept in der Hand, inklusive Technologiewahl – als Basis für die Umsetzung, bei uns oder bei anderen.')
+        ->and($concept->getTranslation('teaser', LocaleEnum::DE->value))->toBe('Mockups und klickbare Prototypen schaffen früh ein gemeinsames Bild. Am Ende hältst du ein technisches Konzept in der Hand, inklusive Technologiewahl.')
         ->and($concept->getTranslation('content', LocaleEnum::DE->value))->not->toBeEmpty()
         ->and($concept->getTranslation('name', LocaleEnum::EN->value))->toBe('Concept design & prototyping');
 })->group('services', 'seeders');

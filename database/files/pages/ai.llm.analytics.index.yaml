@@ -1,5 +1,6 @@
 key: ai.llm.analytics.index
 robots: index,follow
+image: images/pages/ai.llm.analytics.index.svg
 title:
   de_CH: 'LLM-Nutzungsstatistik – codebar Solutions AG'
   en_CH: 'LLM Usage Analytics – codebar Solutions AG'

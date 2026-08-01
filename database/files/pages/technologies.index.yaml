@@ -1,5 +1,6 @@
 key: technologies.index
 robots: index,follow
+image: images/pages/technologies.index.svg
 title:
   de_CH: 'Offene Technologien & Standards – codebar Solutions AG'
   en_CH: 'Open Technologies & Standards – codebar Solutions AG'

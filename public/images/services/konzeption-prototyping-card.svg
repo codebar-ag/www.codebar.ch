@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 344 344" width="344" height="344" fill="none" role="img" aria-hidden="true">
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+
+        <path id="s1" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s2" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s3" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+    </defs>
+
+    <rect x="40" y="24" width="170" height="118" rx="9" fill="#09090b" opacity="0.3"/>
+    <rect x="30" y="14" width="170" height="118" rx="9" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <g stroke="#09090b" stroke-width="1.8" stroke-linejoin="round">
+        <rect x="44" y="30" width="142" height="16" rx="4" fill="#ffffff"/>
+        <rect x="44" y="56" width="142" height="44" rx="5" fill="#ffffff"/>
+        <path d="M44 56l142 44M186 56L44 100" data-detail="image placeholder cross" stroke-width="1.4" opacity="0.32"/>
+    </g>
+    <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none">
+        <use href="#s3" x="44" y="116"/><use href="#s2" x="82" y="116"/>
+    </g>
+
+    <path d="M238 30v54l13-14 10 21 11-6-10-20 19-3Z" fill="url(#accent)"/>
+
+    <g stroke="#09090b" stroke-width="2.2" fill="#09090b">
+        <path d="M150 152v14" stroke-linecap="round"/>
+        <path d="M150 178l-9-14h18Z" stroke="none"/>
+    </g>
+
+    <rect x="26" y="200" width="212" height="118" rx="11" fill="#09090b" opacity="0.3"/>
+    <rect x="16" y="190" width="212" height="118" rx="11" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <path d="M16 214h212" data-detail="browser chrome rule" stroke="#09090b" stroke-width="2.4"/>
+    <g fill="#09090b" opacity="0.25">
+        <circle cx="30" cy="202" r="3.4"/><circle cx="41" cy="202" r="3.4"/><circle cx="52" cy="202" r="3.4"/>
+    </g>
+    <rect x="30" y="226" width="150" height="42" rx="6" fill="url(#accent)" opacity="0.14"/>
+    <g stroke="#500472" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.65">
+        <use href="#s2" x="42" y="242"/><use href="#s1" x="72" y="242"/>
+        <use href="#s3" x="42" y="258"/>
+    </g>
+    <rect x="30" y="280" width="66" height="22" rx="11" fill="url(#accent)"/>
+    <use href="#s2" x="42" y="291" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <rect x="106" y="280" width="60" height="22" rx="6" fill="#ffffff" stroke="#09090b" stroke-width="1.6"/>
+    <use href="#s2" x="118" y="291" stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+
+    <rect x="250" y="208" width="66" height="112" rx="13" fill="#09090b" opacity="0.3"/>
+    <rect x="240" y="198" width="66" height="112" rx="13" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <rect x="262" y="206" width="22" height="5" rx="2.5" fill="#09090b" opacity="0.25"/>
+    <rect x="248" y="220" width="50" height="34" rx="5" fill="url(#accent)" opacity="0.14"/>
+    <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none">
+        <use href="#s3" x="248" y="268"/>
+        <use href="#s2" x="248" y="282"/>
+    </g>
+    <rect x="248" y="292" width="40" height="14" rx="7" fill="url(#accent)"/>
+</svg>

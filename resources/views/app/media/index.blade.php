@@ -4,7 +4,7 @@
     <x-layout.section>
         <x-h2 :title="__('Logos')"/>
 
-        <x-layout.grid :cols="2" gap="gap-6" class="mt-4">
+        <x-layout.grid :cols="2" gap="gap-6">
             @foreach($logos as $logo)
                 <x-card.download-card
                         :label="$logo['label']"
@@ -20,7 +20,7 @@
 
     <x-layout.section>
         <x-h2 :title="__('Media usage')"/>
-        <x-ui.prose class="mt-4">
+        <x-ui.prose>
             <p>{{ __('Media usage allowed') }}</p>
             <p>{{ __('Media usage forbidden') }}</p>
         </x-ui.prose>

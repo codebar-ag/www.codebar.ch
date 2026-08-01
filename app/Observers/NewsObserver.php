@@ -6,8 +6,8 @@ namespace App\Observers;
 
 use App\Enums\CacheKeyEnum;
 use App\Models\News;
+use App\Support\ResponseCacheFlusher;
 use Illuminate\Support\Facades\Cache;
-use Spatie\ResponseCache\Facades\ResponseCache;
 
 /**
  * The published-news list is cached forever per locale and the rendered HTML is cached
@@ -32,6 +32,6 @@ class NewsObserver
             Cache::forget($key);
         }
 
-        ResponseCache::clear();
+        ResponseCacheFlusher::flush();
     }
 }

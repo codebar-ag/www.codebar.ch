@@ -1,5 +1,6 @@
 key: ai.llm.index
 robots: index,follow
+image: images/pages/ai.llm.index.svg
 title:
   de_CH: 'Unsere lokalen LLMs im Einsatz – codebar Solutions AG'
   en_CH: 'Our Local LLMs in Action – codebar Solutions AG'

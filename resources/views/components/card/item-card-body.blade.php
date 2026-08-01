@@ -11,9 +11,10 @@
         <div class="text-muted">{{ $teaser }}</div>
     @endif
 
-    {{-- Topic and date share one caption line, the same order the news card uses,
-         so the latest-news block and the news index read as one thing. Rows without
-         a date — services, products, technologies — keep the bare tag list. --}}
+    {{-- Topic and date share one caption line. Rows without a date — services,
+         products, technologies — keep the bare tag list. The latest-news block used
+         to be one of these rows; it renders x-news.card now, so that the start page
+         and the news index cannot drift apart. --}}
     @if(filled($tags) || $publishedAt)
         <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-muted">
             <x-data.tag-list :tags="$tags"/>

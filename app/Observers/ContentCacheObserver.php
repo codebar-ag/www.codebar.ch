@@ -10,9 +10,9 @@ use App\Models\OpenSource;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Technology;
+use App\Support\ResponseCacheFlusher;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use Spatie\ResponseCache\Facades\ResponseCache;
 
 /**
  * Drops the cached listing of a content type whenever one of its rows changes.
@@ -43,7 +43,7 @@ class ContentCacheObserver
             Cache::forget($key);
         }
 
-        ResponseCache::clear();
+        ResponseCacheFlusher::flush();
     }
 
     /**

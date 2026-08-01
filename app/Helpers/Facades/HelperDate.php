@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static string formatDateTime(Carbon $date, string|null $locale = null)
  * @method static string formatDate(Carbon $date)
+ * @method static string monthLabel(string $yearMonth)
+ * @method static string monthName(int $month)
  */
 class HelperDate extends Facade
 {

@@ -5,7 +5,9 @@ image: 'https://res.cloudinary.com/codebar/image/upload/c_scale,dpr_2.0,f_auto,q
 tags: []
 name: Flows
 headline: 'Dokumentenprozesse, gesteuert von Agenten. Auf Infrastruktur, die du kontrollierst.'
-teaser: 'Flows ist eine Orchestrierungsplattform für dokumentenbasierte Prozesse — verbinde dein DMS und lass KI-Agenten Dokumente automatisch extrahieren, validieren und verarbeiten.'
+teaser: >-
+  Flows ist eine Orchestrierungsplattform für dokumentenbasierte Prozesse: Verbinde dein DMS und
+  lass KI-Agenten Dokumente extrahieren und validieren.
 features_heading: 'Orchestrierte Agenten-Workflows – extrahieren, verstehen, validieren, zurückschreiben.'
 features_intro: 'Flows verbindet sich mit deinem bestehenden DMS. Keine Migration; dein Archiv bleibt, wo es ist. Darauf konfigurierst du Workflows, die auslösen, sobald ein Dokument eintrifft.'
 features:

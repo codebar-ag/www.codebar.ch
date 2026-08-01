@@ -5,22 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Network;
 
 use App\Actions\PageAction;
+use App\Actions\ViewDataAction;
 use App\Enums\NetworkCategoryEnum;
 use App\Http\Controllers\Controller;
-use App\Models\Network;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class NetworkIndexController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke(ViewDataAction $viewData): View
     {
-        $networks = Network::query()
-            ->published()
-            ->active()
-            ->with('publishedUsers')
-            ->orderBy('sort')
-            ->get();
+        $networks = $viewData->networks();
 
         $groups = collect(NetworkCategoryEnum::cases())
             ->mapWithKeys(fn (NetworkCategoryEnum $category): array => [

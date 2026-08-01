@@ -2,9 +2,8 @@
 key: dms-ecm-consulting
 name: 'DMS/ECM'
 teaser: >-
-  From paper to a paperless office – and on to automation: as a DocuWare Silver & Cloud
-  Partner, we digitise your documents and turn processes into workflows. From one-person
-  businesses to corporations with more than 200 users.
+  From paper to a paperless office and on to automation: as a DocuWare Silver & Cloud Partner,
+  we digitise documents and turn processes into workflows.
 ---
 
 ## Document management that works in everyday business

@@ -4,13 +4,24 @@ declare(strict_types=1);
 
 return [
     'intro' => [
-        'title' => 'Innovative Ideen zum Leben erwecken',
+        'title' => 'Schön, bist du da',
+        'window' => 'Wir sind codebar',
+        'legend' => 'Was möchtest du über uns wissen?',
+        'shortcuts' => 'Abschnitt wechseln: Zifferntasten 1 bis 3 oder die Pfeiltasten links und rechts.',
+        'prev_section' => 'Vorheriger Abschnitt',
+        'next_section' => 'Nächster Abschnitt',
+        'next' => 'weiter: :title',
+        'cta' => 'erzähl uns von deinem Projekt',
         'who_we_are' => [
             'title' => 'Wer wir sind',
+            'command' => 'wer-wir-sind',
+            'teaser' => 'Wer wir sind und wie wir denken.',
             'text' => 'Wir sind codebar – ein kleines Team aus der Region Basel. Wir erwecken Ideen zum Leben: von der ersten Skizze bis zur Software im täglichen Einsatz. Dabei verstehen wir uns als Bindeglied zwischen Business und Technik – wir hören zu, denken wirtschaftlich mit und bauen auf offene Technologien.',
         ],
         'what_we_do' => [
             'title' => 'Was wir machen',
+            'command' => 'was-wir-machen',
+            'teaser' => 'Vier Bereiche, ein Weg.',
             'text' => 'Unsere Arbeit deckt den ganzen Weg einer digitalen Lösung ab:',
             'items' => [
                 '<b>Konzeption</b> – wir schärfen deine Anforderungen und machen Ideen mit klickbaren Prototypen früh greifbar.',
@@ -21,6 +32,8 @@ return [
         ],
         'how_we_work' => [
             'title' => 'Wie wir arbeiten',
+            'command' => 'wie-wir-arbeiten',
+            'teaser' => 'Zuhören, ehrlich rechnen, umsetzen.',
             'text' => 'Am Anfang hören wir dir zu. Denn eine gute Lösung beginnt damit, das Problem zu verstehen – und ehrlich zu prüfen, ob sie sich für dich rechnet. Danach entwickeln wir gemeinsam ein Konzept, das sich nach deinen Prozessen richtet und nach den Menschen, die täglich damit arbeiten. Liegt die Umsetzung in unserer Expertise, begleiten wir dich bis in den Betrieb. Wenn nicht, sagen wir es offen – und freuen uns, wenn andere unsere Pläne verwirklichen.',
         ],
     ],
@@ -35,7 +48,7 @@ return [
         'contact' => 'Lass uns sprechen.',
     ],
     'services' => [
-        'header' => 'Vier Bereiche, ein Weg: von der ersten Idee bis zum laufenden Betrieb.',
+        'header' => 'Vier Bereiche, ein Weg: von der ersten Idee über Konzept und Umsetzung bis zum Betrieb, den wir langfristig begleiten.',
     ],
     'team' => [
         'header' => 'Klein aus Überzeugung: Bei uns arbeitest du direkt mit den Menschen, die deine Lösung verstehen – und bauen.',
@@ -44,7 +57,7 @@ return [
         'learning_body' => 'Ausbildung und Wissenstransfer gehören für uns dazu. Wir geben Wissen im Team weiter, statt es auf einzelnen Köpfen liegen zu lassen – das hält Projekte unabhängig von einzelnen Personen und uns als Team lernfähig.',
     ],
     'contact' => [
-        'header' => 'Du hast eine Idee oder ein Projekt? Erzähl uns davon – wir hören zu.',
+        'header' => 'Du hast eine Idee, ein Projekt oder einfach eine Frage? Erzähl uns davon – wir hören zu und melden uns umgehend zurück.',
     ],
     'contact_cta' => [
         'title' => 'Interessiert?',
@@ -52,7 +65,7 @@ return [
     ],
     'ai' => [
         'title' => 'KI bei codebar',
-        'intro' => 'Wir stehen bei KI am Anfang – und zeigen offen, was bei uns bereits läuft: lokale Open-Source-Modelle auf eigener Infrastruktur.',
+        'intro' => 'Wir stehen bei KI am Anfang – und zeigen offen, was bereits läuft: lokale Open-Source-Modelle auf eigener Infrastruktur.',
         'llm_teaser' => 'Seit ein paar Monaten arbeiten wir uns in das Thema ein, Use Case für Use Case. Hier dokumentieren wir laufend, welche Modelle wir einsetzen – und wie intensiv.',
         'to_models' => 'Zu den Modellen',
         'to_analytics' => 'Zur Nutzungsstatistik',
@@ -68,7 +81,7 @@ return [
     ],
     'ai_llm_analytics' => [
         'title' => 'LLM-Nutzungsstatistik',
-        'intro' => 'Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle – pro Monat und Modell.',
+        'intro' => 'Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle – pro Monat und Modell, laufend aktualisiert.',
         'filter' => [
             'year_label' => 'Jahr',
             'all_years' => 'Alle Jahre',
@@ -94,7 +107,7 @@ return [
     ],
     'ai_llm' => [
         'title' => 'Unsere lokalen LLMs im Einsatz',
-        'intro' => 'Auf diese lokalen Open-Source-Modelle setzen wir aktuell. Wir decken so viel wie möglich unserer KI-Arbeit mit lokalen Modellen ab – alle laufen auf eigener Infrastruktur, im hauseigenen Bürokeller.',
+        'intro' => 'Auf diese lokalen Open-Source-Modelle setzen wir aktuell – alle laufen auf eigener Infrastruktur im hauseigenen Bürokeller.',
         'categories' => [
             'reasoning_coding' => [
                 'title' => 'Reasoning & Coding',
@@ -162,5 +175,11 @@ return [
                 'replaced_by' => 'Abgelöst durch',
             ],
         ],
+    ],
+
+    'language_suggestion' => [
+        'message' => 'Diese Seite gibt es auch auf Deutsch.',
+        'action' => 'Auf Deutsch wechseln',
+        'dismiss' => 'Hinweis schliessen',
     ],
 ];

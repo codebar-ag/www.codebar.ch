@@ -6,7 +6,7 @@ provider: 'Alibaba / Qwen (CN)'
 ram: '20 GB RAM'
 license: Apache-2.0
 role:
-  de: 'Detailliertes Bildverständnis: Screenshots, Diagramme, Belege'
-  en: 'Detailed image understanding: screenshots, diagrams, receipts'
+  de_CH: 'Detailliertes Bildverständnis: Screenshots, Diagramme, Belege'
+  en_CH: 'Detailed image understanding: screenshots, diagrams, receipts'
 link_label: Ollama
 link_url: 'https://ollama.com/library/qwen3-vl'

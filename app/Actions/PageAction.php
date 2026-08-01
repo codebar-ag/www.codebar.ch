@@ -68,7 +68,7 @@ class PageAction
             title: $this->translatedString($news->getTranslation('title', $locale)),
             description: $this->translatedString($news->getTranslation('teaser', $locale)),
             image: $news->hero_image,
-            lastModificationDate: Carbon::parse($news->updated_at ?? now()),
+            lastModificationDate: Carbon::parse($news->revised_at ?? $news->published_at ?? $news->updated_at ?? now()),
             routeParameters: LocalizedRouteParameters::for(['locale' => $locale, 'news' => $news], $locale),
             referencePages: $withReferences ? $this->alternateLocalePages($news, $locale, fn (News $n, string $l) => $this->news($n, false, $l)) : null,
             publishedAt: $news->published_at !== null ? Carbon::parse($news->published_at) : null,

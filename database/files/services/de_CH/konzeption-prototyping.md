@@ -2,12 +2,11 @@
 key: konzeption-prototyping
 name: 'Konzeption & Prototyping'
 teaser: >-
-  Wir bringen deine Idee aufs Papier – visuell. Mit Mockups und klickbaren Prototypen entsteht
-  früh ein gemeinsames Bild, noch bevor die erste Zeile Code geschrieben ist. Am Ende hältst
-  du ein technisches Konzept in der Hand, inklusive Technologiewahl – als Basis für die
-  Umsetzung, bei uns oder bei anderen.
+  Mockups und klickbare Prototypen schaffen früh ein gemeinsames Bild. Am Ende hältst du ein
+  technisches Konzept in der Hand, inklusive Technologiewahl.
 order: 1
 published: true
+image: images/services/konzeption-prototyping.svg
 group: services
 tags: [Requirements Engineering, Prototyping, UX]
 ---

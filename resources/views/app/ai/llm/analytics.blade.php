@@ -55,13 +55,13 @@
     @endif
 
     @if ($lastSyncedAt)
-        <x-layout.section class="mt-4 text-xs text-muted">
+        <div class="mt-4 text-xs text-muted">
             <p>
                 {{ __('components.ai_llm_analytics.last_synced', [
                     'datetime' => \App\Helpers\Facades\HelperDate::formatDateTime($lastSyncedAt),
                 ]) }}
             </p>
-        </x-layout.section>
+        </div>
     @endif
 
     @if ($periods->isEmpty())
@@ -72,46 +72,43 @@
         <x-layout.section>
             <x-ui.panel class="px-6 pt-6 pb-4">
                 <x-h2 :title="__('components.ai_llm_analytics.table.title')"/>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <caption class="sr-only">{{ __('components.ai_llm_analytics.table.title') }}</caption>
-                        <thead>
-                        <tr class="text-left text-gray-500 border-b border-border">
-                            <th scope="col" class="py-2 pr-4 font-medium">{{ __('components.ai_llm_analytics.table.period') }}</th>
-                            <th scope="col" class="hidden sm:table-cell py-2 pr-4 font-medium text-right">{{ __('components.ai_llm_analytics.table.prompt_tokens') }}</th>
-                            <th scope="col" class="hidden sm:table-cell py-2 pr-4 font-medium text-right">{{ __('components.ai_llm_analytics.table.completion_tokens') }}</th>
-                            <th scope="col" class="py-2 pr-4 font-medium text-right">{{ __('components.ai_llm_analytics.table.total_tokens') }}</th>
-                            <th scope="col" class="py-2 font-medium text-right">{{ __('components.ai_llm_analytics.table.requests') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($periods as $row)
-                            <tr class="border-b border-border-soft text-gray-800">
-                                <td class="py-2 pr-4 whitespace-nowrap">{{ \App\Helpers\Facades\HelperDate::monthLabel($row['label']) }}</td>
-                                <td class="hidden sm:table-cell py-2 pr-4 text-right">{{ \App\Helpers\Facades\HelperNumber::format($row['prompt_tokens'], 0) }}</td>
-                                <td class="hidden sm:table-cell py-2 pr-4 text-right">{{ \App\Helpers\Facades\HelperNumber::format($row['completion_tokens'], 0) }}</td>
-                                <td class="py-2 pr-4 text-right">{{ \App\Helpers\Facades\HelperNumber::format($row['total_tokens'], 0) }}</td>
-                                <td class="py-2 text-right">{{ \App\Helpers\Facades\HelperNumber::format($row['requests'], 0) }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                        <tfoot>
-                        <tr class="text-gray-800 font-semibold">
-                            <td class="py-2 pr-4">{{ __('components.ai_llm_analytics.table.total') }}</td>
-                            <td class="hidden sm:table-cell py-2 pr-4 text-right">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['prompt_tokens'], 0) }}</td>
-                            <td class="hidden sm:table-cell py-2 pr-4 text-right">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['completion_tokens'], 0) }}</td>
-                            <td class="py-2 pr-4 text-right">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['total_tokens'], 0) }}</td>
-                            <td class="py-2 text-right">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['requests'], 0) }}</td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                <x-ui.table :caption="__('components.ai_llm_analytics.table.title')">
+                    <thead>
+                    <x-ui.table.row variant="head">
+                        <x-ui.table.cell as="th" scope="col">{{ __('components.ai_llm_analytics.table.period') }}</x-ui.table.cell>
+                        <x-ui.table.cell as="th" scope="col" align="end" :hide="true">{{ __('components.ai_llm_analytics.table.prompt_tokens') }}</x-ui.table.cell>
+                        <x-ui.table.cell as="th" scope="col" align="end" :hide="true">{{ __('components.ai_llm_analytics.table.completion_tokens') }}</x-ui.table.cell>
+                        <x-ui.table.cell as="th" scope="col" align="end">{{ __('components.ai_llm_analytics.table.total_tokens') }}</x-ui.table.cell>
+                        <x-ui.table.cell as="th" scope="col" align="end">{{ __('components.ai_llm_analytics.table.requests') }}</x-ui.table.cell>
+                    </x-ui.table.row>
+                    </thead>
+                    <tbody>
+                    @foreach ($periods as $row)
+                        <x-ui.table.row>
+                            <x-ui.table.cell class="whitespace-nowrap">{{ \App\Helpers\Facades\HelperDate::monthLabel($row['label']) }}</x-ui.table.cell>
+                            <x-ui.table.cell align="end" :hide="true">{{ \App\Helpers\Facades\HelperNumber::format($row['prompt_tokens'], 0) }}</x-ui.table.cell>
+                            <x-ui.table.cell align="end" :hide="true">{{ \App\Helpers\Facades\HelperNumber::format($row['completion_tokens'], 0) }}</x-ui.table.cell>
+                            <x-ui.table.cell align="end">{{ \App\Helpers\Facades\HelperNumber::format($row['total_tokens'], 0) }}</x-ui.table.cell>
+                            <x-ui.table.cell align="end">{{ \App\Helpers\Facades\HelperNumber::format($row['requests'], 0) }}</x-ui.table.cell>
+                        </x-ui.table.row>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <x-ui.table.row variant="foot">
+                        <x-ui.table.cell>{{ __('components.ai_llm_analytics.table.total') }}</x-ui.table.cell>
+                        <x-ui.table.cell align="end" :hide="true">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['prompt_tokens'], 0) }}</x-ui.table.cell>
+                        <x-ui.table.cell align="end" :hide="true">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['completion_tokens'], 0) }}</x-ui.table.cell>
+                        <x-ui.table.cell align="end">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['total_tokens'], 0) }}</x-ui.table.cell>
+                        <x-ui.table.cell align="end">{{ \App\Helpers\Facades\HelperNumber::format($grandTotal['requests'], 0) }}</x-ui.table.cell>
+                    </x-ui.table.row>
+                    </tfoot>
+                </x-ui.table>
             </x-ui.panel>
         </x-layout.section>
 
         @if ($periods->hasPages())
             <x-layout.section>
-                {{ $periods->onEachSide(1)->links() }}
+                <x-ui.pagination :paginator="$periods->onEachSide(1)"/>
             </x-layout.section>
         @endif
     @endif

@@ -1,17 +1,32 @@
-<x-app-layout :page="$page" :schema="$schema">
+<x-app-layout :page="$page" :schema="$schema" :preconnect-cloudinary="(bool) $contactPerson">
     <x-layout.page-header :title="__('Contact')" :intro="__('components.contact.header')"/>
 
-    <x-layout.section class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
-        <div>
-            <x-h2 :title="__('Phone')"/>
-            <x-ui.link href="tel:{{ config('company.phone.e164') }}" label="{{ __('+41 61 515 60 90') }}" class="block"/>
+    <x-layout.section>
+        <x-h2 :title="__('How to reach us')"/>
+
+        <div class="flex flex-col gap-3 sm:flex-row">
+            <x-ui.button :href="'tel:' . config('company.phone.e164')" size="lg" :title="__('Contact Phone number')">
+                <x-icon.phone/>
+                {{ config('company.phone.display') }}
+            </x-ui.button>
+
+            <x-ui.button :href="'mailto:' . config('company.email') . '?subject=Hello%20World!'" variant="outline"
+                         size="lg" :title="__('Contact email address')">
+                <x-icon.email/>
+                {{ config('company.email') }}
+            </x-ui.button>
         </div>
-        <div>
-            <x-h2 :title="__('Email')"/>
-            <x-ui.link href="mailto:{{ config('company.email') }}?subject=Hello%20World!"
-                       label="{{ __('info(at)codebar.ch') }}"
-                       class="block"/>
-        </div>
+
+        @if($contactPerson)
+            <div class="mt-8 max-w-md">
+                <x-h2 :title="__('Your contact person')"/>
+                <x-card.person-card
+                        :name="$contactPerson->name"
+                        :role="$contactPerson->role"
+                        :icons="$contactPerson->icons"
+                        :image="$contactPerson->image"/>
+            </div>
+        @endif
     </x-layout.section>
 
     <x-layout.section>

@@ -2,11 +2,11 @@
 key: dms-ecm-consulting
 name: 'DMS/ECM'
 teaser: >-
-  Vom Papier zum papierlosen Büro – und weiter zur Automatisierung: Als DocuWare Silver &
-  Cloud Partner digitalisieren wir deine Dokumente und bilden Prozesse in Workflows ab. Vom
-  Einzelunternehmen bis zum Konzern mit über 200 Nutzer:innen.
+  Vom Papier zum papierlosen Büro und weiter zur Automatisierung: Als DocuWare Silver & Cloud
+  Partner digitalisieren wir Dokumente und bilden Prozesse ab.
 order: 3
 published: true
+image: images/services/dms-ecm-consulting.svg
 group: services
 tags: [DocuWare, Dokumentenmanagement, Workflows]
 ---

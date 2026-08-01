@@ -6,7 +6,7 @@ provider: 'Alibaba / Qwen (CN)'
 ram: '23 GB RAM'
 license: Apache-2.0
 role:
-  de: Reserve-Mittelklasse
-  en: Mid-range reserve
+  de_CH: Reserve-Mittelklasse
+  en_CH: Mid-range reserve
 link_label: Ollama
 link_url: 'https://ollama.com/library/qwen3.6'

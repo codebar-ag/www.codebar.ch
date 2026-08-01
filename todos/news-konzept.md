@@ -81,6 +81,7 @@ Entscheidung entfernt worden. Was von wo kommt:
 + series_position smallint?
 + featured        bool, default false          (Leitartikel auf Übersicht/Startseite)
 + reading_minutes smallint?                    (beim Import berechnet, nicht live)
++ revised_at      datetime?                    (redaktionelles Änderungsdatum, aus dem Front-Matter-Feld `updated_at`)
 ~ author          bleibt als Fallback für Artikel ohne contacts-Verknüpfung
 - image           entfällt zugunsten hero_image (Migration überträgt bestehende Werte)
 ```
@@ -88,6 +89,12 @@ Entscheidung entfernt worden. Was von wo kommt:
 **Veröffentlichung** braucht beides: ein `published_at`-Datum **und** `published = true`.
 Die Trennung existiert, damit ein Artikel offline genommen werden kann, ohne sein
 Publikationsdatum zu verlieren — nach diesem Datum wird sortiert und es steht im Artikelkopf.
+
+**Überarbeitung** kommt aus dem optionalen Front-Matter-Feld `updated_at` und landet in der
+Spalte `revised_at`. Bewusst nicht Eloquents `updated_at`: die Spalte bewegt sich bei jedem
+`news:import` und würde eine Überarbeitung behaupten, die nie stattgefunden hat. Ist das Feld
+gesetzt, zeigt der Artikelkopf beide Daten («Veröffentlicht am … · Aktualisiert am …») und
+`dateModified` im JSON-LD folgt ihm; ohne Feld steht dort nur das Publikationsdatum.
 
 Zum Ausblenden also `published: false` ins Front-Matter schreiben und `news:import` laufen
 lassen. Der Artikel verschwindet dann aus Übersicht, Startseite, Sitemap, Serien-Navigation
@@ -181,7 +188,8 @@ Exit-Code 1 — ein halb übersetztes Paar würde ein hreflang-Paar erzeugen, da
 Artikel verbindet.
 
 Front-Matter-Felder: `key` (sprachübergreifende Klammer, Pflicht), `slug`, `title`, `teaser`,
-`published_at`, `published` (Standard `true`), `author` (contacts-ID oder E-Mail),
+`published_at`, `updated_at` (optional, redaktionelle Überarbeitung → `revised_at`),
+`published` (Standard `true`), `author` (contacts-ID oder E-Mail),
 `author_name` (Fallback ohne Verknüpfung), `hero`, `hero_alt`, `hero_caption`, `series`,
 `series_position`, `series_title`, `tags`, `featured`, `related` (Liste von `key`s).
 
