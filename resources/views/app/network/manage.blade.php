@@ -1,7 +1,7 @@
 <x-app-layout :page="$page">
     <x-layout.page-header
             :title="__('Manage my profile')"
-            :intro="__('Use this link to update your own profile. For anything else, please contact codebar.')"
+            :intro="__('Use this link to update your own network profile. For any other change, please get in touch with codebar directly.')"
             :breadcrumbs="[
                 ['label' => __('Network'), 'url' => localized_route('network.index')],
                 ['label' => __('Manage my profile')],
@@ -35,7 +35,6 @@
 
                 <x-form.field name="published" :label="__('Published')"
                               :help="__('Visible in the public network directory.')">
-                    {{-- The whole row is the target, so the 44px comes from the label. --}}
                     <label for="published" class="inline-flex min-h-control cursor-pointer items-center gap-2">
                         <input type="hidden" name="published" value="0">
                         <input type="checkbox" id="published" name="published" value="1"
@@ -48,7 +47,7 @@
                 <x-form.field name="public_email" :label="__('Public email')"
                               :help="__('Shown publicly on the network page. Leave empty to hide it.')">
                     <x-form.input name="public_email" type="email" :value="$networkUser->public_email"
-                                  :placeholder="$networkUser->email" described-by="public_email-help"/>
+                                  :placeholder="$networkUser->email"/>
                 </x-form.field>
 
                 <x-form.field name="name" :label="__('Name')">
@@ -67,7 +66,6 @@
                 <div class="space-y-6 border-t border-border-soft pt-6">
                     <x-h3 :title="__('Avatar')"/>
 
-                    {{-- Read-only, so no <label>: there is no control to label. --}}
                     <div class="space-y-1.5">
                         <p class="text-sm font-medium text-gray-800">{{ __('Avatar URL') }}</p>
                         @if($networkUser->avatar_url)
@@ -83,7 +81,8 @@
                         <p class="text-sm text-muted">{{ __('The avatar is a raw upload — please convert it to Cloudinary.') }}</p>
                     @else
                         <x-form.field name="avatar" :label="__('Upload')">
-                            <x-form.file name="avatar" accept="image/jpeg,image/png,image/webp,image/avif"/>
+                            <x-form.file name="avatar" accept="image/jpeg,image/png,image/webp,image/avif"
+                                         described-by="avatar-help"/>
 
                             <x-slot:help>
                                 {{ __('JPG, PNG, WebP or AVIF, 1:1, max. 2 MB.') }}
@@ -108,7 +107,6 @@
                 <div class="space-y-6 border-t border-border-soft pt-6">
                     <x-h3 :title="__('Company image')"/>
 
-                    {{-- Read-only, so no <label>: there is no control to label. --}}
                     <div class="space-y-1.5">
                         <p class="text-sm font-medium text-gray-800">{{ __('Cover URL') }}</p>
                         @if($network?->cover_url)
@@ -128,7 +126,8 @@
                         <p class="text-sm text-muted">{{ __('The company image is a raw upload — please convert it to Cloudinary.') }}</p>
                     @else
                         <x-form.field name="cover" :label="__('Upload')">
-                            <x-form.file name="cover" accept="image/jpeg,image/png,image/webp,image/avif"/>
+                            <x-form.file name="cover" accept="image/jpeg,image/png,image/webp,image/avif"
+                                         described-by="cover-help"/>
 
                             <x-slot:help>
                                 {{ __('JPG, PNG, WebP or AVIF, 3:1, max. 4 MB.') }}

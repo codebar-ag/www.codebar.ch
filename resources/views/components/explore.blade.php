@@ -8,7 +8,7 @@
 <x-layout.section>
     <x-h2 :title="__('components.explore.title')"/>
 
-    <x-layout.grid class="mt-4">
+    <x-layout.grid>
         @foreach ($cards as $card)
             <x-card.nav-card :url="localized_route($card['route'])" :label="$card['label']" :teaser="$card['teaser']"/>
         @endforeach

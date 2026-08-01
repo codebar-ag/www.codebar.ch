@@ -1,7 +1,7 @@
 <div class="my-2 flex flex-col items-center gap-6 md:flex-row md:justify-start">
     <a target="_blank" rel="noopener noreferrer" href="https://www.swissmadesoftware.org/en/about/swiss-made-software.html"
        title="{{ __('Swiss Made Software') }}" aria-label="{{ __('Swiss Made Software') }}"
-       class="inline-flex min-h-control items-center rounded-pill focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:min-h-0">
+       class="inline-flex tap-target items-center rounded-pill focus-ring">
         <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 370.39999 68.026665"
              class="h-8 w-auto"
@@ -134,7 +134,7 @@
     </a>
     <a target="_blank" rel="noopener noreferrer" href="https://www.swissmadesoftware.org/en/about/swiss-digital-services.html"
        title="{{ __('Swiss Digital Services') }}" aria-label="{{ __('Swiss Digital Services') }}"
-       class="inline-flex min-h-control items-center rounded-pill focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:min-h-0">
+       class="inline-flex tap-target items-center rounded-pill focus-ring">
         <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 370.39999 68.026665"
              class="h-8 w-auto"

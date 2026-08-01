@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 344 344" width="344" height="344" fill="none" role="img" aria-hidden="true">
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+
+        <path id="s1" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s2" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s3" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+    </defs>
+
+    <g transform="translate(14 16) rotate(-7 47 26)">
+        <rect x="6" y="6" width="94" height="52" rx="7" fill="#09090b" opacity="0.3"/>
+        <rect width="94" height="52" rx="7" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+        <rect x="10" y="12" width="5" height="28" rx="2.5" fill="#09090b"/>
+        <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none">
+            <use href="#s3" x="24" y="22"/><use href="#s1" x="63" y="22"/>
+            <use href="#s2" x="24" y="38"/>
+        </g>
+    </g>
+
+    <g transform="translate(164 8) rotate(6 60 38)">
+        <rect x="6" y="6" width="120" height="76" rx="7" fill="#09090b" opacity="0.3"/>
+        <rect width="120" height="76" rx="7" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M18 14v50" data-detail="block divider" stroke="#09090b" stroke-width="1.6" opacity="0.4"/>
+        <g fill="#09090b" opacity="0.55">
+            <rect x="28" y="16" width="32" height="6" rx="3"/>
+            <rect x="36" y="30" width="24" height="6" rx="3"/>
+            <rect x="82" y="44" width="18" height="6" rx="3"/>
+        </g>
+        <g fill="#09090b" opacity="0.3">
+            <rect x="66" y="16" width="20" height="6" rx="3"/>
+            <rect x="66" y="30" width="38" height="6" rx="3"/>
+            <rect x="36" y="44" width="40" height="6" rx="3"/>
+            <rect x="28" y="58" width="34" height="6" rx="3"/>
+        </g>
+    </g>
+
+    <g transform="translate(88 54) rotate(5 52 33)">
+        <rect x="6" y="6" width="104" height="66" rx="7" fill="#09090b" opacity="0.3"/>
+        <rect width="104" height="66" rx="7" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+        <rect x="10" y="10" width="84" height="46" rx="5" fill="#ffffff" stroke="#09090b" stroke-width="1.6" stroke-linejoin="round"/>
+        <g stroke="#09090b" stroke-width="1.6" opacity="0.3">
+            <path d="M10 10l84 46M94 10L10 56" data-detail="image placeholder cross"/>
+        </g>
+    </g>
+
+    <g stroke="#09090b" stroke-width="2.2" fill="#09090b">
+        <path d="M160 138v18" stroke-linecap="round"/>
+        <path d="M160 170l-9-14h18Z" stroke="none"/>
+    </g>
+
+    <rect x="30" y="186" width="280" height="128" rx="11" fill="#09090b" opacity="0.3"/>
+    <rect x="20" y="176" width="280" height="128" rx="11" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M20 202h280" data-detail="page header rule" stroke="#09090b" stroke-width="2.4"/>
+    <rect x="32" y="181" width="16" height="16" rx="5" fill="url(#accent)"/>
+    <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none">
+        <use href="#s2" x="58" y="192"/><use href="#s1" x="86" y="192"/>
+    </g>
+
+    <g stroke="#09090b" stroke-width="2.6" stroke-linecap="round" fill="none">
+        <use href="#s3" x="32" y="222"/><use href="#s2" x="71" y="222"/><use href="#s3" x="99" y="222"/>
+    </g>
+    <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none">
+        <use href="#s2" x="32" y="242"/><use href="#s3" x="60" y="242"/><use href="#s2" x="99" y="242"/><use href="#s3" x="127" y="242"/><use href="#s2" x="166" y="242"/>
+        <use href="#s3" x="32" y="256"/><use href="#s3" x="71" y="256"/><use href="#s2" x="110" y="256"/>
+    </g>
+
+    <rect x="32" y="270" width="30" height="16" rx="4" fill="url(#accent)"/>
+    <rect x="70" y="270" width="30" height="16" rx="4" fill="#500472"/>
+    <rect x="108" y="270" width="30" height="16" rx="4" fill="#500472" opacity="0.45"/>
+    <rect x="146" y="270" width="30" height="16" rx="4" fill="#09090b" opacity="0.2"/>
+    <rect x="184" y="270" width="30" height="16" rx="4" fill="#ffffff" stroke="#09090b" stroke-width="1.6" stroke-linejoin="round"/>
+</svg>

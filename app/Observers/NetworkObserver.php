@@ -4,18 +4,27 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Enums\CacheKeyEnum;
 use App\Models\Network;
-use Spatie\ResponseCache\Facades\ResponseCache;
+use App\Support\ResponseCacheFlusher;
+use Illuminate\Support\Facades\Cache;
 
 class NetworkObserver
 {
     public function saved(Network $network): void
     {
-        ResponseCache::clear();
+        self::flush();
     }
 
     public function deleted(Network $network): void
     {
-        ResponseCache::clear();
+        self::flush();
+    }
+
+    public static function flush(): void
+    {
+        Cache::forget(CacheKeyEnum::NETWORKS_PUBLISHED->value);
+
+        ResponseCacheFlusher::flush();
     }
 }

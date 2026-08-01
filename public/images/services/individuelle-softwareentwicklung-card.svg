@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 344 344" width="344" height="344" fill="none" role="img" aria-hidden="true">
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+
+        <path id="s1" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s2" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+    </defs>
+
+    <path d="M24 32v46a38 13 0 0 0 76 0V32a38 13 0 0 0-76 0Z" fill="#09090b" opacity="0.3" transform="translate(9 9)"/>
+    <path d="M24 32v46a38 13 0 0 0 76 0V32" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <ellipse cx="62" cy="32" rx="38" ry="13" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <g stroke="#09090b" stroke-width="1.6" opacity="0.4" fill="none">
+        <path d="M24 52a38 13 0 0 0 76 0M24 70a38 13 0 0 0 76 0" data-detail="cylinder fill lines"/>
+    </g>
+
+    <g stroke="#09090b" stroke-width="2.4" stroke-linejoin="round">
+        <rect x="133" y="35" width="80" height="30" rx="8" fill="#09090b" stroke="none" opacity="0.3"/>
+        <rect x="124" y="26" width="80" height="30" rx="8" fill="#ffffff"/>
+        <rect x="133" y="77" width="80" height="30" rx="8" fill="#09090b" stroke="none" opacity="0.3"/>
+        <rect x="124" y="68" width="80" height="30" rx="8" fill="#ffffff"/>
+    </g>
+    <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none">
+        <use href="#s2" x="136" y="43"/>
+        <use href="#s1" x="136" y="85"/><use href="#s1" x="154" y="85"/>
+    </g>
+
+    <g stroke="url(#accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M268 30c-11 0-11 21-18 28 7 7 7 28 18 28M280 30c11 0 11 21 18 28-7 7-7 28-18 28" data-detail="braces glyph"/>
+    </g>
+
+    <g stroke="#09090b" stroke-width="2.2" fill="#09090b">
+        <path d="M160 124v12" stroke-linecap="round"/>
+        <path d="M160 148l-9-14h18Z" stroke="none"/>
+    </g>
+
+    <rect x="28" y="170" width="288" height="148" rx="11" fill="#09090b" opacity="0.3"/>
+    <rect x="16" y="158" width="288" height="148" rx="11" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <path d="M16 186h288M54 186v120" data-detail="panel header rule and gutter" stroke="#09090b" stroke-width="2.4"/>
+    <rect x="28" y="164" width="16" height="16" rx="5" fill="url(#accent)"/>
+    <use href="#s2" x="64" y="174" stroke="#09090b" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+
+    <g fill="#09090b" opacity="0.22">
+        <rect x="30" y="200" width="10" height="5" rx="2.5"/><rect x="30" y="219" width="10" height="5" rx="2.5"/>
+        <rect x="30" y="238" width="10" height="5" rx="2.5"/><rect x="30" y="257" width="10" height="5" rx="2.5"/>
+        <rect x="30" y="276" width="10" height="5" rx="2.5"/><rect x="30" y="295" width="10" height="5" rx="2.5"/>
+    </g>
+    <g opacity="0.75">
+        <g fill="#C026D3">
+            <rect x="68" y="198" width="32" height="8" rx="4"/>
+            <rect x="80" y="236" width="26" height="8" rx="4"/>
+            <rect x="68" y="293" width="36" height="8" rx="4"/>
+        </g>
+        <g fill="#2563EB">
+            <rect x="108" y="198" width="48" height="8" rx="4"/>
+            <rect x="114" y="236" width="40" height="8" rx="4"/>
+            <rect x="80" y="274" width="52" height="8" rx="4"/>
+            <rect x="112" y="293" width="42" height="8" rx="4"/>
+        </g>
+        <g fill="#09090b" opacity="0.55">
+            <rect x="164" y="198" width="26" height="8" rx="4"/>
+            <rect x="80" y="217" width="66" height="8" rx="4"/>
+            <rect x="154" y="217" width="32" height="8" rx="4"/>
+            <rect x="162" y="236" width="54" height="8" rx="4"/>
+            <rect x="92" y="255" width="60" height="8" rx="4"/>
+            <rect x="160" y="255" width="36" height="8" rx="4"/>
+            <rect x="140" y="274" width="72" height="8" rx="4"/>
+            <rect x="162" y="293" width="30" height="8" rx="4"/>
+        </g>
+    </g>
+</svg>

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Checks\FailedJobsCheck;
-use App\Checks\FilesystemsDefaultCheck;
 use App\Checks\JobsCheck;
 use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
@@ -39,22 +38,6 @@ it('fails when there are failed jobs', function () {
     $result = (new FailedJobsCheck)->run();
 
     expect($result->status)->toBe(Status::failed());
-})->group('unit', 'checks');
-
-it('fails the filesystems default check when the default disk equals the fallback disk', function () {
-    config(['filesystems.default' => 'local', 'filesystems.default_fallback' => 'local']);
-
-    $result = (new FilesystemsDefaultCheck)->run();
-
-    expect($result->status)->toBe(Status::failed());
-})->group('unit', 'checks');
-
-it('passes the filesystems default check when the default disk differs from the fallback disk', function () {
-    config(['filesystems.default' => 'local', 'filesystems.default_fallback' => 's3']);
-
-    $result = (new FilesystemsDefaultCheck)->run();
-
-    expect($result->status)->toBe(Status::ok());
 })->group('unit', 'checks');
 
 it('passes the jobs check when the queue is empty', function () {

@@ -3,13 +3,14 @@ key: bausteine-styleguide
 slug: bausteine-im-ueberblick
 title: Alle Bausteine im Überblick
 teaser: >-
-  Dieser Artikel existiert, um jeden verfügbaren Inhaltsbaustein einmal in echt zu zeigen.
-  Er dient als Referenz beim Schreiben — und als Kontrolle, dass das Design überall trägt.
+  Dieser Artikel zeigt jeden verfügbaren Inhaltsbaustein einmal in echt: als Referenz beim
+  Schreiben und als Kontrolle, dass das Design überall trägt.
 published_at: 2026-07-28
 published: false
 author: sebastian.buergin@codebar.ch
-hero: images/templates/cover-template.jpg
-hero_alt: Platzhaltergrafik im Seitenverhältnis 3:1
+hero: images/news/bausteine-styleguide.svg
+hero_alt: Einzelne Inhaltsbausteine werden zu einer Seite zusammengesetzt
+thumb: images/news/bausteine-styleguide-card.svg
 hero_caption: Das Titelbild steht in derselben Breite wie alles andere auf der Seite.
 tags: [Styleguide, Redaktion]
 featured: false

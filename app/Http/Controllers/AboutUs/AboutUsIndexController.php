@@ -12,7 +12,6 @@ use App\Http\Controllers\Controller;
 use App\Seo\SchemaNodes;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use stdClass;
 
 class AboutUsIndexController extends Controller
 {
@@ -36,15 +35,13 @@ class AboutUsIndexController extends Controller
      * Flattens the section-keyed contact groups into one list — the schema
      * cares about the people, not about which block they render in.
      *
+     * @param  Collection<string, Collection<int, ContactDTO>>  $contacts
      * @return Collection<int, ContactDTO>
      */
-    private function flatten(stdClass $contacts): Collection
+    private function flatten(Collection $contacts): Collection
     {
         /** @var Collection<int, ContactDTO> $flattened */
-        $flattened = collect((array) $contacts)
-            ->flatMap(fn (mixed $group): array => $group instanceof Collection ? $group->all() : [])
-            ->filter(fn (mixed $contact): bool => $contact instanceof ContactDTO)
-            ->values();
+        $flattened = $contacts->flatMap(fn (Collection $group): array => $group->all())->values();
 
         return $flattened;
     }

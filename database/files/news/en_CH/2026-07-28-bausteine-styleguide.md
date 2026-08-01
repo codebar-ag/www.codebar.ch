@@ -3,13 +3,14 @@ key: bausteine-styleguide
 slug: content-blocks-at-a-glance
 title: Every content block at a glance
 teaser: >-
-  This article exists to show each available content block once, for real. It doubles as a
-  reference while writing and as a check that the design holds up everywhere.
+  This article shows each available content block once, for real: a reference while writing, and
+  a check that the design holds up everywhere.
 published_at: 2026-07-28
 published: false
 author: sebastian.buergin@codebar.ch
-hero: images/templates/cover-template.jpg
-hero_alt: Placeholder graphic in a 3:1 aspect ratio
+hero: images/news/bausteine-styleguide.svg
+hero_alt: Loose content blocks assembled into one page
+thumb: images/news/bausteine-styleguide-card.svg
 hero_caption: The lead image sits at the same width as everything else on the page.
 tags: [Styleguide, Redaktion]
 featured: false

@@ -34,9 +34,11 @@ class News extends Model implements HasTranslatedRouteKey
         'teaser',
         'content',
         'hero_image',
+        'thumb_image',
         'hero_caption',
         'hero_alt',
         'published_at',
+        'revised_at',
         'published',
         'author',
         'contact_id',
@@ -50,6 +52,7 @@ class News extends Model implements HasTranslatedRouteKey
     protected $casts = [
         'tags' => 'json',
         'published_at' => 'datetime',
+        'revised_at' => 'datetime',
         'featured' => 'boolean',
         'published' => 'boolean',
     ];
@@ -91,6 +94,23 @@ class News extends Model implements HasTranslatedRouteKey
         }
 
         return is_string($this->author) && $this->author !== '' ? $this->author : null;
+    }
+
+    /**
+     * The chips a card shows: the series first, then every tag. One list rather than a
+     * single topic, because an article can sit in a series and still carry two subjects —
+     * and because the start page and the news index have to agree on what they label.
+     *
+     * @return array<int, string>
+     */
+    public function topics(): array
+    {
+        $series = $this->series?->title;
+
+        return array_values(array_unique(array_filter(array_merge(
+            is_string($series) ? [$series] : [],
+            is_array($this->tags) ? array_filter($this->tags, is_string(...)) : [],
+        ))));
     }
 
     /**

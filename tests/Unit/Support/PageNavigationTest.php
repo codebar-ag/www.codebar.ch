@@ -54,31 +54,41 @@ it('resolves every route in both locales', function () {
     }
 })->group('unit', 'navigation');
 
-it('walks the chain without gaps, repeats or wrap-around', function () {
-    $pages = PageNavigation::pages();
+it('sends each page on to its curated next page', function (string $from, string $to) {
+    $next = PageNavigation::next($from);
 
-    foreach ($pages as $index => $page) {
-        $next = PageNavigation::next($page['route']);
+    expect($next)->not->toBeNull();
+    expect($next === null ? '' : $next['route'])->toBe($to);
+})->with([
+    ['services.index', 'about-us.index'],
+    ['about-us.index', 'contact.index'],
+    ['news.index', 'ai.index'],
+    ['news.show', 'services.index'],
+    ['ai.index', 'services.index'],
+    ['ai.llm.index', 'ai.index'],
+    ['ai.llm.analytics.index', 'services.index'],
+    ['network.index', 'contact.index'],
+    ['jobs.index', 'about-us.index'],
+    ['media.index', 'network.index'],
+])->group('unit', 'navigation');
 
-        if ($index === count($pages) - 1) {
-            // The last page must not loop back to the start.
-            expect($next)->toBeNull();
-
-            continue;
-        }
-
-        expect($next)->not->toBeNull();
-
-        $route = $next === null ? '' : $next['route'];
-
-        expect($route)->toBe($pages[$index + 1]['route']);
-        expect($route)->not->toBe($page['route']);
+it('never sends a page to itself', function () {
+    foreach (PageNavigation::chain() as $from => $to) {
+        expect($to)->not->toBe($from);
     }
 })->group('unit', 'navigation');
 
-it('returns nothing for a page outside the chain', function () {
+it('only ever points at a page that carries a card', function () {
+    $known = array_column(PageNavigation::pages(), 'route');
+
+    expect(array_values(array_diff(array_values(PageNavigation::chain()), $known)))->toBe([]);
+})->group('unit', 'navigation');
+
+it('returns nothing for a page that ends the chain', function () {
+    // The start page shows the full grid instead, contact is where the chain lands.
+    expect(PageNavigation::next('start.index'))->toBeNull();
+    expect(PageNavigation::next('contact.index'))->toBeNull();
     expect(PageNavigation::next('legal.imprint.index'))->toBeNull();
-    expect(PageNavigation::next('news.show'))->toBeNull();
 })->group('unit', 'navigation');
 
 it('gives every page a label and a translated teaser', function () {

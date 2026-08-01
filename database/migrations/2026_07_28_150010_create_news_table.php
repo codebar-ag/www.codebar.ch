@@ -20,9 +20,13 @@ return new class extends Migration
             $table->json('teaser');
             $table->json('content')->nullable();
             $table->string('hero_image')->nullable();
+            // The square the index shows next to a list row. Its own file rather than a crop
+            // of the hero: the hero carries the title, and a square crop cuts the words.
+            $table->string('thumb_image')->nullable();
             $table->json('hero_caption')->nullable();
             $table->json('hero_alt')->nullable();
             $table->dateTime('published_at')->nullable();
+            $table->dateTime('revised_at')->nullable();
             $table->boolean('published')->default(true);
             $table->string('author')->nullable();
             $table->foreignId('contact_id')->nullable()->constrained('contacts')->nullOnDelete();

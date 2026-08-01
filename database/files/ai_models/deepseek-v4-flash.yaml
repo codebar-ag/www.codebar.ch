@@ -6,7 +6,7 @@ provider: 'DeepSeek AI (CN)'
 ram: '~102 GB RAM'
 license: MIT
 role:
-  de: 'Flaggschiff: Analysen, Buchungslogik, komplexes Coding'
-  en: 'Flagship: analysis, booking logic, complex coding'
+  de_CH: 'Flaggschiff: Analysen, Buchungslogik, komplexes Coding'
+  en_CH: 'Flagship: analysis, booking logic, complex coding'
 link_label: 'Hugging Face'
 link_url: 'https://huggingface.co/unsloth'

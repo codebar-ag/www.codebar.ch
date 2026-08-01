@@ -1,0 +1,109 @@
+{
+  "news/docuware-7-12-is-here": {
+    "sentence": "an e-invoice arrives as a machine file nobody reads → extracting → the line items sit in a table and the same numbers again as a chart",
+    "act": "funnel",
+    "actSource": "Rechnungspositionen aus E-Rechnungen werden automatisch in Tabellenfelder übertragen",
+    "objects": {
+      "mail intake envelope": "so werden E-Mail-Anhänge bereits vor der Archivierung klassifiziert",
+      "machine-readable invoice": "Anhänge (z. B. PDF oder XML) werden direkt im Viewer angezeigt",
+      "line-item table": "ideal für Prüfung und Weiterverarbeitung",
+      "analytics chart": "Analysieren Sie Prozesse, erkennen Sie Optimierungspotenziale"
+    }
+  },
+  "news/docuware-7-13-is-here": {
+    "sentence": "the workflow designer is an installed desktop application → moving into the browser → a designer that runs in a tab, with an exception lane",
+    "act": "window",
+    "actSource": "im Browser, ohne dass auf dem Arbeitsplatz etwas installiert sein muss",
+    "objects": {
+      "installed designer": "Der Workflow Designer ist keine eigene Anwendung mehr.",
+      "browser designer": "ein Workflow Designer ohne Installation",
+      "workflow steps": "Mehrere Schritte lassen sich gemeinsam markieren, kopieren oder entfernen.",
+      "exception lane": "Für unerwartete Abbrüche kann eine eigene Reaktion hinterlegt werden."
+    }
+  },
+  "news/docuware-7-14-is-here": {
+    "sentence": "approvals pile up in an inbox nobody opens → notifying → tasks grouped by process on a phone that says when one arrives",
+    "act": "bell",
+    "actSource": "Push-Benachrichtigungen bei neuen Aufgaben",
+    "objects": {
+      "inbox of approvals": "weil niemand ins Postfach geschaut hat",
+      "waiting clock": "bleiben Freigaben nicht mehr tagelang liegen",
+      "rebuilt mobile app": "Die Mobile App wurde neu entwickelt.",
+      "tasks grouped by process": "Aufgaben nach Prozess gruppiert abarbeiten.",
+      "push waves": "Push-Benachrichtigungen bei neuen Aufgaben"
+    }
+  },
+  "news/bausteine-styleguide": {
+    "sentence": "content blocks lie around loose, each a different shape → composing → one page assembled from them in order, at one shared width",
+    "act": "grid",
+    "actSource": "zeigt jeden verfügbaren Inhaltsbaustein einmal in echt",
+    "objects": {
+      "loose content blocks": "als Referenz beim Schreiben",
+      "image block": "Bilder beginnen und enden dort, wo der Fliesstext beginnt und endet",
+      "comparison block": "Zwei Zustände direkt nebeneinander.",
+      "assembled page": "Alle Elemente teilen sich eine Breite",
+      "callout row": "Ein neutraler Hinweis für Zusatzinformationen"
+    }
+  },
+  "news/llm-gateway-open-source": {
+    "sentence": "agents, processes and people all call one in-house machine at once until its memory is full → queueing → a gateway that stores every request and feeds the model one at a time",
+    "act": "queue",
+    "actSource": "wandelt jede Anfrage in einen asynchronen Auftrag um",
+    "objects": {
+      "agent and team requests": "Dazu kommen die Anfragen aus dem Team und aus laufenden Prozessen.",
+      "request lanes": "Am Ende zeigt alles auf dieselbe Maschine.",
+      "single in-house machine": "Die Modelle laufen bei uns im Haus auf einer einzelnen Maschine",
+      "full memory bar": "mit 128 GB Unified Memory",
+      "stored queue": "Die Anfragen werden gesammelt und nach den vorhandenen Ressourcen abgearbeitet",
+      "job database": "weil jeder Auftrag in der Datenbank liegt",
+      "model chip": "Ein Modell muss geladen sein, bevor es antworten kann",
+      "fork mark": "Der Code liegt öffentlich auf GitHub"
+    }
+  },
+  "services/konzeption-prototyping": {
+    "sentence": "a sketched screen flow on paper → clicking → the same thing running in a browser and on a phone",
+    "act": "cursor",
+    "actSource": "Klickbare Prototypen machen Ideen früh greifbar und diskutierbar.",
+    "objects": {
+      "wireframe screens": "Mockups und klickbare Prototypen schaffen früh ein gemeinsames Bild",
+      "screen flow": "Wir erarbeiten Informationsarchitektur, Abläufe und Datenmodell",
+      "browser preview": "machen es als klickbaren Prototyp erlebbar",
+      "phone preview": "Feedback von echten Nutzer:innen fliesst direkt in die nächste Iteration ein."
+    }
+  },
+  "services/individuelle-softwareentwicklung": {
+    "sentence": "an ERP, a CRM and a DMS each with a port that goes nowhere → writing the code → one documented bus they all sit on, running on a schedule",
+    "act": "braces",
+    "actSource": "Wir entwickeln individuelle Lösungen, die sich nach deinen Prozessen richten",
+    "objects": {
+      "database cylinder": "Wir verbinden bestehende Systeme wie ERP, CRM oder DMS zu durchgängigen Abläufen.",
+      "service box": "Wir verbinden bestehende Systeme wie ERP, CRM oder DMS zu durchgängigen Abläufen.",
+      "records grid": "Wir verbinden bestehende Systeme wie ERP, CRM oder DMS zu durchgängigen Abläufen.",
+      "dangling ports": "Saubere, dokumentierte Schnittstellen, die Systeme zuverlässig verbinden.",
+      "code panel": "Automatisierte Tests, Code-Reviews und kontinuierliche Deployments",
+      "scheduled integration": "Portale, Schnittstellen, Automatisierungen"
+    }
+  },
+  "services/dms-ecm-consulting": {
+    "sentence": "a deep stack of paper nobody can search → indexing → a workflow that runs itself, with an approval, an archive and one exception lane",
+    "act": "magnifier",
+    "actSource": "Ablagestruktur, Indexierung, Berechtigungen und Aufbewahrung, sauber durchdacht.",
+    "objects": {
+      "paper stack": "Vom Papier zum papierlosen Büro",
+      "workflow chain": "automatisierte Dokumentenworkflows",
+      "approval step": "bis hin zu KI-gestützter Verarbeitung",
+      "archive drawer": "Ablagestruktur, Indexierung, Berechtigungen und Aufbewahrung"
+    }
+  },
+  "services/open-source-erp": {
+    "sentence": "a task list and a stopwatch kept beside each other by hand → wiring them together → one board where the work is planned and the hours are booked against it",
+    "act": "nodes",
+    "actSource": "Als Odoo-Partner bieten wir dir Schritt für Schritt an, was sich bei uns bewährt",
+    "objects": {
+      "task list": "die Einführung von Projektmanagement und Zeiterfassung",
+      "stopwatch": "Projektmanagement und Zeiterfassung",
+      "kanban board": "Odoo setzen wir seit Kurzem selbst als ERP ein",
+      "booked hours": "ohne Lizenz-Lock-in"
+    }
+  }
+}

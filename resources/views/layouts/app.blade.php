@@ -16,9 +16,16 @@
     <link rel="preconnect" href="https://cdn.usefathom.com">
     <link rel="dns-prefetch" href="https://cdn.usefathom.com">
 
-    <!-- Preload critical resources: the latin subsets actually used above the fold -->
-    <link rel="preload" href="{{ asset('fonts/poppins/poppins-400-normal-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ asset('fonts/poppins/poppins-700-normal-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <!-- Preload critical resources: the latin subsets actually used above the fold —
+         400 for body copy, 600 for every heading and UI label, 700 for the h1. 300 and
+         500 carry secondary text only and are left to font-display: swap.
+
+         Vite::asset, not asset(): the faces are built assets with a content hash in the
+         name, and the preload has to name the exact file the stylesheet will ask for or
+         the browser fetches the font twice. -->
+    <link rel="preload" href="{{ Vite::asset('resources/fonts/poppins/poppins-400-normal-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ Vite::asset('resources/fonts/poppins/poppins-600-normal-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ Vite::asset('resources/fonts/poppins/poppins-700-normal-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
 
     @include('layouts._partials._seo')
     @include('layouts._partials._schema')
@@ -44,14 +51,19 @@
     $inner = $wide ? $frame : '';
 @endphp
 
-<div class="{{ $outer }}">
+<div class="flex min-h-screen flex-col {{ $outer }}">
 
     <header class="{{ $inner }}">
         @include('layouts._partials._navigation')
     </header>
 
-    <main id="main" class="my-section">
-        <div class="{{ $wide ? '' : 'text-lg leading-relaxed' }}">
+    <main id="main" class="my-section flex-1">
+        {{-- The site's body scale, whatever the layout. $wide switches the *frame*, and it
+             used to take the type size with it — so an article's breadcrumbs, byline, tags
+             and series nav sat at 16px while every other page ran at 18px. The reading
+             column re-states its own size in .news-prose; the chrome around it should not
+             have to. --}}
+        <div class="text-lg leading-relaxed">
             {{ $slot }}
 
             <div class="{{ $inner }}">

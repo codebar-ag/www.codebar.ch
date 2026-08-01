@@ -6,6 +6,7 @@ namespace App\Console\Commands;
 
 use App\Models\OpenSource;
 use Illuminate\Console\Command;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -65,7 +66,8 @@ class SyncRepositoriesCommand extends Command
         }
 
         do {
-            $response = Http::withHeaders($headers)
+            $response = $this->client()
+                ->withHeaders($headers)
                 ->accept('application/vnd.github+json')
                 ->get(sprintf('https://api.github.com/orgs/%s/repos', self::ORG), [
                     'type' => 'public',
@@ -181,9 +183,21 @@ class SyncRepositoriesCommand extends Command
         $this->line(sprintf('  %s %s downloads', $entry->title, number_format($downloads)));
     }
 
+    /**
+     * A sync that walks every repository makes one call per repository, so a slow
+     * endpoint must fail fast rather than hold the command open on the default timeout.
+     */
+    private function client(): PendingRequest
+    {
+        return Http::connectTimeout(5)
+            ->timeout(20)
+            ->retry(times: 2, sleepMilliseconds: 500, throw: false);
+    }
+
     private function fetchPackagistDownloads(string $fullName): int
     {
-        $response = Http::accept('application/json')
+        $response = $this->client()
+            ->accept('application/json')
             ->get(sprintf('https://packagist.org/packages/%s.json', $fullName));
 
         if ($response->failed()) {

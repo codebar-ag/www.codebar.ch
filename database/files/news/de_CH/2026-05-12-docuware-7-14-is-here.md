@@ -6,8 +6,9 @@ teaser: >-
   Die letzten Einstellungen wandern in den Browser, eine neu gebaute App bringt Aufgaben aufs Telefon, und Archive ziehen zwischen Cloud-Organisationen um.
 published_at: 2026-05-12
 author: sebastian.buergin@codebar.ch
-hero: images/news/placeholders/docuware-7-14-de.svg
-hero_alt: Platzhaltergrafik zum DocuWare-Release 7.14
+hero: images/news/docuware-7-14-is-here.svg
+hero_alt: Freigaben verlassen das Postfach und liegen als Aufgaben mit Push-Meldung auf dem Telefon
+thumb: images/news/docuware-7-14-is-here-card.svg
 tags: [DMS/ECM]
 ---
 

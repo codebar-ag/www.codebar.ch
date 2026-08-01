@@ -1,8 +1,6 @@
 @php
     use App\Support\NewsImage;
 
-    // Click-to-load: no request leaves the page towards the video host until the
-    // visitor asks for it, so no consent banner is needed for an embedded video.
     $src = $attributes['src'] ?? null;
     $poster = NewsImage::src($attributes['poster'] ?? null, 1280);
     $title = $attributes['title'] ?? __('Play video');
@@ -13,7 +11,7 @@
         <div class="relative overflow-hidden rounded-panel bg-gray-900" x-data="videoEmbed" data-src="{{ $src }}">
             <template x-if="!loaded">
                 <button type="button" @click="load"
-                        class="group relative block aspect-video w-full cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white">
+                        class="group relative block aspect-video w-full cursor-pointer focus-ring-light">
                     @if($poster)
                         <img src="{{ $poster }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full object-cover opacity-70">
                     @endif

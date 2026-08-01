@@ -1,6 +1,6 @@
 <x-app-layout :page="$page">
     <x-layout.page-header :title="__('Co-Working at codebar')"
-                           :intro="__('A professional workspace in Oberwil — quiet, well-equipped, and embedded in a tech team.')"
+                           :intro="__('A professional workspace in Oberwil — quiet, fully equipped, and set inside a tech team instead of alone at home.')"
                            :page="$page"/>
 
     <x-layout.section>
@@ -32,7 +32,7 @@
 
         <x-ui.panel class="max-w-md px-6 py-6">
             <div class="text-lg font-semibold text-gray-800">{{ $pricing['name'] }}</div>
-            <div class="mt-1 text-3xl font-bold text-gray-900">
+            <div class="mt-1 text-title font-bold text-gray-900">
                 CHF {{ number_format($pricing['price_chf'], 0) }}
                 <span class="text-base font-normal text-muted">/ {{ $pricing['period'] }}</span>
             </div>
@@ -42,7 +42,7 @@
         <div class="mt-8 grid gap-8 sm:grid-cols-2">
             <div>
                 <x-h3 :title="__('Optional add-ons')"/>
-                <dl class="divide-y divide-gray-100">
+                <dl class="divide-y divide-border-soft">
                     @foreach($optionalServices as $service)
                         <div class="flex items-baseline justify-between gap-6 py-2">
                             <dt class="text-sm font-medium text-gray-800">{{ $service['name'] }}</dt>
@@ -53,7 +53,7 @@
             </div>
             <div>
                 <x-h3 :title="__('Rental conditions')"/>
-                <dl class="divide-y divide-gray-100">
+                <dl class="divide-y divide-border-soft">
                     <div class="flex items-baseline justify-between gap-6 py-2">
                         <dt class="text-sm font-medium text-gray-800">{{ __('Minimum term') }}</dt>
                         <dd class="text-sm text-muted text-right">{{ $rentalConditions['minimum_months'] }} {{ __('months') }}</dd>

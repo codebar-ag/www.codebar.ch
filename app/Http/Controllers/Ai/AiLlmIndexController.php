@@ -19,6 +19,7 @@ class AiLlmIndexController extends Controller
             'groups' => $viewData->aiModelGroups(),
             'archive' => $viewData->aiModelArchive(),
             'llmSummary' => $stats->currentMonthSummary(),
+            'hasUsage' => $stats->totalSummary()['requests'] > 0,
         ]);
     }
 }

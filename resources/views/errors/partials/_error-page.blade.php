@@ -1,8 +1,7 @@
-{{-- Shared shell for all HTTP error pages: same app layout as regular pages (header, footer, CTAs). --}}
 <x-app-layout :page="null">
-    <x-layout.page-header :title="$title" :intro="$message"/>
+    <x-layout.page-header :title="$title" :intro="$message" :breadcrumbs="[]"/>
 
-    <p class="mb-2 text-muted">{{ __('errors.status_label', ['code' => $statusCode]) }}</p>
+    <x-layout.page-note>{{ __('errors.status_label', ['code' => $statusCode]) }}</x-layout.page-note>
 
     <x-layout.section>
         <div class="flex flex-col sm:flex-row gap-3">

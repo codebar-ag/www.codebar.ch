@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Checks\FailedJobsCheck;
-use App\Checks\FilesystemsDefaultCheck;
 use App\Checks\JobsCheck;
 use App\Models\AiModel;
 use App\Models\Network;
@@ -23,22 +22,17 @@ use App\Observers\NewsObserver;
 use App\Observers\SitemapCacheObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\OptimizedAppCheck;
+use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
 use Spatie\Translatable\Translatable;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
-
     public function boot(): void
     {
         $this->multilanguage();
@@ -67,15 +61,24 @@ class AppServiceProvider extends ServiceProvider
         $environmentCheck = EnvironmentCheck::new();
         $environmentCheck->if(app()->isProduction());
 
+        $jobsCheck = JobsCheck::new();
+        $jobsCheck->everyFiveMinutes();
+
+        $scheduleCheck = ScheduleCheck::new();
+        $scheduleCheck->everyFiveMinutes();
+
+        $advisoriesCheck = SecurityAdvisoriesCheck::new();
+        $advisoriesCheck->lastDayOfMonth();
+
         Health::checks([
             DebugModeCheck::new(),
             CacheCheck::new(),
             OptimizedAppCheck::new(),
             $environmentCheck,
-            self::asCheck(FilesystemsDefaultCheck::new()->everyFiveMinutes()),
-            self::asCheck(JobsCheck::new()->everyFiveMinutes()),
+            $jobsCheck,
+            $scheduleCheck,
             FailedJobsCheck::new(),
-            self::asCheck(SecurityAdvisoriesCheck::new()->lastDayOfMonth()),
+            $advisoriesCheck,
         ]);
     }
 
@@ -86,10 +89,5 @@ class AppServiceProvider extends ServiceProvider
         Product::registerLocalizedBinding('product');
         Technology::registerLocalizedBinding('technology');
         OpenSource::registerLocalizedBinding('openSource');
-    }
-
-    private static function asCheck(Check $check): Check
-    {
-        return $check;
     }
 }

@@ -157,3 +157,44 @@ it('reports a file without front matter instead of failing', function () {
 
     expect(News::count())->toBe(0);
 })->group('news', 'console');
+
+/**
+ * news:import was the only importer that never removed orphans, so deleting an
+ * article's markdown left it published, in the listing and in the sitemap.
+ */
+it('removes an article whose files are gone', function () {
+    $base = writeArticles([
+        'de_CH' => articleFile('Bleibt', 'bleibt'),
+        'en_CH' => articleFile('Stays', 'stays'),
+    ]);
+    File::put($base.'/de_CH/leaves.md', str_replace('test-article', 'leaves', articleFile('Geht', 'geht')));
+    File::put($base.'/en_CH/leaves.md', str_replace('test-article', 'leaves', articleFile('Leaves', 'leaves')));
+
+    runArtisan('news:import', ['--path' => $base])->assertExitCode(0);
+    expect(News::count())->toBe(2);
+
+    File::delete($base.'/de_CH/leaves.md');
+    File::delete($base.'/en_CH/leaves.md');
+
+    runArtisan('news:import', ['--path' => $base])->assertExitCode(0);
+
+    expect(News::count())->toBe(1)
+        ->and(News::where('key', 'leaves')->exists())->toBeFalse();
+})->group('news', 'console');
+
+it('never treats the other articles as orphans on a single-key import', function () {
+    $base = writeArticles([
+        'de_CH' => articleFile('Bleibt', 'bleibt'),
+        'en_CH' => articleFile('Stays', 'stays'),
+    ]);
+    File::put($base.'/de_CH/other.md', str_replace('test-article', 'other', articleFile('Anderer', 'anderer')));
+    File::put($base.'/en_CH/other.md', str_replace('test-article', 'other', articleFile('Other', 'other')));
+
+    runArtisan('news:import', ['--path' => $base])->assertExitCode(0);
+    expect(News::count())->toBe(2);
+
+    runArtisan('news:import', ['--path' => $base, '--key' => 'other'])->assertExitCode(0);
+
+    expect(News::count())->toBe(2)
+        ->and(News::where('key', 'test-article')->exists())->toBeTrue();
+})->group('news', 'console');

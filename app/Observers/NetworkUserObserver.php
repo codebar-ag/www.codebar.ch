@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Observers;
 
 use App\Models\NetworkUser;
-use Spatie\ResponseCache\Facades\ResponseCache;
 
 class NetworkUserObserver
 {
+    /** The cached network listing eager loads publishedUsers, so a person's edit stales it. */
     public function saved(NetworkUser $networkUser): void
     {
-        ResponseCache::clear();
+        NetworkObserver::flush();
     }
 
     public function deleted(NetworkUser $networkUser): void
     {
-        ResponseCache::clear();
+        NetworkObserver::flush();
     }
 }

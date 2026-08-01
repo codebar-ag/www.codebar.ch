@@ -5,12 +5,22 @@ declare(strict_types=1);
 return [
     'intro' => [
         'title' => 'Bringing innovative ideas to life',
+        'user' => 'visitor',
+        'start_command' => 'start',
+        'legend' => 'What would you like to know about us?',
+        'shortcuts' => 'Switch section: number keys 1 to 3, or the left and right arrow keys.',
+        'next' => 'next: :title',
+        'cta' => 'tell us about your project',
         'who_we_are' => [
             'title' => 'Who we are',
+            'command' => 'who-we-are',
+            'teaser' => 'Who we are and how we think.',
             'text' => 'We are codebar – a small team based in the Basel region. We bring ideas to life: from the first sketch to software in daily use. We see ourselves as the link between business and technology – we listen, think economically on your behalf, and build on open technologies.',
         ],
         'what_we_do' => [
             'title' => 'What we do',
+            'command' => 'what-we-do',
+            'teaser' => 'Four areas, one path.',
             'text' => 'Our work covers the entire journey of a digital solution:',
             'items' => [
                 '<b>Concept design</b> – we sharpen your requirements and make ideas tangible early with clickable prototypes.',
@@ -21,6 +31,8 @@ return [
         ],
         'how_we_work' => [
             'title' => 'How we work',
+            'command' => 'how-we-work',
+            'teaser' => 'Listen, do the maths honestly, build.',
             'text' => 'We start by listening. Because a good solution begins with understanding the problem – and honestly checking whether it pays off for you. We then shape a concept together, guided by your processes and by the people who will work with it every day. If the implementation is within our expertise, we stay with you into daily operations. If it isn\'t, we say so openly – and are glad when others turn our plans into reality.',
         ],
     ],
@@ -35,16 +47,16 @@ return [
         'contact' => 'Let\'s talk.',
     ],
     'services' => [
-        'header' => 'Four areas, one path: from the first idea to day-to-day operations.',
+        'header' => 'Four areas, one path: from the first idea through concept and build to day-to-day operations we support long term.',
     ],
     'team' => [
-        'header' => 'Small by conviction: you work directly with the people who understand your solution – and build it.',
+        'header' => 'Small by conviction: you work directly with the people who understand your solution – and who build it themselves.',
         'working_title' => 'How we work',
         'working_body' => 'A small team with no layer in between: the people who build your project are the ones in the room. That saves a translation step and makes commitments binding.',
         'learning_body' => 'Training and knowledge transfer are part of how we work. We pass knowledge around the team rather than leaving it with individuals – which keeps projects independent of any single person and keeps us learning.',
     ],
     'contact' => [
-        'header' => 'Got an idea or a project? Tell us about it – we\'ll listen.',
+        'header' => 'Got an idea, a project, or simply a question? Tell us about it – we\'ll listen and get back to you right away.',
     ],
     'contact_cta' => [
         'title' => 'Interested?',
@@ -52,7 +64,7 @@ return [
     ],
     'ai' => [
         'title' => 'AI at codebar',
-        'intro' => 'We\'re at the beginning of our AI journey – and open about what\'s already running: local open-source models on our own infrastructure.',
+        'intro' => 'We\'re at the beginning of our AI journey – and open about what already runs: local open-source models on our own hardware.',
         'llm_teaser' => 'For a few months now, we\'ve been working our way into the topic, use case by use case. Here we keep track of which models we run – and how intensively.',
         'to_models' => 'View the models',
         'to_analytics' => 'View usage analytics',
@@ -68,7 +80,7 @@ return [
     ],
     'ai_llm_analytics' => [
         'title' => 'LLM usage analytics',
-        'intro' => 'Token consumption and requests of our locally run models – per month and model.',
+        'intro' => 'Token consumption and requests of our locally run models, broken down per month and model – updated continuously.',
         'filter' => [
             'year_label' => 'Year',
             'all_years' => 'All years',
@@ -94,7 +106,7 @@ return [
     ],
     'ai_llm' => [
         'title' => 'Our local LLMs in action',
-        'intro' => 'These are the local open-source models we currently rely on. We cover as much of our AI work as possible with local models – all running on our own infrastructure, in the basement of our own office.',
+        'intro' => 'These are the local open-source models we currently rely on – all running on our own infrastructure, in our office basement.',
         'categories' => [
             'reasoning_coding' => [
                 'title' => 'Reasoning & coding',

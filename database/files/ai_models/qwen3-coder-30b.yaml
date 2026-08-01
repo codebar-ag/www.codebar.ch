@@ -6,7 +6,7 @@ provider: 'Alibaba / Qwen (CN)'
 ram: '18 GB RAM'
 license: Apache-2.0
 role:
-  de: 'Coding-Spezialist für schnelle Iterationen & Agenten-Tasks'
-  en: 'Coding specialist for fast iterations & agent tasks'
+  de_CH: 'Coding-Spezialist für schnelle Iterationen & Agenten-Tasks'
+  en_CH: 'Coding specialist for fast iterations & agent tasks'
 link_label: Ollama
 link_url: 'https://ollama.com/library/qwen3-coder'

@@ -1,18 +1,17 @@
 <x-app-layout :page="$page">
-    <div class="mt-6">
-        <x-ui.link :href="localized_route('network.index')" class="text-sm text-muted">
-            &larr; {{ __('Network') }}
-        </x-ui.link>
-    </div>
-
-    <x-h1 title="BaselHack"/>
-
-    <div class="flex flex-wrap items-center gap-2">
-        @if($network->tier_label)
-            <x-ui.badge :label="$network->tier_label"/>
-        @endif
-        <x-ui.badge :label="$network->status->getLabel()"/>
-    </div>
+    <x-layout.page-header title="BaselHack" :breadcrumbs="[
+        ['label' => __('Network'), 'url' => localized_route('network.index')],
+        ['label' => 'BaselHack'],
+    ]">
+        <x-slot:eyebrow>
+            <div class="flex flex-wrap items-center gap-2">
+                @if($network->tier_label)
+                    <x-ui.badge :label="$network->tier_label"/>
+                @endif
+                <x-ui.badge :label="$network->status->getLabel()"/>
+            </div>
+        </x-slot:eyebrow>
+    </x-layout.page-header>
 
     <x-layout.section>
         <p class="max-w-2xl text-gray-800">
@@ -28,18 +27,18 @@
         <x-layout.section-header :title="__('Facts')"/>
         <x-layout.grid :cols="3" class="mt-4">
             <div>
-                <p class="text-sm uppercase tracking-wide text-muted">{{ __('Role') }}</p>
+                <p class="text-eyebrow uppercase text-muted">{{ __('Role') }}</p>
                 <p class="mt-1 text-gray-800">{{ __('Silver Sponsor, infrastructure') }}</p>
             </div>
             <div>
-                <p class="text-sm uppercase tracking-wide text-muted">{{ __('Format') }}</p>
+                <p class="text-eyebrow uppercase text-muted">{{ __('Format') }}</p>
                 <p class="mt-1 text-gray-800">{{ __('The largest hackathon in the Basel region') }}</p>
             </div>
             <div>
-                <p class="text-sm uppercase tracking-wide text-muted">{{ __('Website') }}</p>
+                <p class="text-eyebrow uppercase text-muted">{{ __('Website') }}</p>
                 @if($network->website)
                     <a href="{{ $network->website }}" target="_blank" rel="noopener noreferrer"
-                       class="mt-1 block rounded-pill focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand text-gray-800 transition hover:text-brand">
+                       class="mt-1 block rounded-pill focus-ring text-gray-800 transition hover:text-brand">
                         {{ $network->websiteHost() }} &nearr;
                     </a>
                 @endif

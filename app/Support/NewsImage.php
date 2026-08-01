@@ -45,9 +45,9 @@ class NewsImage
 
     /**
      * The og:image counterpart of an SVG hero. Social crawlers cannot render
-     * SVG, so a same-named PNG rendered from it — see
-     * public/images/news/placeholders/ — is used when one exists; otherwise
-     * the caller falls back to the site default image.
+     * SVG, so a same-named PNG rendered from it — see public/images/news/ and
+     * public/images/services/ — is used when one exists; otherwise the caller
+     * falls back to the site default image.
      */
     public static function ogImage(string $svgReference): ?string
     {

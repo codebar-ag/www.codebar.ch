@@ -2,13 +2,13 @@
     <div class="flex items-center justify-between">
 
         <a href="{{ localized_route('start.index') }}" title="{{ __('Home') }}"
-           class="group inline-block max-w-1/2 rounded-pill focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+           class="group inline-block max-w-1/2 rounded-pill focus-ring">
             @include('layouts._logos._codebar')
         </a>
 
         <button @click="toggle" type="button"
                 aria-controls="mobile-navigation" x-bind:aria-expanded="aria_expanded"
-                class="-mr-2 grid size-control place-items-center rounded-pill transition hover:text-brand focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:hidden">
+                class="-mr-2 icon-button transition hover:text-brand focus-ring md:hidden">
             <span class="sr-only">{{ __('Open menu') }}</span>
             <x-icon.menu class="size-7"/>
         </button>

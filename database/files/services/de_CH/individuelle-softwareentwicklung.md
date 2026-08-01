@@ -2,11 +2,11 @@
 key: individuelle-softwareentwicklung
 name: 'Individuelle Softwareentwicklung'
 teaser: >-
-  Portale, Schnittstellen, Automatisierungen: Software, die im Hintergrund zuverlässig ihre
-  Arbeit macht. Wir entwickeln mit offenen Technologien wie Laravel – und betreuen deine
-  Lösung auch nach dem Go-live, über Jahre.
+  Portale, Schnittstellen, Automatisierungen: Software, die zuverlässig im Hintergrund läuft.
+  Gebaut mit offenen Technologien wie Laravel – und über Jahre betreut.
 order: 2
 published: true
+image: images/services/individuelle-softwareentwicklung.svg
 group: services
 tags: ['Backend & Schnittstellen', Laravel, Open Source]
 ---

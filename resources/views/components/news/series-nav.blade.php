@@ -9,16 +9,19 @@
 @endphp
 
 <section class="news-block border-t border-border pt-10" aria-labelledby="series-heading">
-    <p class="text-sm uppercase tracking-[0.15em] text-muted">
+    <p class="text-eyebrow uppercase text-muted">
         {{ __('Series') }}
         @if($position !== null)
             <span aria-hidden="true">·</span>
             {{ __('Part :position of :total', ['position' => $position + 1, 'total' => $total]) }}
         @endif
     </p>
-    <x-h2 id="series-heading" :title="$series->title" class="mt-2 mb-0 text-title"/>
+    {{-- Neither `mb-0` nor `text-title` ever reached the page: merge() only concatenates,
+         and the built CSS emits .mb-0 before .mb-2 and .text-title before .text-heading,
+         so the component's own classes won both times. --}}
+    <x-h2 id="series-heading" :title="$series->title" class="mt-2"/>
     @if($series->description)
-        <p class="mt-2 max-w-2xl text-lg leading-relaxed text-gray-600">{{ $series->description }}</p>
+        <p class="mt-2 max-w-2xl text-gray-600">{{ $series->description }}</p>
     @endif
 
     <div class="mt-6 flex gap-1.5" aria-hidden="true">
@@ -39,9 +42,11 @@
                 ])>{{ $loop->iteration }}</span>
 
                 @if($isCurrent)
-                    <span class="text-lg font-semibold text-gray-900" aria-current="true">{{ $part->title }}</span>
+                    {{-- No text-lg any more: these patched back the 16px the wide layout
+                         used to impose on the article page, which it no longer does. --}}
+                    <span class="font-semibold text-gray-900" aria-current="true">{{ $part->title }}</span>
                 @else
-                    <x-ui.link :href="$urlFor($part)" :label="$part->title" class="text-lg text-gray-700"/>
+                    <x-ui.link :href="$urlFor($part)" :label="$part->title" class="text-gray-700"/>
                 @endif
 
                 @if($part->reading_minutes)
@@ -56,7 +61,7 @@
             @if($previous)
                 <x-card.linkable :url="$urlFor($previous)" surface="panel-lg">
                     <p class="text-sm text-muted">← {{ __('Part :position', ['position' => $position]) }}</p>
-                    <p class="mt-1 text-subheading transition group-hover:text-brand">{{ $previous->title }}</p>
+                    <p class="mt-1 text-subheading font-semibold text-gray-900 transition group-hover:text-brand">{{ $previous->title }}</p>
                 </x-card.linkable>
             @else
                 <div></div>
@@ -65,7 +70,7 @@
             @if($next)
                 <x-card.linkable :url="$urlFor($next)" surface="panel-lg" class="text-right">
                     <p class="text-sm text-muted">{{ __('Part :position', ['position' => $position + 2]) }} →</p>
-                    <p class="mt-1 text-subheading transition group-hover:text-brand">{{ $next->title }}</p>
+                    <p class="mt-1 text-subheading font-semibold text-gray-900 transition group-hover:text-brand">{{ $next->title }}</p>
                 </x-card.linkable>
             @endif
         </div>

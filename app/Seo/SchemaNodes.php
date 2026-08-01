@@ -138,7 +138,7 @@ class SchemaNodes
             'mainEntityOfPage' => ['@id' => $page->url()],
             'inLanguage' => str_replace('_', '-', $locale),
             'datePublished' => $news->published_at?->toIso8601String(),
-            'dateModified' => $news->updated_at?->toIso8601String(),
+            'dateModified' => ($news->revised_at ?? $news->published_at)?->toIso8601String(),
             'author' => self::articleAuthor($news, $organizationId),
             'publisher' => ['@id' => $organizationId],
             'image' => NewsImage::src($news->hero_image, config()->integer('seo.image_width')),

@@ -7,18 +7,17 @@
     'describedBy' => null,
 ])
 
+@aware(['help' => null])
+
 @php
     $id ??= $name;
     $hasError = $errors->has($name);
 
-    // The one control appearance in the app. Every text control — including the
-    // combobox — renders through this component, so heights, padding, radius and
-    // focus ring can never drift apart. border-strong and hint are the lightest
-    // grays that still clear WCAG 1.4.11 (3:1) and 1.4.3 (4.5:1) on white.
     $describedBy = collect([
         $describedBy,
+        filled($help) ? $id.'-help' : null,
         $hasError ? $id.'-error' : null,
-    ])->filter()->implode(' ');
+    ])->filter()->unique()->implode(' ');
 @endphp
 
 <input type="{{ $type }}"

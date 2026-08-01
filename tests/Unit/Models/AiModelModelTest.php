@@ -13,7 +13,7 @@ test('create an AiModel model', function () {
         'order' => 1,
         'name' => 'qwen3.6:35b',
         'license' => 'Apache-2.0',
-        'role' => ['de' => 'Chat', 'en' => 'Chat'],
+        'role' => ['de_CH' => 'Chat', 'en_CH' => 'Chat'],
     ]);
 
     expect($model)->toBeInstanceOf(AiModel::class)
@@ -37,9 +37,17 @@ it('defines the replacedBy and dailyUsages relations', function () {
         ->and($model->dailyUsages())->toBeInstanceOf(HasMany::class);
 })->group('unit', 'models');
 
+it('falls back to null when the role has no entry for the locale', function () {
+    $model = new AiModel;
+    $model->role = ['de_CH' => 'Chat-Modell'];
+
+    app()->setLocale('en_CH');
+    expect($model->localizedRole())->toBeNull();
+})->group('unit', 'models');
+
 it('returns the localized role for the current locale', function () {
     $model = new AiModel;
-    $model->role = ['de' => 'Chat-Modell', 'en' => 'Chat model'];
+    $model->role = ['de_CH' => 'Chat-Modell', 'en_CH' => 'Chat model'];
 
     app()->setLocale('de_CH');
     expect($model->localizedRole())->toBe('Chat-Modell');

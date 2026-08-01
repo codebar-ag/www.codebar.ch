@@ -6,8 +6,9 @@ teaser: >-
   The last settings move into the browser, a rebuilt app puts tasks on your phone, and file cabinets can be moved between two cloud organisations.
 published_at: 2026-05-12
 author: sebastian.buergin@codebar.ch
-hero: images/news/placeholders/docuware-7-14-en.svg
-hero_alt: Placeholder graphic for the DocuWare 7.14 release
+hero: images/news/docuware-7-14-is-here.svg
+hero_alt: Approvals leave the inbox and arrive as tasks with a push notification on the phone
+thumb: images/news/docuware-7-14-is-here-card.svg
 tags: [DMS/ECM]
 ---
 

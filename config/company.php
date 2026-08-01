@@ -38,6 +38,8 @@ return [
 
     'email' => 'info@codebar.ch',
 
+    'contact_person' => 'sebastian-buergin-fix',
+
     /*
      * 'e164' is the machine-readable form for schema.org and tel: links,
      * 'display' is what a human sees on the page.
@@ -86,7 +88,7 @@ return [
             'key' => 'oberwil',
             'primary' => false,
             'city' => 'Oberwil',
-            'label' => 'Office',
+            'label' => 'Branch office',
             'street' => 'Langegasse 39',
             'postal_code' => '4104',
             'country' => 'CH',

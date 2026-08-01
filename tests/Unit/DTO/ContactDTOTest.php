@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\DTO\ContactDTO;
+use App\Enums\ContactSectionEnum;
 use App\Models\Contact;
 
 it('builds a ContactDTO from a Contact model', function () {
@@ -19,7 +20,7 @@ it('builds a ContactDTO from a Contact model', function () {
         'icons' => ['email' => 'sebastian@example.com'],
     ]);
 
-    $dto = ContactDTO::fromModel($contact, 'employees', 'de_CH');
+    $dto = ContactDTO::fromModel($contact, ContactSectionEnum::EMPLOYEES, 'de_CH');
 
     expect($dto->name)->toBe('Sebastian');
     expect($dto->role)->toBe('Software-Architekt');
@@ -34,7 +35,7 @@ it('returns a null role when none is defined for the section and locale', functi
         'icons' => null,
     ]);
 
-    $dto = ContactDTO::fromModel($contact, 'employees', 'de_CH');
+    $dto = ContactDTO::fromModel($contact, ContactSectionEnum::EMPLOYEES, 'de_CH');
 
     expect($dto->role)->toBeNull();
     expect($dto->icons)->toBe([]);

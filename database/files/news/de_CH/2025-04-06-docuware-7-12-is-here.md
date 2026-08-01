@@ -6,8 +6,9 @@ teaser: >-
   Mehr Automatisierung und Einblick: Das Release verbessert die E-Rechnungsverarbeitung, bringt IDP in die Cloud und öffnet Workflow-Daten für Analytics.
 published_at: 2025-04-06
 author: sebastian.buergin@codebar.ch
-hero: images/news/placeholders/docuware-7-12-de.svg
-hero_alt: Platzhaltergrafik zum DocuWare-Release 7.12
+hero: images/news/docuware-7-12-is-here.svg
+hero_alt: Aus einer E-Rechnung werden die Positionen ausgelesen und stehen danach als Tabelle und als Auswertung bereit
+thumb: images/news/docuware-7-12-is-here-card.svg
 tags: [DMS/ECM]
 ---
 

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Support\ResponseCacheFlusher;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -23,6 +26,11 @@ abstract class ImportCommand extends Command
 {
     /** Directory under database/ this importer reads when --path is not given. */
     abstract protected function defaultPath(): string;
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        return ResponseCacheFlusher::batch(fn (): int => parent::execute($input, $output));
+    }
 
     protected function basePath(): string
     {

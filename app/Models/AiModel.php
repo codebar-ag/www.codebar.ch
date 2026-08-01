@@ -53,7 +53,9 @@ class AiModel extends Model
 
     public function localizedRole(): ?string
     {
-        return $this->role[substr(app()->getLocale(), 0, 2)] ?? null;
+        $role = data_get($this->role, app()->getLocale());
+
+        return is_string($role) ? $role : null;
     }
 
     public function licenseLabel(): ?string

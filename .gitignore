@@ -57,3 +57,6 @@ auth.json
 # Lighthouse audit reports (regenerate via tests/lighthouse/run.sh)
 /tests/lighthouse/reports/
 --cache-directory
+
+# Generated Lighthouse runs — keep run.sh and pages.json, not their output.
+tests/lighthouse/reports/

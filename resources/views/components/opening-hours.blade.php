@@ -32,8 +32,6 @@
 @endphp
 
 <div {{ $attributes }}>
-    {{-- The status sits next to the heading as a chip: a green dot while we are open,
-         a grey one while we are not — the box itself keeps the neutral logo wash. --}}
     <div class="flex flex-wrap items-center gap-3">
         <x-h2 :title="__('Opening hours')"/>
 
@@ -47,7 +45,7 @@
         </x-ui.badge>
     </div>
 
-    <div class="rounded-panel border border-border bg-linear-to-r from-fuchsia-600/10 via-brand/10 to-blue-600/10 px-4 py-2 sm:px-6">
+    <x-ui.panel class="max-w-md px-4 py-1 sm:px-6">
         <dl class="divide-y divide-border-soft text-base">
             @foreach ($groups as $group)
                 @php
@@ -65,10 +63,10 @@
                             {{ __(':open to :close', ['open' => $group['open'], 'close' => $group['close']]) }}
                         </dd>
                     @else
-                        <dd class="font-light text-gray-500">{{ __('Closed') }}</dd>
+                        <dd class="font-light text-muted">{{ __('Closed') }}</dd>
                     @endif
                 </div>
             @endforeach
         </dl>
-    </div>
+    </x-ui.panel>
 </div>

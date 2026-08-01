@@ -3,7 +3,7 @@
 
     <x-layout.section>
         <x-h2 :title="__('components.team.working_title')"/>
-        <x-ui.prose class="mt-4">
+        <x-ui.prose>
             <p>{{ __('components.team.working_body') }}</p>
             <p>{{ __('components.team.learning_body') }}</p>
         </x-ui.prose>
@@ -11,9 +11,9 @@
 
     <x-layout.section>
         <x-h2 :title="__('Employees')"/>
-        @if(!empty($contacts->employees) && $contacts->employees->count())
-            <x-layout.grid :cols="2" class="mt-2">
-                @foreach($contacts->employees as $contact)
+        @if($contacts['employees']->isNotEmpty())
+            <x-layout.grid :cols="2">
+                @foreach($contacts['employees'] as $contact)
                     <x-card.person-card
                             :name="$contact->name"
                             :role="$contact->role"
@@ -24,11 +24,11 @@
         @endif
     </x-layout.section>
 
-    @if(!empty($contacts->collaborations) && $contacts->collaborations->count())
+    @if($contacts['collaborations']->isNotEmpty())
         <x-layout.section>
             <x-h2 :title="__('Collaboration')"/>
-            <x-layout.grid :cols="2" class="mt-2">
-                @foreach($contacts->collaborations as $contact)
+            <x-layout.grid :cols="2">
+                @foreach($contacts['collaborations'] as $contact)
                     <x-card.person-card
                             :name="$contact->name"
                             :role="$contact->role"
@@ -41,8 +41,8 @@
 
     <x-layout.section>
         <x-h2 :title="__('Board of directors')"/>
-        <x-layout.grid :cols="2" class="mt-2">
-            @foreach($contacts->board_members as $contact)
+        <x-layout.grid :cols="2">
+            @foreach($contacts['board_members'] as $contact)
                 <x-card.person-card
                         :name="$contact->name"
                         :icons="$contact->icons"

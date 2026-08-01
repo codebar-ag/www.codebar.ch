@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 840" width="1600" height="840" fill="none" role="img" aria-labelledby="title-dw714">
+    <title id="title-dw714">Freigaben lagen tagelang unangetastet im Postfach, neu liegen die Aufgaben nach Prozess gruppiert auf dem Telefon und melden sich von selbst</title>
+
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+        <linearGradient id="wash" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#f4eef8"/>
+        </linearGradient>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="42"/>
+        </filter>
+        <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.8" fill="#09090b"/>
+        </pattern>
+
+        <path id="w1" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w2" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w3" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w4" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+
+        <path id="tray" d="M8 262h384l-20 110a16 16 0 0 1-16 16H44a16 16 0 0 1-16-16Z"/>
+        <path id="front" d="M12 282q188 14 376 0l-16 90a16 16 0 0 1-16 16H44a16 16 0 0 1-16-16Z"/>
+    </defs>
+
+    <rect width="1600" height="840" fill="url(#wash)"/>
+    <rect x="0" y="0" width="300" height="840" fill="url(#dots)" opacity="0.1"/>
+    <rect x="1300" y="0" width="300" height="840" fill="url(#dots)" opacity="0.1"/>
+
+    <g transform="translate(240 221) rotate(-4 208 206)">
+        <use href="#tray" fill="#09090b" stroke="none" opacity="0.3" transform="translate(16 16)"/>
+
+        <use href="#tray" fill="#ffffff" stroke="#09090b" stroke-width="3.5" stroke-linejoin="round"/>
+
+        <g stroke="#09090b" stroke-width="2.5" stroke-linejoin="round">
+            <rect x="50" y="246" width="300" height="46" rx="11" fill="#ffffff"/>
+            <rect x="44" y="208" width="300" height="46" rx="11" fill="#ffffff"/>
+            <rect x="38" y="170" width="300" height="46" rx="11" fill="#ffffff"/>
+            <rect x="32" y="132" width="300" height="46" rx="11" fill="#ffffff"/>
+        </g>
+        <g stroke="#09090b" stroke-width="4.5" stroke-linecap="round" fill="none">
+            <use href="#w3" x="74" y="265"/>
+            <use href="#w3" x="68" y="227"/>
+            <use href="#w2" x="62" y="189"/>
+            <use href="#w3" x="56" y="151"/>
+        </g>
+
+        <use href="#front" fill="#ffffff" stroke="#09090b" stroke-width="3.5" stroke-linejoin="round"/>
+        <use href="#front" fill="#09090b" stroke="none" opacity="0.07"/>
+
+        <g stroke="#09090b" opacity="0.45" stroke-linecap="round">
+            <rect x="291" y="8" width="18" height="12" rx="6" fill="#ffffff" stroke-width="3"/>
+            <circle cx="300" cy="60" r="40" fill="#ffffff" stroke-width="3"/>
+            <g stroke-width="2.5" fill="none">
+                <path d="M300 24v9M300 96v-9M260 60h9M340 60h-9"/>
+            </g>
+            <g stroke-width="3.5" fill="none">
+                <path d="M300 60V32M300 60l20 12"/>
+            </g>
+            <circle cx="300" cy="60" r="4" fill="#09090b" stroke="none"/>
+        </g>
+    </g>
+
+    <ellipse cx="780" cy="420" rx="118" ry="146" fill="url(#accent)" filter="url(#glow)" opacity="0.55"/>
+
+    <g stroke="#09090b" stroke-width="4" fill="#09090b">
+        <path d="M600 420h72" stroke-linecap="round"/>
+        <path d="M690 420l-20-12v24Z" stroke="none"/>
+        <path d="M850 420h72" stroke-linecap="round"/>
+        <path d="M940 420l-20-12v24Z" stroke="none"/>
+    </g>
+
+    <rect x="714" y="366" width="124" height="124" rx="26" fill="#09090b" opacity="0.3"/>
+    <rect x="706" y="358" width="124" height="124" rx="26" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <g class="act" transform="translate(738 390)">
+        <path d="M30 6a16 16 0 0 1 16 16v13l6 8H8l6-8V22A16 16 0 0 1 30 6Z" fill="url(#accent)"/>
+        <path d="M23 47a7 7 0 0 0 14 0Z" fill="url(#accent)"/>
+    </g>
+
+    <rect x="1022" y="202" width="250" height="430" rx="30" fill="#09090b" opacity="0.3"/>
+    <rect x="1010" y="190" width="250" height="430" rx="30" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <rect x="1004" y="184" width="262" height="442" rx="36" stroke="url(#accent)" stroke-width="3" fill="none"/>
+    <rect x="1092" y="204" width="86" height="14" rx="7" fill="#09090b" opacity="0.25"/>
+
+    <g fill="#500472" opacity="0.05">
+        <rect x="1030" y="240" width="210" height="164" rx="9"/>
+        <rect x="1030" y="420" width="210" height="164" rx="9"/>
+    </g>
+    <g stroke="#500472" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.6">
+        <use href="#w1" x="1044" y="256"/>
+        <use href="#w1" x="1044" y="436"/>
+    </g>
+
+    <g stroke="#09090b" stroke-width="2.5" stroke-linejoin="round">
+        <rect x="1042" y="270" width="186" height="56" rx="9" fill="#ffffff"/>
+        <rect x="1042" y="336" width="186" height="56" rx="9" fill="#ffffff"/>
+        <rect x="1042" y="450" width="186" height="56" rx="9" fill="#ffffff"/>
+        <rect x="1042" y="516" width="186" height="56" rx="9" fill="#ffffff"/>
+    </g>
+    <g stroke="#09090b" stroke-width="4.5" stroke-linecap="round" fill="none">
+        <use href="#w2" x="1056" y="292"/><use href="#w1" x="1114" y="292"/>
+        <use href="#w2" x="1056" y="358"/><use href="#w2" x="1114" y="358"/>
+        <use href="#w2" x="1056" y="472"/><use href="#w1" x="1114" y="472"/>
+        <use href="#w2" x="1056" y="538"/><use href="#w2" x="1114" y="538"/>
+    </g>
+    <g stroke="#09090b" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.45">
+        <use href="#w1" x="1056" y="310"/><use href="#w2" x="1092" y="310"/>
+        <use href="#w2" x="1056" y="376"/>
+        <use href="#w1" x="1056" y="490"/><use href="#w2" x="1092" y="490"/>
+        <use href="#w2" x="1056" y="556"/><use href="#w1" x="1114" y="556"/>
+    </g>
+
+    <circle cx="1196" cy="298" r="16" fill="url(#accent)"/>
+    <path d="M1188 298l6 7 11-13" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <g data-detail="push waves" stroke="url(#accent)" stroke-width="5" fill="none" stroke-linecap="round">
+        <path d="M1272.9 224.1A32 32 0 0 0 1292.1 183.1"/>
+        <path d="M1281.2 246.6A56 56 0 0 0 1314.6 174.9"/>
+        <path d="M1290 271.1A82 82 0 0 0 1339.1 166"/>
+    </g>
+    <circle cx="1262" cy="194" r="12" fill="url(#accent)"/>
+</svg>

@@ -17,7 +17,6 @@
         "mazedlx/laravel-feature-policy": "^2.2",
         "sammyjo20/lasso": "^3.5",
         "spatie/laravel-csp": "^3.8",
-        "spatie/laravel-flash": "^1.10",
         "spatie/laravel-health": "^1.27",
         "spatie/laravel-honeypot": "^4.5",
         "spatie/laravel-permission": "^8.0",
@@ -27,7 +26,8 @@
         "spatie/security-advisories-health-check": "^1.2",
         "symfony/http-client": "^8.1",
         "symfony/postmark-mailer": "^8.1",
-        "symfony/yaml": "^8.1"
+        "symfony/yaml": "^8.1",
+        "tempest/highlight": "^2.27"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

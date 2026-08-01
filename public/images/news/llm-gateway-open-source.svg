@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 840" width="1600" height="840" fill="none" role="img" aria-labelledby="title-gateway">
+    <title id="title-gateway">Alle Anfragen zeigen auf dieselbe Maschine, deren Speicher bereits belegt ist; neu nimmt ein Gateway sie an, legt sie in eine Warteschlange und gibt sie der Reihe nach an das Modell weiter</title>
+
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+        <linearGradient id="wash" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#f4eef8"/>
+        </linearGradient>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="42"/>
+        </filter>
+        <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.8" fill="#09090b"/>
+        </pattern>
+
+        <path id="w1" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w2" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w3" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w4" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+
+        <path id="job" d="M8 0h134a8 8 0 0 1 8 8v30a8 8 0 0 1-8 8H8A8 8 0 0 1 0 38V8A8 8 0 0 1 8 0Z"/>
+        <path id="lid" d="M12 0h116a12 12 0 0 1 12 12v84H0V12A12 12 0 0 1 12 0Z"/>
+        <path id="deck" d="M0 0h156l8 18a6 6 0 0 1-6 8H-2a6 6 0 0 1-6-8Z"/>
+    </defs>
+
+    <rect width="1600" height="840" fill="url(#wash)"/>
+    <rect x="0" y="0" width="300" height="840" fill="url(#dots)" opacity="0.1"/>
+    <rect x="1300" y="0" width="300" height="840" fill="url(#dots)" opacity="0.1"/>
+
+    <g stroke="#09090b" stroke-width="3" stroke-linejoin="round">
+        <g fill="#09090b" stroke="none" opacity="0.3">
+            <rect x="216" y="240" width="118" height="54" rx="12"/>
+            <rect x="216" y="314" width="94" height="54" rx="12"/>
+            <rect x="216" y="388" width="130" height="54" rx="12"/>
+            <rect x="216" y="462" width="106" height="54" rx="12"/>
+        </g>
+        <g fill="#ffffff">
+            <rect x="206" y="230" width="118" height="54" rx="12"/>
+            <rect x="206" y="304" width="94" height="54" rx="12"/>
+            <rect x="206" y="378" width="130" height="54" rx="12"/>
+            <rect x="206" y="452" width="106" height="54" rx="12"/>
+        </g>
+        <g fill="#09090b" stroke="none" opacity="0.45">
+            <rect x="220" y="246" width="22" height="22" rx="6"/>
+            <rect x="220" y="394" width="22" height="22" rx="6"/>
+        </g>
+        <g stroke-width="4.5" stroke-linecap="round" fill="none">
+            <use href="#w2" x="252" y="259"/>
+            <use href="#w1" x="228" y="333"/>
+            <use href="#w2" x="252" y="407"/>
+            <use href="#w1" x="228" y="481"/>
+        </g>
+    </g>
+
+    <g class="connector" stroke="#09090b" stroke-width="3.5" stroke-linecap="round"
+       stroke-linejoin="round" opacity="0.55" fill="none">
+        <path d="M324 257H372"/>
+        <path d="M300 331H372"/>
+        <path d="M336 405H372"/>
+        <path d="M312 479H372"/>
+        <path d="M372 257V479"/>
+        <path d="M372 368H420"/>
+    </g>
+
+    <g stroke="#09090b" stroke-width="3" stroke-linejoin="round">
+        <use href="#lid" x="430" y="326" fill="#09090b" stroke="none" opacity="0.3"/>
+        <use href="#deck" x="422" y="422" fill="#09090b" stroke="none" opacity="0.3"/>
+        <use href="#lid" x="420" y="316" fill="#ffffff"/>
+        <use href="#deck" x="412" y="412" fill="#ffffff"/>
+    </g>
+    <path d="M420 412h140" data-detail="laptop hinge" stroke="#09090b" stroke-width="3" fill="none"/>
+    <g stroke="#09090b" stroke-width="4" stroke-linecap="round" fill="none">
+        <use href="#w2" x="438" y="344"/>
+    </g>
+    <rect x="438" y="360" width="104" height="16" rx="8" fill="#09090b" opacity="0.15"/>
+    <rect x="438" y="360" width="92" height="16" rx="8" fill="#09090b" opacity="0.55"/>
+    <g stroke="#09090b" stroke-width="3" stroke-linecap="round" opacity="0.45" fill="none">
+        <use href="#w1" x="438" y="394"/>
+    </g>
+
+    <ellipse cx="780" cy="420" rx="118" ry="146" fill="url(#accent)" filter="url(#glow)" opacity="0.55"/>
+
+    <g stroke="#09090b" stroke-width="4" fill="#09090b">
+        <path d="M600 420h72" stroke-linecap="round"/>
+        <path d="M690 420l-20-12v24Z" stroke="none"/>
+        <path d="M850 420h72" stroke-linecap="round"/>
+        <path d="M940 420l-20-12v24Z" stroke="none"/>
+    </g>
+
+    <rect x="714" y="366" width="124" height="124" rx="26" fill="#09090b" opacity="0.3"/>
+    <rect x="706" y="358" width="124" height="124" rx="26" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <g class="act" transform="translate(738 390)">
+        <g stroke="url(#accent)" stroke-width="6" stroke-linecap="round" fill="none">
+            <path d="M4 12h28M4 30h28M4 48h28M40 30h10"/>
+        </g>
+        <path d="M58 30l-12-7v14Z" fill="url(#accent)"/>
+    </g>
+
+    <rect x="982" y="202" width="380" height="340" rx="20" fill="#09090b" opacity="0.3"/>
+    <rect x="964" y="184" width="392" height="352" rx="26" stroke="url(#accent)" stroke-width="3"/>
+    <rect x="970" y="190" width="380" height="340" rx="20" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <path d="M970 258h380" data-detail="panel header rule" stroke="#09090b" stroke-width="3"/>
+    <rect x="990" y="207" width="34" height="34" rx="10" fill="url(#accent)"/>
+    <use href="#w3" x="1044" y="230" stroke="#09090b" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+    <g stroke="url(#accent)" stroke-width="4" stroke-linecap="round" fill="none">
+        <path d="M1268 204v42M1268 228c0-16 16-20 38-20"/>
+    </g>
+    <g fill="url(#accent)">
+        <circle cx="1268" cy="204" r="7"/><circle cx="1268" cy="246" r="7"/><circle cx="1306" cy="208" r="7"/>
+    </g>
+
+    <g stroke="#09090b" stroke-width="2.5" stroke-linejoin="round">
+        <use href="#job" x="996" y="287" fill="#ffffff"/>
+        <use href="#job" x="996" y="343" fill="#ffffff"/>
+        <use href="#job" x="996" y="399" fill="#ffffff"/>
+        <use href="#job" x="996" y="455" fill="#ffffff"/>
+    </g>
+    <rect x="1008" y="305" width="126" height="10" rx="5" fill="#09090b" opacity="0.15"/>
+    <rect x="1008" y="305" width="76" height="10" rx="5" fill="url(#accent)"/>
+    <g fill="#09090b" opacity="0.3">
+        <rect x="1008" y="361" width="104" height="10" rx="5"/>
+        <rect x="1008" y="417" width="92" height="10" rx="5"/>
+        <rect x="1008" y="473" width="118" height="10" rx="5"/>
+    </g>
+
+    <g class="connector" stroke="url(#accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M1152 305H1256v43"/>
+    </g>
+
+    <g data-detail="chip pins" stroke="#09090b" stroke-width="3" stroke-linecap="round" opacity="0.55">
+        <path d="M1196 366h14M1196 385h14M1196 403h14M1196 422h14"/>
+        <path d="M1302 366h14M1302 385h14M1302 403h14M1302 422h14"/>
+        <path d="M1228 334v14M1247 334v14M1265 334v14M1284 334v14"/>
+        <path d="M1228 440v14M1247 440v14M1265 440v14M1284 440v14"/>
+    </g>
+    <rect x="1210" y="348" width="92" height="92" rx="10" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="1241" y="379" width="30" height="30" rx="6" fill="url(#accent)"/>
+
+    <g class="connector" stroke="#09090b" stroke-width="2.5" stroke-linejoin="round" opacity="0.45" fill="none">
+        <path d="M1200 530v66h-58"/>
+    </g>
+    <g fill="#09090b" opacity="0.45">
+        <circle cx="1200" cy="530" r="6"/><circle cx="1142" cy="596" r="6"/>
+    </g>
+
+    <path d="M990 582v64a75 20 0 0 0 150 0V582a75 20 0 0 0-150 0Z" fill="#09090b" opacity="0.3" transform="translate(10 10)"/>
+    <path d="M990 582v64a75 20 0 0 0 150 0V582" fill="#ffffff" stroke="#09090b" stroke-width="2.5"/>
+    <ellipse cx="1065" cy="582" rx="75" ry="20" fill="#ffffff" stroke="#09090b" stroke-width="2.5"/>
+    <path d="M990 618a75 20 0 0 0 150 0" data-detail="cylinder fill line" stroke="#09090b" stroke-width="2.5" opacity="0.4"/>
+</svg>

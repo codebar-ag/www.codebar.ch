@@ -6,7 +6,7 @@ provider: 'Alibaba / Qwen (CN)'
 ram: '6,1 GB RAM'
 license: Apache-2.0
 role:
-  de: 'Schnelle Vision-Variante für einfache Bildaufgaben'
-  en: 'Fast vision variant for simple image tasks'
+  de_CH: 'Schnelle Vision-Variante für einfache Bildaufgaben'
+  en_CH: 'Fast vision variant for simple image tasks'
 link_label: Ollama
 link_url: 'https://ollama.com/library/qwen3-vl'

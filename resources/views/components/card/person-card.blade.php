@@ -5,7 +5,7 @@
 @endphp
 
 <div class="group flex flex-row overflow-hidden rounded-panel transition">
-    <div class="{{ $imageContainerClassAttributes ?? 'size-32 shrink-0 overflow-hidden' }}">
+    <div class="{{ $imageContainerClassAttributes ?? 'size-32 shrink-0' }} overflow-hidden rounded-panel">
         <img src="{{ CloudinaryUrl::src($image, 256) }}"
              srcset="{{ CloudinaryUrl::srcset($image, 256) }}"
              sizes="128px"

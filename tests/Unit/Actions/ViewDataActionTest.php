@@ -73,7 +73,7 @@ it('groups published contacts by section for the given locale', function () {
         'published' => true,
         'name' => 'Alice',
         'sections' => [
-            ContactSectionEnum::EMPLOYEES => ['role' => ['de_CH' => 'Engineer']],
+            ContactSectionEnum::EMPLOYEES->value => ['role' => ['de_CH' => 'Engineer']],
         ],
     ]);
 
@@ -81,16 +81,16 @@ it('groups published contacts by section for the given locale', function () {
         'published' => false,
         'name' => 'Bob',
         'sections' => [
-            ContactSectionEnum::EMPLOYEES => ['role' => ['de_CH' => 'Engineer']],
+            ContactSectionEnum::EMPLOYEES->value => ['role' => ['de_CH' => 'Engineer']],
         ],
     ]);
 
     $result = (new ViewDataAction)->contacts('de_CH');
 
     /** @var Collection<int, ContactDTO> $employees */
-    $employees = $result->{ContactSectionEnum::EMPLOYEES};
+    $employees = $result->get(ContactSectionEnum::EMPLOYEES->value);
 
     expect($employees)->toHaveCount(1);
     expect($employees->firstOrFail()->name)->toBe('Alice');
-    expect($result->{ContactSectionEnum::COLLABORATIONS})->toHaveCount(0);
+    expect($result->get(ContactSectionEnum::COLLABORATIONS->value))->toHaveCount(0);
 })->group('unit', 'actions');
