@@ -1,5 +1,6 @@
 key: ai.index
 robots: index,follow
+image: images/pages/ai.index.svg
 title:
   de_CH: 'Lokale KI auf eigener Infrastruktur | codebar Solutions AG'
   en_CH: 'Local AI on Our Own Infrastructure | codebar Solutions AG'

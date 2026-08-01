@@ -4,6 +4,10 @@
 **Scope:** `resources/views/`, `resources/css/app.css`, `resources/js/app.js`
 **Es wurde kein Code geschrieben.**
 
+> **Umgesetzt am 2026-08-01** — siehe [Kapitel 10](#10-umsetzung). Alle Befunde sind abgearbeitet
+> bis auf 3.8 (person-card / network-user-card), das bewusst offen bleibt. Bundle 119 543 → 81 179 B
+> (gzip 19 635 → 13 959 B), Dark-Mode-Regeln 14 → 0, 390 Tests grün.
+
 ---
 
 ## 0. Vorbemerkung — was dieses Audit *nicht* gefunden hat
@@ -303,3 +307,98 @@ Batch 1 und 2 sind unabhängig von allen vier Fragen und können sofort starten.
 ---
 
 *Snapshot-Hinweis: `resources/css/app.css` und 30 Blade-Dateien wurden während des Audits verändert (u. a. `tilt-art` → `illustration-row__art`, TOC-Umbau, `page-header` verliert die `illustration`-Prop). Die zitierten Zeilennummern sind gegen den Working Tree von 08:41 geprüft. Vor dem Refactor gegenprüfen.*
+
+---
+
+## 10. Umsetzung
+
+Durchgeführt am 2026-08-01, committet in `e501564`. Zwischen Audit und Umsetzung wurde parallel
+weiterentwickelt — drei Befunde hatten sich dadurch bereits erledigt (siehe „Entfallen").
+
+### Messergebnis
+
+| | vorher | nachher |
+|---|---:|---:|
+| Bundle roh | 119 543 B | **81 179 B** (−32 %) |
+| Bundle gzip | 19 635 B | **13 959 B** (−29 %) |
+| `dark:`-Regeln | 14 | **0** |
+| `@media (prefers-color-scheme)` | 1 | **0** |
+| Arbitrary-Value-Regeln im Bundle | 53 | 22 |
+| Focus-Ring-Strings in Blade | 26 in 7 Varianten | **1** (begründet) |
+| `py-2 pr-4` in Views | 17 | **0** |
+| Tests | 361 grün | **390 grün** |
+
+### Dark Mode — restlos entfernt
+
+Zwei Quellen, nicht eine:
+
+1. **Laravels `pagination::tailwind`.** Ersetzt durch `x-ui.pagination` (Marken-Palette,
+   `min-h-control`, `focus-ring`, `aria-current="page"`, `aria-label` je Seitenlink). Zusätzlich
+   liegt unter `resources/views/vendor/pagination/tailwind.blade.php` ein Einzeiler, der auf die
+   Komponente delegiert — damit ist auch ein künftiges `->links()` irgendwo im Code abgesichert.
+   Der `@source` auf die Vendor-View ist gestrichen.
+2. **Dieser Report selbst.** Tailwind v4 scannt per Automatik das ganze Projektverzeichnis, also
+   auch `reports/frontend.md` — und weil Kapitel 2.1 die Klassennamen `dark:text-gray-400`,
+   `dark:focus:border-blue-700` und `dark:active:bg-gray-700` wörtlich zitiert, landeten genau
+   diese drei Regeln wieder im Bundle. Behoben mit `@import 'tailwindcss' source(none)` plus
+   expliziten `@source`-Pfaden auf `../views`, `../js`, `../../app`.
+
+Der zweite Punkt hat einen Nebeneffekt: die Automatik hatte auch Prosa aus `prompts/`, `todos/`
+und den News-Markdown-Dateien als Klassenkandidaten eingesammelt (`container`, `grow`, `visible`,
+`lowercase`, `size-14` …). Diese Fehltreffer sind jetzt ebenfalls weg — ein guter Teil der
+Bundle-Ersparnis stammt daher, nicht nur aus den Demos.
+
+### Neue Utilities (`app.css`)
+
+`focus-ring` · `focus-ring-inset` · `focus-ring-wide` · `focus-ring-light` · `tap-target` · `icon-button`
+
+Ersetzen 26 Focus-Ring- und 14 Touch-Target-/Icon-Button-Vorkommen. `x-ui.button` läuft damit auf
+`outline-*` statt `ring-*` — es gibt nur noch einen Focus-Mechanismus.
+
+### Neue Komponenten
+
+`x-ui.pagination` · `x-ui.table` + `x-ui.table.row` + `x-ui.table.cell` · `x-layout.page-note`
+
+Beide Tabellen (Analytics, LLM-Archiv) laufen über die Komponente — eine Konvention für Trenner,
+Kopf, Padding, Ausrichtung und Scroll-Container. Die Spaltenreduktion auf dem Phone ist jetzt ein
+`:hide="true"` statt eines wiederholten `hidden sm:table-cell`.
+
+### Weitere Änderungen
+
+- 6× `text-gray-500` → `text-muted` (4.84:1 → 7.56:1)
+- `stat-card` `text-2xl` und Co-Working-Preis `text-3xl` → `text-title` (fluid 24→30 px)
+- Impressum: Telefon und E-Mail kommen aus `config/company.php` statt aus Übersetzungsstrings
+- `aria-describedby` verdrahtet sich in `x-form.input` und `x-form.file` automatisch über `@aware`
+  (Befund 7.4). Für die zwei Felder mit `<x-slot:help>` ist `described-by` explizit gesetzt —
+  `@aware` sieht nur Attribute, keine Slots.
+- Tote Varianten entfernt: `x-ui.row` `compact`, `x-ui.badge` `solid`
+- Kommentare aus den 14 bearbeiteten Blade-Dateien entfernt
+- 5 Übersetzungs-Keys je Sprache für die Pagination
+
+### Bewusst nicht geändert
+
+| | Grund |
+|---|---|
+| **3.8 person-card / network-user-card** | Zusammenlegen ergäbe zwei disjunkte Layouts hinter einem Namen — 128-px-Porträtkarte vs. 32-px-Zeile. Sie sind unterschiedliche Komponenten, keine Dublette. Bleibt offen, auf Zuruf machbar. |
+| Emerald-Focus-Ring in `x-intro` (2×) | Das Terminal-Widget steht auf `zinc-950`; Markenlila hätte dort 1.4:1. Eigene Palette, unter Rule-of-three. |
+| `x-ui.social-links` behält `size-control … sm:size-8` | Wechselt die Grösse am Breakpoint. Mit `icon-button` würde die Reihenfolge der Emission entscheiden, welche Grösse gewinnt — genau die Falle, vor der `app.css` warnt. |
+| `bg-wash`-Utility wieder verworfen | Der Logo-Wash steht durch euren Refactor nur noch in `nav-card`. Ein Utility für einen Aufrufer ist Overhead. |
+| `x-ui.alert` `success`/`error` | Ungenutzt, aber der semantische Satz gehört zusammen. |
+| Navigations-Typo `text-xl`/`text-2xl` | Eigene, in sich konsistente Menü-Skala. |
+| `[&_td:not(:last-child)]:pr-4` in `x-ui.table` | Bewusster Arbitrary-Variant an genau einer Stelle — ersetzt eine Prop, die jede Zelle hätte tragen müssen. |
+
+### Entfallen — durch Parallelarbeit erledigt
+
+- **3.4 / 3.5 Kontaktblock doppelt**: Die Kontaktseite ist auf Buttons mit `config()`-Werten
+  umgebaut. Nur das Impressum hing noch an hartcodierten Strings.
+- **3.6 Logo-Wash 3×**: TOC und Öffnungszeiten nutzen ihn nicht mehr.
+- **Demo-Prototypen (2.2)**: Views, Routen und Controller sind bereits gelöscht; hier fielen nur
+  noch `demo-marquee` / `demo-dotgrid` aus `app.css`. Eine eigene Demo-CSS-Datei war damit
+  gegenstandslos — es gibt keine Demos mehr, die sie laden würden.
+
+### Verifikation
+
+`npm run build` · `responsecache:clear` · `view:clear` · `php artisan test --parallel` → 390 grün.
+Zusätzlich alle 33 GET-Routen gerendert und auf Status, `dark:`, `prefers-color-scheme`,
+`py-2 pr-4`, `text-gray-500` und die alte Seiten-Notiz geprüft — sauber. Pagination, Tabellenkopf
+und die `aria-describedby`-Verdrahtung wurden im gerenderten HTML gegengelesen.

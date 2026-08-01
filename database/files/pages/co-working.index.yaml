@@ -1,5 +1,6 @@
 key: co-working.index
 robots: index,follow
+image: images/pages/co-working.index.svg
 title:
   de_CH: 'Co-Working bei codebar Solutions AG'
   en_CH: 'Co-Working at codebar Solutions AG'

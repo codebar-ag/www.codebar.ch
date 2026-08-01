@@ -3,6 +3,8 @@ import '../css/app.css'
 import Alpine from '@alpinejs/csp'
 import focus from '@alpinejs/focus'
 
+import { introTabs } from './intro-tabs'
+
 window.Alpine = Alpine
 Alpine.plugin(focus)
 
@@ -123,44 +125,7 @@ Alpine.data('combobox', () => ({
     },
 }))
 
-Alpine.data('introTabs', () => ({
-    init() {
-        this.onKey = (event) => {
-            if (event.metaKey || event.ctrlKey || event.altKey) return
-
-            const target = event.target
-            if (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return
-
-            const shortcut = this.$root.querySelector(`input[data-shortcut="${CSS.escape(event.key)}"]`)
-            if (shortcut) {
-                event.preventDefault()
-                shortcut.checked = true
-                return
-            }
-
-            const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
-            if (step === 0 || !this.inView()) return
-
-            const tabs = Array.from(this.$root.querySelectorAll('input[data-tab]'))
-            const current = tabs.findIndex((tab) => tab.checked)
-
-            event.preventDefault()
-            tabs[(current + step + tabs.length) % tabs.length].checked = true
-        }
-
-        window.addEventListener('keydown', this.onKey)
-    },
-
-    inView() {
-        const box = this.$root.getBoundingClientRect()
-
-        return box.bottom > 0 && box.top < window.innerHeight
-    },
-
-    destroy() {
-        window.removeEventListener('keydown', this.onKey)
-    },
-}))
+Alpine.data('introTabs', introTabs)
 
 Alpine.data('navigation', () => ({
     open: false,

@@ -7,10 +7,18 @@ document is the rest of the brief.
 Reference implementation: `public/images/services/dms-ecm-consulting.svg` (banner) and
 `public/images/services/dms-ecm-consulting-card.svg` (card). Open both alongside this document.
 
-This file, `illustration-news.md` and `illustration-news-card.md` describe **one drawing
-language on three canvases**. Everything below — the idea grammar, the palette, the `<defs>`,
-the parts catalogue, the act vocabulary, the gates — is shared, and the two news files only add
-what is specific to an article. Read this one first.
+This file, `illustration-news.md`, `illustration-news-card.md` and `illustration-seo-card.md`
+describe **one drawing language across four families**. Everything below — the idea grammar, the
+palette, the `<defs>`, the parts catalogue, the act vocabulary, the gates — is shared, and the
+other three only add what is specific to their subject: an article, an index row, or the
+`og:image` of a page. Read this one first.
+
+| File | Subject | Canvas |
+|---|---|---|
+| this one | a service | 1600×840 banner + 344 card |
+| `illustration-news.md` | an article | 1600×840 hero, displayed cropped |
+| `illustration-news-card.md` | an index row | 344×344 |
+| `illustration-seo-card.md` | a page — the picture its link travels with | 1200×630, no card |
 
 Two older families still exist and are not this: the generated news placeholders in
 `images-news.md` / `images-news-square.md` (v1 — a title in Poppins, `make-news-hero.py`, one
@@ -62,6 +70,10 @@ public/images/services/<slug>.svg        1600×840   banner  → og:image and th
 public/images/services/<slug>.png        1200×630   rendered from the banner, never hand-edited
 public/images/services/<slug>-card.svg    344×344   card    → the index row thumbnail
 ```
+
+News drawings sit in `public/images/news/` under the same three names, and a page's `og:image`
+sits in `public/images/pages/` as a banner and a PNG with no card —
+`illustration-seo-card.md` §3.
 
 `<slug>` must match the service's `key`/`slug` exactly. The banner is wired in front matter, the
 card is found by convention:
@@ -519,7 +531,10 @@ told" / "it is protected" / "the work is on a board". Add it to `ACTS` in
 `scripts/check-illustrations.py` in the same commit, or the gate rejects it.
 
 **No two drawings in the same family share an act.** That is checked, and it is the cheapest
-possible guard against three DocuWare releases becoming three variations on one picture.
+possible guard against three DocuWare releases becoming three variations on one picture. Across
+families it is allowed and normal — a service and a page are never printed side by side, so both
+may be `braces`. `illustration-seo-card.md` §7 adds six acts for the pages family; they are part
+of the same vocabulary and live in the same `ACTS` table.
 
 ## 11. Quality gates
 
@@ -554,7 +569,8 @@ phrase from the subject's own copy:
 ```
 
 Each quote has to appear **verbatim** in the source markdown — for a service that is
-`database/files/services/{de_CH,en_CH}/<slug>.md`, for an article both locale files. Markdown
+`database/files/services/{de_CH,en_CH}/<slug>.md`, for an article both locale files, and for a
+page its YAML plus the `lang/` files (`illustration-seo-card.md` §8). Markdown
 emphasis, curly quotes, en dashes and line wrapping are folded before comparing; wording is not.
 If you cannot find a phrase for an object, the object does not belong in the drawing. That rule
 is what removed the spreadsheet from `open-source-erp`: nothing on that page has ever mentioned
@@ -588,7 +604,8 @@ beside a banner and does not exist beside a card; and, for a news hero, no ink o
 
 Held against each other: no two banners in a family share an act, and no two open with the same
 object. The index prints these directly under one another, so the thing a reader actually sees is
-the set.
+the set. The pages family has no index and is held to the same rule anyway — three codebar links
+pasted into one chat are a set too (`illustration-seo-card.md` §6).
 
 ### What the gates cannot do
 

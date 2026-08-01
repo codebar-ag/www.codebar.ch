@@ -60,6 +60,19 @@ class NewsImage
         return is_file(public_path(ltrim($png, '/'))) ? asset(ltrim($png, '/')) : null;
     }
 
+    public static function crawlable(?string $reference, int $width): ?string
+    {
+        if ($reference === null || trim($reference) === '') {
+            return null;
+        }
+
+        $reference = trim($reference);
+
+        return str_ends_with(strtolower($reference), '.svg')
+            ? self::ogImage($reference)
+            : self::src($reference, $width);
+    }
+
     public static function srcset(?string $reference, int $maxWidth): ?string
     {
         if (self::src($reference, $maxWidth) === null) {

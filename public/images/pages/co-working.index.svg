@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img">
+    <title>Der Arbeitsplatz zieht vom Küchentisch an einen ausgestatteten Platz im Team</title>
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+        <linearGradient id="wash" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#f4eef8"/>
+        </linearGradient>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="32"/>
+        </filter>
+        <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.8" fill="#09090b"/>
+        </pattern>
+
+        <path id="w1" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w2" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w3" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w4" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+    </defs>
+
+    <rect width="1200" height="630" fill="url(#wash)"/>
+    <rect width="150" height="630" fill="url(#dots)" opacity="0.1"/>
+    <rect x="1050" width="150" height="630" fill="url(#dots)" opacity="0.1"/>
+
+    <ellipse cx="600" cy="315" rx="92" ry="116" fill="url(#accent)" filter="url(#glow)" opacity="0.55"/>
+
+    <g transform="rotate(-4 270 315)">
+    <rect x="218" y="244" width="172" height="116" rx="10" fill="#09090b" opacity="0.3"/>
+    <rect x="206" y="232" width="172" height="116" rx="10" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M206 332h172" data-detail="laptop hinge" stroke="#09090b" stroke-width="2.5" fill="none" opacity="0.45"/>
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round"><use href="#w2" x="230" y="276"/><use href="#w1" x="230" y="304"/></g>
+    <path d="M182 348h220l14 22a9 9 0 0 1-8 13H176a9 9 0 0 1-8-13Z" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="86" y="396" width="356" height="24" rx="12" fill="#09090b" opacity="0.3" transform="translate(12 12)"/>
+    <rect x="86" y="396" width="356" height="24" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <path d="M126 420v58M402 420v58" data-detail="table legs" stroke="#09090b" stroke-width="3" fill="none" opacity="1"/>
+    <path d="M108 344h44v34a22 22 0 0 1-44 0Z" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="160" cy="358" r="12" fill="none" stroke="#09090b" stroke-width="3"/>
+    </g>
+
+    <rect x="830" y="184" width="252" height="156" rx="12" fill="#09090b" opacity="0.3"/>
+    <rect x="818" y="172" width="252" height="156" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round"><use href="#w3" x="846" y="224"/><use href="#w1" x="926" y="224"/><use href="#w2" x="846" y="256"/></g>
+    <path d="M944 328v34" data-detail="monitor stand" stroke="#09090b" stroke-width="4" fill="none" opacity="1"/>
+    <rect x="898" y="362" width="92" height="14" rx="7" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <rect x="758" y="396" width="380" height="24" rx="12" fill="#09090b" opacity="0.3" transform="translate(12 12)"/>
+    <rect x="758" y="396" width="380" height="24" rx="12" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <path d="M798 420v58M1098 420v58" data-detail="desk legs" stroke="#09090b" stroke-width="3" fill="none" opacity="1"/>
+    <rect x="838" y="158" width="152" height="28" rx="14" fill="url(#accent)"/>
+    <rect x="1090" y="196" width="62" height="46" rx="10" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="1090" y="260" width="62" height="46" rx="10" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round">
+        <path class="arrow" d="M482 315h44"/>
+        <path class="arrow" d="M674 315h44"/>
+    </g>
+    <g fill="#09090b">
+        <path d="M534 315l-16-10v20Z"/>
+        <path d="M726 315l-16-10v20Z"/>
+    </g>
+
+    <rect x="546" y="261" width="108" height="108" rx="22" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g class="act" transform="translate(570 285)">
+        <g stroke="url(#accent)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M30 10H12a6 6 0 0 0-6 6v30a6 6 0 0 0 6 6h30a6 6 0 0 0 6-6V28"/>
+            <path d="M32 26L54 4"/><path d="M38 4h16v16"/>
+        </g>
+    </g>
+</svg>

@@ -1,5 +1,6 @@
 key: news.index
 robots: index,follow
+image: images/pages/news.index.svg
 title:
   de_CH: 'Neuigkeiten & Insights – codebar Solutions AG'
   en_CH: 'News & Insights – codebar Solutions AG'

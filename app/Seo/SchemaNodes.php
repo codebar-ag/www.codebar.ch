@@ -141,7 +141,7 @@ class SchemaNodes
             'dateModified' => ($news->revised_at ?? $news->published_at)?->toIso8601String(),
             'author' => self::articleAuthor($news, $organizationId),
             'publisher' => ['@id' => $organizationId],
-            'image' => NewsImage::src($news->hero_image, config()->integer('seo.image_width')),
+            'image' => NewsImage::crawlable($news->hero_image, config()->integer('seo.image_width')),
             'keywords' => is_array($tags) ? array_values($tags) : null,
         ], fn (mixed $value): bool => $value !== null && $value !== [])];
     }

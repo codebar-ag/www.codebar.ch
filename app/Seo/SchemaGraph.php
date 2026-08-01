@@ -95,6 +95,20 @@ class SchemaGraph
             'telephone' => Company::phone(),
             'vatID' => Company::uid(),
             'address' => $this->postalAddress(Company::primaryLocation()),
+            'areaServed' => 'CH',
+            'knowsAbout' => Company::knowsAbout(),
+            'numberOfEmployees' => [
+                '@type' => 'QuantitativeValue',
+                'value' => Company::numberOfEmployees(),
+            ],
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'contactType' => 'customer service',
+                'email' => Company::email(),
+                'telephone' => Company::phone(),
+                'areaServed' => 'CH',
+                'availableLanguage' => ['de', 'en'],
+            ],
             'sameAs' => Company::sameAs(),
         ], fn (mixed $value): bool => $value !== null && $value !== [] && $value !== '');
     }
@@ -140,7 +154,7 @@ class SchemaGraph
             'dateModified' => $this->page->lastModificationDate->toIso8601String(),
             'isPartOf' => ['@id' => $this->id(self::WEBSITE_ID)],
             'about' => ['@id' => $this->id(self::ORGANIZATION_ID)],
-            'primaryImageOfPage' => ($image = NewsImage::src($this->page->image, config()->integer('seo.image_width'))) !== null
+            'primaryImageOfPage' => ($image = NewsImage::crawlable($this->page->image, config()->integer('seo.image_width'))) !== null
                 ? ['@type' => 'ImageObject', 'url' => $image]
                 : null,
         ], fn (mixed $value): bool => $value !== null && $value !== '');

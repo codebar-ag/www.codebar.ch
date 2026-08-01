@@ -28,6 +28,32 @@ return [
     'alternate_names' => [
         'codebar Solutions',
         'codebar',
+        // Officially registered name translations, per the Zefix record.
+        'codebar Solutions Ltd',
+        'codebar Solutions SA',
+    ],
+
+    /*
+     * Headcount for schema.org numberOfEmployees. Counts people who actually work
+     * here — board members who are not employees do not belong in this number.
+     * Keep in sync with the `employees` section of database/files/team.
+     */
+    'number_of_employees' => 4,
+
+    /*
+     * What this company is demonstrably competent in — schema.org knowsAbout.
+     * This is the field that gets us surfaced in AI-generated answers, so it must
+     * mirror the expertise page rather than list aspirations.
+     */
+    'knows_about' => [
+        'Individualsoftware-Entwicklung',
+        'Laravel',
+        'Dokumentenmanagement (DMS/ECM)',
+        'DocuWare',
+        'Open-Source-ERP',
+        'Odoo',
+        'Lokale Large Language Models',
+        'Konzeption und Prototyping',
     ],
 
     'legal_form' => 'Aktiengesellschaft (AG)',

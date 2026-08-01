@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest run"
   },
   "dependencies": {
     "@alpinejs/csp": "^3.14.9",
@@ -20,6 +21,8 @@
     "vite": "^6.3.6"
   },
   "devDependencies": {
-    "terser": "^5.43.1"
+    "jsdom": "^29.1.1",
+    "terser": "^5.43.1",
+    "vitest": "^4.1.10"
   }
 }

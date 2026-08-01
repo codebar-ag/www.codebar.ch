@@ -1,5 +1,6 @@
 key: products.index
 robots: index,follow
+image: images/pages/products.index.svg
 title:
   de_CH: 'Nutzerzentrierte Softwarelösungen – codebar Solutions AG'
   en_CH: 'User-Centric Software Solutions – codebar Solutions AG'

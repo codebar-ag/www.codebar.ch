@@ -27,6 +27,10 @@ has to be when the subject is a release (§1), how to read the source (§2), whe
 (§3), and the one hard constraint the services canvas does not have — **the news hero is
 displayed cropped** (§4).
 
+A fourth family sits beside these: `illustration-seo-card.md` covers the `og:image` of a *page* —
+drawn at 1200×630 rather than 1600×840, no crop, no card, and never displayed on the site itself. A page card must not reuse
+a hero's composition either; `/aktuelles` prints five of them directly under its own card.
+
 Two older families still exist and are not this. `images-news.md` and `images-news-square.md`
 describe **v1**: the article title baked in as Poppins, `scripts/make-news-hero.py`, five files
 per article, one hero per locale. Those placeholders are still on disk under

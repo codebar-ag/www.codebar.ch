@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img">
+    <title>Was im Alltag gelernt wird, steht danach als Beitrag mit Datum zum Nachlesen bereit</title>
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+        <linearGradient id="wash" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#f4eef8"/>
+        </linearGradient>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="32"/>
+        </filter>
+        <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.8" fill="#09090b"/>
+        </pattern>
+
+        <path id="w1" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w2" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w3" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w4" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+    </defs>
+
+    <rect width="1200" height="630" fill="url(#wash)"/>
+    <rect width="150" height="630" fill="url(#dots)" opacity="0.1"/>
+    <rect x="1050" width="150" height="630" fill="url(#dots)" opacity="0.1"/>
+
+    <ellipse cx="600" cy="315" rx="92" ry="116" fill="url(#accent)" filter="url(#glow)" opacity="0.55"/>
+
+    <g transform="rotate(-4 270 315)">
+    <rect x="108" y="170" width="320" height="300" rx="10" fill="#09090b" opacity="0.3"/>
+    <rect x="96" y="158" width="320" height="300" rx="10" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g stroke="#09090b" stroke-width="4.5" fill="none" stroke-linecap="round"><use href="#w3" x="124" y="210"/><use href="#w2" x="204" y="210"/><use href="#w2" x="124" y="250"/><use href="#w3" x="182" y="250"/><use href="#w3" x="124" y="290"/><use href="#w1" x="204" y="290"/></g>
+    <rect x="124" y="352" width="120" height="62" rx="8" fill="none" stroke="#09090b" stroke-width="3" opacity="0.45"/>
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.45"><use href="#w2" x="268" y="366"/><use href="#w1" x="268" y="396"/></g>
+    <path d="M84 470h344" data-detail="whiteboard tray" stroke="#09090b" stroke-width="4" fill="none" opacity="0.35"/>
+    </g>
+
+    <rect x="756" y="164" width="96" height="28" rx="14" fill="url(#accent)"/>
+    <g stroke="#09090b" stroke-width="4.5" fill="none" stroke-linecap="round"><use href="#w3" x="872" y="184"/><use href="#w2" x="952" y="184"/></g>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.45"><use href="#w2" x="872" y="214"/></g>
+    <path d="M756 244h388" data-detail="row divider" stroke="#09090b" stroke-width="2" fill="none" opacity="0.12"/>
+    <rect x="756" y="272" width="96" height="28" rx="14" fill="#500472" opacity="0.18"/>
+    <g stroke="#09090b" stroke-width="4.5" fill="none" stroke-linecap="round"><use href="#w2" x="872" y="292"/><use href="#w3" x="930" y="292"/></g>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.45"><use href="#w2" x="872" y="322"/></g>
+    <path d="M756 352h388" data-detail="row divider" stroke="#09090b" stroke-width="2" fill="none" opacity="0.12"/>
+    <rect x="756" y="380" width="96" height="28" rx="14" fill="#500472" opacity="0.18"/>
+    <g stroke="#09090b" stroke-width="4.5" fill="none" stroke-linecap="round"><use href="#w3" x="872" y="400"/><use href="#w1" x="952" y="400"/></g>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.45"><use href="#w1" x="872" y="430"/></g>
+
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round">
+        <path class="arrow" d="M482 315h44"/>
+        <path class="arrow" d="M674 315h44"/>
+    </g>
+    <g fill="#09090b">
+        <path d="M534 315l-16-10v20Z"/>
+        <path d="M726 315l-16-10v20Z"/>
+    </g>
+
+    <rect x="546" y="261" width="108" height="108" rx="22" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g class="act" transform="translate(570 285)">
+        <path d="M30 6a16 16 0 0 1 16 16v13l6 8H8l6-8V22A16 16 0 0 1 30 6Z" fill="url(#accent)"/>
+        <path d="M23 47a7 7 0 0 0 14 0Z" fill="url(#accent)"/>
+    </g>
+</svg>

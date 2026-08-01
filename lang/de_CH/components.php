@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 return [
     'intro' => [
-        'title' => 'Innovative Ideen zum Leben erwecken',
-        'user' => 'gast',
-        'start_command' => 'start',
+        'title' => 'Schön, bist du da',
         'legend' => 'Was möchtest du über uns wissen?',
         'shortcuts' => 'Abschnitt wechseln: Zifferntasten 1 bis 3 oder die Pfeiltasten links und rechts.',
         'next' => 'weiter: :title',

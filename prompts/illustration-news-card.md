@@ -5,6 +5,10 @@ companion to `illustration-news.md`, which covers the 1600×840 hero, and both s
 `illustration-services.md`, which defines the drawing language. Read those two first; this one is
 only what changes when the canvas is 344 units wide.
 
+Not this: an **SEO card** (`illustration-seo-card.md`) is a page's `og:image` and is a wide
+1200×630 drawing despite the name. The two are different files for different canvases, and
+`public/images/pages/` never contains a `-card.svg`.
+
 Reference implementation: `public/images/news/docuware-7-13-is-here-card.svg`, next to its hero.
 
 ## 1. The card is not a crop of the hero

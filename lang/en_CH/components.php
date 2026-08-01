@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 return [
     'intro' => [
-        'title' => 'Bringing innovative ideas to life',
-        'user' => 'visitor',
-        'start_command' => 'start',
+        'title' => 'Good to have you here',
         'legend' => 'What would you like to know about us?',
         'shortcuts' => 'Switch section: number keys 1 to 3, or the left and right arrow keys.',
         'next' => 'next: :title',

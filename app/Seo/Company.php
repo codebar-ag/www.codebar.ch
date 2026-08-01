@@ -31,6 +31,19 @@ class Company
         return config()->string('company.uid');
     }
 
+    public static function numberOfEmployees(): int
+    {
+        return config()->integer('company.number_of_employees');
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function knowsAbout(): array
+    {
+        return self::strings('company.knows_about');
+    }
+
     public static function email(): string
     {
         return config()->string('company.email');

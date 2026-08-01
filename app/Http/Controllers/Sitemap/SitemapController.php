@@ -9,7 +9,6 @@ use App\DTO\PageDTO;
 use App\Enums\CacheKeyEnum;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
-use App\Models\Network;
 use App\Models\News;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
@@ -61,26 +60,7 @@ class SitemapController extends Controller
     private function builder(SitemapBuilder $sitemap): void
     {
         $this->addDefaultRoutesToSitemap($sitemap);
-        $this->addNetworksToSitemap($sitemap);
         $this->addNewsToSitemap($sitemap);
-    }
-
-    private function addNetworksToSitemap(SitemapBuilder $sitemap): void
-    {
-        Network::query()
-            ->published()
-            // Same filters NetworkShowController enforces: without active() and
-            // the view check, the sitemap advertises URLs that answer 404.
-            ->active()
-            ->whereNotNull('page_slug')
-            ->get()
-            ->filter(fn (Network $network): bool => view()->exists('app.network.pages.'.$network->page_slug))
-            ->each(function (Network $network) use ($sitemap): void {
-                $this->addLocalizedSet(
-                    $sitemap,
-                    fn (string $locale): PageDTO => (new PageAction)->network(network: $network, locale: $locale),
-                );
-            });
     }
 
     private function addNewsToSitemap(SitemapBuilder $sitemap): void

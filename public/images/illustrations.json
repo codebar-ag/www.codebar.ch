@@ -105,5 +105,158 @@
       "kanban board": "Odoo setzen wir seit Kurzem selbst als ERP ein",
       "booked hours": "ohne Lizenz-Lock-in"
     }
+  },
+  "pages/start.index": {
+    "sentence": "an idea that exists only as a sketch and a spoken sentence → listening to it first → software somebody works in every day",
+    "act": "listen",
+    "actSource": "Am Anfang hören wir dir zu.",
+    "objects": {
+      "sketch sheet": "von der ersten Skizze bis zur Software im täglichen Einsatz",
+      "idea stack": "von der ersten Idee bis zur Software im täglichen Einsatz",
+      "software panel": "Software im täglichen Einsatz",
+      "team card": "Ein kleines Team aus der Region Basel"
+    }
+  },
+  "pages/about-us.index": {
+    "sentence": "a request relayed down a chain of boxes before it reaches whoever builds it → meeting the builder directly → one table with the person who writes the code at it",
+    "act": "meet",
+    "actSource": "Wer dein Projekt baut, sitzt auch im Gespräch.",
+    "objects": {
+      "layer tiles": "Ein kleines Team, keine Zwischenebene",
+      "shared table": "Bei uns arbeitest du direkt mit den Menschen, die deine Lösung verstehen",
+      "two colleagues": "Das spart einen Übersetzungsschritt und macht Zusagen verbindlich.",
+      "code panel": "Wer dein Projekt baut, sitzt auch im Gespräch."
+    }
+  },
+  "pages/services.index": {
+    "sentence": "four offerings lying apart and unaligned → composing them into one sequence → the same four threaded on a single path from the first idea to day-to-day operations",
+    "act": "grid",
+    "actSource": "Vier Bereiche, ein Weg",
+    "objects": {
+      "prototype screen": "wir schärfen deine Anforderungen und machen Ideen mit klickbaren Prototypen früh greifbar",
+      "code tile": "Portale, Schnittstellen und Automatisierungen, entwickelt mit offenen Technologien wie Laravel",
+      "paper sheet": "begleiten wir dich ins papierlose Büro und automatisieren deine Prozesse",
+      "task board": "Odoo setzen wir selbst ein und begleiten dich als Odoo-Partner Schritt für Schritt bei der Einführung",
+      "one path spine": "von der ersten Idee über Konzept und Umsetzung bis zum Betrieb"
+    }
+  },
+  "pages/products.index": {
+    "sentence": "one project's panel, built once for one customer → writing it as a product → a released thing with versions behind it that is in use every day",
+    "act": "braces",
+    "actSource": "entwickelt mit offenen Technologien und Standards",
+    "objects": {
+      "project panel": "Produkte, die aus echter Projektarbeit entstanden sind",
+      "release stack": "laufend weiterentwickelt",
+      "version pill": "von uns entwickelt, im täglichen Einsatz und laufend weiterentwickelt",
+      "daily use row": "im täglichen Einsatz"
+    }
+  },
+  "pages/technologies.index": {
+    "sentence": "a long shelf of tools, most of them untouched → narrowing it deliberately → three that are kept, each with years stacked behind it",
+    "act": "funnel",
+    "actSource": "bewusst gewählt und über Jahre in der Tiefe beherrscht",
+    "objects": {
+      "tool shelf": "Die Werkzeuge und Technologien, mit denen wir täglich arbeiten",
+      "chosen tools": "bewusst gewählt",
+      "year stack": "über Jahre in der Tiefe beherrscht",
+      "open standard badge": "bewährt, transparent und herstellerunabhängig"
+    }
+  },
+  "pages/open-source.index": {
+    "sentence": "a package we wrote, sitting inside our own repository and nowhere else → giving it back → a public repository with somebody else's branch off it",
+    "act": "fork",
+    "actSource": "Wir bauen auf Open Source — und geben etwas zurück.",
+    "objects": {
+      "package tile": "Packages, Tools und Libraries, entwickelt und gepflegt von codebar",
+      "repository panel": "Unsere Beiträge an die Open-Source-Community",
+      "community branch": "Das sind die Projekte und Beiträge, die wir mit der Community teilen."
+    }
+  },
+  "pages/ai.index": {
+    "sentence": "customer documents leaving the building on a lane to a provider's rack → keeping them in → the same documents on our own machine, with the usage counted openly",
+    "act": "shield",
+    "actSource": "Kundendaten verlassen unsere Infrastruktur nicht.",
+    "objects": {
+      "customer documents": "Kundendaten verlassen unsere Infrastruktur nicht",
+      "provider rack": "statt Anfragen an einen Cloud-Anbieter zu schicken",
+      "our own machine": "warum wir Open-Source-Modelle selbst betreiben",
+      "usage counters": "Die Nutzungsstatistik zeigt ungefiltert, wie oft das tatsächlich vorkommt."
+    }
+  },
+  "pages/ai.llm.index": {
+    "sentence": "three model tiles with no machine under them → running them ourselves → the models on one laptop in our own basement, on our own power and reachable through one tunnel",
+    "act": "host",
+    "actSource": "alle laufen auf eigener Infrastruktur im hauseigenen Bürokeller",
+    "objects": {
+      "model tiles": "Auf diese lokalen Open-Source-Modelle setzen wir aktuell",
+      "laptop": "Hier laufen unsere lokalen Modelle.",
+      "power supply": "USV Ubiquiti UniFi.",
+      "tunnel": "Cloudflare Tunnel auf das lokale MacBook."
+    }
+  },
+  "pages/ai.llm.analytics.index": {
+    "sentence": "requests running past an empty counter → measuring them → token bars per month and model, with the total under them",
+    "act": "measure",
+    "actSource": "Token-Verbrauch und Anfragen unserer lokal betriebenen Modelle",
+    "objects": {
+      "requests": "Anfragen diesen Monat",
+      "empty counter": "Noch keine Nutzungsdaten vorhanden.",
+      "monthly bars": "pro Monat und Modell, laufend aktualisiert",
+      "total pill": "Tokens total"
+    }
+  },
+  "pages/news.index": {
+    "sentence": "a whiteboard at the end of a project day, everything learned staying in the room → telling somebody → dated articles anyone can read",
+    "act": "bell",
+    "actSource": "was sonst gerade bei codebar passiert",
+    "objects": {
+      "whiteboard": "Einblicke aus unserem Alltag: was wir bauen, was wir dabei lernen",
+      "article rows": "Aktuelle News, Fachbeiträge und Trends rund um Softwareentwicklung",
+      "date pills": "Veröffentlicht am"
+    }
+  },
+  "pages/jobs.index": {
+    "sentence": "work handed over a wall to a department → putting it on a board instead → one lane crossing several roles, from the customer conversation to the code",
+    "act": "board",
+    "actSource": "Jede:r deckt mehrere Rollen ab, vom Kundengespräch bis zum Code.",
+    "objects": {
+      "handover wall": "Bei uns gibt es keine Abteilungen, an die man Arbeit abgibt",
+      "department box": "keine Abteilungen, an die man Arbeit abgibt",
+      "role board": "Jede:r deckt mehrere Rollen ab, vom Kundengespräch bis zum Code",
+      "first day check": "übernimmt vom ersten Tag Verantwortung in echten Projekten"
+    }
+  },
+  "pages/co-working.index": {
+    "sentence": "a laptop on the kitchen table at home → moving the workplace → an equipped desk on a fast line, with a team around it",
+    "act": "transfer",
+    "actSource": "einen ruhigen, professionellen Arbeitsplatz ohne eigenes Büro suchen",
+    "objects": {
+      "home laptop": "Ideal für Freelancer, Start-ups und Remote-Mitarbeitende",
+      "kitchen table": "ohne eigenes Büro",
+      "equipped desk": "vollausgestattete Arbeitsplätze in professionellem Co-Working-Ambiente in Oberwil",
+      "network line": "250 Mbit/s Private Virtual Network",
+      "team desks": "mitten in einem echten Tech-Team"
+    }
+  },
+  "pages/contact.index": {
+    "sentence": "a question written down with no address on it → calling → a named contact person and two places you can walk into",
+    "act": "call",
+    "actSource": "So erreichst du uns",
+    "objects": {
+      "unaddressed note": "Du hast eine Idee, ein Projekt oder einfach eine Frage?",
+      "contact person card": "Deine Ansprechperson",
+      "two address cards": "Telefon, E-Mail und unsere zwei Standorte in der Region Basel."
+    }
+  },
+  "pages/network.index": {
+    "sentence": "partners listed apart with nothing between them → wiring them together → partners on one shared spine, with the labels behind them and the community under it",
+    "act": "nodes",
+    "actSource": "Gute Software entsteht nicht im Alleingang.",
+    "objects": {
+      "partner tiles": "Projekt-, Software- und Infrastrukturpartner",
+      "shared spine": "Unser Netzwerk lebt vom Open-Source-Gedanken und von echten Partnerschaften.",
+      "tier badges": "und die Labels, die dahinterstehen",
+      "community group": "unser Engagement in der Community"
+    }
   }
 }

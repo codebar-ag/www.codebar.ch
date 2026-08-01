@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\LocaleEnum;
+use App\Models\Network;
 use App\Models\News;
 use App\Models\OpenSource;
 use App\Models\Product;
@@ -48,3 +49,14 @@ it('redirects an open source project to the start page while open source is disa
     get(route('de-ch.open-source.show', ['locale' => 'de_CH', 'openSource' => $openSource->slug]))
         ->assertRedirect($startRoute());
 })->group('open-source', 'show');
+
+it('redirects a network partner page to the start page while partner pages are disabled', function () use ($startRoute) {
+    Network::factory()->create([
+        'key' => 'baselhack',
+        'name' => 'BaselHack',
+        'page_slug' => 'baselhack',
+    ]);
+
+    get(route('de-ch.network.show', ['slug' => 'baselhack']))
+        ->assertRedirect($startRoute());
+})->group('network', 'show');

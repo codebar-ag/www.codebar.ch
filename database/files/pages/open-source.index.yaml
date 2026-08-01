@@ -1,5 +1,6 @@
 key: open-source.index
 robots: index,follow
+image: images/pages/open-source.index.svg
 title:
   de_CH: 'Open-Source-Beiträge – codebar Solutions AG'
   en_CH: 'Open Source Contributions – codebar Solutions AG'

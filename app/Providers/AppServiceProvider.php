@@ -21,6 +21,7 @@ use App\Observers\NetworkUserObserver;
 use App\Observers\NewsObserver;
 use App\Observers\SitemapCacheObserver;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
@@ -36,6 +37,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->multilanguage();
+
+        URL::forceRootUrl(config()->string('app.url'));
+
+        if (str_starts_with(config()->string('app.url'), 'https://')) {
+            URL::forceScheme('https');
+        }
 
         app(Translatable::class)->allowNullForTranslation();
 

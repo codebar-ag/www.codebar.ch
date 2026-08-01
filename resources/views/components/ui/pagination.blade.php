@@ -13,12 +13,12 @@
         $window['last'],
     ]);
 
-    $step = 'inline-flex min-h-control items-center justify-center rounded-pill border px-4 text-sm font-medium transition focus-ring';
-    $stepIdle = 'border-border bg-white text-gray-800 hover:border-brand hover:text-brand';
+    $step = 'inline-flex min-h-control items-center justify-center rounded-pill border px-4 text-sm font-medium';
+    $stepIdle = 'border-border bg-white text-gray-800 transition hover:border-brand hover:text-brand focus-ring';
     $stepDisabled = 'border-border-soft bg-white text-hint cursor-not-allowed';
 
-    $page = 'inline-flex min-h-control min-w-control items-center justify-center rounded-pill px-3 text-sm font-medium transition focus-ring';
-    $pageIdle = 'text-muted hover:bg-surface hover:text-brand';
+    $page = 'inline-flex min-h-control min-w-control items-center justify-center rounded-pill px-3 text-sm font-medium';
+    $pageIdle = 'text-muted transition hover:bg-surface hover:text-brand focus-ring';
     $pageCurrent = 'bg-brand text-white';
 @endphp
 

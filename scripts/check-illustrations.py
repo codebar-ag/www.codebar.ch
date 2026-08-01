@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Quality gates for public/images/{news,services}.
+"""Quality gates for public/images/{news,services,pages}.
 
 The drawing language is prompts/illustration-services.md. This file is the part of it a
 machine can decide, and the rationale for every gate is in that document under "Quality
@@ -7,7 +7,7 @@ gates".
 
 Usage:
     scripts/check-illustrations.py                 all drawings
-    scripts/check-illustrations.py news            one family
+    scripts/check-illustrations.py news            one family (news, services, pages)
     scripts/check-illustrations.py public/images/news/llm-gateway-open-source.svg
     scripts/check-illustrations.py --list-acts     the act vocabulary
     scripts/check-illustrations.py --json          machine-readable report
@@ -30,9 +30,16 @@ PALETTE = {"#09090b", "#500472", "#c026d3", "#2563eb", "#ffffff", "#f4eef8"}
 
 BANNER_VIEWBOX = "0 0 1600 840"
 CARD_VIEWBOX = "-10 -10 344 344"
+# A page card is authored at og:image size and rendered 1:1 — prompts/illustration-seo-card.md §4.
+PAGE_VIEWBOX = "0 0 1200 630"
 
 NEWS_SAFE = (58, 158, 1542, 682)
 SERVICE_SAFE = (24, 24, 1576, 816)
+PAGE_SAFE = (18, 18, 1182, 612)
+
+CANVAS = {"news": (1600, 840), "services": (1600, 840), "pages": (1200, 630)}
+SAFE = {"news": NEWS_SAFE, "services": SERVICE_SAFE, "pages": PAGE_SAFE}
+FAMILIES = ("news", "services", "pages")
 
 MAX_SVG_BYTES = 12288
 OG_SIZE = (1200, 630)
@@ -55,6 +62,14 @@ ACTS = {
     "shield": "protect — the change is that it is now guarded",
     "bell": "notify — the change is that someone now gets told",
     "board": "plan — work becomes visible and assignable",
+    # Added for the pages family: the thirteen above name a system changing, and a page
+    # card names what a company promises a reader — prompts/illustration-seo-card.md §7.
+    "listen": "listen — it starts with your problem, not with our product",
+    "meet": "meet — the person who does the work is in the room",
+    "call": "call — you reach a human directly, and no form is involved",
+    "fork": "fork — it is given back, and someone else can take it further",
+    "host": "host — it runs on our own hardware, in our own building",
+    "measure": "measure — the change is that it is counted and shown",
 }
 
 ABSTRACT_WORDS = {
@@ -70,6 +85,18 @@ SOURCES = {
         ROOT / "database/files/services/en_CH",
     ],
 }
+
+# A page's copy is not one file. The YAML holds the title and description a crawler prints
+# next to the drawing; everything else the page renders comes from the lang files, through
+# __() keys this script does not resolve. So the corpus is the page's own YAML plus all four
+# lang files: it proves a quote is in codebar's own words, not that it is on that page. A
+# person checks the page; the gate checks the wording.
+PAGE_LANG_SOURCES = [
+    ROOT / "lang/de_CH.json",
+    ROOT / "lang/en_CH.json",
+    ROOT / "lang/de_CH/components.php",
+    ROOT / "lang/en_CH/components.php",
+]
 
 
 @dataclass
@@ -110,8 +137,18 @@ def load_manifest() -> dict:
 
 
 def load_sources(family: str, slug: str) -> dict[Path, str]:
-    """Every localised markdown file for one subject, normalised, keyed by path."""
+    """Every source file for one subject, normalised, keyed by path."""
     found: dict[Path, str] = {}
+    if family == "pages":
+        page = ROOT / "database/files/pages" / f"{slug}.yaml"
+        if not page.is_file():
+            return {}
+        found[page] = normalise(page.read_text(encoding="utf-8"))
+        for path in PAGE_LANG_SOURCES:
+            if path.is_file():
+                found[path] = normalise(path.read_text(encoding="utf-8"))
+        return found
+
     for directory in SOURCES[family]:
         if not directory.is_dir():
             continue
@@ -303,15 +340,23 @@ def check_svg(path: Path, manifest: dict) -> Report:
     svg = path.read_text(encoding="utf-8")
     body = DEFS_RE.sub("", svg)
     is_card = path.stem.endswith("-card")
-    family = "news" if "/news/" in path.as_posix() else "services"
+    posix = path.as_posix()
+    family = "pages" if "/pages/" in posix else "news" if "/news/" in posix else "services"
     slug = path.stem[: -len("-card")] if is_card else path.stem
     kind = "card" if is_card else "banner"
     report.meta.update(family=family, slug=slug, kind=kind)
 
+    if family == "pages" and is_card:
+        report.fail(
+            "card",
+            "a page has no index row and no card — one drawing per page, 1200x630",
+        )
+        return report
+
     check_brief(report, manifest, family, slug, is_card)
     check_words(report, body)
     check_palette(report, svg)
-    check_canvas(report, svg, is_card)
+    check_canvas(report, svg, is_card, family)
     check_glow(report, body, is_card)
     check_craft(report, svg, body)
     check_arrowheads(report, body, kind)
@@ -319,7 +364,7 @@ def check_svg(path: Path, manifest: dict) -> Report:
     check_weight(report, path)
     check_png(report, path, is_card)
     if not is_card:
-        check_safe_area(report, path, NEWS_SAFE if family == "news" else SERVICE_SAFE)
+        check_safe_area(report, path, SAFE[family], CANVAS[family])
     return report
 
 
@@ -396,10 +441,10 @@ def check_palette(report, svg) -> None:
             report.fail("palette", f"{value} is not one of the five values")
 
 
-def check_canvas(report, svg, is_card) -> None:
+def check_canvas(report, svg, is_card, family) -> None:
     match = re.search(r'viewBox="([^"]+)"', svg)
     viewbox = match.group(1).strip() if match else ""
-    want = CARD_VIEWBOX if is_card else BANNER_VIEWBOX
+    want = CARD_VIEWBOX if is_card else PAGE_VIEWBOX if family == "pages" else BANNER_VIEWBOX
     if viewbox != want:
         report.fail("canvas", f'viewBox="{viewbox}" should be "{want}"')
 
@@ -527,7 +572,9 @@ def check_png(report, path, is_card) -> None:
 _HAVE_RASTER = shutil.which("rsvg-convert") and shutil.which("magick")
 
 
-def check_safe_area(report, path: Path, safe: tuple[int, int, int, int]) -> None:
+def check_safe_area(
+    report, path: Path, safe: tuple[int, int, int, int], canvas: tuple[int, int]
+) -> None:
     """Where the first real ink sits, in SVG units, measured rather than eyeballed."""
     if not _HAVE_RASTER:
         report.note("safe area not measured — needs rsvg-convert and magick")
@@ -536,7 +583,7 @@ def check_safe_area(report, path: Path, safe: tuple[int, int, int, int]) -> None
     out = Path("/tmp") / f"illu-{path.stem}.png"
     try:
         subprocess.run(
-            ["rsvg-convert", "-w", str(1600 * scale), "-h", str(840 * scale),
+            ["rsvg-convert", "-w", str(canvas[0] * scale), "-h", str(canvas[1] * scale),
              str(path), "-o", str(out)],
             check=True, capture_output=True,
         )
@@ -572,7 +619,7 @@ def check_safe_area(report, path: Path, safe: tuple[int, int, int, int]) -> None
 def check_set(reports: list[Report]) -> list[str]:
     """Held against each other: the index prints these directly under one another."""
     failures = []
-    for family in ("news", "services"):
+    for family in FAMILIES:
         banners = [
             r for r in reports
             if r.meta.get("family") == family and r.meta.get("kind") == "banner"
@@ -598,10 +645,10 @@ def check_set(reports: list[Report]) -> list[str]:
 
 def collect(args: list[str]) -> list[Path]:
     if not args:
-        args = ["news", "services"]
+        args = list(FAMILIES)
     paths: list[Path] = []
     for arg in args:
-        if arg in ("news", "services"):
+        if arg in FAMILIES:
             paths += sorted((ROOT / "public/images" / arg).glob("*.svg"))
         else:
             paths.append(Path(arg).resolve())
