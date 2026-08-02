@@ -185,7 +185,13 @@ it('spends no vertical space on prompt lines', function () {
 });
 
 it('lets the panel height follow the content on mobile and freezes it on desktop', function () {
-    $intro = Str::after(file_get_contents(resource_path('css/app.css')), '.intro-tabs__panels');
+    $css = file_get_contents(resource_path('css/app.css'));
+
+    if ($css === false) {
+        throw new RuntimeException('Unable to read resources/css/app.css');
+    }
+
+    $intro = Str::after($css, '.intro-tabs__panels');
 
     $mobile = Str::before($intro, '@media');
     $desktop = Str::after($intro, '@media (width >= 40rem)');

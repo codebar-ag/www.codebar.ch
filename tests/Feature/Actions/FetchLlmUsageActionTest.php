@@ -13,6 +13,10 @@ beforeEach(function () {
     config()->set('services.litellm.master_key', 'test-master-key');
 });
 
+/**
+ * @param  array<int, array<string, mixed>>  $data
+ * @return array<string, mixed>
+ */
 function llmPage(array $data, int $page, int $totalPages): array
 {
     return [
@@ -61,7 +65,8 @@ it('fetches and aggregates spend logs per day and model', function () {
 it('walks every page and aggregates across them without loading the whole day at once', function () {
     Http::fake([
         'llm.codebar.net/spend/logs/v2*' => function (Request $request) {
-            $page = (int) data_get($request->data(), 'page');
+            $pageValue = data_get($request->data(), 'page');
+            $page = is_numeric($pageValue) ? (int) $pageValue : 1;
 
             return match ($page) {
                 1 => Http::response(llmPage([
@@ -79,7 +84,7 @@ it('walks every page and aggregates across them without loading the whole day at
 
     expect($rows)->toHaveCount(1);
 
-    $qwen = $rows->first();
+    $qwen = $rows->firstOrFail();
 
     expect($qwen['prompt_tokens'])->toBe(110)
         ->and($qwen['requests'])->toBe(2);
