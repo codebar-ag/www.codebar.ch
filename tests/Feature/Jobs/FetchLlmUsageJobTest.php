@@ -20,18 +20,24 @@ beforeEach(function () {
 });
 
 /**
- * @return array<int, array<string, mixed>>
+ * @return array<string, mixed>
  */
 function spendLogsPayload(int $promptTokens): array
 {
     return [
-        ['model_group' => 'qwen3.6:35b', 'prompt_tokens' => $promptTokens, 'completion_tokens' => 50, 'total_tokens' => $promptTokens + 50, 'spend' => 0.5, 'startTime' => '2026-07-20T10:00:00.000000Z'],
+        'data' => [
+            ['model_group' => 'qwen3.6:35b', 'prompt_tokens' => $promptTokens, 'completion_tokens' => 50, 'total_tokens' => $promptTokens + 50, 'spend' => 0.5, 'startTime' => '2026-07-20T10:00:00.000000Z'],
+        ],
+        'total' => 1,
+        'page' => 1,
+        'page_size' => 100,
+        'total_pages' => 1,
     ];
 }
 
 it('stores the fetched usage and updates existing rows idempotently', function () {
     Http::fake([
-        'llm.codebar.net/spend/logs*' => Http::sequence()
+        'llm.codebar.net/spend/logs/v2*' => Http::sequence()
             ->push(spendLogsPayload(promptTokens: 100))
             ->push(spendLogsPayload(promptTokens: 200)),
     ]);
@@ -64,7 +70,7 @@ it('stores the fetched usage and updates existing rows idempotently', function (
 
 it('invalidates the stats cache after storing', function () {
     Http::fake([
-        'llm.codebar.net/spend/logs*' => Http::response(spendLogsPayload(promptTokens: 100)),
+        'llm.codebar.net/spend/logs/v2*' => Http::response(spendLogsPayload(promptTokens: 100)),
     ]);
 
     $versionBefore = Cache::get(LlmUsageStatsAction::VERSION_CACHE_KEY, 0);
@@ -96,7 +102,7 @@ it('does not clear the response cache when a single day is stored', function () 
 })->group('llm-analytics');
 
 it('clears the response cache once after the whole sync batch finishes', function () {
-    Http::fake(['llm.codebar.net/spend/logs*' => Http::response(spendLogsPayload(promptTokens: 100))]);
+    Http::fake(['llm.codebar.net/spend/logs/v2*' => Http::response(spendLogsPayload(promptTokens: 100))]);
 
     // Four days are synced below; the rendered pages are dropped exactly once.
     ResponseCache::partialMock()->shouldReceive('clear')->once();

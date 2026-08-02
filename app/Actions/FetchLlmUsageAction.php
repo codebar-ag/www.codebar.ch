@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Http;
 
 class FetchLlmUsageAction
 {
+    // The unpaginated /spend/logs endpoint is deprecated and can return an
+    // unbounded response body — a busy day previously exhausted PHP's memory
+    // limit decoding a single giant JSON payload. /spend/logs/v2 caps each
+    // page at 100 rows, so we walk it page by page and aggregate as we go.
+    private const int PAGE_SIZE = 100;
+
     /**
      * Fetch the per-model usage aggregates for a single day from the LiteLLM proxy.
      *
@@ -18,15 +24,30 @@ class FetchLlmUsageAction
      */
     public function fetchDay(CarbonImmutable $date): Collection
     {
-        $response = $this->client()->get('/spend/logs', [
-            'start_date' => $date->toDateString(),
-            'end_date' => $date->addDay()->toDateString(),
-            'summarize' => 'false',
-        ])->throw();
+        $start = $date->startOfDay();
+        $end = $date->endOfDay();
 
-        $logs = $response->json();
+        $totals = [];
+        $page = 1;
+        $totalPages = 1;
 
-        return $this->parseSpendLogs($date, is_array($logs) ? $logs : []);
+        do {
+            $body = $this->client()->get('/spend/logs/v2', [
+                'start_date' => $start->toDateTimeString(),
+                'end_date' => $end->toDateTimeString(),
+                'page' => $page,
+                'page_size' => self::PAGE_SIZE,
+            ])->throw()->json();
+
+            $rows = data_get($body, 'data');
+
+            $this->accumulate($totals, $date, is_array($rows) ? $rows : []);
+
+            $totalPages = max(1, $this->intValue($body, 'total_pages'));
+            $page++;
+        } while ($page <= $totalPages);
+
+        return collect($totals)->values();
     }
 
     private function client(): PendingRequest
@@ -40,27 +61,35 @@ class FetchLlmUsageAction
     }
 
     /**
-     * @param  array<mixed>  $logs
-     * @return Collection<int, array{date: string, model: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int, spend: float}>
+     * @param  array<string, array{date: string, model: string, prompt_tokens: int, completion_tokens: int, total_tokens: int, requests: int, spend: float}>  $totals
+     * @param  array<mixed>  $rows
      */
-    private function parseSpendLogs(CarbonImmutable $date, array $logs): Collection
+    private function accumulate(array &$totals, CarbonImmutable $date, array $rows): void
     {
-        // The end_date bound is inclusive, so the response can contain rows of
-        // the following day — keep only rows that started on the requested day.
-        return collect($logs)
-            ->filter(fn (mixed $log): bool => filled($this->stringValue($log, 'model_group')))
-            ->filter(fn (mixed $log): bool => str_starts_with($this->stringValue($log, 'startTime'), $date->toDateString()))
-            ->groupBy(fn (mixed $log): string => $this->stringValue($log, 'model_group'))
-            ->map(fn (Collection $rows, string $model): array => [
+        foreach ($rows as $log) {
+            $model = $this->stringValue($log, 'model_group');
+
+            // Defensive: only aggregate rows that actually started on the requested day.
+            if ($model === '' || ! str_starts_with($this->stringValue($log, 'startTime'), $date->toDateString())) {
+                continue;
+            }
+
+            $totals[$model] ??= [
                 'date' => $date->toDateString(),
                 'model' => $model,
-                'prompt_tokens' => $rows->sum(fn (mixed $log): int => $this->intValue($log, 'prompt_tokens')),
-                'completion_tokens' => $rows->sum(fn (mixed $log): int => $this->intValue($log, 'completion_tokens')),
-                'total_tokens' => $rows->sum(fn (mixed $log): int => $this->intValue($log, 'total_tokens')),
-                'requests' => $rows->count(),
-                'spend' => round($rows->sum(fn (mixed $log): float => $this->floatValue($log, 'spend')), 6),
-            ])
-            ->values();
+                'prompt_tokens' => 0,
+                'completion_tokens' => 0,
+                'total_tokens' => 0,
+                'requests' => 0,
+                'spend' => 0.0,
+            ];
+
+            $totals[$model]['prompt_tokens'] += $this->intValue($log, 'prompt_tokens');
+            $totals[$model]['completion_tokens'] += $this->intValue($log, 'completion_tokens');
+            $totals[$model]['total_tokens'] += $this->intValue($log, 'total_tokens');
+            $totals[$model]['requests']++;
+            $totals[$model]['spend'] = round($totals[$model]['spend'] + $this->floatValue($log, 'spend'), 6);
+        }
     }
 
     private function stringValue(mixed $log, string $key): string

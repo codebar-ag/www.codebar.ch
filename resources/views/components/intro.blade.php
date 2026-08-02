@@ -67,7 +67,7 @@
                             </ul>
                         @endif
 
-                        <p class="mt-6">
+                        <p class="mt-6 flex flex-wrap items-center gap-3">
                             @if($section['next'] !== null)
                                 <label for="intro-tab-{{ $section['next'] }}"
                                        class="{{ $pill }} border border-brand bg-white text-brand hover:bg-brand hover:text-white">
@@ -75,8 +75,13 @@
                                     {{ __('components.intro.next', ['title' => $sections[$section['next']]['command']]) }}
                                 </label>
                             @else
-                                <a href="{{ localized_route('contact.index') }}"
+                                <a href="{{ localized_route('services.index') }}"
                                    class="{{ $pill }} focus-ring bg-brand text-white hover:bg-brand-strong">
+                                    <span aria-hidden="true">→</span>
+                                    {{ __('components.intro.expertise') }}
+                                </a>
+                                <a href="{{ localized_route('contact.index') }}"
+                                   class="{{ $pill }} focus-ring border border-brand bg-white text-brand hover:bg-brand hover:text-white">
                                     <span aria-hidden="true">→</span>
                                     {{ __('components.intro.cta') }}
                                 </a>
