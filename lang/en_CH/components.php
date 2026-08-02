@@ -10,6 +10,7 @@ return [
         'prev_section' => 'Previous section',
         'next_section' => 'Next section',
         'next' => 'next: :title',
+        'expertise' => 'take a look at our expertise',
         'cta' => 'tell us about your project',
         'who_we_are' => [
             'title' => 'Who we are',
