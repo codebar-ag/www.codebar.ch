@@ -45,5 +45,6 @@
         <env name="RESPONSE_CACHE_DRIVER" value="array"/>
         <env name="RESPONSE_CACHE_ENABLED" value="false"/>
         <env name="SESSION_DRIVER" value="array"/>
+        <env name="ZUNSCAN_DOMAIN" value="zunscan.codebar.ch"/>
     </php>
 </phpunit>

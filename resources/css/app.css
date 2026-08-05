@@ -113,6 +113,8 @@
 @source '../views';
 @source '../js';
 @source '../../app';
+@source not '../views/zunscan';
+@source not '../views/components/zunscan';
 
 [x-cloak] {
     display: none !important;
