@@ -15,7 +15,7 @@ class PrivacyController extends ZunscanController
         return view('zunscan.legal.privacy', [
             'title' => __('zunscan.seo.privacy.title'),
             'description' => __('zunscan.seo.privacy.description'),
-            'image' => self::OG_IMAGE,
+            'image' => $this->ogImage(),
             'body' => Str::markdown(File::get(resource_path('content/zunscan/'.app()->getLocale().'/datenschutz.md'))),
         ]);
     }

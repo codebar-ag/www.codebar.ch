@@ -292,3 +292,66 @@ nicht direkt lesen.
 - **Legal-Layout**: eigene `.legal-prose`-Regeln statt des Typography-Plugins, Lesebreite auf
   `max-w-3xl` begrenzt. Das Plugin ist damit raus — das Zunscan-CSS ist von 36.1 kB auf 24.6 kB
   gefallen.
+
+---
+
+## Feedback-Runde 3 (umgesetzt)
+
+**Farbzonen statt Trennlinien.** Header und Inhalt lagen auf derselben Papiertextur; keine Linie —
+auch keine farbige — konnte das ausreichend trennen. Neu hat die Seite vier Zonen, und alle drei
+farbigen Bänder sind gleich gebaut (`bg-paper-dark` / `bg-paper-blue`): dieselbe Papiertextur, nur
+auf einer Farbfläche statt auf Weiss.
+
+```
+dunkelblauer Header (#16395a, texturiert)
+   ↓
+Papier-Inhalt
+   ↓
+blaues CTA-Band (#005c8a, texturiert)
+   ↓
+dunkelblauer Footer (#16395a, texturiert)
+```
+
+Zwei Sackgassen auf dem Weg dahin, beide messbar und nicht Geschmackssache:
+
+- `background-blend-mode: overlay` verdoppelt den Basiswert, solange dieser dunkel ist, und hob
+  #16395a in ein helles Kornblumenblau, das in dieser Palette nicht vorkommt. **`multiply`** kann
+  nur abdunkeln — die Fläche bleibt exakt auf dem Marken-Navy, die Textur liest sich als Korn.
+- CTA-Band und Footer trugen denselben Verlauf und standen direkt aufeinander; die Grenze wirkte
+  wie ein Rendering-Fehler. Der Footer übernimmt jetzt das Navy des Headers, das CTA bleibt der
+  eine helle Akzent dazwischen.
+
+**Inhalt.**
+
+- Vier gleich lange Kacheln auf der Startseite (139–154 Zeichen DE), inklusive der neuen
+  **DMS & ECM**-Kachel: die Leistung hört nicht beim Scannen auf.
+- «Über uns» neu geordnet — erst *Was wir tun*, dann *Wer dahintersteht*. Vorher versprach die
+  Eyebrow «wer» und der Text lieferte «was».
+- Partnertexte auf 1:1 gleiche Länge und in Parallelkonstruktion («Sorgt für …»).
+- Mobile Navigation hatte drei Punkte, Desktop vier — «Start» fehlte.
+- codebars Zunzger Adresse wieder entfernt; `locations` trägt eine Adresse pro Karte.
+
+**SEO auf Kernrepo-Niveau.**
+
+| | vorher | jetzt |
+|---|---|---|
+| Titel | «Herzlich Willkommen» | «Dokumente scannen und digitalisieren» — alle ≤ 60 Zeichen inkl. Marke |
+| Description | bis 133 Zeichen | alle ≤ 125, damit Social-Previews nicht abschneiden |
+| og:image | Cloudinary-Logo ohne Aussage | eigene Share-Card je Sprache, 1200×630, mit Headline |
+| Favicon | Wortmarke 246×87 | eigenes Set aus dem Büroklammer-Zeichen (SVG, 96, 180, 192, 512, Manifest) |
+| JSON-LD | Organization, WebSite, WebPage | zusätzlich LocalBusiness, ContactPoint je Person, BreadcrumbList |
+| Twitter | fehlte | `summary_large_image` |
+
+Gefundener Fehler dabei: die Breadcrumb erschien auch auf der Startseite, weil `$canonical`
+(absolut) gegen `zunscan_route('start.index')` (Pfad) verglichen wurde — ein Pfad ist nie gleich
+einer absoluten URL. Test hält das jetzt fest.
+
+**Tests.** `tests/lighthouse/run.sh` nimmt neu `PAGES_JSON` und `WARMUP_PATH` entgegen (Defaults
+unverändert), dazu `pages.zunscan.json` mit allen 14 Seiten:
+
+```bash
+BASE_URL=https://zunscan.web.codebar.test \
+  PAGES_JSON=tests/lighthouse/pages.zunscan.json \
+  WARMUP_PATH=/de-ch \
+  tests/lighthouse/run.sh
+```

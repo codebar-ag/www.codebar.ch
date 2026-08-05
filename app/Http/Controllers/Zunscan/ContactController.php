@@ -13,7 +13,7 @@ class ContactController extends ZunscanController
         return view('zunscan.contact.index', [
             'title' => __('zunscan.seo.contact.title'),
             'description' => __('zunscan.seo.contact.description'),
-            'image' => self::OG_IMAGE,
+            'image' => $this->ogImage(),
         ]);
     }
 }

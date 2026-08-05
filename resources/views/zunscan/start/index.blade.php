@@ -23,13 +23,23 @@
 
         <div class="mt-10 grid gap-6 sm:grid-cols-2">
             @foreach($solutions as $solution)
-                <x-zunscan.components.card>
+                <x-zunscan.components.card class="flex flex-col">
                     <x-zunscan.components.icon :name="$solution['icon']"/>
                     {{-- Two lines reserved for the title so the body copy starts on
                          the same baseline in all three cards — «Platzersparnis» is
                          one line, the other two wrap. --}}
                     <p class="mt-4 text-heading text-zunscan-dark-gray sm:min-h-[2lh]">{{ __($solution['title']) }}</p>
-                    <p class="mt-2 font-light text-zunscan-light-gray">{{ __($solution['body']) }}</p>
+                    <p class="mt-2 flex-grow font-light text-zunscan-light-gray">{{ __($solution['body']) }}</p>
+
+                    @isset($solution['link'])
+                        <a href="{{ $solution['link'] }}"
+                           class="mt-4 inline-flex min-h-control items-center gap-2 font-bold text-zunscan-blue hover:underline">
+                            {{ __($solution['link_label']) }}
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                            </svg>
+                        </a>
+                    @endisset
                 </x-zunscan.components.card>
             @endforeach
         </div>

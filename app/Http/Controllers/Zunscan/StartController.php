@@ -13,7 +13,7 @@ class StartController extends ZunscanController
         return view('zunscan.start.index', [
             'title' => __('zunscan.seo.start.title'),
             'description' => __('zunscan.seo.start.description'),
-            'image' => self::OG_IMAGE,
+            'image' => $this->ogImage(),
         ]);
     }
 }

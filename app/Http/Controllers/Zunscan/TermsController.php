@@ -15,7 +15,7 @@ class TermsController extends ZunscanController
         return view('zunscan.legal.terms', [
             'title' => __('zunscan.seo.imprint.title'),
             'description' => __('zunscan.seo.imprint.description'),
-            'image' => self::OG_IMAGE,
+            'image' => $this->ogImage(),
             'body' => Str::markdown(File::get(resource_path('content/zunscan/'.app()->getLocale().'/impressum.md'))),
         ]);
     }

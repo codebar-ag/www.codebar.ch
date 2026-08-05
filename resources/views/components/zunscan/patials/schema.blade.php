@@ -9,7 +9,10 @@
     $root = request()->getSchemeAndHttpHost();
     $company = config('zunscan.company');
     $locale = str_replace('_', '-', app()->getLocale());
-    $home = zunscan_route('start.index');
+    // Absolute, because it is compared against $canonical further down —
+    // zunscan_route() returns a path by design, and a path never equals an
+    // absolute URL, which put a breadcrumb on the start page too.
+    $home = $root.zunscan_route('start.index');
 
     $address = [
         '@type' => 'PostalAddress',

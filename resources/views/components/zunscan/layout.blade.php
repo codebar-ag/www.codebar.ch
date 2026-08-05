@@ -43,7 +43,7 @@
              small thumbnail. The Cloudinary transform pins the same 1200×630. --}}
         <meta property="og:image" content="{{ $image }}">
         <meta property="og:image:type" content="image/jpeg">
-        <meta property="og:image:alt" content="zunscan.ch">
+        <meta property="og:image:alt" content="{{ $title }} — zunscan.ch">
         <meta property="og:image:width" content="{{ config('seo.image_width') }}">
         <meta property="og:image:height" content="{{ config('seo.image_height') }}">
 
