@@ -13,7 +13,7 @@ class MediaController extends ZunscanController
         return view('zunscan.media.index', [
             'title' => __('zunscan.seo.media.title'),
             'description' => __('zunscan.seo.media.description'),
-            'image' => self::OG_IMAGE,
+            'image' => $this->ogImage(),
         ]);
     }
 }

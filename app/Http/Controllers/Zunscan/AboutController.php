@@ -13,7 +13,7 @@ class AboutController extends ZunscanController
         return view('zunscan.about.index', [
             'title' => __('zunscan.seo.about.title'),
             'description' => __('zunscan.seo.about.description'),
-            'image' => self::OG_IMAGE,
+            'image' => $this->ogImage(),
         ]);
     }
 }

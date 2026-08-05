@@ -1,0 +1,16 @@
+[
+  { "name": "de_home", "path": "/de-ch" },
+  { "name": "de_scanning", "path": "/de-ch/services/scanning" },
+  { "name": "de_about", "path": "/de-ch/about" },
+  { "name": "de_contact", "path": "/de-ch/kontakt" },
+  { "name": "de_media", "path": "/de-ch/medien" },
+  { "name": "de_imprint", "path": "/de-ch/impressum" },
+  { "name": "de_privacy", "path": "/de-ch/datenschutz" },
+  { "name": "en_home", "path": "/en-ch" },
+  { "name": "en_scanning", "path": "/en-ch/services/scanning" },
+  { "name": "en_about", "path": "/en-ch/about" },
+  { "name": "en_contact", "path": "/en-ch/contact" },
+  { "name": "en_media", "path": "/en-ch/media" },
+  { "name": "en_imprint", "path": "/en-ch/imprint" },
+  { "name": "en_privacy", "path": "/en-ch/privacy", "note": "ePost is unpublished by design — no page, and absent from the sitemap" }
+]
