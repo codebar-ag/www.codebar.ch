@@ -54,6 +54,8 @@
             <div class="mt-6 flow-root">
                 <div class="-my-6 divide-y divide-gray-500/10">
                     <div class="space-y-2 py-6">
+                        <a href="{{ zunscan_route('start.index') }}"
+                           class="-mx-3 flex min-h-control items-center rounded px-3 text-base font-semibold text-zunscan-dark-gray uppercase hover:bg-gray-50">{{ __('zunscan.nav.start') }}</a>
                         <a href="{{ zunscan_route('services.scanning.show') }}"
                            class="-mx-3 flex min-h-control items-center rounded px-3 text-base font-semibold text-zunscan-dark-gray uppercase hover:bg-gray-50">{{ __('zunscan.nav.scanning') }}</a>
                         <a href="{{ zunscan_route('about.index') }}"

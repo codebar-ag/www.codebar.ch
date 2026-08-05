@@ -177,11 +177,15 @@ it('lists mischa lanz before sebastian on the contact page', function () {
     expect($matches[1][0] ?? null)->toBe('Mischa Lanz');
 })->group('zunscan');
 
-it('shows both codebar locations', function () {
-    get('http://zunscan.codebar.ch/de-ch/kontakt')
-        ->assertOk()
-        ->assertSee('Langegasse 39')
-        ->assertSee('Hauptstrasse 91');
+it('shows one location card per address', function () {
+    $html = (string) get('http://zunscan.codebar.ch/de-ch/kontakt')->assertOk()->getContent();
+
+    expect($html)->toContain('Langegasse 39');   // codebar, Oberwil
+    expect($html)->toContain('Hauptstrasse 91'); // Real Estate Club, Zunzgen
+
+    // codebar's Zunzgen address was withdrawn — the company must appear exactly
+    // once in the locations grid.
+    expect(substr_count($html, 'CH-4455 Zunzgen'))->toBe(1);
 })->group('zunscan');
 
 it('credits both owner companies in the footer and drops the contact column', function () {

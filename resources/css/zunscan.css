@@ -124,6 +124,19 @@
     background-blend-mode: multiply;
 }
 
+/* The CTA band. Same construction as bg-paper-dark, one step lighter, so the
+   three coloured bands on a page are built the same way and only differ in
+   base colour — a flat gradient here read as a different material entirely.
+   zunscan-blue rather than light-blue: white on #005c8a measures 6.4:1 and
+   clears AA for the button label as well as the heading. */
+@utility bg-paper-blue {
+    background-color: var(--color-zunscan-blue);
+    background-image: url('../images/zunscan/zunscan_papertexture.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+}
+
 [x-cloak] {
     display: none !important;
 }

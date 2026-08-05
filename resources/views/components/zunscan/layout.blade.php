@@ -26,6 +26,11 @@
     <meta name="description" content="{{ $description }}">
     <link rel="canonical" href="{{ $canonical }}">
 
+    <meta name="application-name" content="zunscan.ch">
+    <meta name="apple-mobile-web-app-title" content="zunscan.ch">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#16395a">
+
     <meta property="og:locale" content="{{ str_replace('-', '_', $locale) }}">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $title }}">
@@ -33,7 +38,19 @@
     <meta property="og:site_name" content="zunscan.ch">
     <meta property="og:url" content="{{ $canonical }}">
     @if($image)
+        {{-- Dimensions are declared so a crawler can lay the card out before the
+             image has downloaded; without them the preview often falls back to a
+             small thumbnail. The Cloudinary transform pins the same 1200×630. --}}
         <meta property="og:image" content="{{ $image }}">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:alt" content="zunscan.ch">
+        <meta property="og:image:width" content="{{ config('seo.image_width') }}">
+        <meta property="og:image:height" content="{{ config('seo.image_height') }}">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $title }}">
+        <meta name="twitter:description" content="{{ $description }}">
+        <meta name="twitter:image" content="{{ $image }}">
     @endif
 
     @foreach(\App\Enums\LocaleEnum::cases() as $alternate)
