@@ -1,0 +1,198 @@
+@import 'tailwindcss' source(none);
+
+@theme {
+    --font-sans: 'Titillium Web', ui-sans-serif, system-ui, sans-serif;
+
+    /* The client's palette, unchanged. What changed is where each colour is
+       allowed to appear: paper is the canvas, white cards carry the content,
+       and blue is an accent that shows up at most twice per page (the CTA band
+       and the footer). dark-gray is a text colour only — it used to be a third
+       full-bleed surface under the CTA, which is what made the page read as
+       three unrelated colour systems stacked on top of each other. */
+    --color-zunscan-light-blue: #0093b8;
+    --color-zunscan-blue: #005c8a;
+    --color-zunscan-dark-blue: #16395a;
+    --color-zunscan-light-gray: #434f55;
+    --color-zunscan-dark-gray: #303b40;
+    --color-zunscan-white: #f5f5f5;
+
+    --background-image-paper: url('../images/zunscan/zunscan_papertexture.jpg');
+
+    /* ── Type scale ───────────────────────────────────────────────────────────
+       Fluid between 360px and 768px, so the responsive step lives in the token
+       and no heading needs an `sm:` variant to shrink on a phone. Replaces the
+       hand-written `text-4xl sm:text-6xl` pairs that were on every page and
+       never quite agreed with each other. Never put two of these on one
+       element — Tailwind picks the emission order, not the class string. */
+    --text-display: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
+    --text-display--line-height: 1.1;
+    --text-display--letter-spacing: -0.02em;
+    --text-display--font-weight: 700;
+
+    --text-title: clamp(1.5rem, 1.19rem + 1.37vw, 2.25rem);
+    --text-title--line-height: 1.2;
+    --text-title--letter-spacing: -0.015em;
+    --text-title--font-weight: 700;
+
+    --text-heading: clamp(1.25rem, 1.14rem + 0.49vw, 1.5rem);
+    --text-heading--line-height: 1.3;
+    --text-heading--font-weight: 700;
+
+    --text-lead: clamp(1.125rem, 1.06rem + 0.29vw, 1.375rem);
+    --text-lead--line-height: 1.5;
+
+    /* The uppercase kicker above a title. Titillium closes up when uppercased,
+       so the tracking belongs to the token rather than to each call site. */
+    --text-eyebrow: 0.8125rem;
+    --text-eyebrow--line-height: 1.4;
+    --text-eyebrow--letter-spacing: 0.12em;
+    --text-eyebrow--font-weight: 700;
+
+    /* ── Rhythm ───────────────────────────────────────────────────────────────
+       One vertical step between sections. Change this and the whole site
+       re-spaces; before this there were py-24 and py-16 in circulation with no
+       rule about which went where. */
+    --spacing-section: clamp(3rem, 2rem + 5vw, 6rem);
+
+    /* 44px — the WCAG 2.5.8 touch target, for nav links and the locale switch. */
+    --spacing-control: 2.75rem;
+
+    /* One radius and one shadow for every card on the site. */
+    --radius-card: 0.75rem;
+    --shadow-card: 0 12px 30px -18px rgb(22 57 90 / 0.35);
+}
+
+@source '../views/zunscan';
+@source '../views/components/zunscan';
+
+/* The imprint and privacy pages are the only long-form prose on the site, and
+   they need six rules rather than a whole typography plugin. Spacing lives on
+   one side only, so no two margins can collapse into an uneven rhythm. */
+.legal-prose {
+    line-height: 1.7;
+    color: var(--color-zunscan-light-gray);
+    font-weight: 300;
+}
+
+.legal-prose > * + * {
+    margin-block-start: 1.25rem;
+}
+
+.legal-prose h2 {
+    margin-block-start: 2.5rem;
+    font-size: var(--text-heading);
+    line-height: var(--text-heading--line-height);
+    font-weight: 700;
+    color: var(--color-zunscan-dark-gray);
+}
+
+.legal-prose > :first-child {
+    margin-block-start: 0;
+}
+
+.legal-prose h2 + * {
+    margin-block-start: 0.5rem;
+}
+
+.legal-prose a {
+    color: var(--color-zunscan-blue);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.legal-prose strong {
+    font-weight: 700;
+    color: var(--color-zunscan-dark-gray);
+}
+
+@utility list-square {
+    list-style-type: square;
+}
+
+/* The header and footer band: the same paper texture as the content, carried on
+   the dark blue instead of on white.
+
+   `multiply` and not `overlay`: overlay doubles the base where the base is dark,
+   which lifted #16395a into a brighter, cornflower blue that is not in this
+   palette at all. multiply can only darken, so the surface stays exactly on the
+   brand navy and the speckle reads as grain rather than as a colour shift. */
+@utility bg-paper-dark {
+    background-color: var(--color-zunscan-dark-blue);
+    background-image: url('../images/zunscan/zunscan_papertexture.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+}
+
+/* The CTA band. Same construction as bg-paper-dark, one step lighter, so the
+   three coloured bands on a page are built the same way and only differ in
+   base colour — a flat gradient here read as a different material entirely.
+   zunscan-blue rather than light-blue: white on #005c8a measures 6.4:1 and
+   clears AA for the button label as well as the heading. */
+@utility bg-paper-blue {
+    background-color: var(--color-zunscan-blue);
+    background-image: url('../images/zunscan/zunscan_papertexture.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* Self-hosted, weights 300/400/700 — the only ones this section's Blade views use
+   (font-light, font-normal, font-bold). Mirrors app.css's Poppins pattern. */
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/titillium-web/titillium-web-300-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/titillium-web/titillium-web-300-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/titillium-web/titillium-web-400-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/titillium-web/titillium-web-400-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/titillium-web/titillium-web-700-normal-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/titillium-web/titillium-web-700-normal-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

@@ -42,6 +42,10 @@ use Spatie\ResponseCache\Middlewares\DoNotCacheResponse;
 
 $locales = array_column(LocaleEnum::cases(), 'value');
 
+// Registered first: its own robots.txt/sitemap.xml routes (in routes/zunscan.php)
+// must win over the unscoped ones below, which have no domain constraint.
+Route::domain(config()->string('zunscan.domain'))->group(base_path('routes/zunscan.php'));
+
 Route::get('/', EntryIndexController::class)->name('entry.index');
 
 Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($locales) {
