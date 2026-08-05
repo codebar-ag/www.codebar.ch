@@ -19,32 +19,32 @@ return [
 
     'seo' => [
         'start' => [
-            'title' => 'Welcome',
-            'description' => 'zunscan.ch - your scanning centre: free up office space, digitize incoming mail, search full text in seconds. Start into a more efficient future today!',
+            'title' => 'Document scanning and digitization',
+            'description' => 'We scan and digitize your documents in Zunzgen: free up space, archive audit-proof, search the full text.',
         ],
         'about' => [
-            'title' => 'About us',
-            'description' => 'Start your journey into the future of document management with us. Free up space, digitize incoming mail, and search full text. Local, from 4455 Zunzgen.',
+            'title' => 'About us: scanning centre in Zunzgen',
+            'description' => 'A scanning centre in Zunzgen, run by two companies from the region. Short distances, named contacts.',
         ],
         'scanning' => [
-            'title' => 'Digitization',
-            'description' => 'Document scanning at unbeatable prices: A4 and A3 pages, plans, books, ring binders and more. zunscan.ch - your partner for digital solutions!',
+            'title' => 'Document scanning: prices per binder',
+            'description' => 'Scanning from CHF 0.19 per page and CHF 64.50 per ring binder – preparation, OCR and disposal included.',
         ],
         'contact' => [
-            'title' => 'Contact',
-            'description' => 'Two contacts, one partner: zunscan.ch is run by paperflakes AG, a joint venture of codebar Solutions AG and Real Estate Club GmbH.',
+            'title' => 'Contact and locations',
+            'description' => 'Two named contacts, reachable directly by e-mail and phone. Locations in Zunzgen and Oberwil.',
         ],
         'media' => [
-            'title' => 'Media',
-            'description' => 'Logos, press coverage and news about scanning, document management and OCR. Stay up to date with zunscan.ch!',
+            'title' => 'Media: logos and downloads',
+            'description' => 'Logos and downloads around zunscan.ch – for press, partners and publications.',
         ],
         'imprint' => [
             'title' => 'Imprint',
-            'description' => 'No warranty for the accuracy of content, no liability for links. Copyright: all rights reserved by paperflakes AG. Written consent required for reproduction.',
+            'description' => 'Imprint of paperflakes AG, Hauptstrasse 91, 4455 Zunzgen. Details on liability, links and copyright.',
         ],
         'privacy' => [
             'title' => 'Privacy',
-            'description' => 'Privacy in line with the GDPR: we treat your data confidentially and only process it with your consent. SSL encryption protects your data in transit. Consent can be withdrawn at any time.',
+            'description' => 'How we handle your data: confidentially, only with your consent, and transmitted over SSL.',
         ],
     ],
 

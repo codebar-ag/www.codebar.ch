@@ -19,32 +19,32 @@ return [
 
     'seo' => [
         'start' => [
-            'title' => 'Herzlich Willkommen',
-            'description' => 'zunscan.ch - Dein Scanningcenter: Platzersparnis, Post-Scanning, Volltext-Suche. Starte jetzt in die Zukunft mit maximaler Effizienz!',
+            'title' => 'Dokumente scannen und digitalisieren',
+            'description' => 'Wir scannen und digitalisieren deine Dokumente in Zunzgen: Platz sparen, revisionssicher archivieren, Volltext durchsuchen.',
         ],
         'about' => [
-            'title' => 'Über uns',
-            'description' => 'Starte am Büchel mit uns in die Zukunft der Dokumentenverwaltung. Platzersparnis, Post-Scanning und Volltextsuche. Lokal, regional aus 4455 Zunzgen',
+            'title' => 'Über uns: Scanning Center in Zunzgen',
+            'description' => 'Ein Scanning Center in Zunzgen, getragen von zwei Firmen aus der Region. Kurze Wege, feste Ansprechpersonen.',
         ],
         'scanning' => [
-            'title' => 'Digitalisierung',
-            'description' => 'Scanndienste für Top-Preise: Archivieren von A4 und A3 Seiten, Pläne, Bücher, Bundesordnern & mehr. Zunscan.ch - Dein Partner für digitale Lösungen!',
+            'title' => 'Dokumente scannen: Preise pro Ordner',
+            'description' => 'Scannen ab CHF 0.19 pro Seite und CHF 64.50 pro Bundesordner – inklusive Aufbereitung, OCR und Entsorgung.',
         ],
         'contact' => [
-            'title' => 'Kontakt',
-            'description' => 'Zwei Ansprechpersonen, ein Ansprechpartner: zunscan.ch wird von der paperflakes AG betrieben, einem Gemeinschaftsunternehmen von codebar Solutions AG und Real Estate Club GmbH.',
+            'title' => 'Kontakt und Standorte',
+            'description' => 'Zwei Ansprechpersonen, direkt erreichbar per Mail und Telefon. Standorte in Zunzgen und Oberwil.',
         ],
         'media' => [
-            'title' => 'Medien',
-            'description' => 'Entdecke unsere Medienrubrik: Logos, Presseberichte und Neuigkeiten rund um Scannen, Dokumentenverwaltung und OCR. Bleibe informiert bei Zunscan.ch!',
+            'title' => 'Medien: Logos und Downloads',
+            'description' => 'Logos und Downloads rund um zunscan.ch – für Presse, Partner und Publikationen.',
         ],
         'imprint' => [
             'title' => 'Impressum',
-            'description' => 'Keine Gewähr für Inhaltsgenauigkeit, keine Haftung für Links. Urheberrechte: Alle Rechte bei paperflakes AG. Schriftliche Zustimmung für Reproduktion.',
+            'description' => 'Impressum der paperflakes AG, Hauptstrasse 91, 4455 Zunzgen. Angaben zu Haftung, Links und Urheberrecht.',
         ],
         'privacy' => [
             'title' => 'Datenschutz',
-            'description' => 'Datenschutz gemäss DSGVO: Wir behandeln Ihre Daten vertraulich, nutzen sie nur mit Einwilligung. SSL-Verschlüsselung schützt Ihre Übertragungen. Widerruf möglich.',
+            'description' => 'Wie wir mit deinen Daten umgehen: vertraulich, nur mit Einwilligung und SSL-verschlüsselt übertragen.',
         ],
     ],
 

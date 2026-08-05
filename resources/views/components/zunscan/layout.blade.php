@@ -61,13 +61,17 @@
     <link rel="alternate" hreflang="x-default"
           href="{{ zunscan_locale_switch_url(\App\Enums\LocaleEnum::DE->value) }}">
 
-    {{-- Zunscan had no favicon at all, so every page logged a 404 for
-         /favicon.ico. The logo is already an SVG, so it doubles as the icon. --}}
-    <link rel="icon" href="{{ asset('images/zunscan/zunscan_logo_pos.svg') }}" type="image/svg+xml">
+    {{-- Zunscan's own icon set, mirroring the main site's _favicons partial.
+         The wordmark SVG is 246×87, so using it directly letterboxed into a
+         sliver at 16px; these are the paperclip glyph on a square plate. --}}
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/zunscan/favicon-96x96.png') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicons/zunscan/favicon.svg') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/zunscan/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('favicons/zunscan/site.webmanifest') }}">
 
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 
-    <x-zunscan.patials.schema :title="$title" :description="$description" :canonical="$canonical"/>
+    <x-zunscan.patials.schema :title="$title" :description="$description" :canonical="$canonical" :image="$image"/>
 
     @vite(['resources/js/zunscan.js'])
 </head>

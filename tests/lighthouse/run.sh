@@ -9,8 +9,17 @@
 #   tests/lighthouse/run.sh                 # all pages in pages.json
 #   tests/lighthouse/run.sh home ai_index    # only the named pages
 #
+#   # the Zunscan sub-site, which lives on its own domain:
+#   BASE_URL=https://zunscan.web.codebar.test \
+#     PAGES_JSON=tests/lighthouse/pages.zunscan.json \
+#     WARMUP_PATH=/de-ch \
+#     tests/lighthouse/run.sh
+#
 # Env vars:
-#   BASE_URL   default https://web.codebar.test
+#   BASE_URL     default https://web.codebar.test
+#   PAGES_JSON   default tests/lighthouse/pages.json
+#   WARMUP_PATH  default /en-ch — any real page on BASE_URL; used only to poll
+#                PHP-FPM workers until they serve the production build
 #
 # Output: tests/lighthouse/reports/<timestamp>/<name>.json + summary.md
 
@@ -21,7 +30,8 @@ REPO_ROOT="$(cd "$DIR/../.." && pwd)"
 BASE_URL="${BASE_URL:-https://web.codebar.test}"
 RUN_LABEL="$(date +%Y%m%d-%H%M%S 2>/dev/null || echo run)"
 OUT_DIR="$DIR/reports/$RUN_LABEL"
-PAGES_JSON="$DIR/pages.json"
+PAGES_JSON="${PAGES_JSON:-$DIR/pages.json}"
+WARMUP_PATH="${WARMUP_PATH:-/en-ch}"
 
 mkdir -p "$OUT_DIR"
 
@@ -60,7 +70,7 @@ stale=1
 for _ in $(seq 1 40); do
   stale=0
   for _ in $(seq 1 8); do
-    if curl -sk "$BASE_URL/en-ch" | grep -q 'vite/client'; then
+    if curl -sk "${BASE_URL}${WARMUP_PATH}" | grep -q 'vite/client'; then
       stale=1
       break
     fi
