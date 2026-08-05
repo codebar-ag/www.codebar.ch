@@ -66,18 +66,23 @@
                      taller than the one beside it and left a hole in the grid. --}}
                 <div x-data="{ open: false }" x-on:keydown.escape.window="open = false"
                      class="mt-4 border-t border-zunscan-light-blue/20 pt-4">
+                    {{-- Label, tier trigger and price share one row, so this card's
+                         price line sits at the same height as the one beside it. --}}
                     <dl class="flex items-center justify-between gap-4">
-                        <dt class="font-bold text-zunscan-dark-gray">{{ __('zunscan.common.price') }}</dt>
+                        <dt class="flex flex-wrap items-center gap-x-3 font-bold text-zunscan-dark-gray">
+                            {{ __('zunscan.common.price') }}
+
+                            <button type="button" x-on:click="open = true"
+                                    class="inline-flex items-center gap-2 font-bold text-zunscan-blue hover:underline">
+                                {{ __('zunscan.services.scanning.tier_open') }}
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                                </svg>
+                            </button>
+                        </dt>
+
                         <dd class="whitespace-nowrap rounded-card bg-zunscan-blue px-4 py-2 font-bold text-white">{{ __('zunscan.services.scanning.tier_1_price') }}</dd>
                     </dl>
-
-                    <button type="button" x-on:click="open = true"
-                            class="mt-3 inline-flex min-h-control items-center gap-2 font-bold text-zunscan-blue hover:underline">
-                        {{ __('zunscan.services.scanning.tier_open') }}
-                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
-                        </svg>
-                    </button>
 
                     <div x-show="open" x-cloak role="dialog" aria-modal="true" aria-labelledby="tier-dialog-title"
                          class="fixed inset-0 z-50 flex items-end justify-center bg-zunscan-dark-blue/70 p-4 sm:items-center">
