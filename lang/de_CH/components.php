@@ -50,6 +50,81 @@ return [
     'services' => [
         'header' => 'Vier Bereiche, ein Weg: von der ersten Idee über Konzept und Umsetzung bis zum Betrieb, den wir langfristig begleiten.',
     ],
+    'docuware' => [
+        'label' => 'DocuWare',
+        'dms_ecm' => [
+            'crumb' => 'DMS/ECM',
+            'title' => 'DMS/ECM mit DocuWare',
+            'lead' => 'Als DocuWare Silver & Cloud Partner führen wir Dokumentenmanagement ein, bilden Prozesse ab und begleiten den Betrieb.',
+            'export_title' => 'Dokumente wieder herausholen',
+            'export_teaser' => 'Ein Bestand muss auch wieder aus dem System heraus: beim Systemwechsel, für die Aufbewahrung über die Systemlaufzeit hinaus oder als Zweitkopie auf eigenem Speicher.',
+            'to_export' => 'Zum DocuWare-Export',
+        ],
+        'export' => [
+            'crumb' => 'DocuWare Export',
+            'title' => 'Dokumente aus DocuWare exportieren',
+            'lead' => 'Wir exportieren deinen Bestand aus DocuWare — einmalig oder wiederkehrend nach Zeitplan — im Originalformat und mit allen Indexfeldern, in eine Ordnerstruktur, die du festlegst.',
+            'cases' => [
+                'title' => 'Wann ein Export gebraucht wird',
+                'items' => [
+                    '<b>Systemwechsel.</b> Ein DMS wird abgelöst. Der Bestand muss vollständig und nachvollziehbar heraus, bevor die Instanz abgeschaltet wird.',
+                    '<b>Aufbewahrung.</b> Gesetzliche Aufbewahrungsfristen laufen zehn Jahre und länger — oft über die Lebensdauer des Systems hinaus.',
+                    '<b>Zweitkopie.</b> Eine Kopie ausserhalb des DMS, auf Speicher, dessen Aufbewahrung und Versionierung du selbst steuerst.',
+                    '<b>Teilbestand übergeben.</b> Ein Mandant, ein Standort oder ein Geschäftsbereich wird herausgelöst und weitergegeben.',
+                ],
+            ],
+            'modes' => [
+                'title' => 'Möglichkeiten',
+                'once' => [
+                    'title' => 'Einmaliger Export',
+                    'body' => 'Ein definierter Bestand geht in einem Lauf über.',
+                    'for' => 'Systemwechsel · Archivübergabe · Stilllegung',
+                ],
+                'scheduled' => [
+                    'title' => 'Wiederkehrender Export',
+                    'body' => 'Der Export läuft nach festem Zeitplan und überträgt, was seit dem letzten Lauf dazugekommen ist.',
+                    'for' => 'Laufende Sicherung · Aufbewahrung · Zweitkopie',
+                ],
+            ],
+            'scope' => [
+                'title' => 'Was übertragen wird',
+                'items' => [
+                    ['term' => 'Quelle', 'value' => 'DocuWare Cloud und On-Premise.'],
+                    ['term' => 'Format', 'value' => 'Unverändert im Originalformat, wahlweise mit oder ohne Anmerkungen und Stempel.'],
+                    ['term' => 'Metadaten', 'value' => 'Alle Indexfelder werden mitgeführt.'],
+                    ['term' => 'Struktur', 'value' => 'Ordnerpfad und Dateiname frei definierbar aus deinen Indexfeldern.'],
+                    ['term' => 'Ziel', 'value' => 'Amazon S3, S3-kompatibler Speicher wie MinIO, DigitalOcean Spaces und Backblaze B2, Azure Blob Storage und SFTP.'],
+                ],
+            ],
+            'access' => [
+                'title' => 'Zugriff und Datenhaltung',
+                'items' => [
+                    '<b>Zugangsdaten</b> gelten nur für den Lauf und werden danach nicht aufbewahrt.',
+                    '<b>Übertragung</b> direkt in deinen Speicher, ohne Zwischenablage bei uns.',
+                    '<b>Nachweis</b> über jedes einzelne Dokument, damit du den Lauf gegen den Bestand halten kannst.',
+                ],
+            ],
+            'process' => [
+                'title' => 'Wie wir vorgehen',
+                'items' => [
+                    ['title' => 'Bestand sichten', 'body' => 'Welche File Cabinets, wie viele Dokumente, welche Indexfelder tragen die Struktur — und was davon überhaupt mit soll.'],
+                    ['title' => 'Struktur festlegen', 'body' => 'Aus welchen Feldern Ordnerpfade und Dateinamen entstehen, und wie mit leeren Feldern, Dubletten und Sonderzeichen umgegangen wird.'],
+                    ['title' => 'Testlauf', 'body' => 'Ein begrenzter Ausschnitt geht durch, damit du Struktur und Benennung am echten Ergebnis prüfst statt an einem Konzept.'],
+                    ['title' => 'Durchführung', 'body' => 'Der Lauf wird gestartet und überwacht. Bei wiederkehrenden Exporten richten wir den Zeitplan ein und melden uns, wenn ein Lauf nicht sauber durchläuft.'],
+                    ['title' => 'Abnahme', 'body' => 'Bericht, Stichproben, Übergabe an dich oder an das System, das weitermacht.'],
+                ],
+            ],
+            'timing' => [
+                'title' => 'Was das zeitlich heisst',
+                'body' => "Die DocuWare-Schnittstelle begrenzt den Durchsatz auf rund ein Dokument pro Sekunde. Ein Bestand von 100'000 Dokumenten braucht damit etwa einen Tag, eine Million entsprechend länger. Grosse Läufe planen wir so, dass sie den laufenden Betrieb nicht ausbremsen.",
+            ],
+            'cta' => [
+                'title' => 'Bestand besprechen',
+                'body' => 'Sag uns, welches File Cabinet heraus soll und wie gross der Bestand ungefähr ist. Wir schätzen Aufwand und Dauer ab und sagen dir, was wir vorher wissen müssen.',
+                'back' => 'Zurück zu DMS/ECM',
+            ],
+        ],
+    ],
     'team' => [
         'header' => 'Klein aus Überzeugung: Bei uns arbeitest du direkt mit den Menschen, die deine Lösung verstehen – und bauen.',
         'working_title' => 'Wie wir arbeiten',

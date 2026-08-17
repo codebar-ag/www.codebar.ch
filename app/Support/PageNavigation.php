@@ -34,6 +34,8 @@ class PageNavigation
     {
         return [
             'services.index' => 'about-us.index',
+            'services.dms-ecm.index' => 'contact.index',
+            'services.dms-ecm.docuware-export.index' => 'contact.index',
             'about-us.index' => 'contact.index',
             'news.index' => 'ai.index',
             'news.show' => 'services.index',

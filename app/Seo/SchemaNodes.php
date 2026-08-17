@@ -254,6 +254,48 @@ class SchemaNodes
             ->all();
     }
 
+    /**
+     * The DocuWare export page.
+     *
+     * Like services(), a Service node produces no rich result of its own. It is
+     * here because it names a thing we sell that the four service teasers do not
+     * cover, and because the two modes are what someone asking an answer engine
+     * for a DocuWare export actually wants to know.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function docuwareExport(PageDTO $page, string $locale): array
+    {
+        $organizationId = self::organizationId();
+
+        return [array_filter([
+            '@type' => 'Service',
+            '@id' => $page->url().'#service',
+            'name' => $page->title,
+            'description' => $page->description,
+            'url' => $page->url(),
+            'serviceType' => 'DocuWare document export',
+            'provider' => ['@id' => $organizationId],
+            'areaServed' => 'CH',
+            'inLanguage' => str_replace('_', '-', $locale),
+            'hasOfferCatalog' => [
+                '@type' => 'OfferCatalog',
+                'name' => $page->title,
+                'itemListElement' => collect([
+                    'components.docuware.export.modes.once',
+                    'components.docuware.export.modes.scheduled',
+                ])->map(fn (string $key): array => [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => __($key.'.title'),
+                        'description' => __($key.'.body'),
+                    ],
+                ])->all(),
+            ],
+        ], fn (mixed $value): bool => $value !== null && $value !== '')];
+    }
+
     private static function organizationId(): string
     {
         return Company::baseUrl().'/'.SchemaGraph::ORGANIZATION_ID;

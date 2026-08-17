@@ -50,6 +50,81 @@ return [
     'services' => [
         'header' => 'Four areas, one path: from the first idea through concept and build to day-to-day operations we support long term.',
     ],
+    'docuware' => [
+        'label' => 'DocuWare',
+        'dms_ecm' => [
+            'crumb' => 'DMS/ECM',
+            'title' => 'DMS/ECM with DocuWare',
+            'lead' => 'As a DocuWare Silver & Cloud Partner we roll out document management, turn processes into workflows and support day-to-day operations.',
+            'export_title' => 'Getting documents back out',
+            'export_teaser' => 'Holdings have to leave the system too: during a migration, for retention beyond the life of the system, or as a second copy on storage of your own.',
+            'to_export' => 'To the DocuWare export',
+        ],
+        'export' => [
+            'crumb' => 'DocuWare export',
+            'title' => 'Exporting documents out of DocuWare',
+            'lead' => 'We export your holdings out of DocuWare — once, or repeatedly on a schedule — in their original format and with every index field, into a folder structure you define.',
+            'cases' => [
+                'title' => 'When an export is needed',
+                'items' => [
+                    '<b>System change.</b> A DMS is being replaced. The holdings have to come out completely and verifiably before the instance is switched off.',
+                    '<b>Retention.</b> Statutory retention periods run ten years and more — often beyond the life of the system itself.',
+                    '<b>Second copy.</b> A copy outside the DMS, on storage where you control retention and versioning yourself.',
+                    '<b>Handing over part of the archive.</b> A tenant, a site or a business unit is separated out and passed on.',
+                ],
+            ],
+            'modes' => [
+                'title' => 'Options',
+                'once' => [
+                    'title' => 'One-time export',
+                    'body' => 'A defined set moves in a single run.',
+                    'for' => 'Migration · Archive handover · Decommissioning',
+                ],
+                'scheduled' => [
+                    'title' => 'Scheduled export',
+                    'body' => 'The export runs on a fixed schedule and transfers whatever has arrived since the last run.',
+                    'for' => 'Ongoing backup · Retention · Second copy',
+                ],
+            ],
+            'scope' => [
+                'title' => 'What is transferred',
+                'items' => [
+                    ['term' => 'Source', 'value' => 'DocuWare Cloud and on-premise.'],
+                    ['term' => 'Format', 'value' => 'Unchanged, in the original format, with or without annotations and stamps.'],
+                    ['term' => 'Metadata', 'value' => 'Every index field comes along.'],
+                    ['term' => 'Structure', 'value' => 'Folder path and filename freely defined from your index fields.'],
+                    ['term' => 'Destination', 'value' => 'Amazon S3, S3-compatible storage such as MinIO, DigitalOcean Spaces and Backblaze B2, Azure Blob Storage and SFTP.'],
+                ],
+            ],
+            'access' => [
+                'title' => 'Access and data handling',
+                'items' => [
+                    '<b>Credentials</b> are valid for the run and are not kept afterwards.',
+                    '<b>Transfer</b> goes straight into your storage, with nothing parked with us.',
+                    '<b>A record</b> of every single document, so you can hold the run against the source.',
+                ],
+            ],
+            'process' => [
+                'title' => 'How we go about it',
+                'items' => [
+                    ['title' => 'Survey the holdings', 'body' => 'Which file cabinets, how many documents, which index fields carry the structure — and what of it should actually come along.'],
+                    ['title' => 'Settle the structure', 'body' => 'Which fields folder paths and filenames are built from, and how empty fields, duplicates and special characters are handled.'],
+                    ['title' => 'Test run', 'body' => 'A limited slice goes through, so you check structure and naming against a real result rather than a concept.'],
+                    ['title' => 'The run itself', 'body' => 'We start it and watch it. For recurring exports we set up the schedule and tell you when a run does not come through cleanly.'],
+                    ['title' => 'Sign-off', 'body' => 'Report, spot checks, handover to you or to whatever system takes it from here.'],
+                ],
+            ],
+            'timing' => [
+                'title' => 'What that means in time',
+                'body' => 'The DocuWare interface caps throughput at roughly one document per second. 100,000 documents therefore take about a day, a million correspondingly longer. We schedule large runs so they do not slow down day-to-day work.',
+            ],
+            'cta' => [
+                'title' => 'Let us look at your holdings',
+                'body' => 'Tell us which file cabinet needs to come out and roughly how large it is. We will estimate effort and duration, and tell you what we need to know first.',
+                'back' => 'Back to DMS/ECM',
+            ],
+        ],
+    ],
     'team' => [
         'header' => 'Small by conviction: you work directly with the people who understand your solution – and who build it themselves.',
         'working_title' => 'How we work',

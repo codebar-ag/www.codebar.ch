@@ -1,0 +1,9 @@
+key: services.dms-ecm.docuware-export.index
+robots: index,follow
+image: images/services/dms-ecm-consulting.png
+title:
+  de_CH: 'Dokumente aus DocuWare exportieren'
+  en_CH: 'Exporting documents out of DocuWare'
+description:
+  de_CH: 'Wir exportieren deinen Bestand aus DocuWare — einmalig oder nach Zeitplan — im Originalformat, mit allen Indexfeldern, in eine Ordnerstruktur, die du festlegst.'
+  en_CH: 'We export your holdings out of DocuWare — once or on a schedule — in their original format, with every index field, into a folder structure you define.'
