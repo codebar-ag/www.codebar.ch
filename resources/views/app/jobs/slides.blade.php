@@ -110,8 +110,66 @@
                             <span class="group"><span class="chip chip--core">CSS</span><i class="link"></i><span class="chip">Tailwind CSS</span></span>
                         </div>
                     </div>
+                    <div class="tool-row" data-in style="--d:5">
+                        <div class="tool-label">Mobile</div>
+                        <div class="tool-set">
+                            <span class="group"><span class="chip chip--core">PHP</span><i class="link"></i><span class="chip">NativePHP</span></span>
+                        </div>
+                    </div>
                 </div>
-                <p class="kicker" data-in style="--d:5">Open Source, wo immer es geht — überall weiterverwendbar.</p>
+                <p class="kicker" data-in style="--d:6">Open Source, wo immer es geht — überall weiterverwendbar.</p>
+            </div>
+        </section>
+
+        <section class="slide" data-dur="18000">
+            <div class="inner">
+                <div class="eyebrow" data-in style="--d:0">Technologien &middot; Laravel</div>
+                <h2 data-in style="--d:1">Laravel. <em>Unser Backend.</em></h2>
+                <p class="lead lead--wide" data-in style="--d:2">Das Open-Source-Web-Framework für PHP — seit 2011 entwickelt, mit riesiger Community und ausgezeichneter Dokumentation.</p>
+                <div class="grid grid--3" data-in style="--d:3">
+                    <article class="card">
+                        <div class="step">Eingebaut</div>
+                        <h3>Weniger Grundarbeit</h3>
+                        <p>Routing, Datenbank, Templates und Login sind von Anfang an dabei — mehr Zeit für das eigentliche Projekt.</p>
+                    </article>
+                    <article class="card">
+                        <div class="step">Als Code</div>
+                        <h3>Alles versioniert</h3>
+                        <p>Migrations beschreiben die Datenbank, Artisan generiert Code, Tests laufen automatisch mit.</p>
+                    </article>
+                    <article class="card">
+                        <div class="step">Im Einsatz</div>
+                        <h3>Portale bis APIs</h3>
+                        <p>Webanwendungen, REST-Schnittstellen, Hintergrund-Jobs — läuft auf jedem gängigen Webserver.</p>
+                    </article>
+                </div>
+                <p class="kicker" data-in style="--d:4">Laracasts, eine der grössten Lernplattformen für Entwickler, ist selbst mit Laravel gebaut.</p>
+            </div>
+        </section>
+
+        <section class="slide" data-dur="18000">
+            <div class="inner">
+                <div class="eyebrow" data-in style="--d:0">Technologien &middot; NativePHP</div>
+                <h2 data-in style="--d:1">Mit PHP <em>aufs Handy.</em></h2>
+                <p class="lead lead--wide" data-in style="--d:2">NativePHP baut auf Laravel auf und macht aus einer Codebase native Apps für iOS und Android.</p>
+                <div class="grid grid--3" data-in style="--d:3">
+                    <article class="card">
+                        <div class="step">Eine Codebase</div>
+                        <h3>iOS und Android</h3>
+                        <p>Ein Laravel-Projekt, zwei Plattformen — ohne doppelte Entwicklung.</p>
+                    </article>
+                    <article class="card">
+                        <div class="step">Bridges</div>
+                        <h3>Native Funktionen</h3>
+                        <p>Kamera, Push-Nachrichten oder Biometrie werden direkt aus PHP angesprochen.</p>
+                    </article>
+                    <article class="card">
+                        <div class="step">Vertraut</div>
+                        <h3>Schneller am Ziel</h3>
+                        <p>Bekanntes Framework, kürzere Entwicklung, Änderungen sind rasch umgesetzt.</p>
+                    </article>
+                </div>
+                <p class="kicker" data-in style="--d:4">Open Source — nativephp.com</p>
             </div>
         </section>
 
@@ -150,10 +208,6 @@
                     <span class="result">
                         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z"/></svg></span>
                         <b>Automatisierungen</b>
-                    </span>
-                    <span class="result">
-                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.7 2.5 4 5.8 4 9.5s-1.3 7-4 9.5c-2.7-2.5-4-5.8-4-9.5s1.3-7 4-9.5Z"/></svg></span>
-                        <b>Webseiten</b>
                     </span>
                     <span class="result">
                         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
