@@ -152,7 +152,7 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('stellen/praktikum', JobsInternshipShowController::class)->middleware(DoNotCacheResponse::class)->name('jobs.internship.show');
     Route::get('assets/qr', JobsInternshipQrController::class)->name('jobs.internship.qr');
     Route::get('assets/praktikum-qr.svg', JobsInternshipQrImageController::class)->name('jobs.internship.qr.image');
-    Route::get('assets/slides', JobsInternshipSlidesController::class)->name('jobs.internship.slides');
+    Route::get('assets/slides/{slide?}', JobsInternshipSlidesController::class)->where('slide', '[1-9][0-9]*')->name('jobs.internship.slides');
     Route::post('stellen/praktikum', ApplicationRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('jobs.internship.request.store');
     Route::get('stellen/praktikum/bewerbung/{application}', ApplicationShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');
     Route::put('stellen/praktikum/bewerbung/{application}', ApplicationUpdateController::class)->middleware(['signed', 'throttle:30,1', ProtectAgainstSpam::class])->name('jobs.internship.application.update');

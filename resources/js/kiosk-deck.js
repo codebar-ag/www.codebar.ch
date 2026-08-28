@@ -6,9 +6,10 @@ export function initDeck() {
     const fill = document.getElementById('fill')
     const ticks = document.getElementById('ticks')
     const beam = document.getElementById('beam')
-    let i = 0
+    const base = deck.dataset.base || ''
+    let i = Math.min(Math.max(parseInt(deck.dataset.start, 10) || 0, 0), slides.length - 1)
     let timer = null
-    let paused = false
+    let paused = new URLSearchParams(window.location.search).get('paused') === '1'
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const durs = slides.map((s) => parseInt(s.getAttribute('data-dur'), 10) || 14000)
@@ -54,8 +55,14 @@ export function initDeck() {
         fill.style.transform = `scaleX(${at})`
     }
 
+    function syncUrl() {
+        if (!base) return
+        history.replaceState(null, '', `${base}/${i + 1}${paused ? '?paused=1' : ''}`)
+    }
+
     function enter() {
         document.body.classList.toggle('on-cover', i === 0)
+        syncUrl()
         slides[i].scrollTop = 0
         void slides[i].offsetWidth
         slides[i].classList.add('on')
@@ -84,6 +91,7 @@ export function initDeck() {
         if (v === paused) return
         paused = v
         document.body.classList.toggle('is-paused', paused)
+        syncUrl()
         if (paused) {
             clearTimeout(timer)
             remaining = Math.max(0, durs[i] - (Date.now() - startedAt))
@@ -110,7 +118,9 @@ export function initDeck() {
         }
     })
 
+    slides.forEach((s, n) => n !== i && s.classList.remove('on'))
     document.body.classList.add('on-cover')
+    document.body.classList.toggle('is-paused', paused)
     enter()
 
     let lock = null

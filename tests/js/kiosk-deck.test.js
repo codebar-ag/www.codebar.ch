@@ -22,12 +22,12 @@ function stubContext() {
     }
 }
 
-function mount(durations = [1000, 2000, 1000], { reduce = false } = {}) {
+function mount(durations = [1000, 2000, 1000], { reduce = false, start = null, base = null } = {}) {
     window.matchMedia.mockReturnValue({ matches: reduce })
 
     document.body.innerHTML = `
-        <main id="deck">
-            ${durations.map((dur) => `<section class="slide"${dur ? ` data-dur="${dur}"` : ''}></section>`).join('')}
+        <main id="deck"${start === null ? '' : ` data-start="${start}"`}${base === null ? '' : ` data-base="${base}"`}>
+            ${durations.map((dur, n) => `<section class="slide${n === 0 ? ' on' : ''}"${dur ? ` data-dur="${dur}"` : ''}></section>`).join('')}
         </main>
         <div id="bar"><i id="fill"></i><span id="ticks"></span></div>
         <div id="beam"></div>
@@ -112,6 +112,57 @@ describe('starting up', () => {
 })
 
 describe('tick marks from the slide durations', () => {
+    it('opens on the slide named in the url', () => {
+        const { slides } = mount([1000, 2000, 1000], { start: 1 })
+        expect(slides[1].classList.contains('on')).toBe(true)
+        expect(slides[0].classList.contains('on')).toBe(false)
+        expect(document.body.classList.contains('on-cover')).toBe(false)
+    })
+
+    it('clamps an out-of-range start slide to the last one', () => {
+        const { slides } = mount([1000, 2000, 1000], { start: 9 })
+        expect(slides[2].classList.contains('on')).toBe(true)
+    })
+
+    it('keeps the url in step with the current slide', () => {
+        const spy = vi.spyOn(history, 'replaceState').mockImplementation(() => {})
+        teardown.push(() => spy.mockRestore())
+        mount([1000, 2000, 1000], { base: '/assets/slides' })
+        expect(spy).toHaveBeenLastCalledWith(null, '', '/assets/slides/1')
+        click('next')
+        expect(spy).toHaveBeenLastCalledWith(null, '', '/assets/slides/2')
+    })
+
+    it('starts paused when the url says so', () => {
+        history.replaceState(null, '', '/assets/slides/2?paused=1')
+        const spy = vi.spyOn(history, 'replaceState').mockImplementation(() => {})
+        teardown.push(() => spy.mockRestore())
+        teardown.push(() => history.replaceState(null, '', '/'))
+        const { slides } = mount([1000, 2000, 1000], { start: 1, base: '/assets/slides' })
+        expect(document.body.classList.contains('is-paused')).toBe(true)
+        expect(spy).toHaveBeenLastCalledWith(null, '', '/assets/slides/2?paused=1')
+        vi.advanceTimersByTime(5000)
+        expect(slides[1].classList.contains('on')).toBe(true)
+    })
+
+    it('writes the pause state into the url', () => {
+        const spy = vi.spyOn(history, 'replaceState').mockImplementation(() => {})
+        teardown.push(() => spy.mockRestore())
+        mount([1000, 2000, 1000], { base: '/assets/slides' })
+        click('play')
+        expect(spy).toHaveBeenLastCalledWith(null, '', '/assets/slides/1?paused=1')
+        click('play')
+        expect(spy).toHaveBeenLastCalledWith(null, '', '/assets/slides/1')
+    })
+
+    it('leaves the url alone without a base', () => {
+        const spy = vi.spyOn(history, 'replaceState').mockImplementation(() => {})
+        teardown.push(() => spy.mockRestore())
+        mount()
+        click('next')
+        expect(spy).not.toHaveBeenCalled()
+    })
+
     it('places a tick at each boundary between slides', () => {
         const { ticks } = mount([1000, 2000, 1000])
 

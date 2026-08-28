@@ -28,7 +28,7 @@
         </button>
     </div>
 
-    <div class="deck" id="deck">
+    <div class="deck" id="deck" data-start="{{ $start }}" data-base="{{ localized_route('jobs.internship.slides') }}">
 
         <section class="slide slide--cover on" data-dur="9000">
             <svg class="bigglyph" viewBox="0 0 299 337" aria-hidden="true"><defs><linearGradient id="cbg" x1="-0.39" y1="-0.56" x2="298.71" y2="337.36" gradientUnits="userSpaceOnUse"><stop stop-color="#C026D3" stop-opacity="0.45"/><stop offset=".5" stop-color="#500472" stop-opacity="0.45"/><stop offset="1" stop-color="#2563EB" stop-opacity="0.4"/></linearGradient></defs><path fill="url(#cbg)" d="M165.982 336.715C67.8054 336.715 0 266.125 0 168.005C0 69.8839 67.8054 0 165.982 0C223.193 0 269.809 25.4125 298.061 65.6485L235.2 114.356C223.899 100.944 204.122 83.2964 168.1 83.2964C119.366 83.2964 86.1695 119.297 86.1695 168.005C86.1695 216.711 119.366 252.713 168.1 252.713C204.122 252.713 223.193 237.889 235.2 223.065L298.061 270.36C269.809 311.302 223.193 336.715 165.982 336.715Z"/></svg>
@@ -37,6 +37,19 @@
                 <div class="rule" data-in style="--d:1"></div>
                 <h1 data-in style="--d:2">Wir erwecken Ideen<br><em>zum Leben.</em></h1>
                 <p class="lead" data-in style="--d:4">Von der ersten Skizze bis zur Software im täglichen Einsatz — aus der Region Basel.</p>
+            </div>
+        </section>
+
+        <section class="slide" data-dur="14000">
+            <div class="inner">
+                <div class="eyebrow" data-in style="--d:0">Ablauf</div>
+                <h2 data-in style="--d:1">Der <em>Ablauf.</em></h2>
+                <ol class="agenda">
+                    <li data-in style="--d:2"><span class="num">01</span><span class="agenda-copy"><b>codebar — wer wir sind, was wir machen</b><span>Team, Expertise, Technologien, Projekte.</span></span></li>
+                    <li data-in style="--d:3"><span class="num">02</span><span class="agenda-copy"><b>Du stellst dich vor</b><span>Dein Weg, deine Interessen, deine Fragen.</span></span></li>
+                    <li data-in style="--d:4"><span class="num">03</span><span class="agenda-copy"><b>Das Praktikum bei codebar</b><span>Dein Job, dein Alltag, dein Team.</span></span></li>
+                    <li data-in style="--d:5"><span class="num">04</span><span class="agenda-copy"><b>Weiteres Vorgehen</b><span>Nächste Schritte und Bewerbung.</span></span></li>
+                </ol>
             </div>
         </section>
 
@@ -117,69 +130,40 @@
                         </div>
                     </div>
                 </div>
-                <p class="kicker" data-in style="--d:6">Open Source, wo immer es geht — überall weiterverwendbar.</p>
+                <div class="step" data-in style="--d:6">Was dabei entsteht</div>
+                <div class="results" data-in style="--d:6">
+                    <span class="result">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19"/></svg></span>
+                        <b>Portale</b>
+                    </span>
+                    <span class="result">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="12" r="2.8"/><circle cx="18.5" cy="12" r="2.8"/><path d="M8.3 12h7.4"/></svg></span>
+                        <b>Schnittstellen</b>
+                    </span>
+                    <span class="result">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z"/></svg></span>
+                        <b>Automatisierungen</b>
+                    </span>
+                    <span class="result">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+                        <b>Dashboards</b>
+                    </span>
+                </div>
             </div>
         </section>
 
-        <section class="slide" data-dur="22000">
-            <div class="inner inner--dense">
-                <div class="eyebrow" data-in style="--d:0">Technologien &middot; Laravel</div>
-                <h2 data-in style="--d:1">Laravel. <em>Unser Backend.</em></h2>
-                <p class="lead lead--wide" data-in style="--d:2">Laravel ist das meistgenutzte Open-Source-Framework für PHP — der Baukasten, auf dem unsere Software entsteht. Seit 2011, mit riesiger Community und ausgezeichneter Dokumentation.</p>
-                <div class="step" data-in style="--d:3">Was Laravel macht</div>
-                <div class="grid grid--3" data-in style="--d:3">
-                    <article class="card">
-                        <h3>Struktur</h3>
-                        <p>Model, View, Controller — Daten, Darstellung und Logik sind sauber getrennt.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Eingebaut</h3>
-                        <p>Routing, Login, Blade-Templates und Eloquent statt rohem SQL sind eingebaut.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Werkzeuge</h3>
-                        <p>Artisan generiert Code und führt Migrations aus, Tests sind von Haus aus dabei.</p>
-                    </article>
+        <section class="slide slide--handover" data-dur="120000">
+            <div class="inner">
+                <div class="eyebrow" data-in style="--d:0">Jetzt du</div>
+                <h2 data-in style="--d:1">Erzähl uns <em>von dir.</em></h2>
+                <p class="lead lead--wide" data-in style="--d:2">Kein Vortrag, kein Test — wir wollen dich kennenlernen. Ein paar Anhaltspunkte:</p>
+                <div class="asks asks--big" data-in style="--d:3">
+                    <span class="ask">Erzähl uns mehr von dir</span>
+                    <span class="ask">Hobbies &amp; was dich begeistert</span>
+                    <span class="ask">Deine Erfahrung mit Entwicklung</span>
+                    <span class="ask">Deine Erfahrung mit KI</span>
+                    <span class="ask">Was möchtest du im Praktikum machen?</span>
                 </div>
-                <div class="step" data-in style="--d:4">Wofür wir es einsetzen</div>
-                <div class="asks" data-in style="--d:4">
-                    <span class="ask">Webanwendungen</span>
-                    <span class="ask">REST-APIs</span>
-                    <span class="ask">Hintergrund-Jobs</span>
-                    <span class="ask">Caching &amp; Sessions</span>
-                </div>
-                <p class="kicker" data-in style="--d:5">Laracasts, eine der grössten Lernplattformen für Entwickler, läuft selbst auf Laravel.</p>
-            </div>
-        </section>
-
-        <section class="slide" data-dur="22000">
-            <div class="inner inner--dense">
-                <div class="eyebrow" data-in style="--d:0">Technologien &middot; NativePHP</div>
-                <h2 data-in style="--d:1">Mit PHP <em>aufs Handy.</em></h2>
-                <p class="lead lead--wide" data-in style="--d:2">NativePHP ist eine Library auf Laravel: Dieselbe Codebase, die im Web läuft, wird zur nativen App für iOS und Android — ohne Swift, Kotlin oder ein zweites Team.</p>
-                <div class="step" data-in style="--d:3">Was NativePHP ist</div>
-                <div class="grid grid--3" data-in style="--d:3">
-                    <article class="card">
-                        <h3>Auf Laravel gebaut</h3>
-                        <p>Routing, Datenbank, Blade — alles, was wir vom Web kennen, funktioniert auch in der App.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Bridges</h3>
-                        <p>Kamera, Push-Nachrichten, Biometrie oder Standort werden direkt aus PHP angesprochen.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Eine Codebase</h3>
-                        <p>Ein Projekt, zwei App-Stores — statt doppelter Entwicklung für iOS und Android.</p>
-                    </article>
-                </div>
-                <div class="step" data-in style="--d:4">Wo es hilft</div>
-                <div class="asks" data-in style="--d:4">
-                    <span class="ask">Schneller entwickelt</span>
-                    <span class="ask">Änderungen rasch umgesetzt</span>
-                    <span class="ask">Bekanntes Framework</span>
-                    <span class="ask">Web und App aus einem Projekt</span>
-                </div>
-                <p class="kicker" data-in style="--d:5">Open Source — nativephp.com</p>
             </div>
         </section>
 
@@ -205,67 +189,75 @@
                         <p>Software am Laufen halten, die schon im Einsatz ist.</p>
                     </article>
                 </div>
-                <div class="step" data-in style="--d:4">Was dabei entsteht</div>
-                <div class="results" data-in style="--d:4">
-                    <span class="result">
-                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M2.5 8.5h19"/></svg></span>
-                        <b>Portale</b>
-                    </span>
-                    <span class="result">
-                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="12" r="2.8"/><circle cx="18.5" cy="12" r="2.8"/><path d="M8.3 12h7.4"/></svg></span>
-                        <b>Schnittstellen</b>
-                    </span>
-                    <span class="result">
-                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z"/></svg></span>
-                        <b>Automatisierungen</b>
-                    </span>
-                    <span class="result">
-                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-                        <b>Dashboards</b>
-                    </span>
-                </div>
             </div>
         </section>
 
-        @if($mentors->isNotEmpty())
-            <section class="slide" data-dur="16000">
+        @if($mentors->isNotEmpty() || $contact)
+            <section class="slide" data-dur="20000">
                 <div class="inner">
                     <div class="eyebrow" data-in style="--d:0">Fragen zum Praktikum</div>
                     <h2 data-in style="--d:1">Frag die beiden.<br><em>Das ist ihr Alltag.</em></h2>
-                    <div class="people" data-in style="--d:2">
-                        @foreach($mentors as $mentor)
-                            <article class="person">
+                    @if($mentors->isNotEmpty())
+                        <div class="step" data-in style="--d:2">IMS-Praktikanten</div>
+                        <div class="people" data-in style="--d:2">
+                            @foreach($mentors as $mentor)
+                                <article class="person">
+                                    <div class="portrait">
+                                        <img src="{{ \App\Support\CloudinaryUrl::src($mentor->image, 256) }}" alt="{{ $mentor->name }}" width="240" height="240">
+                                    </div>
+                                    <div class="person-copy">
+                                        <h3>{{ $mentor->name }}</h3>
+                                        @if($mentor->role)
+                                            <p class="role">{{ $mentor->role }}</p>
+                                        @endif
+                                        @if(is_string($mentor->icons['email'] ?? null))
+                                            <p class="mail">{{ $mentor->icons['email'] }}</p>
+                                        @endif
+                                    </div>
+                                </article>
+                            @endforeach
+                        </div>
+                    @endif
+                    @if($contact)
+                        <div class="step" data-in style="--d:3">Allgemeine Fragen</div>
+                        <div class="people people--single" data-in style="--d:3">
+                            <article class="person person--aside">
                                 <div class="portrait">
-                                    <img src="{{ \App\Support\CloudinaryUrl::src($mentor->image, 256) }}" alt="{{ $mentor->name }}" width="240" height="240">
+                                    <img src="{{ \App\Support\CloudinaryUrl::src($contact->image, 256) }}" alt="{{ $contact->name }}" width="240" height="240">
                                 </div>
                                 <div class="person-copy">
-                                    <h3>{{ $mentor->name }}</h3>
-                                    @if($mentor->role)
-                                        <p class="role">{{ $mentor->role }}</p>
-                                    @endif
-                                    @if(is_string($mentor->icons['email'] ?? null))
-                                        <p class="mail">{{ $mentor->icons['email'] }}</p>
-                                    @endif
+                                    <h3>{{ $contact->name }}</h3>
+                                    <p class="role">Software-Architekt</p>
+                                    <p class="mail">
+                                        @if(is_string($contact->icons['email'] ?? null))<span>{{ $contact->icons['email'] }}</span>@endif
+                                        @if(is_string($contact->icons['phone'] ?? null))<span>{{ $contact->icons['phone'] }}</span>@endif
+                                    </p>
                                 </div>
                             </article>
-                        @endforeach
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </section>
         @endif
 
-        <section class="slide" data-dur="18000">
+
+        <section class="slide slide--next" data-dur="24000">
             <div class="inner">
-                <div class="split">
+                <div class="eyebrow" data-in style="--d:0">Weiteres Vorgehen</div>
+                <h2 data-in style="--d:1">So geht's <em>weiter.</em></h2>
+                <div class="split split--top">
                     <div class="col">
-                        <div class="eyebrow" data-in style="--d:0">Bewerbung</div>
-                        <h2 data-in style="--d:1">Praktikum <em>2027/28.</em></h2>
-                        <p class="lead lead--sm" data-in style="--d:2">Wir starten bei deinem bestehenden Wissensstand. Mitbringen solltest du:</p>
-                        <div class="asks" data-in style="--d:3">
+                        <div class="step" data-in style="--d:2">Mitbringen solltest du</div>
+                        <div class="asks" data-in style="--d:2">
                             <span class="ask">Eigeninitiative</span>
                             <span class="ask">Selbstständiges Lernen &amp; Arbeiten</span>
                             <span class="ask">Lust, Software zu konzipieren &amp; entwickeln</span>
                         </div>
+                        <ol class="agenda agenda--compact" data-in style="--d:3">
+                            <li><span class="num">01</span><span class="agenda-copy"><b>Bewerbung online</b><span>QR-Code scannen, Formular ausfüllen — speichern geht jederzeit.</span></span></li>
+                            <li><span class="num">02</span><span class="agenda-copy"><b>Wir melden uns</b><span>Rückmeldung per E-Mail, bei Fragen direkt anrufen.</span></span></li>
+                            <li><span class="num">03</span><span class="agenda-copy"><b>Entscheid &amp; Start</b><span>Praktikum 2027/28 bei codebar in Basel.</span></span></li>
+                        </ol>
                     </div>
                     <div class="qr" data-in style="--d:2">
                         <img src="{{ localized_route('jobs.internship.qr.image') }}" alt="QR-Code zu {{ Str::after(localized_route('jobs.internship.show'), '://') }}" width="580" height="580">
