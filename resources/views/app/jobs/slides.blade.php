@@ -121,55 +121,66 @@
             </div>
         </section>
 
-        <section class="slide" data-dur="18000">
+        <section class="slide" data-dur="22000">
             <div class="inner">
                 <div class="eyebrow" data-in style="--d:0">Technologien &middot; Laravel</div>
                 <h2 data-in style="--d:1">Laravel. <em>Unser Backend.</em></h2>
-                <p class="lead lead--wide" data-in style="--d:2">Das Open-Source-Web-Framework für PHP — seit 2011 entwickelt, mit riesiger Community und ausgezeichneter Dokumentation.</p>
+                <p class="lead lead--wide" data-in style="--d:2">Ein Framework ist der Baukasten, auf dem Software entsteht. Laravel ist das meistgenutzte Open-Source-Framework für PHP — 2011 gestartet, mit riesiger Community und ausgezeichneter Dokumentation.</p>
+                <div class="step" data-in style="--d:3">Was Laravel macht</div>
                 <div class="grid grid--3" data-in style="--d:3">
                     <article class="card">
-                        <div class="step">Eingebaut</div>
-                        <h3>Weniger Grundarbeit</h3>
-                        <p>Routing, Datenbank, Templates und Login sind von Anfang an dabei — mehr Zeit für das eigentliche Projekt.</p>
+                        <h3>Struktur</h3>
+                        <p>Model, View, Controller — Daten, Darstellung und Logik sind sauber getrennt.</p>
                     </article>
                     <article class="card">
-                        <div class="step">Als Code</div>
-                        <h3>Alles versioniert</h3>
-                        <p>Migrations beschreiben die Datenbank, Artisan generiert Code, Tests laufen automatisch mit.</p>
+                        <h3>Grundarbeit erledigt</h3>
+                        <p>Routing, Login, Blade-Templates und Eloquent statt rohem SQL sind eingebaut.</p>
                     </article>
                     <article class="card">
-                        <div class="step">Im Einsatz</div>
-                        <h3>Portale bis APIs</h3>
-                        <p>Webanwendungen, REST-Schnittstellen, Hintergrund-Jobs — läuft auf jedem gängigen Webserver.</p>
+                        <h3>Werkzeuge</h3>
+                        <p>Artisan generiert Code und führt Migrations aus, Tests sind von Haus aus dabei.</p>
                     </article>
                 </div>
-                <p class="kicker" data-in style="--d:4">Laracasts, eine der grössten Lernplattformen für Entwickler, ist selbst mit Laravel gebaut.</p>
+                <div class="step" data-in style="--d:4">Wofür wir es einsetzen</div>
+                <div class="asks" data-in style="--d:4">
+                    <span class="ask">Webanwendungen</span>
+                    <span class="ask">REST-APIs</span>
+                    <span class="ask">Hintergrund-Jobs</span>
+                    <span class="ask">Caching &amp; Sessions</span>
+                    <span class="ask">Datenbank als Code</span>
+                </div>
+                <p class="kicker" data-in style="--d:5">Läuft auf jedem gängigen Webserver mit PHP. Laracasts, eine der grössten Lernplattformen für Entwickler, ist selbst mit Laravel gebaut.</p>
             </div>
         </section>
 
-        <section class="slide" data-dur="18000">
+        <section class="slide" data-dur="22000">
             <div class="inner">
                 <div class="eyebrow" data-in style="--d:0">Technologien &middot; NativePHP</div>
                 <h2 data-in style="--d:1">Mit PHP <em>aufs Handy.</em></h2>
-                <p class="lead lead--wide" data-in style="--d:2">NativePHP baut auf Laravel auf und macht aus einer Codebase native Apps für iOS und Android.</p>
+                <p class="lead lead--wide" data-in style="--d:2">NativePHP ist eine Library auf Laravel: Dieselbe Codebase, die im Web läuft, wird zur nativen App für iOS und Android — ohne Swift, Kotlin oder ein zweites Team.</p>
+                <div class="step" data-in style="--d:3">Was NativePHP ist</div>
                 <div class="grid grid--3" data-in style="--d:3">
                     <article class="card">
-                        <div class="step">Eine Codebase</div>
-                        <h3>iOS und Android</h3>
-                        <p>Ein Laravel-Projekt, zwei Plattformen — ohne doppelte Entwicklung.</p>
+                        <h3>Auf Laravel gebaut</h3>
+                        <p>Routing, Datenbank, Blade — alles, was wir vom Web kennen, funktioniert auch in der App.</p>
                     </article>
                     <article class="card">
-                        <div class="step">Bridges</div>
-                        <h3>Native Funktionen</h3>
-                        <p>Kamera, Push-Nachrichten oder Biometrie werden direkt aus PHP angesprochen.</p>
+                        <h3>Bridges</h3>
+                        <p>Kamera, Push-Nachrichten, Biometrie oder Standort werden direkt aus PHP angesprochen.</p>
                     </article>
                     <article class="card">
-                        <div class="step">Vertraut</div>
-                        <h3>Schneller am Ziel</h3>
-                        <p>Bekanntes Framework, kürzere Entwicklung, Änderungen sind rasch umgesetzt.</p>
+                        <h3>Eine Codebase</h3>
+                        <p>Ein Projekt, zwei App-Stores — statt doppelter Entwicklung für iOS und Android.</p>
                     </article>
                 </div>
-                <p class="kicker" data-in style="--d:4">Open Source — nativephp.com</p>
+                <div class="step" data-in style="--d:4">Wo es hilft</div>
+                <div class="asks" data-in style="--d:4">
+                    <span class="ask">Schneller entwickelt</span>
+                    <span class="ask">Änderungen rasch umgesetzt</span>
+                    <span class="ask">Bekanntes Framework</span>
+                    <span class="ask">Web und App aus einem Projekt</span>
+                </div>
+                <p class="kicker" data-in style="--d:5">Open Source — nativephp.com</p>
             </div>
         </section>
 
