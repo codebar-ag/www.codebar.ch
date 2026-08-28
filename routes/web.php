@@ -17,6 +17,7 @@ use App\Http\Controllers\Jobs\ApplicationShowController;
 use App\Http\Controllers\Jobs\ApplicationUpdateController;
 use App\Http\Controllers\Jobs\JobsIndexController;
 use App\Http\Controllers\Jobs\JobsInternshipQrController;
+use App\Http\Controllers\Jobs\JobsInternshipQrImageController;
 use App\Http\Controllers\Jobs\JobsInternshipShowController;
 use App\Http\Controllers\Jobs\JobsInternshipSlidesController;
 use App\Http\Controllers\Legal\ImprintIndexController;
@@ -150,6 +151,7 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('stellen', JobsIndexController::class)->name('jobs.index');
     Route::get('stellen/praktikum', JobsInternshipShowController::class)->middleware(DoNotCacheResponse::class)->name('jobs.internship.show');
     Route::get('stellen/qr', JobsInternshipQrController::class)->name('jobs.internship.qr');
+    Route::get('stellen/praktikum-qr.svg', JobsInternshipQrImageController::class)->name('jobs.internship.qr.image');
     Route::get('stellen/slides', JobsInternshipSlidesController::class)->name('jobs.internship.slides');
     Route::post('stellen/praktikum', ApplicationRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('jobs.internship.request.store');
     Route::get('stellen/praktikum/bewerbung/{application}', ApplicationShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');

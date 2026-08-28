@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.5",
+        "bacon/bacon-qr-code": "^3.1",
         "codebar-ag/laravel-flysystem-cloudinary": "^13.0",
         "laravel/framework": "^13.0",
         "laravel/nightwatch": "^1.28",

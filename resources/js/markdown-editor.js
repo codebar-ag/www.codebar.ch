@@ -48,9 +48,18 @@ export const renderMarkdown = (markdown) => {
 
 export const markdownEditor = () => ({
     preview: '',
+    previewOpen: false,
 
-    init() {
+    openPreview() {
         this.render()
+        this.previewOpen = true
+    },
+
+    closePreview() {
+        if (!this.previewOpen) return
+
+        this.previewOpen = false
+        this.$refs.input?.focus()
     },
 
     get isEmpty() {
@@ -116,6 +125,5 @@ export const markdownEditor = () => ({
 
     notify(input) {
         input.dispatchEvent(new Event('input', { bubbles: true }))
-        this.render()
     },
 })

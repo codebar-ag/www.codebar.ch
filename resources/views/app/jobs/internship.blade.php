@@ -33,6 +33,27 @@
         </div>
 
         <p class="mt-6 text-base text-muted">{{ __('Internship journey outro') }}</p>
+
+        <div class="mt-8">
+            <x-h3 :title="__('Internship outcome heading')"/>
+            <div class="flex flex-wrap gap-2">
+                @foreach(['Portale', 'Schnittstellen', 'Automatisierungen', 'Webseiten', 'Dashboards'] as $outcome)
+                    <span class="inline-flex items-center rounded-pill border border-border bg-surface px-4 py-1.5 text-sm font-medium text-gray-800">{{ $outcome }}</span>
+                @endforeach
+            </div>
+        </div>
+    </x-layout.section>
+
+    <x-layout.section>
+        <x-h2 :title="__('Internship bring heading')"/>
+        <x-ui.prose>
+            <p>{{ __('Internship bring intro') }}</p>
+        </x-ui.prose>
+        <div class="mt-4 flex flex-wrap gap-2">
+            <span class="inline-flex items-center rounded-pill border border-brand/30 bg-white px-4 py-1.5 text-sm font-medium text-gray-800">{{ __('Internship bring initiative') }}</span>
+            <span class="inline-flex items-center rounded-pill border border-brand/30 bg-white px-4 py-1.5 text-sm font-medium text-gray-800">{{ __('Internship bring learning') }}</span>
+            <span class="inline-flex items-center rounded-pill border border-brand/30 bg-white px-4 py-1.5 text-sm font-medium text-gray-800">{{ __('Internship bring passion') }}</span>
+        </div>
     </x-layout.section>
 
     <x-layout.section>

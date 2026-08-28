@@ -116,12 +116,18 @@ describe('the live preview', () => {
             .toBe('<p>&lt;script&gt;x&lt;/script&gt; <a href="#" rel="noopener noreferrer" target="_blank">go</a></p>')
     })
 
-    it('updates the preview from the textarea', () => {
-        const { component } = mount('**fett**')
+    it('renders the textarea into the modal when opened and closes again', () => {
+        const { component, input } = mount('**fett**')
 
-        component.init()
+        component.openPreview()
 
+        expect(component.previewOpen).toBe(true)
         expect(component.preview).toBe('<p><strong>fett</strong></p>')
         expect(component.hasPreview).toBe(true)
+
+        component.closePreview()
+
+        expect(component.previewOpen).toBe(false)
+        expect(document.activeElement).toBe(input)
     })
 })

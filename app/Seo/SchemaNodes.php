@@ -123,6 +123,36 @@ class SchemaNodes
     /**
      * @return array<int, array<string, mixed>>
      */
+    public static function internshipJobPosting(PageDTO $page): array
+    {
+        $location = collect(Company::locations())->first();
+
+        return [array_filter([
+            '@type' => 'JobPosting',
+            '@id' => $page->url().'#jobposting',
+            'title' => 'IMS-Praktikum 2027/28',
+            'description' => $page->description,
+            'datePosted' => '2026-08-28',
+            'employmentType' => 'INTERN',
+            'directApply' => true,
+            'url' => $page->url(),
+            'hiringOrganization' => ['@id' => self::organizationId()],
+            'jobLocation' => is_array($location) ? [
+                '@type' => 'Place',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => $location['street'],
+                    'postalCode' => $location['postal_code'],
+                    'addressLocality' => $location['city'],
+                    'addressCountry' => $location['country'],
+                ],
+            ] : null,
+        ], fn (mixed $value): bool => $value !== null)];
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public static function blogPosting(News $news, PageDTO $page, string $locale): array
     {
         $organizationId = self::organizationId();

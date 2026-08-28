@@ -150,6 +150,14 @@
                         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z"/></svg></span>
                         <b>Automatisierungen</b>
                     </span>
+                    <span class="result">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.7 2.5 4 5.8 4 9.5s-1.3 7-4 9.5c-2.7-2.5-4-5.8-4-9.5s1.3-7 4-9.5Z"/></svg></span>
+                        <b>Webseiten</b>
+                    </span>
+                    <span class="result">
+                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+                        <b>Dashboards</b>
+                    </span>
                 </div>
             </div>
         </section>
@@ -158,7 +166,7 @@
             <section class="slide" data-dur="16000">
                 <div class="inner">
                     <div class="eyebrow" data-in style="--d:0">Fragen zum Praktikum</div>
-                    <h2 data-in style="--d:1">Frag die beiden.<br><em>Sie machen es täglich.</em></h2>
+                    <h2 data-in style="--d:1">Frag die beiden.<br><em>Das ist ihr Alltag.</em></h2>
                     <div class="people" data-in style="--d:2">
                         @foreach($mentors as $mentor)
                             <article class="person">
@@ -195,8 +203,8 @@
                         </div>
                     </div>
                     <div class="qr" data-in style="--d:2">
-                        <img src="{{ asset('images/qr/praktikum.svg') }}" alt="QR-Code zu codebar.ch/stellen/praktikum" width="580" height="580">
-                        <span>codebar.ch/stellen/praktikum</span>
+                        <img src="{{ localized_route('jobs.internship.qr.image') }}" alt="QR-Code zu {{ Str::after(localized_route('jobs.internship.show'), '://') }}" width="580" height="580">
+                        <span>{{ Str::after(localized_route('jobs.internship.show'), '://') }}</span>
                     </div>
                 </div>
             </div>
