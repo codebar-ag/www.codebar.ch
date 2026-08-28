@@ -66,3 +66,20 @@ it('lists the internship as an open position on the jobs page below no other sec
         ->assertSee(route('de-ch.jobs.internship.show'))
         ->assertSeeInOrder([__('Jobs open positions heading'), __('Internship title'), __('Jobs spontaneous heading')]);
 })->group('applications');
+
+it('carries a job posting schema node', function () {
+    runArtisan('pages:import')->assertSuccessful();
+
+    get(route('de-ch.jobs.internship.show'))
+        ->assertOk()
+        ->assertSee('"JobPosting"', false)
+        ->assertSee('"employmentType":"INTERN"', false);
+})->group('applications');
+
+it('is listed in the sitemap', function () {
+    runArtisan('pages:import')->assertSuccessful();
+
+    get('/sitemap.xml')
+        ->assertOk()
+        ->assertSee(route('de-ch.jobs.internship.show'));
+})->group('applications');

@@ -1,4 +1,4 @@
-<x-app-layout :page="$page">
+<x-app-layout :page="$page" :schema="$schema">
     <x-layout.page-header
             :title="__('Internship title')"
             :intro="__('Internship page header')"

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Contact;
+use Illuminate\Support\Str;
 
 use function Pest\Laravel\get;
 
@@ -14,8 +15,8 @@ it('renders the kiosk deck with its dedicated asset bundle', function () {
         ->assertSee('Wir erwecken Ideen')
         ->assertSee('Der ganze Weg.')
         ->assertSee('Praktikum')
-        ->assertSee('images/qr/praktikum.svg')
-        ->assertSee('codebar.ch/stellen/praktikum');
+        ->assertSee(route('de-ch.jobs.internship.qr.image'))
+        ->assertSee(Str::after(route('de-ch.jobs.internship.show'), '://'));
 })->group('applications');
 
 it('keeps the kiosk deck out of search engines', function () {
