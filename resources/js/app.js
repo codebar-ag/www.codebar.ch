@@ -3,8 +3,11 @@ import '../css/app.css'
 import Alpine from '@alpinejs/csp'
 import focus from '@alpinejs/focus'
 
+import { applicationForm } from './application-form'
 import { introTabs } from './intro-tabs'
 import { languageSuggestion } from './language-suggestion'
+import { markdownEditor } from './markdown-editor'
+import { toast } from './toast'
 
 window.Alpine = Alpine
 Alpine.plugin(focus)
@@ -126,7 +129,13 @@ Alpine.data('combobox', () => ({
     },
 }))
 
+Alpine.data('applicationForm', applicationForm)
+
 Alpine.data('introTabs', introTabs)
+
+Alpine.data('markdownEditor', markdownEditor)
+
+Alpine.data('toast', toast)
 
 Alpine.data('languageSuggestion', languageSuggestion)
 

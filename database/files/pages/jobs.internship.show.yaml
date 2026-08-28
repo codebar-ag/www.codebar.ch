@@ -1,0 +1,9 @@
+key: jobs.internship.show
+robots: index,follow
+image: images/pages/jobs.index.svg
+title:
+  de_CH: 'IMS-Praktikum 2027/28 – Bewerbung bei codebar'
+  en_CH: 'IMS Internship 2027/28 – Apply at codebar'
+description:
+  de_CH: 'Der ganze Weg, nicht nur ein Stück: Planen, entwickeln, betreiben – ein IMS-Praktikum mitten im Projektalltag mit PHP, Laravel und Open Source. Bewirb dich direkt online.'
+  en_CH: 'The whole journey, not just one part: plan, build, operate – an IMS internship inside real projects with PHP, Laravel and open source. Apply directly online.'

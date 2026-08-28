@@ -27,6 +27,7 @@ class SitemapController extends Controller
         'legal.privacy.index',
         'legal.terms.index',
         'jobs.index',
+        'jobs.internship.show',
         'ai.index',
         'ai.llm.index',
         'ai.llm.analytics.index',
