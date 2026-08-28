@@ -192,28 +192,6 @@
             </div>
         </section>
 
-        <section class="slide" data-dur="18000">
-            <div class="inner">
-                <div class="split">
-                    <div class="col">
-                        <div class="eyebrow" data-in style="--d:0">Bewerbung</div>
-                        <h2 data-in style="--d:1">Praktikum <em>2027/28.</em></h2>
-                        <p class="lead lead--sm" data-in style="--d:2">Wir starten bei deinem bestehenden Wissensstand. Mitbringen solltest du:</p>
-                        <div class="asks" data-in style="--d:3">
-                            <span class="ask">Eigeninitiative</span>
-                            <span class="ask">Selbstständiges Lernen &amp; Arbeiten</span>
-                            <span class="ask">Lust, Software zu konzipieren &amp; entwickeln</span>
-                        </div>
-                    </div>
-                    <div class="qr" data-in style="--d:2">
-                        <img src="{{ localized_route('jobs.internship.qr.image') }}" alt="QR-Code zu {{ Str::after(localized_route('jobs.internship.show'), '://') }}" width="580" height="580">
-                        <span>{{ Str::after(localized_route('jobs.internship.show'), '://') }}</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
         @if($mentors->isNotEmpty() || $contact)
             <section class="slide" data-dur="20000">
                 <div class="inner">
@@ -261,6 +239,33 @@
                 </div>
             </section>
         @endif
+
+
+        <section class="slide slide--next" data-dur="24000">
+            <div class="inner">
+                <div class="eyebrow" data-in style="--d:0">Weiteres Vorgehen</div>
+                <h2 data-in style="--d:1">So geht's <em>weiter.</em></h2>
+                <div class="split split--top">
+                    <div class="col">
+                        <div class="step" data-in style="--d:2">Mitbringen solltest du</div>
+                        <div class="asks" data-in style="--d:2">
+                            <span class="ask">Eigeninitiative</span>
+                            <span class="ask">Selbstständiges Lernen &amp; Arbeiten</span>
+                            <span class="ask">Lust, Software zu konzipieren &amp; entwickeln</span>
+                        </div>
+                        <ol class="agenda agenda--compact" data-in style="--d:3">
+                            <li><span class="num">01</span><span class="agenda-copy"><b>Bewerbung online</b><span>QR-Code scannen, Formular ausfüllen — speichern geht jederzeit.</span></span></li>
+                            <li><span class="num">02</span><span class="agenda-copy"><b>Wir melden uns</b><span>Rückmeldung per E-Mail, bei Fragen direkt anrufen.</span></span></li>
+                            <li><span class="num">03</span><span class="agenda-copy"><b>Entscheid &amp; Start</b><span>Praktikum 2027/28 bei codebar in Basel.</span></span></li>
+                        </ol>
+                    </div>
+                    <div class="qr" data-in style="--d:2">
+                        <img src="{{ localized_route('jobs.internship.qr.image') }}" alt="QR-Code zu {{ Str::after(localized_route('jobs.internship.show'), '://') }}" width="580" height="580">
+                        <span>{{ Str::after(localized_route('jobs.internship.show'), '://') }}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
 

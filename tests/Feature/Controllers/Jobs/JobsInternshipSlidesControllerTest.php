@@ -74,5 +74,5 @@ it('shows the mentors slide only when the contacts are imported', function () {
         ->assertSee('Allgemeine Fragen')
         ->assertSee('Sebastian Bürgin-Fix')
         ->assertSee('+41 61 515 60 95')
-        ->assertSeeInOrder(['Bewerbung', 'Fragen zum Praktikum']);
+        ->assertSeeInOrder(['Fragen zum Praktikum', 'Weiteres Vorgehen']);
 })->group('applications');

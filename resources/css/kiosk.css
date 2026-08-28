@@ -282,6 +282,13 @@ h1 em, h2 em{
 .agenda-copy b{ font-size:calc(var(--u) * 2.7); font-weight:600; letter-spacing:-.015em; line-height:1.15; }
 .agenda-copy span{ font-size:calc(var(--u) * 1.9); color:var(--ink-3); line-height:1.35; }
 
+.agenda--compact{ gap:calc(var(--u) * .8); }
+.agenda--compact li{ padding:calc(var(--u) * 1) calc(var(--u) * 2); gap:calc(var(--u) * 1.8); }
+.agenda--compact .num{ font-size:calc(var(--u) * 2.6); }
+.agenda--compact .agenda-copy b{ font-size:calc(var(--u) * 2.3); }
+.agenda--compact .agenda-copy span{ font-size:calc(var(--u) * 1.7); }
+.step + .asks{ margin-top:calc(var(--u) * -1.2); }
+
 /* ── Tools ─────────────────────────────────────────────────────── */
 .tools{ display:flex; flex-direction:column; gap:calc(var(--u) * 1.1); }
 .tool-row{
@@ -406,6 +413,11 @@ h1 em, h2 em{
     letter-spacing:.05em; color:var(--brand);
 }
 
+/* ── Next steps slide ──────────────────────────────────────────── */
+.split--top{ align-items:flex-start; gap:calc(var(--u) * 4); }
+.split--top .col{ gap:calc(var(--u) * 2); }
+.slide--next .qr img{ width:min(calc(var(--u) * 28), 30vw); }
+
 /* ── Tap zones ─────────────────────────────────────────────────── */
 .tap{ position:absolute; inset:0; z-index:9; display:flex; }
 .tap button{
@@ -525,6 +537,12 @@ h1 em, h2 em{
     .tool-row{ flex-direction:row; gap:calc(var(--u) * 2.2); }
     .tool-label{ flex:0 0 calc(var(--u) * 13); }
     .qr img{ width:min(calc(var(--u) * 26), 40vw); }
+    .slide--next .split{ flex-direction:row; align-items:flex-start; }
+    .slide--next .qr{ align-self:flex-start; }
+    .slide--next .qr{ max-width:calc(var(--u) * 30); }
+    .slide--next .qr img{ width:calc(var(--u) * 24); }
+    .slide--next .qr span{ overflow-wrap:anywhere; text-align:center; font-size:calc(var(--u) * 1.5); }
+    .slide--next .split{ gap:calc(var(--u) * 2.5); }
 }
 
 @media (prefers-reduced-motion:reduce){
