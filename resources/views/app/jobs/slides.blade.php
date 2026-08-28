@@ -117,8 +117,9 @@
 
         <section class="slide" data-dur="18000">
             <div class="inner">
-                <div class="eyebrow" data-in style="--d:0">Praktikum &middot; Was dich erwartet</div>
+                <div class="eyebrow" data-in style="--d:0">Praktikum &middot; Dein Job bei uns</div>
                 <h2 data-in style="--d:1">Der ganze Weg.<br><em>Idee bis Betrieb.</em></h2>
+                <p class="lead lead--wide" data-in style="--d:2">Das ist dein Job im Praktikum – von Anfang an mittendrin statt nur dabei:</p>
                 <div class="grid grid--3" data-in style="--d:2">
                     <article class="card">
                         <div class="step">Zuerst</div>
