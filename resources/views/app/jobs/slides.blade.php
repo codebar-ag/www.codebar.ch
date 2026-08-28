@@ -133,7 +133,7 @@
                         <p>Model, View, Controller — Daten, Darstellung und Logik sind sauber getrennt.</p>
                     </article>
                     <article class="card">
-                        <h3>Grundarbeit erledigt</h3>
+                        <h3>Eingebaut</h3>
                         <p>Routing, Login, Blade-Templates und Eloquent statt rohem SQL sind eingebaut.</p>
                     </article>
                     <article class="card">
@@ -148,7 +148,7 @@
                     <span class="ask">Hintergrund-Jobs</span>
                     <span class="ask">Caching &amp; Sessions</span>
                 </div>
-                <p class="kicker" data-in style="--d:5">Laracasts, eine der grössten Lernplattformen für Entwickler, ist selbst mit Laravel gebaut.</p>
+                <p class="kicker" data-in style="--d:5">Laracasts, eine der grössten Lernplattformen für Entwickler, läuft selbst auf Laravel.</p>
             </div>
         </section>
 

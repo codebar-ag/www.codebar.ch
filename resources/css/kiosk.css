@@ -180,6 +180,7 @@ body.is-paused .play .txt::after{ content:'Weiter'; }
 }
 
 .inner--dense{ gap:calc(var(--u) * 1.9); }
+.inner--dense .kicker{ max-width:none; }
 .inner--dense .card{ padding:calc(var(--u) * 1.7) calc(var(--u) * 1.8); }
 
 .slide [data-in]{ opacity:0; transform:translateY(calc(var(--u) * 2)) skewX(1.5deg); }
