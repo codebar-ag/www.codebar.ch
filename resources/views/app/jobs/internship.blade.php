@@ -11,6 +11,7 @@
 
     <x-layout.section>
         <x-h2 :title="__('Internship journey heading')"/>
+        <p class="mb-6 text-lg font-medium text-gray-800">{{ __('Internship journey intro') }}</p>
 
         <div class="grid gap-4 md:grid-cols-3">
             <x-ui.panel class="px-4 py-6 sm:px-6">
