@@ -179,6 +179,9 @@ body.is-paused .play .txt::after{ content:'Weiter'; }
     display:flex; flex-direction:column; gap:calc(var(--u) * 2.4);
 }
 
+.inner--dense{ gap:calc(var(--u) * 1.9); }
+.inner--dense .card{ padding:calc(var(--u) * 1.7) calc(var(--u) * 1.8); }
+
 .slide [data-in]{ opacity:0; transform:translateY(calc(var(--u) * 2)) skewX(1.5deg); }
 .slide.on [data-in]{ animation:rise .5s cubic-bezier(.16,1,.3,1) forwards; animation-delay:calc(var(--d,0) * 55ms + 60ms); }
 @keyframes rise{ to{ opacity:1; transform:none; } }
@@ -307,6 +310,7 @@ h1 em, h2 em{
     gap:calc(var(--u) * 1.2) calc(var(--u) * 2.6);
 }
 .step + .results{ margin-top:calc(var(--u) * -1.4); }
+.step + .grid, .step + .asks{ margin-top:calc(var(--u) * -.9); }
 .result{
     display:flex; align-items:center; gap:calc(var(--u) * 1.2); min-width:0;
     background:var(--surface); border:1px solid var(--line);

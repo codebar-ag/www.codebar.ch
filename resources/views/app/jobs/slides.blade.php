@@ -122,10 +122,10 @@
         </section>
 
         <section class="slide" data-dur="22000">
-            <div class="inner">
+            <div class="inner inner--dense">
                 <div class="eyebrow" data-in style="--d:0">Technologien &middot; Laravel</div>
                 <h2 data-in style="--d:1">Laravel. <em>Unser Backend.</em></h2>
-                <p class="lead lead--wide" data-in style="--d:2">Ein Framework ist der Baukasten, auf dem Software entsteht. Laravel ist das meistgenutzte Open-Source-Framework für PHP — 2011 gestartet, mit riesiger Community und ausgezeichneter Dokumentation.</p>
+                <p class="lead lead--wide" data-in style="--d:2">Laravel ist das meistgenutzte Open-Source-Framework für PHP — der Baukasten, auf dem unsere Software entsteht. Seit 2011, mit riesiger Community und ausgezeichneter Dokumentation.</p>
                 <div class="step" data-in style="--d:3">Was Laravel macht</div>
                 <div class="grid grid--3" data-in style="--d:3">
                     <article class="card">
@@ -147,14 +147,13 @@
                     <span class="ask">REST-APIs</span>
                     <span class="ask">Hintergrund-Jobs</span>
                     <span class="ask">Caching &amp; Sessions</span>
-                    <span class="ask">Datenbank als Code</span>
                 </div>
-                <p class="kicker" data-in style="--d:5">Läuft auf jedem gängigen Webserver mit PHP. Laracasts, eine der grössten Lernplattformen für Entwickler, ist selbst mit Laravel gebaut.</p>
+                <p class="kicker" data-in style="--d:5">Laracasts, eine der grössten Lernplattformen für Entwickler, ist selbst mit Laravel gebaut.</p>
             </div>
         </section>
 
         <section class="slide" data-dur="22000">
-            <div class="inner">
+            <div class="inner inner--dense">
                 <div class="eyebrow" data-in style="--d:0">Technologien &middot; NativePHP</div>
                 <h2 data-in style="--d:1">Mit PHP <em>aufs Handy.</em></h2>
                 <p class="lead lead--wide" data-in style="--d:2">NativePHP ist eine Library auf Laravel: Dieselbe Codebase, die im Web läuft, wird zur nativen App für iOS und Android — ohne Swift, Kotlin oder ein zweites Team.</p>
