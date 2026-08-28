@@ -110,8 +110,76 @@
                             <span class="group"><span class="chip chip--core">CSS</span><i class="link"></i><span class="chip">Tailwind CSS</span></span>
                         </div>
                     </div>
+                    <div class="tool-row" data-in style="--d:5">
+                        <div class="tool-label">Mobile</div>
+                        <div class="tool-set">
+                            <span class="group"><span class="chip chip--core">PHP</span><i class="link"></i><span class="chip">NativePHP</span></span>
+                        </div>
+                    </div>
                 </div>
-                <p class="kicker" data-in style="--d:5">Open Source, wo immer es geht — überall weiterverwendbar.</p>
+                <p class="kicker" data-in style="--d:6">Open Source, wo immer es geht — überall weiterverwendbar.</p>
+            </div>
+        </section>
+
+        <section class="slide" data-dur="22000">
+            <div class="inner inner--dense">
+                <div class="eyebrow" data-in style="--d:0">Technologien &middot; Laravel</div>
+                <h2 data-in style="--d:1">Laravel. <em>Unser Backend.</em></h2>
+                <p class="lead lead--wide" data-in style="--d:2">Laravel ist das meistgenutzte Open-Source-Framework für PHP — der Baukasten, auf dem unsere Software entsteht. Seit 2011, mit riesiger Community und ausgezeichneter Dokumentation.</p>
+                <div class="step" data-in style="--d:3">Was Laravel macht</div>
+                <div class="grid grid--3" data-in style="--d:3">
+                    <article class="card">
+                        <h3>Struktur</h3>
+                        <p>Model, View, Controller — Daten, Darstellung und Logik sind sauber getrennt.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Eingebaut</h3>
+                        <p>Routing, Login, Blade-Templates und Eloquent statt rohem SQL sind eingebaut.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Werkzeuge</h3>
+                        <p>Artisan generiert Code und führt Migrations aus, Tests sind von Haus aus dabei.</p>
+                    </article>
+                </div>
+                <div class="step" data-in style="--d:4">Wofür wir es einsetzen</div>
+                <div class="asks" data-in style="--d:4">
+                    <span class="ask">Webanwendungen</span>
+                    <span class="ask">REST-APIs</span>
+                    <span class="ask">Hintergrund-Jobs</span>
+                    <span class="ask">Caching &amp; Sessions</span>
+                </div>
+                <p class="kicker" data-in style="--d:5">Laracasts, eine der grössten Lernplattformen für Entwickler, läuft selbst auf Laravel.</p>
+            </div>
+        </section>
+
+        <section class="slide" data-dur="22000">
+            <div class="inner inner--dense">
+                <div class="eyebrow" data-in style="--d:0">Technologien &middot; NativePHP</div>
+                <h2 data-in style="--d:1">Mit PHP <em>aufs Handy.</em></h2>
+                <p class="lead lead--wide" data-in style="--d:2">NativePHP ist eine Library auf Laravel: Dieselbe Codebase, die im Web läuft, wird zur nativen App für iOS und Android — ohne Swift, Kotlin oder ein zweites Team.</p>
+                <div class="step" data-in style="--d:3">Was NativePHP ist</div>
+                <div class="grid grid--3" data-in style="--d:3">
+                    <article class="card">
+                        <h3>Auf Laravel gebaut</h3>
+                        <p>Routing, Datenbank, Blade — alles, was wir vom Web kennen, funktioniert auch in der App.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Bridges</h3>
+                        <p>Kamera, Push-Nachrichten, Biometrie oder Standort werden direkt aus PHP angesprochen.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Eine Codebase</h3>
+                        <p>Ein Projekt, zwei App-Stores — statt doppelter Entwicklung für iOS und Android.</p>
+                    </article>
+                </div>
+                <div class="step" data-in style="--d:4">Wo es hilft</div>
+                <div class="asks" data-in style="--d:4">
+                    <span class="ask">Schneller entwickelt</span>
+                    <span class="ask">Änderungen rasch umgesetzt</span>
+                    <span class="ask">Bekanntes Framework</span>
+                    <span class="ask">Web und App aus einem Projekt</span>
+                </div>
+                <p class="kicker" data-in style="--d:5">Open Source — nativephp.com</p>
             </div>
         </section>
 
@@ -150,10 +218,6 @@
                     <span class="result">
                         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z"/></svg></span>
                         <b>Automatisierungen</b>
-                    </span>
-                    <span class="result">
-                        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.7 2.5 4 5.8 4 9.5s-1.3 7-4 9.5c-2.7-2.5-4-5.8-4-9.5s1.3-7 4-9.5Z"/></svg></span>
-                        <b>Webseiten</b>
                     </span>
                     <span class="result">
                         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
