@@ -19,8 +19,8 @@ class SitemapController extends Controller
     protected const array DEFAULT_ROUTES = [
         'start.index',
         'services.index',
-        'services.dms-ecm.index',
-        'services.dms-ecm.docuware-export.index',
+        // 'services.dms-ecm.index',
+        // 'services.dms-ecm.docuware-export.index',
         'contact.index',
         'media.index',
         'legal.imprint.index',

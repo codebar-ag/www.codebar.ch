@@ -36,8 +36,8 @@ use App\Http\Controllers\OpenSource\OpenSourceShowController;
 use App\Http\Controllers\Products\ProductsIndexController;
 use App\Http\Controllers\Products\ProductsShowController;
 use App\Http\Controllers\Robots\RobotsController;
-use App\Http\Controllers\Services\ServicesDmsEcmIndexController;
-use App\Http\Controllers\Services\ServicesDocuwareExportIndexController;
+// use App\Http\Controllers\Services\ServicesDmsEcmIndexController;
+// use App\Http\Controllers\Services\ServicesDocuwareExportIndexController;
 use App\Http\Controllers\Services\ServicesIndexController;
 use App\Http\Controllers\Services\ServicesShowController;
 use App\Http\Controllers\Sitemap\SitemapController;
@@ -67,8 +67,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     Route::get('about-us', AboutUsIndexController::class)->name('about-us.index');
 
     Route::get('services', ServicesIndexController::class)->name('services.index');
-    Route::get('services/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
-    Route::get('services/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
+    // Route::get('services/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
+    // Route::get('services/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
     Route::get('services/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
 
     Route::get('products', ProductsIndexController::class)->name('products.index');
@@ -117,8 +117,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
 
     Route::get('dienstleistungen', ServicesIndexController::class)->name('services.index');
-    Route::get('dienstleistungen/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
-    Route::get('dienstleistungen/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
+    // Route::get('dienstleistungen/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
+    // Route::get('dienstleistungen/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
     Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
 
     Route::get('produkte', ProductsIndexController::class)->name('products.index');

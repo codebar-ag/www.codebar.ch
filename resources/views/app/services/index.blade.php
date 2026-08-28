@@ -25,12 +25,13 @@
                 <p class="mt-3 text-muted">{{ $entry->teaser }}</p>
                 <x-data.tag-list :tags="$entry->tags" class="mt-4"/>
 
-                @if($entry->slug === 'dms-ecm-consulting')
+                {{-- @if($entry->slug === 'dms-ecm-consulting')
                     <x-ui.arrow-link
                             :href="localized_route('services.dms-ecm.index')"
                             :label="__('components.docuware.dms_ecm.title')"
                             class="mt-4"/>
                 @endif
+                --}}
             </x-illustration-row>
         @endforeach
     </x-layout.section>
