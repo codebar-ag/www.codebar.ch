@@ -1,0 +1,9 @@
+key: services.dms-ecm.index
+robots: index,follow
+image: images/services/dms-ecm-consulting.png
+title:
+  de_CH: 'DMS/ECM mit DocuWare'
+  en_CH: 'DMS/ECM with DocuWare'
+description:
+  de_CH: 'Als DocuWare Silver & Cloud Partner führen wir ein, konfigurieren, automatisieren Dokumentenprozesse — und exportieren den Bestand wieder heraus.'
+  en_CH: 'As a DocuWare Silver & Cloud Partner we roll out, configure and automate document processes — and export your holdings back out again.'

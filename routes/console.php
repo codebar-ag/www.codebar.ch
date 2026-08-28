@@ -6,5 +6,7 @@ use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('llm:fetch-analytics')->hourly()->withoutOverlapping();
 
+Schedule::command('applications:prune')->daily();
+
 Schedule::command('health:check')->everyFiveMinutes();
 Schedule::command('health:schedule-check-heartbeat')->everyMinute();

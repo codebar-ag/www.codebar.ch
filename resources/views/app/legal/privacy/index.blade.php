@@ -38,6 +38,14 @@
     </x-layout.section>
 
     <x-layout.section>
+        <x-h2 :title="__('Privacy applications heading')"/>
+        <x-ui.prose variant="legal">
+            <p>{{ __('Privacy applications body') }}</p>
+            <p>{{ __('Privacy applications retention') }}</p>
+        </x-ui.prose>
+    </x-layout.section>
+
+    <x-layout.section>
         <x-h2 :title="__('Privacy retention heading')"/>
         <x-ui.prose variant="legal">
             <ul>

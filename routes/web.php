@@ -10,7 +10,16 @@ use App\Http\Controllers\Ai\AiLlmIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\CoWorking\CoWorkingIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
+use App\Http\Controllers\Jobs\ApplicationAutosaveController;
+use App\Http\Controllers\Jobs\ApplicationFileDestroyController;
+use App\Http\Controllers\Jobs\ApplicationRequestStoreController;
+use App\Http\Controllers\Jobs\ApplicationShowController;
+use App\Http\Controllers\Jobs\ApplicationUpdateController;
 use App\Http\Controllers\Jobs\JobsIndexController;
+use App\Http\Controllers\Jobs\JobsInternshipQrController;
+use App\Http\Controllers\Jobs\JobsInternshipQrImageController;
+use App\Http\Controllers\Jobs\JobsInternshipShowController;
+use App\Http\Controllers\Jobs\JobsInternshipSlidesController;
 use App\Http\Controllers\Legal\ImprintIndexController;
 use App\Http\Controllers\Legal\PrivacyIndexController;
 use App\Http\Controllers\Legal\TermsIndexController;
@@ -28,6 +37,8 @@ use App\Http\Controllers\OpenSource\OpenSourceShowController;
 use App\Http\Controllers\Products\ProductsIndexController;
 use App\Http\Controllers\Products\ProductsShowController;
 use App\Http\Controllers\Robots\RobotsController;
+// use App\Http\Controllers\Services\ServicesDmsEcmIndexController;
+// use App\Http\Controllers\Services\ServicesDocuwareExportIndexController;
 use App\Http\Controllers\Services\ServicesIndexController;
 use App\Http\Controllers\Services\ServicesShowController;
 use App\Http\Controllers\Sitemap\SitemapController;
@@ -57,6 +68,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     Route::get('about-us', AboutUsIndexController::class)->name('about-us.index');
 
     Route::get('services', ServicesIndexController::class)->name('services.index');
+    // Route::get('services/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
+    // Route::get('services/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
     Route::get('services/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
 
     Route::get('products', ProductsIndexController::class)->name('products.index');
@@ -86,6 +99,12 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     Route::get('legal/terms', TermsIndexController::class)->name('legal.terms.index');
 
     Route::get('jobs', JobsIndexController::class)->name('jobs.index');
+    Route::get('jobs/internship', JobsInternshipShowController::class)->middleware(DoNotCacheResponse::class)->name('jobs.internship.show');
+    Route::post('jobs/internship', ApplicationRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('jobs.internship.request.store');
+    Route::get('jobs/internship/application/{application}', ApplicationShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');
+    Route::put('jobs/internship/application/{application}', ApplicationUpdateController::class)->middleware(['signed', 'throttle:30,1', ProtectAgainstSpam::class])->name('jobs.internship.application.update');
+    Route::patch('jobs/internship/application/{application}', ApplicationAutosaveController::class)->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
+    Route::delete('jobs/internship/application/{application}/files/{applicationFile}', ApplicationFileDestroyController::class)->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
     Route::get('media', MediaIndexController::class)->name('media.index');
     // Not cached: the opening hours box reflects the current day and open/closed state.
     Route::get('contact', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
@@ -99,6 +118,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('ueber-uns', AboutUsIndexController::class)->name('about-us.index');
 
     Route::get('dienstleistungen', ServicesIndexController::class)->name('services.index');
+    // Route::get('dienstleistungen/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
+    // Route::get('dienstleistungen/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
     Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
 
     Route::get('produkte', ProductsIndexController::class)->name('products.index');
@@ -128,6 +149,15 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('rechtliches/geschaeftsbedingungen', TermsIndexController::class)->name('legal.terms.index');
 
     Route::get('stellen', JobsIndexController::class)->name('jobs.index');
+    Route::get('stellen/praktikum', JobsInternshipShowController::class)->middleware(DoNotCacheResponse::class)->name('jobs.internship.show');
+    Route::get('stellen/qr', JobsInternshipQrController::class)->name('jobs.internship.qr');
+    Route::get('stellen/praktikum-qr.svg', JobsInternshipQrImageController::class)->name('jobs.internship.qr.image');
+    Route::get('stellen/slides', JobsInternshipSlidesController::class)->name('jobs.internship.slides');
+    Route::post('stellen/praktikum', ApplicationRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('jobs.internship.request.store');
+    Route::get('stellen/praktikum/bewerbung/{application}', ApplicationShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');
+    Route::put('stellen/praktikum/bewerbung/{application}', ApplicationUpdateController::class)->middleware(['signed', 'throttle:30,1', ProtectAgainstSpam::class])->name('jobs.internship.application.update');
+    Route::patch('stellen/praktikum/bewerbung/{application}', ApplicationAutosaveController::class)->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
+    Route::delete('stellen/praktikum/bewerbung/{application}/dateien/{applicationFile}', ApplicationFileDestroyController::class)->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
     Route::get('medien', MediaIndexController::class)->name('media.index');
     // Not cached: the opening hours box reflects the current day and open/closed state.
     Route::get('kontakt', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
