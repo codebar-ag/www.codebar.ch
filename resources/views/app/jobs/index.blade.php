@@ -16,7 +16,7 @@
 
         @foreach($inProcessPositions as $position)
             <x-ui.panel class="mt-6 px-6 py-6">
-                <x-h3 :title="$position->title" class="mb-0"/>
+                <x-h3 :title="$position->title" class="mb-0!"/>
                 <x-ui.badge variant="notice" class="mt-2 gap-1.5">
                     <span class="size-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true"></span>
                     {{ __('Job status in process') }}
