@@ -66,7 +66,13 @@
 
     <x-layout.section id="bewerbung" class="scroll-mt-24">
         <x-h2 :title="__('Internship apply heading')"/>
-        @include('app.jobs.partials.apply', ['fieldId' => 'email'])
+        @if($position?->isOpen())
+            @include('app.jobs.partials.apply', ['fieldId' => 'email'])
+        @else
+            <x-ui.panel class="px-4 py-6 sm:px-6">
+                <p class="text-base text-gray-800">{{ __('Internship closed body') }}</p>
+            </x-ui.panel>
+        @endif
     </x-layout.section>
 
     @if($mentors->isNotEmpty())

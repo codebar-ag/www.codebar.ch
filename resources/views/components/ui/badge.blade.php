@@ -14,6 +14,7 @@
         'brand' => 'bg-brand text-white',
         'success' => 'bg-emerald-500/10 text-emerald-700 ring-1 ring-emerald-600/20 ring-inset',
         'metal' => 'bg-linear-to-b from-gray-100 via-white to-gray-300 text-gray-700 ring-1 ring-gray-400/40 ring-inset',
+        'notice' => 'bg-amber-400/15 text-amber-800 ring-1 ring-amber-500/30 ring-inset',
     ];
 
     $hovers = [
@@ -22,6 +23,7 @@
         'brand' => 'hover:bg-brand-strong',
         'success' => '',
         'metal' => '',
+        'notice' => '',
     ];
 
     $sizes = [

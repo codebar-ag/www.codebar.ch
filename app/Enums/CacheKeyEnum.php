@@ -21,6 +21,8 @@ enum CacheKeyEnum: string
 {
     case CONTACTS_PUBLISHED = 'contacts_published';
 
+    case JOB_POSITIONS_PUBLISHED = 'job_positions_published';
+
     case NEWS_PUBLISHED = 'news_published';
 
     case PRODUCTS_PUBLISHED = 'products_published';

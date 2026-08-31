@@ -10,6 +10,7 @@ use App\Enums\CacheKeyEnum;
 use App\Enums\ContactSectionEnum;
 use App\Models\AiModel;
 use App\Models\Contact;
+use App\Models\JobPosition;
 use App\Models\Network;
 use App\Models\News;
 use App\Models\OpenSource;
@@ -164,6 +165,18 @@ class ViewDataAction
         $contacts = $this->contacts($locale)->get($section->value, new Collection);
 
         return $contacts;
+    }
+
+    /**
+     * @return Collection<int, JobPosition>
+     */
+    public function jobPositions(string $locale): Collection
+    {
+        $key = CacheKeyEnum::JOB_POSITIONS_PUBLISHED->forLocale($locale);
+
+        return Cache::rememberForever($key, function () {
+            return JobPosition::where('published', true)->orderBy('sort')->get();
+        });
     }
 
     /**

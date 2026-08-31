@@ -27,6 +27,7 @@ class PruneApplicationsCommand extends Command
                 $file->deleteFromDisk();
             }
 
+            $application->deleteExportsFromDisk();
             $application->delete();
         }
 

@@ -123,14 +123,14 @@ class SchemaNodes
     /**
      * @return array<int, array<string, mixed>>
      */
-    public static function internshipJobPosting(PageDTO $page): array
+    public static function internshipJobPosting(PageDTO $page, string $title): array
     {
         $location = collect(Company::locations())->first();
 
         return [array_filter([
             '@type' => 'JobPosting',
             '@id' => $page->url().'#jobposting',
-            'title' => 'IMS-Praktikum 2027/28',
+            'title' => $title,
             'description' => $page->description,
             'datePosted' => '2026-08-28',
             'employmentType' => 'INTERN',

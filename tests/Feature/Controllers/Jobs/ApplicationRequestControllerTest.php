@@ -3,15 +3,24 @@
 declare(strict_types=1);
 
 use App\Enums\ApplicationStatusEnum;
+use App\Enums\JobPositionStatusEnum;
 use App\Enums\LocaleEnum;
 use App\Jobs\Applications\SendApplicationLinkJob;
 use App\Models\Application;
+use App\Models\JobPosition;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Crypt;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
+
+beforeEach(function () {
+    JobPosition::factory()->create([
+        'key' => Application::JOB_KEY_INTERNSHIP,
+        'status' => JobPositionStatusEnum::Open,
+    ]);
+});
 
 it('creates a draft for an unknown email and dispatches the link job', function () {
     Bus::fake();
@@ -23,6 +32,7 @@ it('creates a draft for an unknown email and dispatches the link job', function 
 
     expect($application->email)->toBe('mina@example.com')
         ->and($application->job_key)->toBe(Application::JOB_KEY_INTERNSHIP)
+        ->and($application->jobPosition?->key)->toBe(Application::JOB_KEY_INTERNSHIP)
         ->and($application->status)->toBe(ApplicationStatusEnum::Draft);
 
     Bus::assertDispatched(SendApplicationLinkJob::class, function (SendApplicationLinkJob $job) {
@@ -164,6 +174,19 @@ it('drops a submission with the honeypot field filled', function () {
         'email' => 'bot@example.com',
         config()->string('honeypot.name_field_name') => 'i am a bot',
     ]);
+
+    Bus::assertNotDispatched(SendApplicationLinkJob::class);
+    assertDatabaseCount('applications', 0);
+})->group('applications');
+
+it('rejects new application requests while the position is in process', function () {
+    Bus::fake();
+
+    JobPosition::query()->update(['status' => JobPositionStatusEnum::InProcess]);
+
+    post(route('de-ch.jobs.internship.request.store'), ['email' => 'mina@example.com'])
+        ->assertRedirect(route('de-ch.jobs.internship.show'))
+        ->assertSessionHas('status', __('Internship closed teaser'));
 
     Bus::assertNotDispatched(SendApplicationLinkJob::class);
     assertDatabaseCount('applications', 0);

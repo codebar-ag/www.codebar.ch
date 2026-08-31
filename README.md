@@ -42,6 +42,7 @@ Each content type has a matching import command that reads its files and upserts
 | `php artisan pages:import` | `database/files/pages/*.yaml` |
 | `php artisan news:import` | `database/files/news/{locale}/*.md` |
 | `php artisan team:import` | `database/files/team/*.yaml` |
+| `php artisan jobs:import` | `database/files/jobs/*.yaml` |
 | `php artisan services:import` | `database/files/services/{locale}/*.md` |
 | `php artisan products:import` | `database/files/products/{locale}/*.md` |
 | `php artisan technologies:import` | `database/files/technologies/{locale}/*.md` |
