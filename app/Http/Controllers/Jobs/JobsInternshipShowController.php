@@ -10,6 +10,8 @@ use App\DTO\ContactDTO;
 use App\DTO\PageDTO;
 use App\Enums\ContactSectionEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Application;
+use App\Models\JobPosition;
 use App\Seo\SchemaNodes;
 use Illuminate\View\View;
 
@@ -19,6 +21,8 @@ class JobsInternshipShowController extends Controller
 
     public function __invoke(ViewDataAction $viewData): View
     {
+        $position = JobPosition::query()->where('key', Application::JOB_KEY_INTERNSHIP)->first();
+
         $mentors = $viewData
             ->contactsInSection(app()->getLocale(), ContactSectionEnum::EMPLOYEES)
             ->filter(fn (ContactDTO $contact): bool => in_array($contact->key, self::MENTOR_KEYS, true))
@@ -26,10 +30,14 @@ class JobsInternshipShowController extends Controller
 
         $page = (new PageAction(locale: null, routeName: 'jobs.internship.show'))->default();
 
+        $title = $position?->getTranslation('title', 'de_CH');
+        $withSchema = $page instanceof PageDTO && $position !== null && $position->isOpen() && is_string($title);
+
         return view('app.jobs.internship')->with([
             'page' => $page,
+            'position' => $position,
             'mentors' => $mentors,
-            'schema' => $page instanceof PageDTO ? SchemaNodes::internshipJobPosting($page) : [],
+            'schema' => $withSchema ? SchemaNodes::internshipJobPosting($page, $title) : [],
         ]);
     }
 }

@@ -1,0 +1,11 @@
+key: praktikum-ims
+published: true
+sort: 1
+status: in-process
+route_name: jobs.internship.show
+title:
+  de_CH: 'IMS-Praktikum 2027/28'
+  en_CH: 'IMS Internship 2027/28'
+teaser:
+  de_CH: 'Der ganze Weg der Softwareentwicklung: planen, entwickeln, betreiben – ein bis anderthalb Jahre mitten im Projektalltag, mit PHP, Laravel und Open Source.'
+  en_CH: 'The whole journey of software development: plan, build, run – one to one and a half years inside real projects, with PHP, Laravel and open source.'

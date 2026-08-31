@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\Enums\ApplicationStatusEnum;
+use App\Enums\JobPositionStatusEnum;
 use App\Models\Application;
+use App\Models\JobPosition;
 use App\Notifications\ApplicationLinkNotification;
 use App\Notifications\ApplicationReceivedNotification;
 use App\Notifications\ApplicationSubmittedNotification;
@@ -19,6 +21,12 @@ use function Pest\Laravel\put;
 it('walks an applicant from the fair to a submitted application', function () {
     Notification::fake();
     Storage::fake('s3');
+
+    JobPosition::factory()->create([
+        'key' => Application::JOB_KEY_INTERNSHIP,
+        'status' => JobPositionStatusEnum::Open,
+        'route_name' => 'jobs.internship.show',
+    ]);
 
     get(route('de-ch.jobs.index'))
         ->assertOk()

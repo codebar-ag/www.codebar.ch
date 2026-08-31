@@ -8,8 +8,10 @@ use App\Enums\ApplicationStatusEnum;
 use Database\Factories\ApplicationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Application extends Model
@@ -20,6 +22,8 @@ class Application extends Model
     use Notifiable;
 
     public const string JOB_KEY_INTERNSHIP = 'praktikum-ims';
+
+    public const string EXPORTS_DIRECTORY = 'applications/exports';
 
     /** @var list<string> */
     protected $fillable = [
@@ -54,6 +58,17 @@ class Application extends Model
         return $this->hasMany(ApplicationFile::class);
     }
 
+    /**
+     * The position lives as an imported content row that an import may delete and
+     * recreate, so the link goes over the stable key rather than a database id.
+     *
+     * @return BelongsTo<JobPosition, $this>
+     */
+    public function jobPosition(): BelongsTo
+    {
+        return $this->belongsTo(JobPosition::class, 'job_key', 'key');
+    }
+
     public function isSubmitted(): bool
     {
         return $this->status === ApplicationStatusEnum::Submitted;
@@ -65,6 +80,15 @@ class Application extends Model
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
+    }
+
+    public function deleteExportsFromDisk(): void
+    {
+        foreach (Storage::disk('s3')->files(self::EXPORTS_DIRECTORY) as $path) {
+            if (str_starts_with(basename($path), "bewerbung-{$this->id}-")) {
+                Storage::disk('s3')->delete($path);
+            }
+        }
     }
 
     public function name(): string

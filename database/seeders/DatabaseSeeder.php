@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PagesTableSeeder::class);
         $this->call(SeoImageCleanupSeeder::class);
         $this->call(ContactsTableSeeder::class);
+        $this->call(JobPositionsTableSeeder::class);
         $this->call(NewsTableSeeder::class);
         // OpenSource content comes from `php artisan sync:repositories`, which
         // pulls the live GitHub repositories — the seed data here is stale.
