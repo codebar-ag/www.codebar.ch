@@ -10,6 +10,6 @@ it('configures geolocation and fullscreen directives', function () {
 
     $header = (string) $policy;
 
-    expect($header)->toContain('geolocation=self')
-        ->and($header)->toContain('fullscreen=self');
+    expect($header)->toContain('geolocation=(self)')
+        ->and($header)->toContain('fullscreen=(self)');
 })->group('security');
