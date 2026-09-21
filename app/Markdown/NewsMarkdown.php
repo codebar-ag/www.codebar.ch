@@ -34,7 +34,15 @@ class NewsMarkdown
     /** Directives whose body is a YAML list rather than prose. */
     private const array YAML_BODY = ['gallery', 'compare', 'steps'];
 
-    private const array KNOWN = ['figure', 'gallery', 'compare', 'quote', 'callout', 'steps', 'video'];
+    private const array VIEWS = [
+        'figure' => 'markdown.figure',
+        'gallery' => 'markdown.gallery',
+        'compare' => 'markdown.compare',
+        'quote' => 'markdown.quote',
+        'callout' => 'markdown.callout',
+        'steps' => 'markdown.steps',
+        'video' => 'markdown.video',
+    ];
 
     public function toHtml(string $markdown): string
     {
@@ -149,7 +157,7 @@ class NewsMarkdown
 
             $name = $match[1][0];
 
-            $segments[] = in_array($name, self::KNOWN, true)
+            $segments[] = array_key_exists($name, self::VIEWS)
                 ? [
                     'type' => 'directive',
                     'name' => $name,
@@ -208,7 +216,7 @@ class NewsMarkdown
             $data['text'] = trim(strip_tags($this->convert($body)));
         }
 
-        return View::make('markdown.'.$name, $data)->render();
+        return View::make(self::VIEWS[$name], $data)->render();
     }
 
     /**

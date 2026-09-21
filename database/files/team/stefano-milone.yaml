@@ -1,0 +1,13 @@
+key: stefano-milone
+name: 'Stefano Milone'
+published: true
+sort: 4
+image:  'https://res.cloudinary.com/codebar/image/upload/e_background_removal/c_thumb,g_face,z_0.7,w_500,h_500,b_rgb:E4E6E9/www-codebar-ch/team/Gemini_Generated_Image_snvp0fsnvp0fsnvp.webp'
+sections:
+  employees:
+    role:
+      de_CH: Applikationsentwickler
+      en_CH: 'Application Developer'
+icons:
+  email: stefano.milone@codebar.ch
+  linkedin: 'https://www.linkedin.com/in/stefano-milone-b19b16383'
