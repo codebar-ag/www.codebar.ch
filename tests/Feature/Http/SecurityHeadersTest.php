@@ -18,6 +18,14 @@ it('adds security headers on public pages', function () {
     expect($response->headers->get('Content-Security-Policy'))->toContain("frame-ancestors 'self'");
 })->group('security');
 
+it('lets the article video player embed and go fullscreen', function () {
+    $response = get(route(Str::slug(LocaleEnum::DE->value).'.start.index'));
+
+    $response->assertOk();
+    expect($response->headers->get('Content-Security-Policy'))->toContain('frame-src player.vimeo.com');
+    expect($response->headers->get('Permissions-Policy'))->toContain('fullscreen=(self "https://player.vimeo.com")');
+})->group('security');
+
 it('adds strict transport security on secure requests', function () {
     $response = get(route(Str::slug(LocaleEnum::DE->value).'.start.index'), [
         'HTTPS' => 'on',
