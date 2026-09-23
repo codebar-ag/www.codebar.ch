@@ -29,6 +29,8 @@ class MyCspPreset implements Preset
 
         $policy->add(Directive::FRAME_ANCESTORS, Keyword::SELF);
 
+        $policy->add(Directive::FRAME, 'player.vimeo.com');
+
         $policy->add(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE);
 
         $policy->add(Directive::SCRIPT, $scriptSources);

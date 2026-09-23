@@ -313,5 +313,30 @@
       "editable fields": "Aktualisiere dein codebar Netzwerk-Profil",
       "save button": "Netzwerk-Profil aktualisieren"
     }
+  },
+  "news/docuware-viewer-plugin": {
+    "sentence": "a record selected in DocuWare whose viewer stays empty because the document sits in another system → wiring the viewer to that system → the same viewer shows the document exactly where the DocuWare document would normally appear",
+    "act": "nodes",
+    "actSource": "Liegt es im anderen System, holt das Plugin die Datei von dort",
+    "objects": {
+      "empty viewer": "In DocuWare sollen deshalb nur die Indexdaten stehen",
+      "database cylinder": "Der Kunde hat seine Dokumente in einem anderen System",
+      "sheet of paper": "während die Dokumente an ihrem ursprünglichen Ort bleiben",
+      "result list": "Man klickt in der Ergebnisliste auf den Datensatz",
+      "viewer panel": "zeigt sie genau an der Stelle an, wo normalerweise das DocuWare-Dokument erscheint",
+      "toolbar": "mit Blättern, Zoomen, Suchen, Drucken und Herunterladen wie gewohnt",
+      "plugin tile": "in den Dokumentviewer von DocuWare einhängt"
+    }
+  },
+  "news/docuware-7-15-is-here": {
+    "sentence": "a search dialog whose index fields have to be filled in one by one → asking → an assistant that answers a question in plain language with the matching document",
+    "act": "magnifier",
+    "actSource": "Fragen statt Suchbegriffe",
+    "objects": {
+      "search dialog": "einen Suchdialog mit Indexfeldern auszufüllen",
+      "question bubble": "stellt man eine Frage in natürlicher Sprache",
+      "answer card": "Aura antwortet mit dem passenden Dokument",
+      "document page": "fasst Dokumente zusammen"
+    }
   }
 }

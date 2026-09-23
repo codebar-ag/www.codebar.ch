@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 344 344" width="344" height="344" fill="none" role="img" aria-hidden="true">
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+
+        <path id="s1" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s2" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s3" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+
+        <path id="doc" d="M6 0h26l12 12v34a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6Z"/>
+        <path id="docfold" d="M32 0l12 12h-8a4 4 0 0 1-4-4Z"/>
+        <path id="fold" d="M52 0l20 20h-12a8 8 0 0 1-8-8Z"/>
+        <path id="page" d="M8 0h44l20 20v46a8 8 0 0 1-8 8H8a8 8 0 0 1-8-8V8a8 8 0 0 1 8-8Z"/>
+    </defs>
+
+    <rect x="8" y="14" width="150" height="110" rx="11" fill="#09090b" opacity="0.3"/>
+    <rect x="0" y="6" width="150" height="110" rx="11" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M0 30H150" data-detail="viewer header rule" stroke="#09090b" stroke-width="2.4"/>
+    <rect x="10" y="12" width="12" height="12" rx="4" fill="#09090b" opacity="0.45"/>
+    <use href="#s2" x="30" y="18" stroke="#09090b" stroke-width="2.2" stroke-linecap="round"/>
+    <g fill="#09090b" opacity="0.12">
+        <rect x="10" y="40" width="46" height="12" rx="4"/>
+        <rect x="10" y="76" width="46" height="12" rx="4"/>
+        <rect x="10" y="94" width="46" height="12" rx="4"/>
+    </g>
+    <rect x="10" y="58" width="46" height="12" rx="4" fill="#09090b" opacity="0.2"/>
+    <use href="#s1" x="18" y="64" stroke="#09090b" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <path d="M66 30V116" data-detail="viewer split rule" stroke="#09090b" stroke-width="2" opacity="0.12"/>
+    <rect x="76" y="40" width="64" height="66" rx="6" data-detail="empty document well" stroke="#09090b" stroke-width="1.6" opacity="0.3" stroke-linejoin="round"/>
+    <path d="M76 40l64 66" data-detail="empty document well" stroke="#09090b" stroke-width="1.6" opacity="0.3"/>
+    <path d="M140 40L76 106" data-detail="empty document well" stroke="#09090b" stroke-width="1.6" opacity="0.3"/>
+
+    <path d="M204 48v60a34 10 0 0 0 68 0V48a34 10 0 0 0-68 0Z" fill="#09090b" opacity="0.3"/>
+    <path d="M196 40v60a34 10 0 0 0 68 0V40" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <ellipse cx="230" cy="40" rx="34" ry="10" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <path d="M196 60a34 10 0 0 0 68 0" data-curve="cylinder fill line" data-detail="cylinder fill line" stroke="#09090b" stroke-width="1.6" opacity="0.4"/>
+    <use href="#doc" x="236" y="84" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <use href="#docfold" x="236" y="84" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <use href="#s1" x="244" y="112" stroke="#09090b" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+
+    <g class="arrow" stroke="#09090b" stroke-width="2.2" fill="#09090b">
+        <path d="M160 152v14" stroke-linecap="round"/>
+        <path d="M160 182l-9-14h18Z" stroke="none"/>
+    </g>
+
+    <rect x="28" y="216" width="280" height="104" rx="11" fill="#09090b" opacity="0.3"/>
+    <rect x="20" y="208" width="280" height="104" rx="11" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M20 232H300" data-detail="viewer header rule" stroke="#09090b" stroke-width="2.4"/>
+    <rect x="30" y="214" width="12" height="12" rx="4" fill="url(#accent)"/>
+    <use href="#s2" x="50" y="223" stroke="#09090b" stroke-width="2.2" stroke-linecap="round"/>
+
+    <g fill="#09090b" opacity="0.12">
+        <rect x="30" y="244" width="70" height="14" rx="4"/>
+        <rect x="30" y="288" width="70" height="14" rx="4"/>
+    </g>
+    <rect x="30" y="266" width="70" height="14" rx="4" fill="url(#accent)" opacity="0.18"/>
+    <use href="#s1" x="38" y="273" stroke="#500472" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <path d="M112 232V312" data-detail="viewer split rule" stroke="#09090b" stroke-width="2" opacity="0.12"/>
+
+    <use href="#page" x="150" y="238" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <use href="#fold" x="150" y="238" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <g stroke="#09090b" stroke-width="2" stroke-linecap="round" opacity="0.45">
+        <use href="#s2" x="160" y="266"/>
+        <use href="#s3" x="160" y="282"/>
+        <use href="#s1" x="160" y="298"/>
+    </g>
+
+    <rect x="289" y="262" width="22" height="22" rx="6" fill="url(#accent)"/>
+</svg>

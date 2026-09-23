@@ -13,7 +13,6 @@ import { navigation } from './navigation'
 import { readingProgress } from './reading-progress'
 import { tableOfContents } from './table-of-contents'
 import { toast } from './toast'
-import { videoEmbed } from './video-embed'
 
 window.Alpine = Alpine
 Alpine.plugin(focus)
@@ -42,7 +41,6 @@ Alpine.data('readingProgress', readingProgress)
 
 Alpine.data('tableOfContents', tableOfContents)
 
-Alpine.data('videoEmbed', videoEmbed)
 
 Alpine.data('codeBlock', codeBlock)
 

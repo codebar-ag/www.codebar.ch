@@ -13,6 +13,6 @@ class FeaturePolicyBasic extends Policy
     public function configure(): void
     {
         $this->addDirective(Directive::GEOLOCATION, Value::SELF)
-            ->addDirective(Directive::FULLSCREEN, Value::SELF);
+            ->addDirective(Directive::FULLSCREEN, [Value::SELF, 'https://player.vimeo.com']);
     }
 }
