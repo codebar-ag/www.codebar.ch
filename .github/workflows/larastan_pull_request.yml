@@ -19,10 +19,18 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: dom, curl, fileinfo, mysql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          extensions: dom, curl, fileinfo, pgsql, pdo_pgsql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
 
       - name: Prepare the .env file
         run: cp .env.ci .env
+
+      - name: Prepare the .env file
+        run: cp -f .env.ci .env.testing
+
+      - name: Configure Composer Credentials
+        run: |
+          composer config http-basic.composer.fluxui.dev ${{ secrets.FLUXUI_USERNAME }} ${{ secrets.FLUXUI_LICENSE_KEY }}
+          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v6
@@ -40,6 +48,9 @@ jobs:
       - name: Publish Laravel assets
         run: php artisan vendor:publish --tag=laravel-assets --ansi --force
 
+      - name: Publish Laravel Nova assets
+        run: php artisan vendor:publish --tag=nova-assets --ansi --force
+
       - name: Execute static analysis
         run: ./vendor/bin/phpstan analyse
 
@@ -49,3 +60,4 @@ jobs:
         with:
           name: Store report artifacts
           path: ./storage/logs
+          if-no-files-found: ignore
