@@ -68,9 +68,6 @@ class AppServiceProvider extends ServiceProvider
         $environmentCheck = EnvironmentCheck::new();
         $environmentCheck->if(app()->isProduction());
 
-        $jobsCheck = JobsCheck::new();
-        $jobsCheck->everyFiveMinutes();
-
         // The app hibernates and the scheduler only runs on an hourly wake-up,
         // so heartbeats can legitimately be up to an hour old.
         $scheduleCheck = ScheduleCheck::new();
@@ -86,7 +83,7 @@ class AppServiceProvider extends ServiceProvider
             DatabaseCheck::new(),
             DebugModeCheck::new(),
             $environmentCheck,
-            $jobsCheck,
+            JobsCheck::new(),
             $scheduleCheck,
             $queueCheck,
             FailedJobsCheck::new(),
