@@ -32,9 +32,11 @@ class SendNetworkInvitesCommand extends Command
             return self::FAILURE;
         }
 
+        $email = $this->option('email');
+
         $users = NetworkUser::query()
             ->whereNotNull('email')
-            ->when($this->option('email'), fn ($query, string $email) => $query->where('email', $email))
+            ->when(is_string($email) && $email !== '', fn ($query) => $query->where('email', $email))
             ->orderBy('name')
             ->get();
 
