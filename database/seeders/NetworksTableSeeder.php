@@ -16,6 +16,6 @@ class NetworksTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('networks:import', [], $this->command->getOutput());
+        Artisan::call('networks:import', [], $this->command?->getOutput());
     }
 }

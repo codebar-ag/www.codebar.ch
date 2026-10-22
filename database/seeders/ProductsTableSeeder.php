@@ -16,6 +16,6 @@ class ProductsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('products:import', [], $this->command->getOutput());
+        Artisan::call('products:import', [], $this->command?->getOutput());
     }
 }

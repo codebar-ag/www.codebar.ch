@@ -16,6 +16,6 @@ class AiModelsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('ai-models:import', [], $this->command->getOutput());
+        Artisan::call('ai-models:import', [], $this->command?->getOutput());
     }
 }

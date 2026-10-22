@@ -19,6 +19,6 @@ class ContactsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('team:import', [], $this->command->getOutput());
+        Artisan::call('team:import', [], $this->command?->getOutput());
     }
 }
