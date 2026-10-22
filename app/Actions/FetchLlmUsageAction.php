@@ -17,6 +17,18 @@ class FetchLlmUsageAction
     // page at 100 rows, so we walk it page by page and aggregate as we go.
     private const int PAGE_SIZE = 100;
 
+    // Kept small enough that one page — including its retry — always finishes inside
+    // FetchLlmUsageJob::$timeout. A longer HTTP timeout than the worker allows means a
+    // slow proxy never surfaces as a timeout here: the worker is killed instead and
+    // the job is silently re-run until it exceeds its max attempts.
+    public const int CONNECT_TIMEOUT_SECONDS = 10;
+
+    public const int REQUEST_TIMEOUT_SECONDS = 30;
+
+    public const int REQUEST_ATTEMPTS = 2;
+
+    public const int RETRY_SLEEP_MILLISECONDS = 1000;
+
     /**
      * Fetch the per-model usage aggregates for a single day from the LiteLLM proxy.
      *
@@ -55,9 +67,9 @@ class FetchLlmUsageAction
         return Http::baseUrl(config()->string('services.litellm.url'))
             ->withToken(config()->string('services.litellm.master_key'))
             ->acceptJson()
-            ->connectTimeout(10)
-            ->timeout(120)
-            ->retry(times: 2, sleepMilliseconds: 1000, throw: false);
+            ->connectTimeout(self::CONNECT_TIMEOUT_SECONDS)
+            ->timeout(self::REQUEST_TIMEOUT_SECONDS)
+            ->retry(times: self::REQUEST_ATTEMPTS, sleepMilliseconds: self::RETRY_SLEEP_MILLISECONDS, throw: false);
     }
 
     /**

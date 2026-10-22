@@ -111,3 +111,22 @@ it('clears the response cache once after the whole sync batch finishes', functio
         ->assertSuccessful();
 
 })->group('llm-analytics');
+
+it('allows a full page fetch including its retry within the job timeout', function () {
+    $job = new FetchLlmUsageJob(CarbonImmutable::parse('2026-07-20'));
+
+    $worstCasePageSeconds = FetchLlmUsageAction::REQUEST_ATTEMPTS
+        * (FetchLlmUsageAction::CONNECT_TIMEOUT_SECONDS + FetchLlmUsageAction::REQUEST_TIMEOUT_SECONDS)
+        + (int) ceil(FetchLlmUsageAction::RETRY_SLEEP_MILLISECONDS / 1000);
+
+    // Longer than the worker's default --timeout of 60s, so a slow page does not get the
+    // worker killed and the job re-run until MaxAttemptsExceededException.
+    expect($job->timeout)->toBeInt()->toBeGreaterThan(60)
+        ->and($worstCasePageSeconds)->toBeLessThan($job->timeout);
+})->group('llm-analytics');
+
+it('times out before the database queue hands the job out again', function () {
+    $job = new FetchLlmUsageJob(CarbonImmutable::parse('2026-07-20'));
+
+    expect($job->timeout)->toBeLessThan(config()->integer('queue.connections.database.retry_after'));
+})->group('llm-analytics');

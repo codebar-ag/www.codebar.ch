@@ -18,6 +18,12 @@ class FetchLlmUsageJob implements ShouldQueue
 
     public int $tries = 3;
 
+    // The worker's default --timeout (60s) is shorter than a slow LiteLLM page can take,
+    // so the worker was killed mid-job and the reserved job re-run until it hit
+    // MaxAttemptsExceededException. This must stay below the database queue's
+    // retry_after (90s), otherwise a still-running job is handed out a second time.
+    public int $timeout = 85;
+
     public function __construct(public CarbonImmutable $date) {}
 
     /**
