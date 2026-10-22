@@ -77,7 +77,7 @@ return [
      * Oh Dear, you can also have access to more advanced notification options.
      */
     'oh_dear_endpoint' => [
-        'enabled' => false,
+        'enabled' => env('OH_DEAR_HEALTH_CHECK_ENABLED', true),
 
         /*
          * When this option is enabled, the checks will run before sending a response.
@@ -93,7 +93,7 @@ return [
         /*
          * The URL that should be configured in the Application health settings at Oh Dear.
          */
-        'url' => '/oh-dear-health-check-results',
+        'url' => env('OH_DEAR_HEALTH_CHECK_PATH', '/oh-dear-health-check-results'),
     ],
 
     /*

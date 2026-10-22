@@ -90,8 +90,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     Route::get('network', NetworkIndexController::class)->name('network.index');
     Route::get('network/request', NetworkRequestIndexController::class)->middleware(DoNotCacheResponse::class)->name('network.request.index');
     Route::post('network/request', NetworkRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('network.request.store');
-    Route::get('network/manage/{networkUser}', NetworkManageShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('network.manage.show');
-    Route::put('network/manage/{networkUser}', NetworkManageUpdateController::class)->middleware('signed')->name('network.manage.update');
+    Route::get('network/manage/{networkUser}', NetworkManageShowController::class)->whereNumber('networkUser')->middleware(['signed', DoNotCacheResponse::class])->name('network.manage.show');
+    Route::put('network/manage/{networkUser}', NetworkManageUpdateController::class)->whereNumber('networkUser')->middleware('signed')->name('network.manage.update');
     Route::get('network/{slug}', NetworkShowController::class)->name('network.show');
 
     Route::get('legal/privacy', PrivacyIndexController::class)->name('legal.privacy.index');
@@ -101,10 +101,10 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     Route::get('jobs', JobsIndexController::class)->name('jobs.index');
     Route::get('jobs/internship', JobsInternshipShowController::class)->middleware(DoNotCacheResponse::class)->name('jobs.internship.show');
     Route::post('jobs/internship', ApplicationRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('jobs.internship.request.store');
-    Route::get('jobs/internship/application/{application}', ApplicationShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');
-    Route::put('jobs/internship/application/{application}', ApplicationUpdateController::class)->middleware(['signed', 'throttle:30,1', ProtectAgainstSpam::class])->name('jobs.internship.application.update');
-    Route::patch('jobs/internship/application/{application}', ApplicationAutosaveController::class)->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
-    Route::delete('jobs/internship/application/{application}/files/{applicationFile}', ApplicationFileDestroyController::class)->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
+    Route::get('jobs/internship/application/{application}', ApplicationShowController::class)->whereNumber('application')->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');
+    Route::put('jobs/internship/application/{application}', ApplicationUpdateController::class)->whereNumber('application')->middleware(['signed', 'throttle:30,1', ProtectAgainstSpam::class])->name('jobs.internship.application.update');
+    Route::patch('jobs/internship/application/{application}', ApplicationAutosaveController::class)->whereNumber('application')->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
+    Route::delete('jobs/internship/application/{application}/files/{applicationFile}', ApplicationFileDestroyController::class)->whereNumber(['application', 'applicationFile'])->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
     Route::get('media', MediaIndexController::class)->name('media.index');
     // Not cached: the opening hours box reflects the current day and open/closed state.
     Route::get('contact', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
@@ -140,8 +140,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('netzwerk', NetworkIndexController::class)->name('network.index');
     Route::get('netzwerk/request', NetworkRequestIndexController::class)->middleware(DoNotCacheResponse::class)->name('network.request.index');
     Route::post('netzwerk/request', NetworkRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('network.request.store');
-    Route::get('netzwerk/verwalten/{networkUser}', NetworkManageShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('network.manage.show');
-    Route::put('netzwerk/verwalten/{networkUser}', NetworkManageUpdateController::class)->middleware('signed')->name('network.manage.update');
+    Route::get('netzwerk/verwalten/{networkUser}', NetworkManageShowController::class)->whereNumber('networkUser')->middleware(['signed', DoNotCacheResponse::class])->name('network.manage.show');
+    Route::put('netzwerk/verwalten/{networkUser}', NetworkManageUpdateController::class)->whereNumber('networkUser')->middleware('signed')->name('network.manage.update');
     Route::get('netzwerk/{slug}', NetworkShowController::class)->name('network.show');
 
     Route::get('rechtliches/datenschutz', PrivacyIndexController::class)->name('legal.privacy.index');
@@ -154,10 +154,10 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('assets/praktikum-qr.svg', JobsInternshipQrImageController::class)->name('jobs.internship.qr.image');
     Route::get('assets/slides/{slide?}', JobsInternshipSlidesController::class)->where('slide', '[1-9][0-9]*')->name('jobs.internship.slides');
     Route::post('stellen/praktikum', ApplicationRequestStoreController::class)->middleware(['throttle:5,1', ProtectAgainstSpam::class])->name('jobs.internship.request.store');
-    Route::get('stellen/praktikum/bewerbung/{application}', ApplicationShowController::class)->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');
-    Route::put('stellen/praktikum/bewerbung/{application}', ApplicationUpdateController::class)->middleware(['signed', 'throttle:30,1', ProtectAgainstSpam::class])->name('jobs.internship.application.update');
-    Route::patch('stellen/praktikum/bewerbung/{application}', ApplicationAutosaveController::class)->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
-    Route::delete('stellen/praktikum/bewerbung/{application}/dateien/{applicationFile}', ApplicationFileDestroyController::class)->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
+    Route::get('stellen/praktikum/bewerbung/{application}', ApplicationShowController::class)->whereNumber('application')->middleware(['signed', DoNotCacheResponse::class])->name('jobs.internship.application.show');
+    Route::put('stellen/praktikum/bewerbung/{application}', ApplicationUpdateController::class)->whereNumber('application')->middleware(['signed', 'throttle:30,1', ProtectAgainstSpam::class])->name('jobs.internship.application.update');
+    Route::patch('stellen/praktikum/bewerbung/{application}', ApplicationAutosaveController::class)->whereNumber('application')->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
+    Route::delete('stellen/praktikum/bewerbung/{application}/dateien/{applicationFile}', ApplicationFileDestroyController::class)->whereNumber(['application', 'applicationFile'])->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
     Route::get('medien', MediaIndexController::class)->name('media.index');
     // Not cached: the opening hours box reflects the current day and open/closed state.
     Route::get('kontakt', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');

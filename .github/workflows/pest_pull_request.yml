@@ -7,6 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     name: pull-request | ci pest
 
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: testing
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     env:
       PHP_VERSION: 8.5
       NODE_VERSION: 24
@@ -24,6 +39,10 @@ jobs:
       - name: Prepare the .env file
         run: cp .env.ci .env
 
+      - name: Configure Composer Credentials
+        run: |
+          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
+
       - name: Cache Composer Dependencies
         uses: actions/cache@v6
         with:
@@ -40,11 +59,10 @@ jobs:
       - name: Publish Laravel assets
         run: php artisan vendor:publish --tag=laravel-assets --ansi --force
 
-      - name: Setup Database
+      - name: Setup PostgreSQL Database
         run: |
-          sudo systemctl start postgresql.service
-          sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
-          sudo -u postgres createdb testing
+          # Database is already created by the service, just wait for it to be ready
+          until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
 
       - name: Generate App Key & Run Migrations
         run: |
@@ -52,19 +70,19 @@ jobs:
           php artisan migrate:fresh
 
       - name: Setup Node.js Environment
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
       - name: Install NPM Dependencies
-        run: npm install --frozen-lockfile
+        run: npm ci
 
       - name: Build Frontend Assets
         run: npm run build
 
-      - name: Execute Pest Parallel Test
-        run: php artisan test --parallel
+      - name: Execute Pest Test
+        run: ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit
 
       - name: Store Log Artifacts
         if: failure()
