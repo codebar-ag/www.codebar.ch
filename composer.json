@@ -11,10 +11,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "codebar-ag/laravel-flysystem-cloudinary": "^13.0",
         "codebar-ag/laravel-feature-policy": "^13.0",
+        "codebar-ag/laravel-flysystem-cloudinary": "^13.0",
         "laravel/framework": "^13.3",
-        "laravel/nightwatch": "^1.26",
+        "laravel/nightwatch": "^1.30.4",
         "laravel/tinker": "^3.0",
         "league/commonmark": "^2.6",
         "league/flysystem-aws-s3-v3": "^3.32",
