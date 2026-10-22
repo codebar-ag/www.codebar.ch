@@ -10,4 +10,3 @@ Schedule::command('applications:prune')->daily();
 
 Schedule::command('health:check')->everyFiveMinutes();
 Schedule::command('health:schedule-check-heartbeat')->everyMinute();
-Schedule::command('health:queue-check-heartbeat')->everyMinute();

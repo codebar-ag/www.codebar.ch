@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Checks\FailedJobsCheck;
 use App\Checks\JobsCheck;
+use App\Checks\NightwatchIssuesCheck;
 use App\Models\AiModel;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -26,7 +27,6 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
-use Spatie\Health\Checks\Checks\QueueCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
@@ -73,9 +73,6 @@ class AppServiceProvider extends ServiceProvider
         $scheduleCheck = ScheduleCheck::new();
         $scheduleCheck->heartbeatMaxAgeInMinutes(120);
 
-        $queueCheck = QueueCheck::new();
-        $queueCheck->failWhenHealthJobTakesLongerThanMinutes(120);
-
         $advisoriesCheck = SecurityAdvisoriesCheck::new();
         $advisoriesCheck->lastDayOfMonth();
 
@@ -85,8 +82,8 @@ class AppServiceProvider extends ServiceProvider
             $environmentCheck,
             JobsCheck::new(),
             $scheduleCheck,
-            $queueCheck,
             FailedJobsCheck::new(),
+            NightwatchIssuesCheck::new()->if(filled(config('default.nightwatch.api_token')) && filled(config('default.nightwatch.application_id'))),
             $advisoriesCheck,
         ]);
     }
