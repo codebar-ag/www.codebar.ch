@@ -21,6 +21,6 @@ class NewsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('news:import', [], $this->command->getOutput());
+        Artisan::call('news:import', [], $this->command?->getOutput());
     }
 }

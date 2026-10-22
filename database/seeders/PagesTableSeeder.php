@@ -19,6 +19,6 @@ class PagesTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('pages:import', [], $this->command->getOutput());
+        Artisan::call('pages:import', [], $this->command?->getOutput());
     }
 }

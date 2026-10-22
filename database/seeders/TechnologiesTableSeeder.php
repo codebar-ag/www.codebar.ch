@@ -16,6 +16,6 @@ class TechnologiesTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('technologies:import', [], $this->command->getOutput());
+        Artisan::call('technologies:import', [], $this->command?->getOutput());
     }
 }

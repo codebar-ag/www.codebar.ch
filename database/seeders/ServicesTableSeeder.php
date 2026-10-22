@@ -18,6 +18,6 @@ class ServicesTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('services:import', [], $this->command->getOutput());
+        Artisan::call('services:import', [], $this->command?->getOutput());
     }
 }
