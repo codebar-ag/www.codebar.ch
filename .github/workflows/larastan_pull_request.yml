@@ -19,10 +19,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: dom, curl, fileinfo, mysql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          extensions: dom, curl, fileinfo, pgsql, pdo_pgsql, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
 
       - name: Prepare the .env file
         run: cp .env.ci .env
+
+      - name: Configure Composer Credentials
+        run: |
+          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_LICENSE_KEY }}
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v6
@@ -49,3 +53,4 @@ jobs:
         with:
           name: Store report artifacts
           path: ./storage/logs
+          if-no-files-found: ignore
