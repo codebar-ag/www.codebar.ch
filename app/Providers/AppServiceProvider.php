@@ -7,6 +7,10 @@ namespace App\Providers;
 use App\Checks\FailedJobsCheck;
 use App\Checks\JobsCheck;
 use App\Checks\NightwatchIssuesCheck;
+use App\Checks\PendingMigrationsCheck;
+use App\Checks\ProductionConfigCheck;
+use App\Checks\SchedulePolicyCheck;
+use App\Checks\StorageRoundTripCheck;
 use App\Models\AiModel;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -24,9 +28,11 @@ use App\Observers\SitemapCacheObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
@@ -73,9 +79,6 @@ class AppServiceProvider extends ServiceProvider
         $scheduleCheck = ScheduleCheck::new();
         $scheduleCheck->heartbeatMaxAgeInMinutes(120);
 
-        $advisoriesCheck = SecurityAdvisoriesCheck::new();
-        $advisoriesCheck->lastDayOfMonth();
-
         Health::checks([
             DatabaseCheck::new(),
             DebugModeCheck::new(),
@@ -84,7 +87,13 @@ class AppServiceProvider extends ServiceProvider
             $scheduleCheck,
             FailedJobsCheck::new(),
             NightwatchIssuesCheck::new()->if(filled(config('default.nightwatch.api_token')) && filled(config('default.nightwatch.application_id'))),
-            $advisoriesCheck,
+            SecurityAdvisoriesCheck::new(),
+            CacheCheck::new(),
+            OptimizedAppCheck::new(),
+            PendingMigrationsCheck::new(),
+            ProductionConfigCheck::new()->if(app()->isProduction()),
+            SchedulePolicyCheck::new(),
+            StorageRoundTripCheck::new(),
         ]);
     }
 
