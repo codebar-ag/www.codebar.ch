@@ -8,6 +8,7 @@ use App\Checks\FailedJobsCheck;
 use App\Checks\JobsCheck;
 use App\Checks\NightwatchIssuesCheck;
 use App\Checks\PendingMigrationsCheck;
+use App\Checks\PostmarkTokenCheck;
 use App\Checks\ProductionConfigCheck;
 use App\Checks\SchedulePolicyCheck;
 use App\Checks\StorageRoundTripCheck;
@@ -94,6 +95,7 @@ class AppServiceProvider extends ServiceProvider
             ProductionConfigCheck::new()->if(app()->isProduction()),
             SchedulePolicyCheck::new(),
             StorageRoundTripCheck::new(),
+            PostmarkTokenCheck::new()->if(config('mail.default') === 'postmark'),
         ]);
     }
 
