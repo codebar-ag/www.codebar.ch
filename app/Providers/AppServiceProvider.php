@@ -35,7 +35,6 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
-use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
@@ -82,7 +81,6 @@ class AppServiceProvider extends ServiceProvider
             DatabaseCheck::new(),
             DatabaseConnectionCountCheck::new(),
             CacheCheck::new(),
-            OptimizedAppCheck::new(),
             ScheduleCheck::new()->heartbeatMaxAgeInMinutes(120),
             SecurityAdvisoriesCheck::new(),
             NightwatchIssuesCheck::new()->if(filled(config('default.nightwatch.api_token')) && filled(config('default.nightwatch.application_id'))),
