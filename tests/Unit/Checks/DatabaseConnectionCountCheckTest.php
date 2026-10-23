@@ -12,8 +12,15 @@ function connectionCountCheckWith(int $connections): DatabaseConnectionCountChec
 {
     config(['health.uses_database' => true, 'database.connections.health_pgsql' => ['driver' => 'pgsql']]);
 
-    $check = Mockery::mock(DatabaseConnectionCountCheck::class)->makePartial()->shouldAllowMockingProtectedMethods();
-    $check->shouldReceive('getConnectionCount')->andReturn($connections);
+    $check = new class($connections) extends DatabaseConnectionCountCheck
+    {
+        public function __construct(private readonly int $connections) {}
+
+        protected function getConnectionCount(): int
+        {
+            return $this->connections;
+        }
+    };
     $check->connectionName('health_pgsql');
 
     return $check;
@@ -73,7 +80,9 @@ it('counts only the connections of the current database on postgres', function (
         }
     };
 
-    expect($check->connectionName('health_pgsql')->count())->toBe(7);
+    $check->connectionName('health_pgsql');
+
+    expect($check->count())->toBe(7);
 })->group('unit', 'checks');
 
 it('reports zero when postgres returns no number', function () {
@@ -88,7 +97,9 @@ it('reports zero when postgres returns no number', function () {
         }
     };
 
-    expect($check->connectionName('health_pgsql')->count())->toBe(0);
+    $check->connectionName('health_pgsql');
+
+    expect($check->count())->toBe(0);
 })->group('unit', 'checks');
 
 it('falls back to spatie for other drivers', function () {
@@ -103,5 +114,7 @@ it('falls back to spatie for other drivers', function () {
         }
     };
 
-    expect($check->connectionName('health_mysql')->count())->toBe(4);
+    $check->connectionName('health_mysql');
+
+    expect($check->count())->toBe(4);
 })->group('unit', 'checks');
