@@ -72,6 +72,9 @@ export const markdownEditor = () => ({
 
     render() {
         this.preview = renderMarkdown(this.$refs.input?.value ?? '')
+
+        // The CSP build of Alpine has no x-html, so the escaped preview is written here.
+        if (this.$refs.preview) this.$refs.preview.innerHTML = this.preview
     },
 
     bold() {

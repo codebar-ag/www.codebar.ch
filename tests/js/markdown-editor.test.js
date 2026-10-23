@@ -130,4 +130,14 @@ describe('the live preview', () => {
         expect(component.previewOpen).toBe(false)
         expect(document.activeElement).toBe(input)
     })
+
+    it('writes the preview into the preview element, since the CSP build has no x-html', () => {
+        const { component } = mount('- eins')
+        const preview = document.createElement('div')
+        component.$refs.preview = preview
+
+        component.openPreview()
+
+        expect(preview.innerHTML).toBe('<ul><li>eins</li></ul>')
+    })
 })
