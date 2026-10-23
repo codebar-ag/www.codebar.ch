@@ -7,6 +7,10 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Spatie\Health\Enums\Status;
 
+beforeEach(function () {
+    config(['mail.default' => 'postmark']);
+});
+
 it('passes when Postmark accepts the server token', function () {
     config(['services.postmark.token' => 'token']);
     Http::fake(['api.postmarkapp.com/server' => Http::response(['Name' => 'app'])]);
@@ -27,5 +31,13 @@ it('fails without a token', function () {
     Http::fake();
 
     expect((new PostmarkTokenCheck)->run()->status->equals(Status::failed()))->toBeTrue();
+    Http::assertNothingSent();
+})->group('unit', 'checks');
+
+it('passes without a request when the mailer is not postmark', function () {
+    config(['mail.default' => 'log', 'services.postmark.token' => null]);
+    Http::fake();
+
+    expect((new PostmarkTokenCheck)->run()->status->equals(Status::ok()))->toBeTrue();
     Http::assertNothingSent();
 })->group('unit', 'checks');

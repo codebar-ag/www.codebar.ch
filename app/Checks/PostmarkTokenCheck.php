@@ -12,12 +12,18 @@ use Throwable;
 /**
  * Asks Postmark for the server that belongs to the configured server
  * token. Fails when the token is missing or rejected, before mails pile up
- * in failed jobs.
+ * in failed jobs. Reports ok when the mailer is not postmark.
  */
 final class PostmarkTokenCheck extends Check
 {
     public function run(): Result
     {
+        $mailer = config('mail.default');
+
+        if ($mailer !== 'postmark') {
+            return Result::make()->shortSummary('mailer: '.(is_string($mailer) ? $mailer : 'none'))->ok();
+        }
+
         $token = config('services.postmark.token') ?? config('services.postmark.key');
         $token = is_string($token) ? $token : '';
         $result = Result::make();

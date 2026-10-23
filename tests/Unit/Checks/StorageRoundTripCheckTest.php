@@ -14,10 +14,10 @@ it('passes when the default disk can write, read and delete', function () {
         ->and(Storage::disk('s3')->allFiles('health'))->toBe([]);
 })->group('unit', 'checks');
 
-it('fails when the default disk is local', function () {
+it('warns while the default disk is local', function () {
     config(['filesystems.default' => 'local', 'filesystems.disks.local.driver' => 'local']);
 
-    expect((new StorageRoundTripCheck)->run()->status->equals(Status::failed()))->toBeTrue();
+    expect((new StorageRoundTripCheck)->run()->status->equals(Status::warning()))->toBeTrue();
 })->group('unit', 'checks');
 
 it('fails when the disk throws', function () {

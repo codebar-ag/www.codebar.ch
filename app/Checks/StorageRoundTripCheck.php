@@ -12,7 +12,7 @@ use Throwable;
 
 /**
  * Writes, reads and deletes a small file on the default disk. Fails when
- * the bucket's credentials or endpoint are wrong, and when the default
+ * the bucket's credentials or endpoint are wrong. Warns while the default
  * disk is a local one: the container's disk is ephemeral on Laravel Cloud,
  * so files written there are lost on the next deploy or wake-up.
  */
@@ -27,7 +27,7 @@ final class StorageRoundTripCheck extends Check
         $result = Result::make()->shortSummary("{$disk} ({$driver})");
 
         if ($driver === 'local') {
-            return $result->failed("The default disk `{$disk}` is local; files are lost on the next deploy. Set FILESYSTEM_DISK to the bucket disk.");
+            return $result->warning("The default disk `{$disk}` is local; files are lost on the next deploy. Attach a bucket and set FILESYSTEM_DISK.");
         }
 
         $path = 'health/'.Str::uuid()->toString().'.txt';
