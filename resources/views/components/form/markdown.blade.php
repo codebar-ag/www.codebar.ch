@@ -79,7 +79,7 @@
         <div class="px-6 py-10" x-on:click.self="closePreview">
             <div class="mx-auto max-w-3xl">
                 <p x-show="isEmpty" class="text-base text-hint">{{ __('Nothing to preview yet') }}</p>
-                <div x-show="hasPreview" x-html="preview"
+                <div x-show="hasPreview" x-ref="preview"
                      class="prose prose-gray max-w-none md:prose-lg prose-p:my-3 prose-ul:my-3 prose-ol:my-3 prose-li:my-1"></div>
             </div>
         </div>
