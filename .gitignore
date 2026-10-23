@@ -60,3 +60,6 @@ auth.json
 
 # Generated Lighthouse runs — keep run.sh and pages.json, not their output.
 tests/lighthouse/reports/
+
+# Pest browser test failure screenshots
+/tests/Browser/Screenshots/
