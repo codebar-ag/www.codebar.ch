@@ -21,3 +21,13 @@ it('configures the expected content security policy directives', function () {
     expect($contents)->toContain('res.cloudinary.com');
     expect($contents)->toContain('www.gravatar.com');
 })->group('unit', 'security');
+
+it('allows the codebar analytics script and its event endpoint', function () {
+    $policy = new Policy;
+
+    (new MyCspPreset)->configure($policy);
+
+    expect($policy->getContents())
+        ->toMatch('/script-src [^;]*analytics\.codebar\.ch/')
+        ->toMatch('/connect-src [^;]*analytics\.codebar\.ch/');
+})->group('unit', 'security');
