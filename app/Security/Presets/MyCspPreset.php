@@ -20,6 +20,7 @@ class MyCspPreset implements Preset
             Keyword::SELF,
             'cdn.usefathom.com',
             'cdn-eu.usefathom.com',
+            'analytics.codebar.ch',
             $cdnHost ?: null,
         ]);
 
@@ -78,6 +79,7 @@ class MyCspPreset implements Preset
             Keyword::SELF,
             'cdn.usefathom.com',
             'cdn-eu.usefathom.com',
+            'analytics.codebar.ch',
         ]);
     }
 }

@@ -79,6 +79,7 @@
 </div>
 
 @include('layouts._partials._fathom')
+@include('layouts._partials._codebar_analytics')
 
 </body>
 </html>

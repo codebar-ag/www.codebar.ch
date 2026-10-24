@@ -14,6 +14,12 @@ return [
                 EnvironmentEnum::PRODUCTION->value,
             ],
         ],
+        'codebar_analytics' => [
+            'url' => env('CODEBAR_ANALYTICS_URL'),
+            'environments' => [
+                EnvironmentEnum::PRODUCTION->value,
+            ],
+        ],
     ],
 
     'feature_policy' => [
