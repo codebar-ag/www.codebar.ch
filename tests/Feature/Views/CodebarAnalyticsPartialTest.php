@@ -9,7 +9,7 @@ it('embeds the codebar analytics script in production', function () {
     app()['env'] = 'production';
 
     expect(view('layouts._partials._codebar_analytics')->render())
-        ->toContain('<script src="https://analytics.codebar.ch/js/script.js" defer></script>');
+        ->toContain('<script src="https://analytics.codebar.ch/js/script.js" crossorigin="anonymous" defer></script>');
 })->group('analytics');
 
 it('does not embed the codebar analytics script outside production', function () {
@@ -23,4 +23,14 @@ it('does not embed the codebar analytics script without a url', function () {
     app()['env'] = 'production';
 
     expect(view('layouts._partials._codebar_analytics')->render())->not->toContain('<script');
+})->group('analytics');
+
+it('embeds the codebar analytics script on zunscan.codebar.ch in production', function () {
+    $this->withoutVite();
+    Config::set('default.services.codebar_analytics.url', 'https://analytics.codebar.ch');
+    app()->detectEnvironment(fn () => 'production');
+
+    $this->get('http://zunscan.codebar.ch/de-ch')
+        ->assertOk()
+        ->assertSee('<script src="https://analytics.codebar.ch/js/script.js" crossorigin="anonymous" defer></script>', false);
 })->group('analytics');

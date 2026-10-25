@@ -4,5 +4,5 @@
 @endphp
 
 @if (in_array(app()->environment(), $environments) && $url)
-    <script src="{{ rtrim($url, '/') }}/js/script.js" defer></script>
+    <script src="{{ rtrim($url, '/') }}/js/script.js" crossorigin="anonymous" defer></script>
 @endif
