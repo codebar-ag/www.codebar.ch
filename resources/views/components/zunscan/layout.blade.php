@@ -80,5 +80,7 @@
 {{ $slot }}
 
 <x-zunscan.patials.footer/>
+
+@include('layouts._partials._codebar_analytics')
 </body>
 </html>
