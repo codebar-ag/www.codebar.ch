@@ -8,12 +8,6 @@ use Mazedlx\FeaturePolicy\Value;
 return [
 
     'services' => [
-        'fathom' => [
-            'site_id' => env('LARAVEL_DEFAULT_FATHOM_SITE_ID'),
-            'environments' => [
-                EnvironmentEnum::PRODUCTION->value,
-            ],
-        ],
         'codebar_analytics' => [
             'url' => env('CODEBAR_ANALYTICS_URL'),
             'environments' => [
