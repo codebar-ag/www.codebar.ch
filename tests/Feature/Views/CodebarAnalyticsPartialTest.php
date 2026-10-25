@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Config;
 
+use function Pest\Laravel\get;
+use function Pest\Laravel\withoutVite;
+
 it('embeds the codebar analytics script in production', function () {
     Config::set('default.services.codebar_analytics.url', 'https://analytics.codebar.ch');
     app()['env'] = 'production';
@@ -26,11 +29,11 @@ it('does not embed the codebar analytics script without a url', function () {
 })->group('analytics');
 
 it('embeds the codebar analytics script on zunscan.codebar.ch in production', function () {
-    $this->withoutVite();
+    withoutVite();
     Config::set('default.services.codebar_analytics.url', 'https://analytics.codebar.ch');
     app()->detectEnvironment(fn () => 'production');
 
-    $this->get('http://zunscan.codebar.ch/de-ch')
+    get('http://zunscan.codebar.ch/de-ch')
         ->assertOk()
         ->assertSee('<script src="https://analytics.codebar.ch/js/script.js" crossorigin="anonymous" defer></script>', false);
 })->group('analytics');
