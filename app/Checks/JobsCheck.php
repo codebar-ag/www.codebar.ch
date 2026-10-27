@@ -4,50 +4,55 @@ declare(strict_types=1);
 
 namespace App\Checks;
 
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Sleep;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
-/**
- * A queue is healthy when it is either empty or moving. Depth alone says nothing —
- * a thousand jobs dispatched a second ago is fine, one job stuck for an hour is not.
- * The age of the oldest pending job is what separates the two, and it costs one query
- * rather than sampling the depth once a second for a minute and a half.
- */
 class JobsCheck extends Check
 {
-    public const int STALLED_AFTER_MINUTES = 5;
+    /** Samples taken when the jobs table is non-empty (stability vs drain detection). */
+    public const int SAMPLE_COUNT = 5;
+
+    /** Pause between samples; keeps total wait ~1s instead of ~90s per run. */
+    public const int SAMPLE_INTERVAL_MILLISECONDS = 200;
 
     public function run(): Result
     {
-        $pending = DB::table('jobs')->count();
+        if (! DatabaseAvailability::isAvailable()) {
+            return Result::make()->shortSummary('no database')->ok();
+        }
 
-        $result = Result::make()->shortSummary("pending jobs: {$pending}");
+        $count = $this->currentJobsTableCount();
 
-        if ($pending === 0) {
+        $result = Result::make();
+        $result->shortSummary("jobs table count: {$count}");
+
+        if ($count <= 0) {
             return $result->ok();
         }
 
-        $waitingMinutes = $this->oldestPendingJobAgeInMinutes();
+        $newCounts = Collection::times(self::SAMPLE_COUNT, function () {
+            Sleep::for(self::SAMPLE_INTERVAL_MILLISECONDS)->milliseconds();
 
-        if ($waitingMinutes === null || $waitingMinutes < self::STALLED_AFTER_MINUTES) {
+            return $this->currentJobsTableCount();
+        });
+
+        $allMatch = $newCounts->every(fn (int $value) => $value === $count);
+
+        $result->shortSummary('jobs table count: '.($allMatch ? 'stable' : 'changed'));
+
+        if (! $allMatch) {
             return $result->ok();
         }
 
-        return $result->failed(
-            "The queue is not draining: {$pending} pending job(s), the oldest waiting {$waitingMinutes} minute(s)."
-        );
+        return $result->failed();
+
     }
 
-    private function oldestPendingJobAgeInMinutes(): ?int
+    protected function currentJobsTableCount(): int
     {
-        $availableAt = DB::table('jobs')->min('available_at');
-
-        if (! is_numeric($availableAt)) {
-            return null;
-        }
-
-        return (int) Carbon::createFromTimestamp((int) $availableAt)->diffInMinutes(absolute: true);
+        return (int) DB::table('jobs')->count();
     }
 }

@@ -4,8 +4,17 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Checks\DatabaseCheck;
+use App\Checks\DatabaseConnectionCountCheck;
+use App\Checks\EntraClientSecretCheck;
 use App\Checks\FailedJobsCheck;
 use App\Checks\JobsCheck;
+use App\Checks\NightwatchIssuesCheck;
+use App\Checks\PendingMigrationsCheck;
+use App\Checks\PostmarkTokenCheck;
+use App\Checks\ProductionConfigCheck;
+use App\Checks\SchedulePolicyCheck;
+use App\Checks\StorageRoundTripCheck;
 use App\Models\AiModel;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -26,7 +35,6 @@ use Illuminate\Support\ServiceProvider;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
-use Spatie\Health\Checks\Checks\OptimizedAppCheck;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\SecurityAdvisoriesHealthCheck\SecurityAdvisoriesCheck;
@@ -65,27 +73,25 @@ class AppServiceProvider extends ServiceProvider
         // shows up, and the cached listings in ViewDataAction rely on this to catch one.
         Model::shouldBeStrict(! $this->app->isProduction());
 
-        $environmentCheck = EnvironmentCheck::new();
-        $environmentCheck->if(app()->isProduction());
-
-        $jobsCheck = JobsCheck::new();
-        $jobsCheck->everyFiveMinutes();
-
-        $scheduleCheck = ScheduleCheck::new();
-        $scheduleCheck->everyFiveMinutes();
-
-        $advisoriesCheck = SecurityAdvisoriesCheck::new();
-        $advisoriesCheck->lastDayOfMonth();
-
+        // The app hibernates and the scheduler only runs on an hourly wake-up,
+        // so heartbeats can legitimately be up to an hour old.
         Health::checks([
             DebugModeCheck::new(),
+            EnvironmentCheck::new()->if(app()->isProduction()),
+            DatabaseCheck::new(),
+            DatabaseConnectionCountCheck::new(),
             CacheCheck::new(),
-            OptimizedAppCheck::new(),
-            $environmentCheck,
-            $jobsCheck,
-            $scheduleCheck,
+            ScheduleCheck::new()->heartbeatMaxAgeInMinutes(120),
+            SecurityAdvisoriesCheck::new(),
+            NightwatchIssuesCheck::new()->if(filled(config('default.nightwatch.api_token')) && filled(config('default.nightwatch.application_id'))),
+            JobsCheck::new(),
             FailedJobsCheck::new(),
-            $advisoriesCheck,
+            PendingMigrationsCheck::new(),
+            ProductionConfigCheck::new()->if(app()->isProduction()),
+            SchedulePolicyCheck::new(),
+            StorageRoundTripCheck::new(),
+            EntraClientSecretCheck::new(),
+            PostmarkTokenCheck::new(),
         ]);
     }
 

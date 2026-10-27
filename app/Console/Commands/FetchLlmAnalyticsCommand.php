@@ -60,10 +60,10 @@ class FetchLlmAnalyticsCommand extends Command
     /**
      * @return ($value is null ? null : CarbonImmutable)
      */
-    private function date(?string $value): ?CarbonImmutable
+    private function date(mixed $value): ?CarbonImmutable
     {
-        return $value === null
-            ? null
-            : CarbonImmutable::createFromFormat('!Y-m-d', $value);
+        return is_string($value)
+            ? CarbonImmutable::createFromFormat('!Y-m-d', $value)
+            : null;
     }
 }

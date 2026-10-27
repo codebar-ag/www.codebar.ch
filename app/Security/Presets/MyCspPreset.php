@@ -18,8 +18,7 @@ class MyCspPreset implements Preset
 
         $scriptSources = array_filter([
             Keyword::SELF,
-            'cdn.usefathom.com',
-            'cdn-eu.usefathom.com',
+            'analytics.codebar.ch',
             $cdnHost ?: null,
         ]);
 
@@ -61,8 +60,6 @@ class MyCspPreset implements Preset
             'data:',
             'res.cloudinary.com',
             'www.gravatar.com',
-            'cdn.usefathom.com',
-            'cdn-eu.usefathom.com',
         ]);
 
         $fontSources = array_filter([
@@ -76,8 +73,7 @@ class MyCspPreset implements Preset
         $policy->add(Directive::OBJECT, Keyword::NONE);
         $policy->add(Directive::CONNECT, [
             Keyword::SELF,
-            'cdn.usefathom.com',
-            'cdn-eu.usefathom.com',
+            'analytics.codebar.ch',
         ]);
     }
 }

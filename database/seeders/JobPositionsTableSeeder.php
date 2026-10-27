@@ -16,6 +16,6 @@ class JobPositionsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Artisan::call('jobs:import', [], $this->command->getOutput());
+        Artisan::call('jobs:import', [], $this->command?->getOutput());
     }
 }

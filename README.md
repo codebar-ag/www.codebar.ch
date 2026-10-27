@@ -141,7 +141,7 @@ HSTS, COOP, CORP, `X-Content-Type-Options`, `Referrer-Policy` and `X-Frame-Optio
 - **SEO** — `spatie/laravel-sitemap`, `spatie/laravel-responsecache`
 - **Security & health** — `spatie/laravel-csp`, `spatie/laravel-honeypot` (network request form), `spatie/laravel-permission`, `spatie/laravel-health`, `spatie/security-advisories-health-check`, `mazedlx/laravel-feature-policy`
 - **Ops** — `laravel/nightwatch` (observability), `symfony/postmark-mailer`
-- **Analytics** — [Fathom](https://usefathom.com) (privacy-friendly, no cookie banner)
+- **Analytics** — codebar Analytics (self-hosted on analytics.codebar.ch, cookieless, no cookie banner)
 
 ## License
 

@@ -13,8 +13,6 @@
         <link rel="preconnect" href="https://res.cloudinary.com">
     @endif
     <link rel="dns-prefetch" href="https://res.cloudinary.com">
-    <link rel="preconnect" href="https://cdn.usefathom.com">
-    <link rel="dns-prefetch" href="https://cdn.usefathom.com">
 
     <!-- Preload critical resources: the latin subsets actually used above the fold —
          400 for body copy, 600 for every heading and UI label, 700 for the h1. 300 and
@@ -78,7 +76,7 @@
 
 </div>
 
-@include('layouts._partials._fathom')
+@include('layouts._partials._codebar_analytics')
 
 </body>
 </html>
