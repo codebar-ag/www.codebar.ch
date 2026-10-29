@@ -20,6 +20,8 @@
                 <x-form.input name="email" type="email" required autofocus/>
             </x-form.field>
 
+            <x-form.turnstile/>
+
             <x-form.actions>
                 <x-ui.button :label="__('Request link')"/>
             </x-form.actions>

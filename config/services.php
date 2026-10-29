@@ -24,4 +24,11 @@ return [
         'token' => env('GITHUB_TOKEN'),
     ],
 
+    // Bot protection for the public network request and internship forms; leaving the
+    // secret empty disables the check (local development, CI).
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY'),
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    ],
+
 ];

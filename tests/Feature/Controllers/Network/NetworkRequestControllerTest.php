@@ -6,7 +6,11 @@ use App\Enums\LocaleEnum;
 use App\Jobs\Network\SendNetworkManageLinkJob;
 use App\Models\NetworkUser;
 use App\Notifications\NetworkManageLinkNotification;
+use App\Rules\TurnstileRule;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 
 use function Pest\Laravel\get;
@@ -106,3 +110,65 @@ it('drops a submission with the honeypot field filled', function () {
 
     Bus::assertNotDispatched(SendNetworkManageLinkJob::class);
 })->group('network');
+
+it('renders the turnstile widget when a site key is configured', function () {
+    config(['services.turnstile.site_key' => 'test-site-key']);
+
+    get(route('en-ch.network.request.index'))
+        ->assertOk()
+        ->assertSee('challenges.cloudflare.com/turnstile/v0/api.js', false)
+        ->assertSee('data-sitekey="test-site-key"', false)
+        ->assertSee('data-language="en"', false);
+})->group('network', 'turnstile');
+
+it('omits the turnstile widget without a site key', function () {
+    config(['services.turnstile.site_key' => null]);
+
+    get(route('de-ch.network.request.index'))
+        ->assertOk()
+        ->assertDontSee('cf-turnstile', false);
+})->group('network', 'turnstile');
+
+it('dispatches the manage link job when the turnstile token is valid', function () {
+    Bus::fake();
+    config(['services.turnstile.secret_key' => 'test-secret']);
+    Http::fake([TurnstileRule::VERIFY_URL => Http::response(['success' => true])]);
+
+    post(route('de-ch.network.request.store'), [
+        'email' => 'vincenzo@example.com',
+        TurnstileRule::FIELD => 'valid-token',
+    ])
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('de-ch.network.request.index'));
+
+    Bus::assertDispatched(SendNetworkManageLinkJob::class);
+    Http::assertSent(fn (Request $request) => $request['secret'] === 'test-secret'
+        && $request['response'] === 'valid-token');
+})->group('network', 'turnstile');
+
+it('rejects the request when the turnstile token is missing, rejected or unverifiable', function (array $payload, Closure $fake) {
+    Bus::fake();
+    config(['services.turnstile.secret_key' => 'test-secret']);
+    $fake();
+
+    post(route('de-ch.network.request.store'), ['email' => 'vincenzo@example.com', ...$payload])
+        ->assertSessionHasErrors([TurnstileRule::FIELD => __('The spam check failed. Please reload the page and try again.')]);
+
+    Bus::assertNotDispatched(SendNetworkManageLinkJob::class);
+})->with([
+    'missing' => [[], fn () => Http::fake()],
+    'rejected' => [[TurnstileRule::FIELD => 'forged-token'], fn () => Http::fake([TurnstileRule::VERIFY_URL => Http::response(['success' => false])])],
+    'unreachable' => [[TurnstileRule::FIELD => 'valid-token'], fn () => Http::fake(fn () => throw new ConnectionException('timeout'))],
+])->group('network', 'turnstile');
+
+it('skips the turnstile check when no secret is configured', function () {
+    Bus::fake();
+    config(['services.turnstile.secret_key' => null]);
+    Http::fake();
+
+    post(route('de-ch.network.request.store'), ['email' => 'vincenzo@example.com'])
+        ->assertSessionHasNoErrors();
+
+    Bus::assertDispatched(SendNetworkManageLinkJob::class);
+    Http::assertNothingSent();
+})->group('network', 'turnstile');

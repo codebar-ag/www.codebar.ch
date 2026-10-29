@@ -8,8 +8,12 @@ use App\Enums\LocaleEnum;
 use App\Jobs\Applications\SendApplicationLinkJob;
 use App\Models\Application;
 use App\Models\JobPosition;
+use App\Rules\TurnstileRule;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Http;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\get;
@@ -191,3 +195,67 @@ it('rejects new application requests while the position is in process', function
     Bus::assertNotDispatched(SendApplicationLinkJob::class);
     assertDatabaseCount('applications', 0);
 })->group('applications');
+
+it('renders the turnstile widget on the internship page when a site key is configured', function () {
+    config(['services.turnstile.site_key' => 'test-site-key']);
+
+    get(route('de-ch.jobs.internship.show'))
+        ->assertOk()
+        ->assertSee('challenges.cloudflare.com/turnstile/v0/api.js', false)
+        ->assertSee('data-sitekey="test-site-key"', false)
+        ->assertSee('data-language="de"', false);
+})->group('applications', 'turnstile');
+
+it('omits the turnstile widget on the internship page without a site key', function () {
+    config(['services.turnstile.site_key' => null]);
+
+    get(route('de-ch.jobs.internship.show'))
+        ->assertOk()
+        ->assertDontSee('cf-turnstile', false);
+})->group('applications', 'turnstile');
+
+it('creates the application when the turnstile token is valid', function () {
+    Bus::fake();
+    config(['services.turnstile.secret_key' => 'test-secret']);
+    Http::fake([TurnstileRule::VERIFY_URL => Http::response(['success' => true])]);
+
+    post(route('de-ch.jobs.internship.request.store'), [
+        'email' => 'mina@example.com',
+        TurnstileRule::FIELD => 'valid-token',
+    ])
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('de-ch.jobs.internship.show'));
+
+    assertDatabaseCount('applications', 1);
+    Bus::assertDispatched(SendApplicationLinkJob::class);
+    Http::assertSent(fn (Request $request) => $request['secret'] === 'test-secret'
+        && $request['response'] === 'valid-token');
+})->group('applications', 'turnstile');
+
+it('rejects the application request when the turnstile token is missing, rejected or unverifiable', function (array $payload, Closure $fake) {
+    Bus::fake();
+    config(['services.turnstile.secret_key' => 'test-secret']);
+    $fake();
+
+    post(route('de-ch.jobs.internship.request.store'), ['email' => 'mina@example.com', ...$payload])
+        ->assertSessionHasErrors([TurnstileRule::FIELD => __('The spam check failed. Please reload the page and try again.')]);
+
+    Bus::assertNotDispatched(SendApplicationLinkJob::class);
+    assertDatabaseCount('applications', 0);
+})->with([
+    'missing' => [[], fn () => Http::fake()],
+    'rejected' => [[TurnstileRule::FIELD => 'forged-token'], fn () => Http::fake([TurnstileRule::VERIFY_URL => Http::response(['success' => false])])],
+    'unreachable' => [[TurnstileRule::FIELD => 'valid-token'], fn () => Http::fake(fn () => throw new ConnectionException('timeout'))],
+])->group('applications', 'turnstile');
+
+it('skips the turnstile check when no secret is configured', function () {
+    Bus::fake();
+    config(['services.turnstile.secret_key' => null]);
+    Http::fake();
+
+    post(route('de-ch.jobs.internship.request.store'), ['email' => 'mina@example.com'])
+        ->assertSessionHasNoErrors();
+
+    assertDatabaseCount('applications', 1);
+    Http::assertNothingSent();
+})->group('applications', 'turnstile');
