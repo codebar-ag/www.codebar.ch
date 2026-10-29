@@ -12,6 +12,8 @@
 
             <x-ui.button :label="__('Start my application')" class="w-full sm:w-auto"/>
         </div>
+
+        <x-form.turnstile/>
     </form>
 
     <p class="mt-4 text-sm text-muted">

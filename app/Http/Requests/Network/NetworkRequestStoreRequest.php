@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Network;
 
+use App\Rules\TurnstileRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NetworkRequestStoreRequest extends FormRequest
@@ -20,6 +21,7 @@ class NetworkRequestStoreRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'max:255'],
+            ...TurnstileRule::rules(),
         ];
     }
 }

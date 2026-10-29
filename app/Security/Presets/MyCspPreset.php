@@ -19,6 +19,7 @@ class MyCspPreset implements Preset
         $scriptSources = array_filter([
             Keyword::SELF,
             'analytics.codebar.ch',
+            'challenges.cloudflare.com',
             $cdnHost ?: null,
         ]);
 
@@ -28,7 +29,11 @@ class MyCspPreset implements Preset
 
         $policy->add(Directive::FRAME_ANCESTORS, Keyword::SELF);
 
-        $policy->add(Directive::FRAME, 'player.vimeo.com');
+        $policy->add(Directive::FRAME, [
+            'player.vimeo.com',
+            // Cloudflare Turnstile renders its challenge in an iframe.
+            'challenges.cloudflare.com',
+        ]);
 
         $policy->add(Directive::UPGRADE_INSECURE_REQUESTS, Value::NO_VALUE);
 

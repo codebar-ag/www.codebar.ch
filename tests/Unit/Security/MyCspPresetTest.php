@@ -31,3 +31,15 @@ it('allows the codebar analytics script and its event endpoint', function () {
         ->toMatch('/script-src [^;]*analytics\.codebar\.ch/')
         ->toMatch('/connect-src [^;]*analytics\.codebar\.ch/');
 })->group('unit', 'security');
+
+it('allows the cloudflare turnstile script and challenge frame', function () {
+    $policy = new Policy;
+
+    (new MyCspPreset)->configure($policy);
+
+    expect($policy->getContents())
+        ->toMatch('/script-src [^;]*challenges\.cloudflare\.com/')
+        ->toMatch('/script-src-elem [^;]*challenges\.cloudflare\.com/')
+        ->toMatch('/frame-src [^;]*challenges\.cloudflare\.com/')
+        ->toMatch('/frame-src [^;]*player\.vimeo\.com/');
+})->group('unit', 'security');
