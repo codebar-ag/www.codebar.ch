@@ -15,6 +15,7 @@ use App\Checks\PostmarkTokenCheck;
 use App\Checks\ProductionConfigCheck;
 use App\Checks\SchedulePolicyCheck;
 use App\Checks\StorageRoundTripCheck;
+use App\Checks\TurnstileKeysCheck;
 use App\Models\AiModel;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -92,6 +93,7 @@ class AppServiceProvider extends ServiceProvider
             StorageRoundTripCheck::new(),
             EntraClientSecretCheck::new(),
             PostmarkTokenCheck::new(),
+            TurnstileKeysCheck::new(),
         ]);
     }
 
