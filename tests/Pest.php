@@ -18,6 +18,8 @@ uses(TestCase::class, RefreshDatabase::class)
     })
     ->in(__DIR__);
 
+uses(TestCase::class)->in(dirname(__DIR__).'/packages/codebar-ag/json-body-guard/tests/Laravel');
+
 function createRequest(string $method, string $uri): Request
 {
     $symfonyRequest = SymfonyRequest::create(

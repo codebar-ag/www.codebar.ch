@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use CodebarAg\JsonBodyGuard\JsonBodyGuard;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
@@ -13,6 +14,8 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 
 // Register the Composer autoloader...
 require __DIR__.'/../vendor/autoload.php';
+
+JsonBodyGuard::fromConfigFile(__DIR__.'/../config/json-body-guard.php')->guard();
 
 // Bootstrap Laravel and handle the request...
 (require_once __DIR__.'/../bootstrap/app.php')

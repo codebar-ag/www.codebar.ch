@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.5",
         "bacon/bacon-qr-code": "^3.1.1",
+        "codebar-ag/json-body-guard": "^0.1",
         "codebar-ag/laravel-flysystem-cloudinary": "^13.0",
         "laravel/framework": "^13.38",
         "laravel/nightwatch": "^1.30.4",
@@ -59,7 +60,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "CodebarAg\\JsonBodyGuard\\Tests\\": "packages/codebar-ag/json-body-guard/tests/"
         }
     },
     "scripts": {
@@ -95,5 +97,17 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/codebar-ag/*",
+            "options": {
+                "symlink": true,
+                "versions": {
+                    "codebar-ag/json-body-guard": "0.1.0"
+                }
+            }
+        }
+    ]
 }
