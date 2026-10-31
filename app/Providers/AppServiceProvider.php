@@ -15,6 +15,7 @@ use App\Checks\PostmarkTokenCheck;
 use App\Checks\ProductionConfigCheck;
 use App\Checks\SchedulePolicyCheck;
 use App\Checks\StorageRoundTripCheck;
+use App\Checks\TurnstileKeysCheck;
 use App\Models\AiModel;
 use App\Models\Network;
 use App\Models\NetworkUser;
@@ -81,7 +82,11 @@ class AppServiceProvider extends ServiceProvider
             DatabaseCheck::new(),
             DatabaseConnectionCountCheck::new(),
             CacheCheck::new(),
-            ScheduleCheck::new()->heartbeatMaxAgeInMinutes(120),
+            // A database store, because the heartbeat is written by the scheduler and the
+            // deploy command but read by a web request: on Laravel Cloud these run in
+            // separate containers, and a file cache is local to each of them. Not the
+            // default store: Cache::flush() and optimize:clear would wipe it.
+            ScheduleCheck::new()->useCacheStore('health')->heartbeatMaxAgeInMinutes(120),
             SecurityAdvisoriesCheck::new(),
             NightwatchIssuesCheck::new()->if(filled(config('default.nightwatch.api_token')) && filled(config('default.nightwatch.application_id'))),
             JobsCheck::new(),
@@ -92,6 +97,7 @@ class AppServiceProvider extends ServiceProvider
             StorageRoundTripCheck::new(),
             EntraClientSecretCheck::new(),
             PostmarkTokenCheck::new(),
+            TurnstileKeysCheck::new(),
         ]);
     }
 
