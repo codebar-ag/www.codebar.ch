@@ -1,0 +1,52 @@
+{
+    "name": "codebar-ag/json-body-guard",
+    "description": "Rejects JSON request bodies before your PHP application decodes them, except on allow-listed paths, to stop hash-collision denial of service",
+    "keywords": [
+        "codebar-ag",
+        "php",
+        "laravel",
+        "symfony",
+        "security",
+        "hashdos",
+        "json",
+        "denial-of-service"
+    ],
+    "homepage": "https://github.com/codebar-ag/json-body-guard",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Bürgin-Fix",
+            "email": "helpdesk@codebar.ch",
+            "homepage": "https://www.codebar.ch",
+            "role": "Software-Engineer"
+        }
+    ],
+    "require": {
+        "php": "8.3.*|8.4.*|8.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodebarAg\\JsonBodyGuard\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodebarAg\\JsonBodyGuard\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "suggest": {
+        "illuminate/support": "Registers the config file with Laravel so it can be published and read through config()"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CodebarAg\\JsonBodyGuard\\Laravel\\JsonBodyGuardServiceProvider"
+            ]
+        }
+    }
+}

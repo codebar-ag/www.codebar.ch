@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2234dda89f6b46258b881213b0113f7",
+    "content-hash": "0aeff62afbe2c186f5ef9f7d5cde3a93",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -471,6 +471,66 @@
                 "source": "https://github.com/cloudinary/php-transformation-builder-sdk/tree/2.1.5"
             },
             "time": "2026-04-29T12:17:58+00:00"
+        },
+        {
+            "name": "codebar-ag/json-body-guard",
+            "version": "0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "packages/codebar-ag/json-body-guard",
+                "reference": "b23c789d7905eb086a5f94dae1879216da305191"
+            },
+            "require": {
+                "php": "8.3.*|8.4.*|8.5.*"
+            },
+            "suggest": {
+                "illuminate/support": "Registers the config file with Laravel so it can be published and read through config()"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "CodebarAg\\JsonBodyGuard\\Laravel\\JsonBodyGuardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CodebarAg\\JsonBodyGuard\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CodebarAg\\JsonBodyGuard\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bürgin-Fix",
+                    "email": "helpdesk@codebar.ch",
+                    "homepage": "https://www.codebar.ch",
+                    "role": "Software-Engineer"
+                }
+            ],
+            "description": "Rejects JSON request bodies before your PHP application decodes them, except on allow-listed paths, to stop hash-collision denial of service",
+            "homepage": "https://github.com/codebar-ag/json-body-guard",
+            "keywords": [
+                "codebar-ag",
+                "denial-of-service",
+                "hashdos",
+                "json",
+                "laravel",
+                "php",
+                "security",
+                "symfony"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "codebar-ag/laravel-flysystem-cloudinary",

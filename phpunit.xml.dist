@@ -20,10 +20,14 @@
         <testsuite name="Browser">
             <directory>tests/Browser</directory>
         </testsuite>
+        <testsuite name="Packages">
+            <directory suffix="Test.php">packages/codebar-ag/json-body-guard/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
             <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./packages/codebar-ag/json-body-guard/src</directory>
         </include>
         <exclude>
             <directory suffix=".php">./app/Checks</directory>
