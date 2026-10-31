@@ -133,7 +133,6 @@ vendor/bin/pest --testsuite=Packages
 ## Credits
 
 - [Roland Brand](https://www.linkedin.com/in/roland-brand-95a28b108/) (rolandbrand11@gmail.com), who demonstrated the attack against our site and prompted this package
-- [Sebastian Bürgin-Fix](https://github.com/codebar-ag)
 - [All contributors](https://github.com/codebar-ag/json-body-guard/contributors)
 
 ## Changelog
