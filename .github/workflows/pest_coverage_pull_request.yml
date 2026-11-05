@@ -88,7 +88,7 @@ jobs:
         run: php -v
 
       - name: Execute Pest Coverage
-        run: XDEBUG_MODE=coverage ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit --coverage --min=${{ env.PEST_MIN_COVERAGE }}
+        run: XDEBUG_MODE=coverage ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit packages/codebar-ag/json-body-guard/tests --coverage --min=${{ env.PEST_MIN_COVERAGE }}
 
       - name: Execute Pest Type Coverage
         run: XDEBUG_MODE=coverage ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit --type-coverage --min=${{ env.PEST_MIN_TYPE_COVERAGE }}

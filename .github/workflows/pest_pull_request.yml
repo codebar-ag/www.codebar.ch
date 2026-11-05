@@ -82,7 +82,7 @@ jobs:
         run: npm run build
 
       - name: Execute Pest Test
-        run: ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit
+        run: ./vendor/bin/pest tests/Core tests/Feature tests/Helper tests/Unit packages/codebar-ag/json-body-guard/tests
 
       - name: Store Log Artifacts
         if: failure()
