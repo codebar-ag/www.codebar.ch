@@ -3339,31 +3339,31 @@
         },
         {
             "name": "nunomaduro/termwind",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "712a31b768f5daea284c2169a7d227031001b9a8"
+                "reference": "9b85ae4d802403bfc004ea633ce542bc262ee5c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/712a31b768f5daea284c2169a7d227031001b9a8",
-                "reference": "712a31b768f5daea284c2169a7d227031001b9a8",
+                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/9b85ae4d802403bfc004ea633ce542bc262ee5c3",
+                "reference": "9b85ae4d802403bfc004ea633ce542bc262ee5c3",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": "^8.2",
-                "symfony/console": "^7.4.4 || ^8.0.4"
+                "symfony/console": "^7.4.23 || ^8.1.11"
             },
             "require-dev": {
-                "illuminate/console": "^11.47.0",
-                "laravel/pint": "^1.27.1",
-                "mockery/mockery": "^1.6.12",
-                "pestphp/pest": "^2.36.0 || ^3.8.4 || ^4.3.2",
-                "phpstan/phpstan": "^1.12.32",
+                "illuminate/console": "^11.51 || ^12.70 || ^13.40",
+                "laravel/pint": "^1.30.4",
+                "mockery/mockery": "^1.6.15",
+                "pestphp/pest": "^2.36.1 || ^3.8.7 || ^4.7.8 || ^5.3.5",
+                "phpstan/phpstan": "^1.12.34",
                 "phpstan/phpstan-strict-rules": "^1.6.2",
-                "symfony/var-dumper": "^7.3.5 || ^8.0.4",
+                "symfony/var-dumper": "^7.4.22 || ^8.1.10",
                 "thecodingmachine/phpstan-strict-rules": "^1.0.0"
             },
             "type": "library",
@@ -3406,7 +3406,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v2.4.0"
+                "source": "https://github.com/nunomaduro/termwind/tree/v2.4.1"
             },
             "funding": [
                 {
@@ -3422,7 +3422,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-16T23:10:27+00:00"
+            "time": "2026-11-07T03:57:16+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -4416,16 +4416,16 @@
         },
         {
             "name": "spatie/laravel-csp",
-            "version": "3.30.1",
+            "version": "3.31.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-csp.git",
-                "reference": "b43f7f9b78df929f5d316007a78021c004f657af"
+                "reference": "7ea7484b1be5965ee1259d030df1967920495b81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/b43f7f9b78df929f5d316007a78021c004f657af",
-                "reference": "b43f7f9b78df929f5d316007a78021c004f657af",
+                "url": "https://api.github.com/repos/spatie/laravel-csp/zipball/7ea7484b1be5965ee1259d030df1967920495b81",
+                "reference": "7ea7484b1be5965ee1259d030df1967920495b81",
                 "shasum": ""
             },
             "require": {
@@ -4490,7 +4490,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-csp/issues",
-                "source": "https://github.com/spatie/laravel-csp/tree/3.30.1"
+                "source": "https://github.com/spatie/laravel-csp/tree/3.31.1"
             },
             "funding": [
                 {
@@ -4498,20 +4498,20 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-10-26T15:13:46+00:00"
+            "time": "2026-11-06T10:49:09+00:00"
         },
         {
             "name": "spatie/laravel-health",
-            "version": "1.40.6",
+            "version": "1.41.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-health.git",
-                "reference": "0f09ce05d38985476bc64b44d8fd77923b36f250"
+                "reference": "326692c04674eb7ccb47d53f1ebcb4a508d0a45e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/0f09ce05d38985476bc64b44d8fd77923b36f250",
-                "reference": "0f09ce05d38985476bc64b44d8fd77923b36f250",
+                "url": "https://api.github.com/repos/spatie/laravel-health/zipball/326692c04674eb7ccb47d53f1ebcb4a508d0a45e",
+                "reference": "326692c04674eb7ccb47d53f1ebcb4a508d0a45e",
                 "shasum": ""
             },
             "require": {
@@ -4541,6 +4541,7 @@
                 "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
                 "phpstan/phpstan-phpunit": "^1.1.1|^2.0",
                 "phpunit/phpunit": "^9.5.21|^9.5.10|^10.5|^11.0|^12.0",
+                "pusher/pusher-php-server": "^7.2",
                 "spatie/laravel-ray": "^1.30",
                 "spatie/pest-plugin-snapshots": "^1.1|^2.3|^3.0",
                 "spatie/pest-plugin-test-time": "^1.1.1|^1.1|^2.0|^3.0",
@@ -4584,7 +4585,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-health/issues",
-                "source": "https://github.com/spatie/laravel-health/tree/1.40.6"
+                "source": "https://github.com/spatie/laravel-health/tree/1.41.0"
             },
             "funding": [
                 {
@@ -4592,7 +4593,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-04T15:39:30+00:00"
+            "time": "2026-11-06T11:41:49+00:00"
         },
         {
             "name": "spatie/laravel-honeypot",
@@ -4733,16 +4734,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "8.3.2",
+            "version": "8.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "e4e906f8ca5fe10fbe4b6a81f6c4e544a01d8053"
+                "reference": "31c6a4f649c6bc4703ae5546cebb7ce1a20a15e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/e4e906f8ca5fe10fbe4b6a81f6c4e544a01d8053",
-                "reference": "e4e906f8ca5fe10fbe4b6a81f6c4e544a01d8053",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/31c6a4f649c6bc4703ae5546cebb7ce1a20a15e0",
+                "reference": "31c6a4f649c6bc4703ae5546cebb7ce1a20a15e0",
                 "shasum": ""
             },
             "require": {
@@ -4809,7 +4810,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/8.3.2"
+                "source": "https://github.com/spatie/laravel-permission/tree/8.5.0"
             },
             "funding": [
                 {
@@ -4817,7 +4818,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-19T16:31:21+00:00"
+            "time": "2026-11-06T11:43:27+00:00"
         },
         {
             "name": "spatie/laravel-responsecache",
