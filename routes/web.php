@@ -57,7 +57,7 @@ $locales = array_column(LocaleEnum::cases(), 'value');
 // must win over the unscoped ones below, which have no domain constraint.
 Route::domain(config()->string('zunscan.domain'))->group(base_path('routes/zunscan.php'));
 
-Route::get('/', EntryIndexController::class)->name('entry.index');
+Route::get('/', EntryIndexController::class)->middleware(DoNotCacheResponse::class)->name('entry.index');
 
 Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($locales) {
     Route::get('en-ch', StartIndexController::class)->name('start.index');

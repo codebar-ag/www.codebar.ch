@@ -23,9 +23,9 @@ class EntryIndexController extends Controller
         $locale = Str::slug(LocaleEnum::DE->value);
 
         // Marks the arrival as one through the domain root, which is the only
-        // arrival that was never a language choice. Attached to the response
-        // rather than queued, so it survives the response cache replaying
-        // this redirect.
+        // arrival that was never a language choice. The route is excluded from
+        // the response cache (DoNotCacheResponse in routes/web.php): the cache
+        // never replays cookies, so a cached redirect would drop the marker.
         // A 301 is cached by the browser for good, and a redirect replayed from
         // that cache never reaches us — so without this the marker below is
         // handed out once per browser, ever. The permanence a crawler reads

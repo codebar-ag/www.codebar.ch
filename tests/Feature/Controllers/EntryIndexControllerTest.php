@@ -65,13 +65,13 @@ it('keeps the browser from caching the redirect, which would swallow the marker'
     expect($response->headers->get('cache-control'))->toContain('no-store');
 })->group('entry');
 
-it('keeps the browser from caching the redirect even once the response cache serves it', function () {
+it('keeps the redirect out of the response cache, which never replays cookies', function () {
     Config::set('responsecache.enabled', true);
 
     get('/');
     $second = get('/');
 
-    $second->assertHeader('x-cache-status', 'HIT');
+    $second->assertHeader('x-cache-status', 'MISS');
 
     expect($second->headers->get('cache-control'))->toContain('no-store');
 })->group('entry');
@@ -87,14 +87,13 @@ it('lets the marker expire within minutes', function () {
     expect($expires)->toBeLessThanOrEqual(time() + 600);
 })->group('entry');
 
-it('keeps handing out the marker once the response cache serves the redirect', function () {
+it('keeps handing out the marker with the response cache enabled', function () {
     Config::set('responsecache.enabled', true);
 
     $first = get('/');
     $second = get('/');
 
     $second->assertRedirect(route(Str::slug(LocaleEnum::DE->value).'.start.index'));
-    $second->assertHeader('x-cache-status', 'HIT');
 
     expect(entryCookie($first->baseResponse)->getValue())->toBe('1');
     expect(entryCookie($second->baseResponse)->getValue())->toBe('1');
