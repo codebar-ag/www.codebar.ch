@@ -90,7 +90,7 @@ it('hands the calculator only the values it needs', function () {
     $keys = array_keys(OdooPricing::calculatorConfig());
 
     expect($keys)->toContain('license', 'hosting', 'tiers', 'max_users', 'storage_gb_per_user', 'storage_gb_max')
-        ->and(array_intersect($keys, ['notify', 'sources', 'checked_at']))->toBe([]);
+        ->and(array_intersect($keys, ['sources', 'checked_at']))->toBe([]);
 })->group('unit', 'odoo-pricing');
 
 it('matches the shared fixture the javascript calculator is tested against', function () {

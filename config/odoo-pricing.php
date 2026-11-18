@@ -10,8 +10,6 @@ return [
         'hosting' => 'https://www.odoo.sh/pricing',
     ],
 
-    'notify' => env('ODOO_PRICING_NOTIFY'),
-
     'eur_to_chf' => 1.0,
 
     'license' => [
