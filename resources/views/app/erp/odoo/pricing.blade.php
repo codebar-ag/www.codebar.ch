@@ -213,7 +213,6 @@
                     </div>
                     <p class="mt-1 text-base text-muted">
                         {{ __($t.'hosting.intro') }}
-                        {{ __($t.'hosting.on_premises') }}
                         <a href="#faq-on_premises" data-faq="faq-on_premises" x-on:click="openFaq"
                            class="font-medium text-brand underline underline-offset-2 transition hover:text-brand-strong focus-ring">{{ __($t.'hosting.on_premises_link') }}</a>
                     </p>
