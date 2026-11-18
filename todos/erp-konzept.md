@@ -95,6 +95,8 @@ Das zeigt das Zusammenspiel in einem Satz pro Schritt, ohne Architekturvokabular
                                        Rechnungs-Geschichte, unterstützte Systeme (heute: Odoo)
 /erp/odoo                              System-Seite: Odoo bei uns, im Zentrum die Lösungen als Karten
                                        (statt einer Feature-Liste), darunter die Pakete
+/erp/odoo/preise                       Preisseite mit Rechner für die laufenden Kosten (EN /erp/odoo/pricing),
+                                       Konzept in concepts/odoo.md; «preise»/«pricing» sind als Paket-Slugs reserviert
 /erp/odoo/loesungen/{loesung}          Lösungs-Seite, z. B. /erp/odoo/loesungen/zeiterfassung
                                        (EN /erp/odoo/solutions/time-tracking)
 /erp/odoo/docuware                     Paket-Seite DocuWare: Authentication, Accounting, Master Data

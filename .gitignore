@@ -63,3 +63,4 @@ tests/lighthouse/reports/
 
 # Pest browser test failure screenshots
 /tests/Browser/Screenshots/
+/concepts/*.html
