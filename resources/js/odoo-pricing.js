@@ -15,9 +15,11 @@ const fill = (label, replacements) =>
 
 export const calculate = (config, fullUsers, lightUsers, billing = 'yearly') => {
     const period = billing === 'monthly' ? 'monthly' : 'yearly'
-    const full = clamp(fullUsers, config.full_users.min, config.max_users)
-    const light = clamp(lightUsers, config.light_users.min, config.max_users - full)
-    const people = full + light
+    const light = clamp(lightUsers, config.light_users.min, config.max_users)
+    const wanted = clamp(fullUsers, config.full_users.min, config.max_users)
+    const lightKept = Math.min(light, config.max_users - wanted)
+    const full = wanted + lightKept < config.min_users ? config.min_users : wanted
+    const people = full + lightKept
     const tier = config.tiers.find((candidate) => people <= candidate.up_to) ?? config.tiers[config.tiers.length - 1]
     const price = (cents, by = 1) => Math.round(cents * by * config.eur_to_chf)
     const factor = config.hosting.factor[period]
@@ -32,7 +34,7 @@ export const calculate = (config, fullUsers, lightUsers, billing = 'yearly') => 
     const storageGb = Math.min(storageWanted, config.storage_gb_max)
 
     const fullMonth = full * fullUnit
-    const lightMonth = light * lightUnit
+    const lightMonth = lightKept * lightUnit
     const workerMonth = tier.workers * workerUnit
     const storageMonth = storageGb * storageUnit
     const stagingMonth = config.staging * stagingUnit
@@ -41,7 +43,7 @@ export const calculate = (config, fullUsers, lightUsers, billing = 'yearly') => 
 
     return {
         full,
-        light,
+        light: lightKept,
         people,
         tier,
         fullUnit,
@@ -85,19 +87,38 @@ export const odooPricing = () => ({
         return calculate(this.config, this.full, this.light, this.billing)
     },
 
-    normalize() {
-        const result = this.result
+    normalize(event) {
+        this.settle(event?.target?.dataset?.kind)
+    },
 
-        this.full = result.full
-        this.light = result.light
+    settle(kind) {
+        const { max_users: max, min_users: min, full_users: fullUsers, light_users: lightUsers } = this.config
+
+        if (kind === 'light') {
+            this.light = clamp(this.light, lightUsers.min, max)
+            this.full = clamp(this.full, fullUsers.min, max - this.light)
+
+            if (this.light + this.full < min) {
+                this.light = min
+            }
+
+            return
+        }
+
+        this.full = clamp(this.full, fullUsers.min, max)
+        this.light = clamp(this.light, lightUsers.min, max - this.full)
+
+        if (this.full + this.light < min) {
+            this.full = min
+        }
     },
 
     step(event) {
         const { kind, step } = event.currentTarget.dataset
-        const current = kind === 'light' ? this.result.light : this.result.full
+        const field = kind === 'light' ? 'light' : 'full'
 
-        this[kind === 'light' ? 'light' : 'full'] = current + Number(step)
-        this.normalize()
+        this[field] = clamp(this[field], 0, this.config.max_users) + Number(step)
+        this.settle(field)
     },
 
     openFaqFromHash() {

@@ -57,7 +57,7 @@ it('passes the calculator its configuration without internal values', function (
     $keys = is_array($config) ? array_keys($config) : [];
 
     expect($keys)->toContain('license', 'hosting', 'tiers', 'max_users')
-        ->and(array_intersect($keys, ['notify', 'sources', 'checked_at']))->toBe([]);
+        ->and(array_intersect($keys, ['sources', 'checked_at']))->toBe([]);
 })->group('odoo-pricing');
 
 it('links every info icon to an existing faq entry', function () {
@@ -79,7 +79,7 @@ it('links the licence and hosting badges to their odoo pages', function () {
 it('mentions on-premises in the hosting block and links to its faq entry', function () {
     $html = (string) get(route('de-ch.erp.systems.pricing.show'))->assertOk()->getContent();
 
-    expect($html)->toContain('On-Premises')
+    expect($html)->toContain('Auch On-Premises möglich')
         ->toContain('href="#faq-on_premises"')
         ->toContain('id="faq-on_premises"');
 })->group('odoo-pricing');

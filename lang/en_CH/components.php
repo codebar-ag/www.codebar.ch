@@ -331,10 +331,9 @@ return [
         'hosting' => [
             'title' => '2. Hosting',
             'badge' => 'Odoo.sh',
-            'intro' => 'Your Odoo runs on Odoo.sh, Odoo\'s own platform. The price depends on the total number of users.',
+            'intro' => 'Your Odoo runs on Odoo.sh, Odoo\'s own platform.',
             'location' => 'Server location Saint-Ghislain, Belgium',
-            'on_premises' => 'You can also run Odoo on your own servers (on-premises).',
-            'on_premises_link' => 'More in the frequently asked questions',
+            'on_premises_link' => 'On-premises is possible too',
             'operation' => 'Running your Odoo',
             'staging' => 'Test system',
             'staging_hint' => 'A test system with a copy of your data is always included.',

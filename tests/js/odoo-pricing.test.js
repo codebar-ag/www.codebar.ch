@@ -148,25 +148,89 @@ describe('the odoo price calculator component', () => {
 
         component.step(stepButton('light', -1))
         expect(component.light).toBe(0)
+        expect(component.full).toBe(1)
 
         component.full = 150
         component.step(stepButton('full', 1))
         expect(component.full).toBe(150)
     })
 
-    it('takes light users away when full users need the room', () => {
+    it('lets the control being moved win and takes the room from the other', () => {
         const component = mount()
 
         component.full = 100
         component.light = 50
-        component.normalize()
+        component.settle('light')
+        expect(component.full).toBe(100)
         expect(component.light).toBe(50)
 
         component.full = 140
-        component.normalize()
-
+        component.settle('full')
         expect(component.light).toBe(10)
         expect(component.peopleLabel).toBe('150 Benutzer')
+
+        component.light = 120
+        component.settle('light')
+        expect(component.light).toBe(120)
+        expect(component.full).toBe(30)
+    })
+
+    it('reaches 150 on either slider instead of jumping back', () => {
+        const component = mount()
+
+        component.light = 150
+        component.settle('light')
+        expect(component.light).toBe(150)
+        expect(component.full).toBe(0)
+        expect(component.peopleLabel).toBe('150 Benutzer')
+        expect(component.result.light).toBe(150)
+        expect(component.result.full).toBe(0)
+
+        component.step(stepButton('light', 1))
+        expect(component.light).toBe(150)
+
+        component.step(stepButton('full', 1))
+        expect(component.full).toBe(1)
+        expect(component.light).toBe(149)
+
+        component.full = 150
+        component.settle('full')
+        expect(component.full).toBe(150)
+        expect(component.light).toBe(0)
+    })
+
+    it('never drops below one user in total', () => {
+        const component = mount()
+
+        component.full = 0
+        component.settle('full')
+        expect(component.full).toBe(1)
+        expect(component.light).toBe(0)
+
+        component.light = 5
+        component.settle('light')
+        component.full = 0
+        component.settle('full')
+        expect(component.full).toBe(0)
+        expect(component.light).toBe(5)
+
+        component.light = 0
+        component.settle('light')
+        expect(component.light).toBe(1)
+        expect(component.full).toBe(0)
+    })
+
+    it('reads which control changed from the event', () => {
+        const component = mount()
+        const input = document.createElement('input')
+        input.dataset.kind = 'light'
+
+        component.full = 100
+        component.light = 80
+        component.normalize({ target: input })
+
+        expect(component.light).toBe(80)
+        expect(component.full).toBe(70)
     })
 
     it('recovers from an emptied number field', () => {

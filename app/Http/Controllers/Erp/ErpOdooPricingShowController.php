@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Erp;
 use App\Actions\PageAction;
 use App\DTO\PageDTO;
 use App\Http\Controllers\Controller;
+use App\Models\OdooPriceSnapshot;
 use App\Seo\SchemaNodes;
 use App\Support\OdooPricing;
 use Illuminate\Support\Carbon;
@@ -16,6 +17,8 @@ class ErpOdooPricingShowController extends Controller
 {
     public function __invoke(): View
     {
+        OdooPriceSnapshot::apply();
+
         $page = (new PageAction(locale: null, routeName: 'erp.systems.pricing.show'))->default();
 
         /** @var array<string, array{question: string, answer: string}> $faq */
