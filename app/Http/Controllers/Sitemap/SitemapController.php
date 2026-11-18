@@ -21,6 +21,7 @@ class SitemapController extends Controller
         'services.index',
         // 'services.dms-ecm.index',
         // 'services.dms-ecm.docuware-export.index',
+        'erp.systems.pricing.show',
         'contact.index',
         'media.index',
         'legal.imprint.index',

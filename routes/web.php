@@ -10,6 +10,8 @@ use App\Http\Controllers\Ai\AiLlmIndexController;
 use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\CoWorking\CoWorkingIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
+use App\Http\Controllers\Erp\ErpOdooPricingShowController;
+use App\Http\Controllers\Erp\ErpRedirectController;
 use App\Http\Controllers\Jobs\ApplicationAutosaveController;
 use App\Http\Controllers\Jobs\ApplicationFileDestroyController;
 use App\Http\Controllers\Jobs\ApplicationRequestStoreController;
@@ -59,6 +61,9 @@ Route::domain(config()->string('zunscan.domain'))->group(base_path('routes/zunsc
 
 Route::get('/', EntryIndexController::class)->middleware(DoNotCacheResponse::class)->name('entry.index');
 
+Route::get('erp', ErpRedirectController::class)->middleware(DoNotCacheResponse::class);
+Route::get('erp/odoo', ErpRedirectController::class)->middleware(DoNotCacheResponse::class);
+
 Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($locales) {
     Route::get('en-ch', StartIndexController::class)->name('start.index');
 
@@ -71,6 +76,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     // Route::get('services/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
     // Route::get('services/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
     Route::get('services/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
+
+    Route::get('erp/odoo/pricing', ErpOdooPricingShowController::class)->name('erp.systems.pricing.show');
 
     Route::get('products', ProductsIndexController::class)->name('products.index');
     Route::get('products/{locale}/{product}', ProductsShowController::class)->whereIn('locale', $locales)->name('products.show');
@@ -121,6 +128,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     // Route::get('dienstleistungen/dms-ecm', ServicesDmsEcmIndexController::class)->name('services.dms-ecm.index');
     // Route::get('dienstleistungen/dms-ecm/docuware-export', ServicesDocuwareExportIndexController::class)->name('services.dms-ecm.docuware-export.index');
     Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
+
+    Route::get('erp/odoo/preise', ErpOdooPricingShowController::class)->name('erp.systems.pricing.show');
 
     Route::get('produkte', ProductsIndexController::class)->name('products.index');
     Route::get('produkte/{locale}/{product}', ProductsShowController::class)->whereIn('locale', $locales)->name('products.show');

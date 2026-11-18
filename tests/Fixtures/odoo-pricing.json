@@ -1,0 +1,710 @@
+{
+    "config": {
+        "eur_to_chf": 1.0,
+        "license": {
+            "full": {
+                "yearly": 4490,
+                "monthly": 5690
+            },
+            "light": {
+                "yearly": 790,
+                "monthly": 790
+            }
+        },
+        "hosting": {
+            "worker": 6000,
+            "storage_gb": 20,
+            "staging": 1500,
+            "factor": {
+                "yearly": 0.8,
+                "monthly": 1.0
+            }
+        },
+        "tiers": [
+            {
+                "up_to": 25,
+                "workers": 1
+            },
+            {
+                "up_to": 50,
+                "workers": 2
+            },
+            {
+                "up_to": 75,
+                "workers": 3
+            },
+            {
+                "up_to": 100,
+                "workers": 4
+            },
+            {
+                "up_to": 125,
+                "workers": 5
+            },
+            {
+                "up_to": 150,
+                "workers": 6
+            }
+        ],
+        "storage_gb_per_user": 5,
+        "storage_gb_max": 512,
+        "max_users": 150,
+        "full_users": {
+            "min": 1,
+            "default": 10
+        },
+        "light_users": {
+            "min": 0,
+            "default": 0
+        },
+        "staging": 1
+    },
+    "cases": [
+        {
+            "full": 1,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 1,
+                "light": 0,
+                "people": 1,
+                "tier": 25,
+                "storageGb": 5,
+                "storageCapped": false,
+                "licenseMonth": 4490,
+                "workerMonth": 4800,
+                "storageMonth": 80,
+                "stagingMonth": 1200,
+                "hostingMonth": 6080,
+                "totalMonth": 10570
+            }
+        },
+        {
+            "full": 1,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 1,
+                "light": 0,
+                "people": 1,
+                "tier": 25,
+                "storageGb": 5,
+                "storageCapped": false,
+                "licenseMonth": 5690,
+                "workerMonth": 6000,
+                "storageMonth": 100,
+                "stagingMonth": 1500,
+                "hostingMonth": 7600,
+                "totalMonth": 13290
+            }
+        },
+        {
+            "full": 10,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 10,
+                "light": 0,
+                "people": 10,
+                "tier": 25,
+                "storageGb": 50,
+                "storageCapped": false,
+                "licenseMonth": 44900,
+                "workerMonth": 4800,
+                "storageMonth": 800,
+                "stagingMonth": 1200,
+                "hostingMonth": 6800,
+                "totalMonth": 51700
+            }
+        },
+        {
+            "full": 10,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 10,
+                "light": 0,
+                "people": 10,
+                "tier": 25,
+                "storageGb": 50,
+                "storageCapped": false,
+                "licenseMonth": 56900,
+                "workerMonth": 6000,
+                "storageMonth": 1000,
+                "stagingMonth": 1500,
+                "hostingMonth": 8500,
+                "totalMonth": 65400
+            }
+        },
+        {
+            "full": 10,
+            "light": 20,
+            "billing": "yearly",
+            "expected": {
+                "full": 10,
+                "light": 20,
+                "people": 30,
+                "tier": 50,
+                "storageGb": 150,
+                "storageCapped": false,
+                "licenseMonth": 60700,
+                "workerMonth": 9600,
+                "storageMonth": 2400,
+                "stagingMonth": 1200,
+                "hostingMonth": 13200,
+                "totalMonth": 73900
+            }
+        },
+        {
+            "full": 10,
+            "light": 20,
+            "billing": "monthly",
+            "expected": {
+                "full": 10,
+                "light": 20,
+                "people": 30,
+                "tier": 50,
+                "storageGb": 150,
+                "storageCapped": false,
+                "licenseMonth": 72700,
+                "workerMonth": 12000,
+                "storageMonth": 3000,
+                "stagingMonth": 1500,
+                "hostingMonth": 16500,
+                "totalMonth": 89200
+            }
+        },
+        {
+            "full": 15,
+            "light": 12,
+            "billing": "yearly",
+            "expected": {
+                "full": 15,
+                "light": 12,
+                "people": 27,
+                "tier": 50,
+                "storageGb": 135,
+                "storageCapped": false,
+                "licenseMonth": 76830,
+                "workerMonth": 9600,
+                "storageMonth": 2160,
+                "stagingMonth": 1200,
+                "hostingMonth": 12960,
+                "totalMonth": 89790
+            }
+        },
+        {
+            "full": 15,
+            "light": 12,
+            "billing": "monthly",
+            "expected": {
+                "full": 15,
+                "light": 12,
+                "people": 27,
+                "tier": 50,
+                "storageGb": 135,
+                "storageCapped": false,
+                "licenseMonth": 94830,
+                "workerMonth": 12000,
+                "storageMonth": 2700,
+                "stagingMonth": 1500,
+                "hostingMonth": 16200,
+                "totalMonth": 111030
+            }
+        },
+        {
+            "full": 25,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 25,
+                "light": 0,
+                "people": 25,
+                "tier": 25,
+                "storageGb": 125,
+                "storageCapped": false,
+                "licenseMonth": 112250,
+                "workerMonth": 4800,
+                "storageMonth": 2000,
+                "stagingMonth": 1200,
+                "hostingMonth": 8000,
+                "totalMonth": 120250
+            }
+        },
+        {
+            "full": 25,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 25,
+                "light": 0,
+                "people": 25,
+                "tier": 25,
+                "storageGb": 125,
+                "storageCapped": false,
+                "licenseMonth": 142250,
+                "workerMonth": 6000,
+                "storageMonth": 2500,
+                "stagingMonth": 1500,
+                "hostingMonth": 10000,
+                "totalMonth": 152250
+            }
+        },
+        {
+            "full": 26,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 26,
+                "light": 0,
+                "people": 26,
+                "tier": 50,
+                "storageGb": 130,
+                "storageCapped": false,
+                "licenseMonth": 116740,
+                "workerMonth": 9600,
+                "storageMonth": 2080,
+                "stagingMonth": 1200,
+                "hostingMonth": 12880,
+                "totalMonth": 129620
+            }
+        },
+        {
+            "full": 26,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 26,
+                "light": 0,
+                "people": 26,
+                "tier": 50,
+                "storageGb": 130,
+                "storageCapped": false,
+                "licenseMonth": 147940,
+                "workerMonth": 12000,
+                "storageMonth": 2600,
+                "stagingMonth": 1500,
+                "hostingMonth": 16100,
+                "totalMonth": 164040
+            }
+        },
+        {
+            "full": 40,
+            "light": 60,
+            "billing": "yearly",
+            "expected": {
+                "full": 40,
+                "light": 60,
+                "people": 100,
+                "tier": 100,
+                "storageGb": 500,
+                "storageCapped": false,
+                "licenseMonth": 227000,
+                "workerMonth": 19200,
+                "storageMonth": 8000,
+                "stagingMonth": 1200,
+                "hostingMonth": 28400,
+                "totalMonth": 255400
+            }
+        },
+        {
+            "full": 40,
+            "light": 60,
+            "billing": "monthly",
+            "expected": {
+                "full": 40,
+                "light": 60,
+                "people": 100,
+                "tier": 100,
+                "storageGb": 500,
+                "storageCapped": false,
+                "licenseMonth": 275000,
+                "workerMonth": 24000,
+                "storageMonth": 10000,
+                "stagingMonth": 1500,
+                "hostingMonth": 35500,
+                "totalMonth": 310500
+            }
+        },
+        {
+            "full": 100,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 100,
+                "light": 0,
+                "people": 100,
+                "tier": 100,
+                "storageGb": 500,
+                "storageCapped": false,
+                "licenseMonth": 449000,
+                "workerMonth": 19200,
+                "storageMonth": 8000,
+                "stagingMonth": 1200,
+                "hostingMonth": 28400,
+                "totalMonth": 477400
+            }
+        },
+        {
+            "full": 100,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 100,
+                "light": 0,
+                "people": 100,
+                "tier": 100,
+                "storageGb": 500,
+                "storageCapped": false,
+                "licenseMonth": 569000,
+                "workerMonth": 24000,
+                "storageMonth": 10000,
+                "stagingMonth": 1500,
+                "hostingMonth": 35500,
+                "totalMonth": 604500
+            }
+        },
+        {
+            "full": 101,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 101,
+                "light": 0,
+                "people": 101,
+                "tier": 125,
+                "storageGb": 505,
+                "storageCapped": false,
+                "licenseMonth": 453490,
+                "workerMonth": 24000,
+                "storageMonth": 8080,
+                "stagingMonth": 1200,
+                "hostingMonth": 33280,
+                "totalMonth": 486770
+            }
+        },
+        {
+            "full": 101,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 101,
+                "light": 0,
+                "people": 101,
+                "tier": 125,
+                "storageGb": 505,
+                "storageCapped": false,
+                "licenseMonth": 574690,
+                "workerMonth": 30000,
+                "storageMonth": 10100,
+                "stagingMonth": 1500,
+                "hostingMonth": 41600,
+                "totalMonth": 616290
+            }
+        },
+        {
+            "full": 102,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 102,
+                "light": 0,
+                "people": 102,
+                "tier": 125,
+                "storageGb": 510,
+                "storageCapped": false,
+                "licenseMonth": 457980,
+                "workerMonth": 24000,
+                "storageMonth": 8160,
+                "stagingMonth": 1200,
+                "hostingMonth": 33360,
+                "totalMonth": 491340
+            }
+        },
+        {
+            "full": 102,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 102,
+                "light": 0,
+                "people": 102,
+                "tier": 125,
+                "storageGb": 510,
+                "storageCapped": false,
+                "licenseMonth": 580380,
+                "workerMonth": 30000,
+                "storageMonth": 10200,
+                "stagingMonth": 1500,
+                "hostingMonth": 41700,
+                "totalMonth": 622080
+            }
+        },
+        {
+            "full": 103,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 103,
+                "light": 0,
+                "people": 103,
+                "tier": 125,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 462470,
+                "workerMonth": 24000,
+                "storageMonth": 8192,
+                "stagingMonth": 1200,
+                "hostingMonth": 33392,
+                "totalMonth": 495862
+            }
+        },
+        {
+            "full": 103,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 103,
+                "light": 0,
+                "people": 103,
+                "tier": 125,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 586070,
+                "workerMonth": 30000,
+                "storageMonth": 10240,
+                "stagingMonth": 1500,
+                "hostingMonth": 41740,
+                "totalMonth": 627810
+            }
+        },
+        {
+            "full": 149,
+            "light": 1,
+            "billing": "yearly",
+            "expected": {
+                "full": 149,
+                "light": 1,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 669800,
+                "workerMonth": 28800,
+                "storageMonth": 8192,
+                "stagingMonth": 1200,
+                "hostingMonth": 38192,
+                "totalMonth": 707992
+            }
+        },
+        {
+            "full": 149,
+            "light": 1,
+            "billing": "monthly",
+            "expected": {
+                "full": 149,
+                "light": 1,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 848600,
+                "workerMonth": 36000,
+                "storageMonth": 10240,
+                "stagingMonth": 1500,
+                "hostingMonth": 47740,
+                "totalMonth": 896340
+            }
+        },
+        {
+            "full": 150,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 150,
+                "light": 0,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 673500,
+                "workerMonth": 28800,
+                "storageMonth": 8192,
+                "stagingMonth": 1200,
+                "hostingMonth": 38192,
+                "totalMonth": 711692
+            }
+        },
+        {
+            "full": 150,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 150,
+                "light": 0,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 853500,
+                "workerMonth": 36000,
+                "storageMonth": 10240,
+                "stagingMonth": 1500,
+                "hostingMonth": 47740,
+                "totalMonth": 901240
+            }
+        },
+        {
+            "full": 100,
+            "light": 90,
+            "billing": "yearly",
+            "expected": {
+                "full": 100,
+                "light": 50,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 488500,
+                "workerMonth": 28800,
+                "storageMonth": 8192,
+                "stagingMonth": 1200,
+                "hostingMonth": 38192,
+                "totalMonth": 526692
+            }
+        },
+        {
+            "full": 100,
+            "light": 90,
+            "billing": "monthly",
+            "expected": {
+                "full": 100,
+                "light": 50,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 608500,
+                "workerMonth": 36000,
+                "storageMonth": 10240,
+                "stagingMonth": 1500,
+                "hostingMonth": 47740,
+                "totalMonth": 656240
+            }
+        },
+        {
+            "full": 0,
+            "light": 0,
+            "billing": "yearly",
+            "expected": {
+                "full": 1,
+                "light": 0,
+                "people": 1,
+                "tier": 25,
+                "storageGb": 5,
+                "storageCapped": false,
+                "licenseMonth": 4490,
+                "workerMonth": 4800,
+                "storageMonth": 80,
+                "stagingMonth": 1200,
+                "hostingMonth": 6080,
+                "totalMonth": 10570
+            }
+        },
+        {
+            "full": 0,
+            "light": 0,
+            "billing": "monthly",
+            "expected": {
+                "full": 1,
+                "light": 0,
+                "people": 1,
+                "tier": 25,
+                "storageGb": 5,
+                "storageCapped": false,
+                "licenseMonth": 5690,
+                "workerMonth": 6000,
+                "storageMonth": 100,
+                "stagingMonth": 1500,
+                "hostingMonth": 7600,
+                "totalMonth": 13290
+            }
+        },
+        {
+            "full": -4,
+            "light": -2,
+            "billing": "yearly",
+            "expected": {
+                "full": 1,
+                "light": 0,
+                "people": 1,
+                "tier": 25,
+                "storageGb": 5,
+                "storageCapped": false,
+                "licenseMonth": 4490,
+                "workerMonth": 4800,
+                "storageMonth": 80,
+                "stagingMonth": 1200,
+                "hostingMonth": 6080,
+                "totalMonth": 10570
+            }
+        },
+        {
+            "full": -4,
+            "light": -2,
+            "billing": "monthly",
+            "expected": {
+                "full": 1,
+                "light": 0,
+                "people": 1,
+                "tier": 25,
+                "storageGb": 5,
+                "storageCapped": false,
+                "licenseMonth": 5690,
+                "workerMonth": 6000,
+                "storageMonth": 100,
+                "stagingMonth": 1500,
+                "hostingMonth": 7600,
+                "totalMonth": 13290
+            }
+        },
+        {
+            "full": 999,
+            "light": 999,
+            "billing": "yearly",
+            "expected": {
+                "full": 150,
+                "light": 0,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 673500,
+                "workerMonth": 28800,
+                "storageMonth": 8192,
+                "stagingMonth": 1200,
+                "hostingMonth": 38192,
+                "totalMonth": 711692
+            }
+        },
+        {
+            "full": 999,
+            "light": 999,
+            "billing": "monthly",
+            "expected": {
+                "full": 150,
+                "light": 0,
+                "people": 150,
+                "tier": 150,
+                "storageGb": 512,
+                "storageCapped": true,
+                "licenseMonth": 853500,
+                "workerMonth": 36000,
+                "storageMonth": 10240,
+                "stagingMonth": 1500,
+                "hostingMonth": 47740,
+                "totalMonth": 901240
+            }
+        }
+    ]
+}

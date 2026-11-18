@@ -36,6 +36,7 @@ class PageNavigation
             'services.index' => 'about-us.index',
             // 'services.dms-ecm.index' => 'contact.index',
             // 'services.dms-ecm.docuware-export.index' => 'contact.index',
+            'erp.systems.pricing.show' => 'services.index',
             'about-us.index' => 'contact.index',
             'news.index' => 'ai.index',
             'news.show' => 'services.index',

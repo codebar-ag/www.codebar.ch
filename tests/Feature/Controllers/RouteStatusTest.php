@@ -26,6 +26,7 @@ dataset('routes', function () {
         [LocaleEnum::EN->value, 'services.index'],
         [LocaleEnum::EN->value, 'about-us.index'],
         [LocaleEnum::EN->value, 'news.index'],
+        [LocaleEnum::EN->value, 'erp.systems.pricing.show'],
 
         // DE-CH
         [LocaleEnum::DE->value, 'start.index'],
@@ -44,6 +45,7 @@ dataset('routes', function () {
         [LocaleEnum::DE->value, 'services.index'],
         [LocaleEnum::DE->value, 'about-us.index'],
         [LocaleEnum::DE->value, 'news.index'],
+        [LocaleEnum::DE->value, 'erp.systems.pricing.show'],
     ];
 });
 

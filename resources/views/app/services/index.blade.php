@@ -25,6 +25,13 @@
                 <p class="mt-3 text-muted">{{ $entry->teaser }}</p>
                 <x-data.tag-list :tags="$entry->tags" class="mt-4"/>
 
+                @if($entry->slug === 'open-source-erp')
+                    <x-ui.button :href="localized_route('erp.systems.pricing.show')" variant="outline" class="mt-6">
+                        {{ __('components.odoo_pricing.button') }}
+                        <x-icon.arrow-right class="size-4"/>
+                    </x-ui.button>
+                @endif
+
                 {{-- @if($entry->slug === 'dms-ecm-consulting')
                     <x-ui.arrow-link
                             :href="localized_route('services.dms-ecm.index')"
