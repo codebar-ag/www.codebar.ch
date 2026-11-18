@@ -1,5 +1,6 @@
 key: erp.systems.pricing.show
 robots: index,follow
+image: images/pages/erp.systems.pricing.show.svg
 title:
   de_CH: 'Odoo Preise: Lizenzen und Hosting berechnen'
   en_CH: 'Odoo pricing: calculate licences and hosting'

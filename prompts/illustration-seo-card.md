@@ -251,6 +251,7 @@ one (§8, set gate).
 | `legal.terms.index` | an offer and a project, both blank between them | `agree` | numbered sections, and a signature line |
 | `media.index` | a mark lifted off a screenshot at the wrong size | `download` | the four official variants, light and dark, PNG and SVG |
 | `network.request.index` | a partner profile with a lock on it | `cursor` | a personal link, and the profile as a form with a focused field |
+| `erp.systems.pricing.show` | a licence price tag and a hosting server, priced apart | `add` | one yearly total on a card: a slider for the users, the split into licences and hosting, the sum in a pill |
 
 Each object in each row has to cite a phrase from that page's own copy — the YAML, and the
 `lang/` strings the page's Blade template renders. That is Gate 1, and §8 is what makes it
@@ -293,8 +294,13 @@ only under `illustration-services.md` §10's rules — it must be a verb, it mus
 | `download` | an arrow into a tray | the official file is handed over instead of copied off a screen |
 | `disclose` | a page with its content shown | what was collected quietly is written down and limited |
 | `agree` | a signature over a line | what both sides owe each other is signed rather than assumed |
+| `add` | a plus, two short bars, a rule and one long bar | prices that were kept apart are added up into one figure |
 
 ```xml
+<!-- add — plus and sum rule are ONE path on purpose, so the rule has area, see §5 of services -->
+<path d="M6 16h22M17 5v22M4 40h52" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round"/>
+<g fill="url(#accent)"><rect x="36" y="4" width="20" height="9" rx="4.5"/><rect x="36" y="19" width="20" height="9" rx="4.5"/><rect x="4" y="47" width="52" height="10" rx="5"/></g>
+
 <!-- listen — theirs is filled and large, ours is outlined and small -->
 <path d="M8 4h26a6 6 0 0 1 6 6v16a6 6 0 0 1-6 6H20l-10 8v-8H8a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="url(#accent)"/>
 <path d="M32 28h20a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6h-4l-8 6v-6h-8a6 6 0 0 1-6-6V34a6 6 0 0 1 6-6Z"

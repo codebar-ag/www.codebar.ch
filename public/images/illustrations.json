@@ -338,5 +338,17 @@
       "answer card": "Aura antwortet mit dem passenden Dokument",
       "document page": "fasst Dokumente zusammen"
     }
+  },
+  "pages/erp.systems.pricing.show": {
+    "sentence": "a licence price tag and a hosting server priced apart → adding them up → one yearly total, with a slider for the users and the split into licences and hosting",
+    "act": "add",
+    "actSource": "Hier rechnest du aus, was Odoo dich jedes Jahr kostet.",
+    "objects": {
+      "licence price tag": "was du für die Lizenzen bezahlst",
+      "hosting server": "was das Hosting kostet",
+      "user slider": "Gib an, wie viele du von jeder Art brauchst.",
+      "cost split bar": "So teilen sich die Kosten auf",
+      "yearly total": "Deine laufenden Kosten"
+    }
   }
 }

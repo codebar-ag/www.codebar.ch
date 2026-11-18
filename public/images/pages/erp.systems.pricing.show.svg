@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img">
+    <title>Aus einem Lizenzpreis und einem Hostingpreis wird eine Jahressumme, aufgeteilt nach Lizenzen und Hosting</title>
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+        <linearGradient id="wash" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#f4eef8"/>
+        </linearGradient>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="32"/>
+        </filter>
+        <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.8" fill="#09090b"/>
+        </pattern>
+
+        <path id="w1" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w2" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w3" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+        <path id="w4" d="M0 0c3.5-6 7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0s7.5-6 11 0s7.5 6 11 0"/>
+    </defs>
+
+    <rect width="1200" height="630" fill="url(#wash)"/>
+    <rect width="150" height="630" fill="url(#dots)" opacity="0.1"/>
+    <rect x="1050" width="150" height="630" fill="url(#dots)" opacity="0.1"/>
+
+    <ellipse cx="600" cy="315" rx="92" ry="116" fill="url(#accent)" filter="url(#glow)" opacity="0.55"/>
+
+    <g transform="rotate(-4 270 315)">
+    <path d="M150 128h176a16 16 0 0 1 16 16v88a16 16 0 0 1-16 16H150l-52-60Z" fill="#09090b" opacity="0.3" transform="translate(12 12)"/>
+    <path d="M150 128h176a16 16 0 0 1 16 16v88a16 16 0 0 1-16 16H150l-52-60Z" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="140" cy="188" r="9" fill="#ffffff" stroke="#09090b" stroke-width="2.5"/>
+    <circle cx="196" cy="172" r="13" fill="none" stroke="#09090b" stroke-width="3"/>
+    <path d="M172 216a24 24 0 0 1 48 0" data-detail="licence holder shoulders" stroke="#09090b" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <g stroke="#09090b" stroke-width="4.5" fill="none" stroke-linecap="round"><use href="#w2" x="250" y="176"/></g>
+    <g stroke="#09090b" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.45"><use href="#w1" x="250" y="210"/></g>
+
+    <rect x="212" y="340" width="230" height="66" rx="14" fill="#09090b" opacity="0.3" transform="translate(12 12)"/>
+    <rect x="212" y="418" width="230" height="66" rx="14" fill="#09090b" opacity="0.3" transform="translate(12 12)"/>
+    <rect x="212" y="340" width="230" height="66" rx="14" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="212" y="418" width="230" height="66" rx="14" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g fill="#09090b" opacity="0.4"><circle cx="240" cy="373" r="7"/><circle cx="264" cy="373" r="7"/><circle cx="240" cy="451" r="7"/><circle cx="264" cy="451" r="7"/></g>
+    <path d="M330 362h86M330 384h56M330 440h86M330 462h56" data-detail="server vents" stroke="#09090b" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+    </g>
+
+    <rect x="764" y="142" width="360" height="304" rx="22" fill="#09090b" opacity="0.3"/>
+    <rect x="752" y="130" width="360" height="304" rx="22" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="784" y="170" width="296" height="12" rx="6" fill="#09090b" opacity="0.12"/>
+    <rect x="784" y="170" width="118" height="12" rx="6" fill="url(#accent)"/>
+    <circle cx="902" cy="176" r="15" fill="#ffffff" stroke="#09090b" stroke-width="3"/>
+    <g stroke="#09090b" stroke-width="4.5" fill="none" stroke-linecap="round"><use href="#w3" x="784" y="236"/><use href="#w2" x="1036" y="236"/><use href="#w2" x="784" y="278"/><use href="#w1" x="1058" y="278"/></g>
+    <path d="M784 310h296" data-detail="sum rule" stroke="#09090b" stroke-width="2.5" fill="none" opacity="0.5"/>
+    <rect x="784" y="336" width="296" height="20" rx="10" fill="#500472" opacity="0.18"/>
+    <rect x="784" y="336" width="236" height="20" rx="10" fill="url(#accent)"/>
+    <rect x="908" y="412" width="232" height="66" rx="33" fill="#09090b" opacity="0.3" transform="translate(12 12)"/>
+    <rect x="908" y="412" width="232" height="66" rx="33" fill="url(#accent)"/>
+    <rect x="924" y="426" width="38" height="38" rx="11" fill="#ffffff"/>
+    <g stroke="#ffffff" stroke-width="5.5" fill="none" stroke-linecap="round"><use href="#w3" x="980" y="447"/><use href="#w1" x="1060" y="447"/></g>
+
+    <g stroke="#09090b" stroke-width="4" fill="none" stroke-linecap="round">
+        <path class="arrow" d="M482 315h44"/>
+        <path class="arrow" d="M674 315h44"/>
+    </g>
+    <g fill="#09090b">
+        <path d="M534 315l-16-10v20Z"/>
+        <path d="M726 315l-16-10v20Z"/>
+    </g>
+
+    <rect x="546" y="261" width="108" height="108" rx="22" fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"/>
+    <g class="act" transform="translate(570 285)">
+        <path d="M6 16h22M17 5v22M4 40h52" stroke="url(#accent)" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <g fill="url(#accent)"><rect x="36" y="4" width="20" height="9" rx="4.5"/><rect x="36" y="19" width="20" height="9" rx="4.5"/><rect x="4" y="47" width="52" height="10" rx="5"/></g>
+    </g>
+</svg>

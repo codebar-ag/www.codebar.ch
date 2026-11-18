@@ -73,6 +73,7 @@ ACTS = {
     "download": "download — the official file is handed over instead of copied off a screen",
     "disclose": "disclose — what was collected quietly is written down and limited",
     "agree": "agree — what both sides owe each other is signed rather than assumed",
+    "add": "add up — prices kept apart become one total",
 }
 
 ABSTRACT_WORDS = {
