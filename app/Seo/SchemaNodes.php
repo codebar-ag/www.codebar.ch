@@ -326,6 +326,33 @@ class SchemaNodes
         ], fn (mixed $value): bool => $value !== null && $value !== '')];
     }
 
+    /**
+     * @param  array<int, array{question: string, answer: string}>  $items
+     * @return array<int, array<string, mixed>>
+     */
+    public static function faqPage(PageDTO $page, array $items): array
+    {
+        if ($items === []) {
+            return [];
+        }
+
+        return [[
+            '@type' => 'FAQPage',
+            '@id' => $page->url().'#faq',
+            'url' => $page->url(),
+            'inLanguage' => str_replace('_', '-', $page->locale),
+            'isPartOf' => ['@id' => $page->url()],
+            'mainEntity' => collect($items)->map(fn (array $item): array => [
+                '@type' => 'Question',
+                'name' => $item['question'],
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => $item['answer'],
+                ],
+            ])->all(),
+        ]];
+    }
+
     private static function organizationId(): string
     {
         return Company::baseUrl().'/'.SchemaGraph::ORGANIZATION_ID;

@@ -10,6 +10,7 @@ import { introTabs } from './intro-tabs'
 import { languageSuggestion } from './language-suggestion'
 import { markdownEditor } from './markdown-editor'
 import { navigation } from './navigation'
+import { odooPricing } from './odoo-pricing'
 import { readingProgress } from './reading-progress'
 import { tableOfContents } from './table-of-contents'
 import { toast } from './toast'
@@ -36,6 +37,8 @@ Alpine.data('toast', toast)
 Alpine.data('languageSuggestion', languageSuggestion)
 
 Alpine.data('navigation', navigation)
+
+Alpine.data('odooPricing', odooPricing)
 
 Alpine.data('readingProgress', readingProgress)
 

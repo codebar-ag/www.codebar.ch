@@ -1,0 +1,8 @@
+key: erp.systems.pricing.show
+robots: index,follow
+title:
+  de_CH: 'Odoo Preise: Lizenzen und Hosting berechnen'
+  en_CH: 'Odoo pricing: calculate licences and hosting'
+description:
+  de_CH: 'Rechne aus, was Odoo dich jedes Jahr kostet: Lizenzen für Benutzer mit Vollzugriff und Light-Benutzer, dazu das Hosting auf Odoo.sh mit Testsystem.'
+  en_CH: 'Work out what Odoo costs you each year: licences for full-access and light users, plus hosting on Odoo.sh with a test system.'

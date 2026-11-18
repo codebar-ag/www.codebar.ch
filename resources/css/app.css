@@ -900,3 +900,57 @@ body {
         }
     }
 }
+
+.odoo-range {
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 0.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    background: linear-gradient(to right, var(--color-brand) var(--fill, 0%), var(--color-border) var(--fill, 0%));
+}
+
+.odoo-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    border: 3px solid var(--color-brand);
+    background: #fff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
+    transition: transform 0.15s;
+}
+
+.odoo-range::-moz-range-thumb {
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 9999px;
+    border: 3px solid var(--color-brand);
+    background: #fff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
+}
+
+.odoo-range::-moz-range-track {
+    background: transparent;
+}
+
+.odoo-range:hover::-webkit-slider-thumb,
+.odoo-range:active::-webkit-slider-thumb {
+    transform: scale(1.1);
+}
+
+.odoo-range:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 6px;
+}
+
+.odoo-number {
+    appearance: textfield;
+}
+
+.odoo-number::-webkit-inner-spin-button,
+.odoo-number::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+}
