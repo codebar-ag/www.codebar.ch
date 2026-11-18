@@ -14,7 +14,8 @@ Graph tags, no sitemap entry. Every item below exists because one of those was m
 
 When asked for a concept, build the real Blade page with `<x-app-layout>` and the existing
 components and show it on `https://web.codebar.test`. Sebastian judges the real page, not a
-description. Background (decisions, sources, open points) goes into `concepts/<name>.md`.
+description. Keep background (decisions, sources, open points) out of the repository unless
+Sebastian asks for a concept file.
 
 ## 2. Code
 

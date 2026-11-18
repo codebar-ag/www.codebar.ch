@@ -69,6 +69,21 @@ it('links every info icon to an existing faq entry', function () {
         ->toContain('id="faq-light"');
 })->group('odoo-pricing');
 
+it('links the licence and hosting badges to their odoo pages', function () {
+    $html = (string) get(route('de-ch.erp.systems.pricing.show'))->assertOk()->getContent();
+
+    expect($html)->toContain('href="'.config()->string('odoo-pricing.sources.license').'"')
+        ->toContain('href="'.config()->string('odoo-pricing.sources.hosting').'"');
+})->group('odoo-pricing');
+
+it('mentions on-premises in the hosting block and links to its faq entry', function () {
+    $html = (string) get(route('de-ch.erp.systems.pricing.show'))->assertOk()->getContent();
+
+    expect($html)->toContain('On-Premises')
+        ->toContain('href="#faq-on_premises"')
+        ->toContain('id="faq-on_premises"');
+})->group('odoo-pricing');
+
 it('links to the contact page from the closing call to action', function () {
     get(route('de-ch.erp.systems.pricing.show'))
         ->assertOk()

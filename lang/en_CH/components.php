@@ -324,7 +324,7 @@ return [
         ],
         'licenses' => [
             'title' => '1. Licences',
-            'badge' => 'Paid to Odoo',
+            'badge' => 'odoo.com',
             'intro' => 'The licence is Odoo Enterprise on the Custom plan. It includes all apps and is charged per user.',
             'total' => 'Total licences',
         ],
@@ -333,6 +333,8 @@ return [
             'badge' => 'Odoo.sh',
             'intro' => 'Your Odoo runs on Odoo.sh, Odoo\'s own platform. The price depends on the total number of users.',
             'location' => 'Server location Saint-Ghislain, Belgium',
+            'on_premises' => 'You can also run Odoo on your own servers (on-premises).',
+            'on_premises_link' => 'More in the frequently asked questions',
             'operation' => 'Running your Odoo',
             'staging' => 'Test system',
             'staging_hint' => 'A test system with a copy of your data is always included.',
