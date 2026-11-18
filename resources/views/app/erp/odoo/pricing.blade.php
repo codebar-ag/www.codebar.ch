@@ -43,8 +43,8 @@
         <x-layout.section>
             <x-layout.section-header :title="__($t.'setup.title')" :intro="__($t.'setup.intro')"/>
 
-            <div class="flex flex-col gap-4">
-                <x-ui.panel variant="plain" class="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div class="divide-y divide-border overflow-hidden rounded-panel border border-border-strong bg-white">
+                <div class="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
                     <div class="min-w-0">
                         <div id="odoo-billing" class="text-subheading font-semibold text-gray-900">{{ __($t.'billing.label') }}</div>
                         <p class="mt-1 text-sm text-muted">{{ __($t.'billing.hint') }}</p>
@@ -55,10 +55,10 @@
                         <button type="button" x-on:click="setMonthly" x-bind:aria-pressed="isMonthly" aria-pressed="false"
                                 class="{{ $billingButton }}">{{ __($t.'billing.monthly') }}</button>
                     </div>
-                </x-ui.panel>
+                </div>
 
                 @foreach($kinds as $kind => $field)
-                    <x-ui.panel variant="plain" class="flex flex-col p-6">
+                    <div class="flex flex-col p-6">
                         <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                             <div class="min-w-0">
                                 <div class="flex items-center gap-2">
@@ -95,17 +95,16 @@
                                 <span>{{ $field['min'] }}</span>@foreach($ticks as $tick)<span>{{ $tick }}</span>@endforeach
                             </div>
                         </div>
-                    </x-ui.panel>
+                    </div>
                 @endforeach
-            </div>
 
-            <div class="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 rounded-panel border border-border bg-surface px-6 py-4 text-base">
+                <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 bg-surface px-6 py-4 text-base">
                 <span>{{ __($t.'summary.total') }} <span class="font-semibold text-gray-900" x-text="peopleLabel">{{ $result['users'] === 1 ? $label('user_one') : $label('users', ['count' => $result['users']]) }}</span></span>
                 <span class="text-muted">{{ __($t.'summary.storage') }} <span class="font-medium text-gray-800" x-text="storageLabel">{{ $label('gigabytes', ['count' => $result['storage_gb']]) }}</span></span>
                 <span class="text-muted">{{ __($t.'summary.tier') }} <span class="font-medium text-gray-800" x-text="tierLabel">{{ $label('tier', ['count' => $result['tier_up_to']]) }}</span></span>
             </div>
 
-            <x-ui.panel class="mt-4 border-brand p-6" role="status" aria-live="polite" aria-atomic="true">
+                <div class="border-t-2 border-t-brand bg-brand/5 p-6" role="status" aria-live="polite" aria-atomic="true">
                 <h3 class="text-subheading font-semibold text-gray-900">{{ __($t.'total.title') }}</h3>
 
                 <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -142,7 +141,8 @@
                         </div>
                     </dl>
                 </div>
-            </x-ui.panel>
+                </div>
+            </div>
 
             <x-layout.page-note>{{ __($t.'setup.note', ['max' => $max]) }}</x-layout.page-note>
         </x-layout.section>
@@ -159,7 +159,9 @@
                 <x-ui.panel variant="plain" class="p-6">
                     <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                         <h3 class="text-subheading font-semibold text-gray-900">{{ __($t.'licenses.title') }}</h3>
-                        <x-ui.badge variant="notice" size="xs" :label="__($t.'licenses.badge')"/>
+                        <x-ui.badge variant="notice" size="xs" :href="config('odoo-pricing.sources.license')" target="_blank" :label="__($t.'licenses.badge')">
+                            <x-icon.external-link class="ml-1 size-3"/>
+                        </x-ui.badge>
                     </div>
                     <p class="mt-1 text-base text-muted">{{ __($t.'licenses.intro') }}</p>
 
@@ -205,9 +207,16 @@
                             {{ __($t.'hosting.title') }}
                             <x-icon.flag-be class="h-4 w-6" :aria-label="__($t.'hosting.location')"/>
                         </h3>
-                        <x-ui.badge variant="notice" size="xs" :label="__($t.'hosting.badge')"/>
+                        <x-ui.badge variant="notice" size="xs" :href="config('odoo-pricing.sources.hosting')" target="_blank" :label="__($t.'hosting.badge')">
+                            <x-icon.external-link class="ml-1 size-3"/>
+                        </x-ui.badge>
                     </div>
-                    <p class="mt-1 text-base text-muted">{{ __($t.'hosting.intro') }}</p>
+                    <p class="mt-1 text-base text-muted">
+                        {{ __($t.'hosting.intro') }}
+                        {{ __($t.'hosting.on_premises') }}
+                        <a href="#faq-on_premises" data-faq="faq-on_premises" x-on:click="openFaq"
+                           class="font-medium text-brand underline underline-offset-2 transition hover:text-brand-strong focus-ring">{{ __($t.'hosting.on_premises_link') }}</a>
+                    </p>
 
                     <table class="mt-4 w-full text-base">
                         <thead>
