@@ -37,7 +37,8 @@ return [
     'storage_gb_max' => 512,
 
     'max_users' => 150,
-    'full_users' => ['min' => 1, 'default' => 10],
+    'min_users' => 1,
+    'full_users' => ['min' => 0, 'default' => 10],
     'light_users' => ['min' => 0, 'default' => 0],
     'staging' => 1,
 ];

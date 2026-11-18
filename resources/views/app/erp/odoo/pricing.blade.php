@@ -14,8 +14,8 @@
             'line' => $label('gigabytes', ['count' => $result['storage_gb']]).' × '.$money($result['storage_unit']),
         ]);
     $kinds = [
-        'full' => ['min' => $pricing['full_users']['min'], 'value' => $result['full_users'], 'unit' => $result['full_unit']],
-        'light' => ['min' => $pricing['light_users']['min'], 'value' => $result['light_users'], 'unit' => $result['light_unit']],
+        'full' => ['min' => $pricing['full_users']['min'], 'max' => $max, 'value' => $result['full_users'], 'unit' => $result['full_unit']],
+        'light' => ['min' => $pricing['light_users']['min'], 'max' => $max, 'value' => $result['light_users'], 'unit' => $result['light_unit']],
     ];
     $numberInput = 'odoo-number h-14 w-24 rounded-panel border border-border-strong bg-white text-center text-title font-bold text-gray-900 tabular-nums transition focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand';
     $stepButton = 'inline-flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-brand bg-white text-2xl leading-none font-medium text-brand transition select-none hover:bg-brand hover:text-white focus-ring';
@@ -77,8 +77,8 @@
                             <div class="flex shrink-0 items-center justify-center gap-3">
                                 <button type="button" data-kind="{{ $kind }}" data-step="-1" x-on:click="step"
                                         aria-label="{{ __($t.$kind.'.decrease') }}" class="{{ $stepButton }}">−</button>
-                                <input type="number" id="odoo-{{ $kind }}" inputmode="numeric"
-                                       min="{{ $field['min'] }}" max="{{ $max }}" step="1" value="{{ $field['value'] }}"
+                                <input type="number" id="odoo-{{ $kind }}" inputmode="numeric" data-kind="{{ $kind }}"
+                                       min="{{ $field['min'] }}" max="{{ $field['max'] }}" step="1" value="{{ $field['value'] }}"
                                        x-model.number="{{ $kind }}" x-on:change="normalize"
                                        class="{{ $numberInput }}">
                                 <button type="button" data-kind="{{ $kind }}" data-step="1" x-on:click="step"
@@ -87,8 +87,8 @@
                         </div>
 
                         <div class="mt-6">
-                            <input type="range" aria-label="{{ __($t.$kind.'.label') }}" x-ref="{{ $kind }}Range"
-                                   min="{{ $field['min'] }}" max="{{ $max }}" step="1" value="{{ $field['value'] }}"
+                            <input type="range" aria-label="{{ __($t.$kind.'.label') }}" x-ref="{{ $kind }}Range" data-kind="{{ $kind }}"
+                                   min="{{ $field['min'] }}" max="{{ $field['max'] }}" step="1" value="{{ $field['value'] }}"
                                    x-model.number="{{ $kind }}" x-on:input="normalize"
                                    class="odoo-range">
                             <div class="mt-2 flex justify-between text-xs text-muted tabular-nums" aria-hidden="true">

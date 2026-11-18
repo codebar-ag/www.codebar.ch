@@ -15,6 +15,11 @@ class OdooPricing
         $max = config()->integer('odoo-pricing.max_users');
         $fullUsers = max(config()->integer('odoo-pricing.full_users.min'), min($max, $fullUsers));
         $lightUsers = max(config()->integer('odoo-pricing.light_users.min'), min($max - $fullUsers, $lightUsers));
+
+        if ($fullUsers + $lightUsers < config()->integer('odoo-pricing.min_users')) {
+            $fullUsers = config()->integer('odoo-pricing.min_users');
+        }
+
         $users = $fullUsers + $lightUsers;
         $staging = config()->integer('odoo-pricing.staging');
 
@@ -68,7 +73,7 @@ class OdooPricing
      */
     public static function calculatorConfig(): array
     {
-        $keys = ['eur_to_chf', 'license', 'hosting', 'tiers', 'storage_gb_per_user', 'storage_gb_max', 'max_users', 'full_users', 'light_users', 'staging'];
+        $keys = ['eur_to_chf', 'license', 'hosting', 'tiers', 'storage_gb_per_user', 'storage_gb_max', 'max_users', 'min_users', 'full_users', 'light_users', 'staging'];
 
         return array_combine($keys, array_map(fn (string $key): mixed => config('odoo-pricing.'.$key), $keys));
     }

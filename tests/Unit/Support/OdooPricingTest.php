@@ -45,6 +45,8 @@ it('keeps the user counts inside the limits', function (int $full, int $light, i
     'too many full users' => [400, 0, 150, 0],
     'light users fill the rest' => [100, 90, 100, 50],
     'no room for light users' => [150, 10, 150, 0],
+    'only light users' => [0, 150, 0, 150],
+    'light users with no full user' => [0, 20, 0, 20],
 ])->group('unit', 'odoo-pricing');
 
 it('charges five gigabytes per user and stops at the shared hosting limit', function () {
