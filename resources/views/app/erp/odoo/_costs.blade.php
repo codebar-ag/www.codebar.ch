@@ -14,7 +14,10 @@
         @if($live)
             <x-ui.button type="button" variant="outline" size="sm" x-on:click="copy" x-bind:class="copyClass"
                          data-copy-button data-copy-done="{{ __($t.'copy.done') }}">
-                <x-icon.clipboard class="size-4"/>
+                <span class="grid">
+                    <x-icon.clipboard class="col-start-1 row-start-1 size-4" x-bind:class="idleIcon"/>
+                    <x-icon.clipboard-check class="invisible col-start-1 row-start-1 size-4" x-bind:class="doneIcon"/>
+                </span>
                 {{ __($t.'copy.button') }}
                 <span class="sr-only" aria-live="polite" x-text="copyStatus"></span>
             </x-ui.button>

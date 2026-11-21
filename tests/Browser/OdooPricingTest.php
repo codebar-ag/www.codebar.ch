@@ -31,7 +31,7 @@ it('corrects an invalid address before the calculator starts', function () {
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 
-it('copies the summary link and confirms it with a pulse', function () {
+it('copies the summary link and confirms it with a filled button and a check', function () {
     $page = visit('/erp/odoo/preise?full=3&light=2&billing=monthly');
 
     $page->script('() => {
@@ -44,8 +44,9 @@ it('copies the summary link and confirms it with a pulse', function () {
 
     $page->assertSeeIn('[data-copy-button]', 'Teilen')
         ->click('[data-copy-button]')
-        ->assertScript('document.querySelector("[data-copy-button]").classList.contains("animate-pulse")')
-        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button]")).animationName !== "none"')
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button]")).backgroundColor', 'rgb(80, 4, 114)')
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:first-child")).visibility', 'hidden')
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:last-child")).visibility', 'visible')
         ->assertSeeIn('[data-copy-button]', 'Teilen')
         ->assertScript('document.querySelector("[data-copy-button] [aria-live]").textContent', 'Link kopiert')
         ->assertScript($width, $before)

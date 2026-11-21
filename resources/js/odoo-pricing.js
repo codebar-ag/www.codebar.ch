@@ -158,11 +158,19 @@ export const odooPricing = () => ({
         clearTimeout(this.copyTimer)
         this.copyTimer = setTimeout(() => {
             this.copied = false
-        }, 2000)
+        }, 1500)
     },
 
     get copyClass() {
-        return { 'animate-pulse': this.copied }
+        return { 'bg-brand! text-white! scale-105': this.copied }
+    },
+
+    get idleIcon() {
+        return { invisible: this.copied }
+    },
+
+    get doneIcon() {
+        return { invisible: !this.copied }
     },
 
     get copyStatus() {

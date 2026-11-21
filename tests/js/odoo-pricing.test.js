@@ -494,27 +494,33 @@ describe('copying the summary link', () => {
         vi.useRealTimers()
     })
 
-    it('copies the summary link and confirms it for two seconds', async () => {
+    it('copies the summary link and confirms it for one and a half seconds', async () => {
         vi.useFakeTimers()
         const writeText = vi.fn(() => Promise.resolve())
         stubClipboard({ writeText })
         const component = mount({ ...copying, selection: JSON.stringify({ full: 25, light: 10, billing: 'yearly' }) })
 
-        expect(component.copyClass).toEqual({ 'animate-pulse': false })
+        expect(component.copyClass).toEqual({ 'bg-brand! text-white! scale-105': false })
+        expect(component.idleIcon).toEqual({ invisible: false })
+        expect(component.doneIcon).toEqual({ invisible: true })
         expect(component.copyStatus).toBe('')
 
         await component.copy()
 
         expect(writeText).toHaveBeenCalledWith(`${copying.summaryUrl}?full=25&light=10&billing=yearly`)
         expect(component.copied).toBe(true)
-        expect(component.copyClass).toEqual({ 'animate-pulse': true })
+        expect(component.copyClass).toEqual({ 'bg-brand! text-white! scale-105': true })
+        expect(component.idleIcon).toEqual({ invisible: true })
+        expect(component.doneIcon).toEqual({ invisible: false })
         expect(component.copyStatus).toBe('Link kopiert')
 
-        vi.advanceTimersByTime(1999)
+        vi.advanceTimersByTime(1499)
         expect(component.copied).toBe(true)
         vi.advanceTimersByTime(1)
         expect(component.copied).toBe(false)
-        expect(component.copyClass).toEqual({ 'animate-pulse': false })
+        expect(component.copyClass).toEqual({ 'bg-brand! text-white! scale-105': false })
+        expect(component.idleIcon).toEqual({ invisible: false })
+        expect(component.doneIcon).toEqual({ invisible: true })
         expect(component.copyStatus).toBe('')
     })
 
@@ -524,9 +530,9 @@ describe('copying the summary link', () => {
         const component = mount(copying)
 
         await component.copy()
-        vi.advanceTimersByTime(1500)
+        vi.advanceTimersByTime(1000)
         await component.copy()
-        vi.advanceTimersByTime(1500)
+        vi.advanceTimersByTime(1000)
 
         expect(component.copied).toBe(true)
         vi.advanceTimersByTime(500)
