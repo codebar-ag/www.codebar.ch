@@ -10,14 +10,25 @@ use App\Http\Controllers\Controller;
 use App\Models\OdooPriceSnapshot;
 use App\Seo\SchemaNodes;
 use App\Support\OdooPricing;
+use App\Support\OdooPricingSelection;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
 class ErpOdooPricingShowController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke(Request $request): View|RedirectResponse
     {
         OdooPriceSnapshot::apply();
+
+        $query = $request->query();
+        $requested = OdooPricingSelection::isRequested($query);
+        $selection = $requested ? OdooPricingSelection::fromQuery($query) : OdooPricingSelection::defaults();
+
+        if ($requested && ! $selection->matches($query)) {
+            return redirect()->to(localized_route('erp.systems.pricing.show', [...$query, ...$selection->query()]));
+        }
 
         $page = (new PageAction(locale: null, routeName: 'erp.systems.pricing.show'))->default();
 
@@ -28,10 +39,9 @@ class ErpOdooPricingShowController extends Controller
             'page' => $page,
             'pricing' => OdooPricing::calculatorConfig(),
             'labels' => trans('components.odoo_pricing.labels'),
-            'result' => OdooPricing::calculate(
-                config()->integer('odoo-pricing.full_users.default'),
-                config()->integer('odoo-pricing.light_users.default'),
-            ),
+            'selection' => $selection,
+            'result' => $selection->result(),
+            'summaryUrl' => localized_route('erp.systems.pricing.summary'),
             'faq' => $faq,
             'checkedAt' => Carbon::parse(config()->string('odoo-pricing.checked_at')),
             'schema' => $page instanceof PageDTO ? SchemaNodes::faqPage($page, array_values($faq)) : [],

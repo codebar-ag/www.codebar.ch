@@ -68,23 +68,95 @@ export const odooPricing = () => ({
     full: 10,
     light: 0,
     billing: 'yearly',
+    shareLabel: '',
+    shareTimer: null,
 
     init() {
+        const selection = JSON.parse(this.$root.dataset.selection ?? '{}')
+
         this.config = JSON.parse(this.$root.dataset.config)
         this.labels = JSON.parse(this.$root.dataset.labels)
-        this.full = this.config.full_users.default
-        this.light = this.config.light_users.default
+        this.full = selection.full ?? this.config.full_users.default
+        this.light = selection.light ?? this.config.light_users.default
+        this.billing = selection.billing === 'monthly' ? 'monthly' : 'yearly'
+        this.shareLabel = this.$root.dataset.shareLabel ?? ''
 
         this.openFaqFromHash()
 
-        this.$watch('full', () => this.paint())
-        this.$watch('light', () => this.paint())
-        this.$watch('billing', () => this.paint())
+        this.$watch('full', () => this.update())
+        this.$watch('light', () => this.update())
+        this.$watch('billing', () => this.update())
         this.paint()
+    },
+
+    destroy() {
+        clearTimeout(this.shareTimer)
     },
 
     get result() {
         return calculate(this.config, this.full, this.light, this.billing)
+    },
+
+    get query() {
+        const { full, light } = this.result
+
+        return { full, light, billing: this.isMonthly ? 'monthly' : 'yearly' }
+    },
+
+    withQuery(address) {
+        const url = new URL(address, window.location.href)
+
+        Object.entries(this.query).forEach(([key, value]) => url.searchParams.set(key, String(value)))
+
+        return url
+    },
+
+    get summaryUrl() {
+        return this.withQuery(this.$root.dataset.summaryUrl).toString()
+    },
+
+    update() {
+        this.paint()
+        window.history.replaceState(window.history.state, '', this.withQuery(window.location.href))
+    },
+
+    share() {
+        const url = this.summaryUrl
+
+        if (typeof navigator.share !== 'function') {
+            return this.copy(url)
+        }
+
+        return navigator.share({ title: this.$root.dataset.shareTitle, url }).catch((error) => {
+            if (error?.name !== 'AbortError') {
+                return this.copy(url)
+            }
+        })
+    },
+
+    copy(url) {
+        if (!navigator.clipboard) {
+            this.open(url)
+
+            return Promise.resolve()
+        }
+
+        return navigator.clipboard.writeText(url).then(
+            () => this.confirmCopied(),
+            () => this.open(url),
+        )
+    },
+
+    open(url) {
+        window.location.assign(url)
+    },
+
+    confirmCopied() {
+        this.shareLabel = this.$root.dataset.shareCopied
+        clearTimeout(this.shareTimer)
+        this.shareTimer = setTimeout(() => {
+            this.shareLabel = this.$root.dataset.shareLabel
+        }, 2000)
     },
 
     normalize(event) {
