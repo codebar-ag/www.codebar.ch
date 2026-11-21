@@ -31,29 +31,32 @@ it('corrects an invalid address before the calculator starts', function () {
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 
-it('shares the summary link through the share sheet', function () {
-    $page = visit('/erp/odoo/preise?full=25&light=10&billing=yearly');
-
-    $page->script('() => { window.shared = null; navigator.share = (data) => { window.shared = data; return Promise.resolve() } }');
-
-    $page->click('[data-share-button]')
-        ->assertScript('window.shared.url', route('de-ch.erp.systems.pricing.summary', ['full' => 25, 'light' => 10, 'billing' => 'yearly']))
-        ->assertScript('window.shared.title', 'Deine Odoo-Kosten')
-        ->assertNoJavaScriptErrors();
-})->group('odoo-pricing');
-
-it('copies the summary link where there is no share sheet', function () {
+it('copies the summary link and confirms it with a checkmark', function () {
     $page = visit('/erp/odoo/preise?full=3&light=2&billing=monthly');
 
     $page->script('() => {
         window.copied = null;
-        Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
         Object.defineProperty(navigator, "clipboard", { value: { writeText: (text) => { window.copied = text; return Promise.resolve() } }, configurable: true });
     }');
 
-    $page->click('[data-share-button]')
-        ->assertSeeIn('[data-share-button]', 'Link kopiert')
+    $page->assertSeeIn('[data-copy-button]', 'Link kopieren')
+        ->click('[data-copy-button]')
+        ->assertSeeIn('[data-copy-button]', 'Link kopiert')
         ->assertScript('window.copied', route('de-ch.erp.systems.pricing.summary', ['full' => 3, 'light' => 2, 'billing' => 'monthly']))
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:last-of-type")).display !== "none"')
+        ->assertNoJavaScriptErrors();
+})->group('odoo-pricing');
+
+it('shows the values from the address even when the page content is older', function () {
+    $page = visit('/erp/odoo/preise');
+
+    $page->script('() => {
+        history.replaceState(null, "", "/erp/odoo/preise?full=15&light=0&billing=yearly");
+        const root = document.querySelector("[x-data=odooPricing]");
+        root.replaceWith(root.cloneNode(true));
+    }');
+
+    $page->assertValue('#odoo-full', '15')
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 
@@ -87,3 +90,4 @@ it('shows only the yearly amounts on a phone', function () {
         ->resize(1280, 900)
         ->assertScript('getComputedStyle(document.querySelector("th.sm\\\\:table-cell")).display', 'table-cell');
 })->group('odoo-pricing');
+

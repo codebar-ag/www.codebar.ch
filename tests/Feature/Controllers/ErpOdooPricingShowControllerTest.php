@@ -187,14 +187,15 @@ it('redirects an invalid configuration in the address to its normalised form', f
     'unknown billing' => [['full' => 5, 'light' => 0, 'billing' => 'daily'], ['full' => 5, 'light' => 0, 'billing' => 'yearly']],
 ])->group('odoo-pricing');
 
-it('offers to share the configuration as a summary link', function () {
+it('offers to copy the summary link', function () {
     get(route('de-ch.erp.systems.pricing.show'))
         ->assertOk()
-        ->assertSee('data-share-button', false)
+        ->assertSee('data-copy-button', false)
         ->assertSee('data-summary-url="'.route('de-ch.erp.systems.pricing.summary').'"', false)
-        ->assertSee('data-share-title="Deine Odoo-Kosten"', false)
-        ->assertSee('data-share-copied="Link kopiert"', false)
-        ->assertSee('Teilen');
+        ->assertSee('data-copy-label="Link kopieren"', false)
+        ->assertSee('data-copy-done="Link kopiert"', false)
+        ->assertSee('style="display: none;" x-show="copied"', false)
+        ->assertDontSee('data-share', false);
 })->group('odoo-pricing');
 
 it('hides the monthly column on small screens without hiding the light row', function () {

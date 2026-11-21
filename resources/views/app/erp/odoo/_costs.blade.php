@@ -12,9 +12,10 @@
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h3 class="text-subheading font-semibold text-gray-900">{{ __($t.'total.title') }}</h3>
         @if($live)
-            <x-ui.button type="button" variant="outline" size="sm" x-on:click="share" data-share-button>
-                <x-icon.share class="size-4"/>
-                <span x-text="shareLabel">{{ __($t.'share.button') }}</span>
+            <x-ui.button type="button" variant="outline" size="sm" x-on:click="copy" data-copy-button>
+                <x-icon.link class="size-4" x-show="notCopied"/>
+                <x-icon.check class="size-4" x-show="copied" style="display: none"/>
+                <span x-text="copyLabel">{{ __($t.'copy.button') }}</span>
             </x-ui.button>
         @endif
     </div>

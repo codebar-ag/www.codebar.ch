@@ -389,9 +389,9 @@ return [
             'body' => 'Wir zeigen dir Odoo gerne in einer Demo und besprechen mit dir, wie wir dein Projekt gemeinsam umsetzen. Lass uns sprechen.',
             'button' => 'Kontakt aufnehmen',
         ],
-        'share' => [
-            'button' => 'Teilen',
-            'copied' => 'Link kopiert',
+        'copy' => [
+            'button' => 'Link kopieren',
+            'done' => 'Link kopiert',
         ],
         'report' => [
             'title' => 'Deine Odoo-Kosten',
