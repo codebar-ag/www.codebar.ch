@@ -161,12 +161,12 @@ export const odooPricing = () => ({
         }, 2000)
     },
 
-    get idleClass() {
-        return { invisible: this.copied }
+    get copyClass() {
+        return { 'animate-pulse': this.copied }
     },
 
-    get doneClass() {
-        return { invisible: !this.copied }
+    get copyStatus() {
+        return this.copied ? this.$root.querySelector('[data-copy-done]')?.dataset.copyDone ?? '' : ''
     },
 
     normalize(event) {

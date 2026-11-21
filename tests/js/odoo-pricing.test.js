@@ -32,6 +32,7 @@ function mount(dataset = {}) {
     root.dataset.config = JSON.stringify(fixture.config)
     root.dataset.labels = JSON.stringify(labels)
     Object.assign(root.dataset, dataset)
+    root.insertAdjacentHTML('beforeend', '<button data-copy-button data-copy-done="Link kopiert"></button>')
 
     component.$root = root
     component.$watch = () => {}
@@ -499,21 +500,22 @@ describe('copying the summary link', () => {
         stubClipboard({ writeText })
         const component = mount({ ...copying, selection: JSON.stringify({ full: 25, light: 10, billing: 'yearly' }) })
 
-        expect(component.idleClass).toEqual({ invisible: false })
-        expect(component.doneClass).toEqual({ invisible: true })
+        expect(component.copyClass).toEqual({ 'animate-pulse': false })
+        expect(component.copyStatus).toBe('')
 
         await component.copy()
 
         expect(writeText).toHaveBeenCalledWith(`${copying.summaryUrl}?full=25&light=10&billing=yearly`)
         expect(component.copied).toBe(true)
-        expect(component.idleClass).toEqual({ invisible: true })
-        expect(component.doneClass).toEqual({ invisible: false })
+        expect(component.copyClass).toEqual({ 'animate-pulse': true })
+        expect(component.copyStatus).toBe('Link kopiert')
 
         vi.advanceTimersByTime(1999)
         expect(component.copied).toBe(true)
         vi.advanceTimersByTime(1)
         expect(component.copied).toBe(false)
-        expect(component.idleClass).toEqual({ invisible: false })
+        expect(component.copyClass).toEqual({ 'animate-pulse': false })
+        expect(component.copyStatus).toBe('')
     })
 
     it('restarts the confirmation when copied twice', async () => {

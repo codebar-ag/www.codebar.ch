@@ -12,17 +12,11 @@
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h3 class="text-subheading font-semibold text-gray-900">{{ __($t.'total.title') }}</h3>
         @if($live)
-            <x-ui.button type="button" variant="outline" size="sm" x-on:click="copy" data-copy-button>
-                <span class="grid">
-                    <span class="col-start-1 row-start-1 inline-flex items-center justify-center gap-2" x-bind:class="idleClass" data-copy-idle>
-                        <x-icon.share class="size-4"/>
-                        {{ __($t.'copy.button') }}
-                    </span>
-                    <span class="invisible col-start-1 row-start-1 inline-flex items-center justify-center gap-2" x-bind:class="doneClass" aria-live="polite" data-copy-done>
-                        <x-icon.check class="size-4"/>
-                        {{ __($t.'copy.done') }}
-                    </span>
-                </span>
+            <x-ui.button type="button" variant="outline" size="sm" x-on:click="copy" x-bind:class="copyClass"
+                         data-copy-button data-copy-done="{{ __($t.'copy.done') }}">
+                <x-icon.clipboard class="size-4"/>
+                {{ __($t.'copy.button') }}
+                <span class="sr-only" aria-live="polite" x-text="copyStatus"></span>
             </x-ui.button>
         @endif
     </div>
