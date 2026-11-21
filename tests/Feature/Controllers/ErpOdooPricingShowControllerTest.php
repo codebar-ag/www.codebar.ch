@@ -157,3 +157,57 @@ it('keeps both languages complete', function () {
 
     expect($flatten('en_CH'))->toBe($flatten('de_CH'));
 })->group('odoo-pricing');
+
+it('keeps the plain address when no configuration is asked for', function () {
+    get(route('de-ch.erp.systems.pricing.show', ['utm_source' => 'mail']))
+        ->assertOk()
+        ->assertSee('data-selection="{&quot;full&quot;:10,&quot;light&quot;:0,&quot;billing&quot;:&quot;yearly&quot;}"', false);
+})->group('odoo-pricing');
+
+it('starts the calculator from the configuration in the address', function () {
+    get(route('de-ch.erp.systems.pricing.show', ['full' => 25, 'light' => 10, 'billing' => 'monthly']))
+        ->assertOk()
+        ->assertSee('data-selection="{&quot;full&quot;:25,&quot;light&quot;:10,&quot;billing&quot;:&quot;monthly&quot;}"', false)
+        ->assertSee('id="odoo-full" inputmode="numeric" data-kind="full"', false)
+        ->assertSee('value="25"', false)
+        ->assertSee('value="10"', false)
+        ->assertSee('x-bind:aria-pressed="isMonthly" aria-pressed="true"', false)
+        ->assertSee('x-bind:aria-pressed="isYearly" aria-pressed="false"', false)
+        ->assertSee("CHF 20'058.00")
+        ->assertSee('Sie gelten bei monatlicher Abrechnung.');
+})->group('odoo-pricing');
+
+it('redirects an invalid configuration in the address to its normalised form', function (array $query, array $expected) {
+    get(route('de-ch.erp.systems.pricing.show', $query))
+        ->assertRedirect(route('de-ch.erp.systems.pricing.show', $expected));
+})->with([
+    'partial' => [['light' => 4], ['light' => 4, 'full' => 10, 'billing' => 'yearly']],
+    'text' => [['full' => 'abc', 'light' => 0, 'billing' => 'yearly'], ['full' => 10, 'light' => 0, 'billing' => 'yearly']],
+    'above maximum' => [['full' => 151, 'light' => 0, 'billing' => 'yearly'], ['full' => 150, 'light' => 0, 'billing' => 'yearly']],
+    'unknown billing' => [['full' => 5, 'light' => 0, 'billing' => 'daily'], ['full' => 5, 'light' => 0, 'billing' => 'yearly']],
+])->group('odoo-pricing');
+
+it('offers to share the configuration as a summary link', function () {
+    get(route('de-ch.erp.systems.pricing.show'))
+        ->assertOk()
+        ->assertSee('data-share-button', false)
+        ->assertSee('data-summary-url="'.route('de-ch.erp.systems.pricing.summary').'"', false)
+        ->assertSee('data-share-title="Deine Odoo-Kosten"', false)
+        ->assertSee('data-share-copied="Link kopiert"', false)
+        ->assertSee('Teilen');
+})->group('odoo-pricing');
+
+it('hides the monthly column on small screens without hiding the light row', function () {
+    $html = (string) get(route('de-ch.erp.systems.pricing.show'))->assertOk()->getContent();
+
+    expect(substr_count($html, 'hidden sm:table-cell'))->toBe(9)
+        ->and($html)->toContain('x-ref="lightRow" class="invisible"');
+})->group('odoo-pricing');
+
+it('paints the cost split without a generated width class', function () {
+    get(route('de-ch.erp.systems.pricing.show'))
+        ->assertOk()
+        ->assertSee('style="width: 87%"', false)
+        ->assertSee('style="width: 13%"', false)
+        ->assertDontSee('w-[87%]', false);
+})->group('odoo-pricing');

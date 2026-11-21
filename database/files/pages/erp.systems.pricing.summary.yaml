@@ -1,0 +1,9 @@
+key: erp.systems.pricing.summary
+robots: noindex,follow
+image: images/pages/erp.systems.pricing.show.svg
+title:
+  de_CH: 'Deine Odoo-Kosten'
+  en_CH: 'Your Odoo costs'
+description:
+  de_CH: 'Die laufenden Kosten für Odoo: Lizenzen und Hosting im Überblick.'
+  en_CH: 'The running costs of Odoo: licences and hosting at a glance.'

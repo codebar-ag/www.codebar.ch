@@ -389,5 +389,22 @@ return [
             'body' => 'Wir zeigen dir Odoo gerne in einer Demo und besprechen mit dir, wie wir dein Projekt gemeinsam umsetzen. Lass uns sprechen.',
             'button' => 'Kontakt aufnehmen',
         ],
+        'share' => [
+            'button' => 'Teilen',
+            'copied' => 'Link kopiert',
+        ],
+        'report' => [
+            'title' => 'Deine Odoo-Kosten',
+            'intro' => 'Berechnet für :users bei :billing.',
+            'billing_yearly' => 'jährlicher Abrechnung',
+            'billing_monthly' => 'monatlicher Abrechnung',
+            'full' => '{1} 1 Benutzer mit Vollzugriff|[0,*] :count Benutzer mit Vollzugriff',
+            'light' => '{1} 1 Light-Benutzer|[0,*] :count Light-Benutzer',
+            'and' => 'und',
+            'description' => ':users: :total pro Jahr.',
+            'adjust' => 'Konfiguration anpassen',
+            'cta_title' => 'Fragen zu deinem Odoo?',
+            'cta_body' => 'Wir gehen die Zahlen gerne mit dir durch. Lass uns sprechen.',
+        ],
     ],
 ];

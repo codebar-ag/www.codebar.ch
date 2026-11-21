@@ -389,5 +389,22 @@ return [
             'body' => 'We are happy to show you Odoo in a demo and to discuss how we can deliver your project together. Let us talk.',
             'button' => 'Get in touch',
         ],
+        'share' => [
+            'button' => 'Share',
+            'copied' => 'Link copied',
+        ],
+        'report' => [
+            'title' => 'Your Odoo costs',
+            'intro' => 'Calculated for :users with :billing.',
+            'billing_yearly' => 'yearly billing',
+            'billing_monthly' => 'monthly billing',
+            'full' => '{1} 1 full-access user|[0,*] :count full-access users',
+            'light' => '{1} 1 light user|[0,*] :count light users',
+            'and' => 'and',
+            'description' => ':users: :total per year.',
+            'adjust' => 'Adjust configuration',
+            'cta_title' => 'Questions about your Odoo?',
+            'cta_body' => 'We are happy to go through the figures with you. Let us talk.',
+        ],
     ],
 ];

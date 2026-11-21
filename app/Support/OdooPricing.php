@@ -78,6 +78,16 @@ class OdooPricing
         return array_combine($keys, array_map(fn (string $key): mixed => config('odoo-pricing.'.$key), $keys));
     }
 
+    public static function headline(int $fullUsers, int $lightUsers): string
+    {
+        $parts = array_filter([
+            $fullUsers > 0 ? trans_choice('components.odoo_pricing.report.full', $fullUsers) : null,
+            $lightUsers > 0 ? trans_choice('components.odoo_pricing.report.light', $lightUsers) : null,
+        ]);
+
+        return implode(' '.__('components.odoo_pricing.report.and').' ', $parts);
+    }
+
     public static function format(int $cents): string
     {
         return 'CHF '.number_format($cents / 100, 2, '.', "'");

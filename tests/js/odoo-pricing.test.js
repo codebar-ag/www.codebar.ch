@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { calculate, formatChf, odooPricing } from '../../resources/js/odoo-pricing.js'
 import fixture from '../Fixtures/odoo-pricing.json'
@@ -25,12 +25,13 @@ function range(min, max) {
     return element
 }
 
-function mount() {
+function mount(dataset = {}) {
     const component = odooPricing()
     const root = document.createElement('div')
 
     root.dataset.config = JSON.stringify(fixture.config)
     root.dataset.labels = JSON.stringify(labels)
+    Object.assign(root.dataset, dataset)
 
     component.$root = root
     component.$watch = () => {}
@@ -319,5 +320,185 @@ describe('the odoo price calculator component', () => {
 
         link.dataset.faq = 'missing'
         expect(() => component.openFaq({ currentTarget: link })).not.toThrow()
+    })
+})
+
+const sharing = {
+    summaryUrl: 'https://www.codebar.ch/erp/odoo/preise/zusammenfassung',
+    shareTitle: 'Deine Odoo-Kosten',
+    shareLabel: 'Teilen',
+    shareCopied: 'Link kopiert',
+}
+
+describe('the odoo price calculator address', () => {
+    beforeEach(() => {
+        window.history.replaceState(null, '', '/erp/odoo/preise')
+    })
+
+    it('starts from the configuration the server read from the address', () => {
+        const component = mount({ selection: JSON.stringify({ full: 25, light: 10, billing: 'monthly' }) })
+
+        expect(component.full).toBe(25)
+        expect(component.light).toBe(10)
+        expect(component.billing).toBe('monthly')
+        expect(component.isMonthly).toBe(true)
+    })
+
+    it('falls back to the defaults without a configuration', () => {
+        const component = mount()
+
+        expect(component.full).toBe(fixture.config.full_users.default)
+        expect(component.light).toBe(fixture.config.light_users.default)
+        expect(component.billing).toBe('yearly')
+    })
+
+    it('treats an unknown billing period from the server as yearly', () => {
+        expect(mount({ selection: JSON.stringify({ full: 3, light: 0, billing: 'weekly' }) }).billing).toBe('yearly')
+    })
+
+    it('leaves the address alone until something changes', () => {
+        mount({ selection: JSON.stringify({ full: 25, light: 10, billing: 'yearly' }) })
+
+        expect(window.location.search).toBe('')
+    })
+
+    it('writes every change into the address without a new history entry', () => {
+        const component = mount()
+        const length = window.history.length
+
+        component.full = 25
+        component.light = 10
+        component.billing = 'monthly'
+        component.update()
+
+        expect(window.location.search).toBe('?full=25&light=10&billing=monthly')
+        expect(window.history.length).toBe(length)
+    })
+
+    it('keeps other parameters and the anchor in the address', () => {
+        window.history.replaceState(null, '', '/erp/odoo/preise?utm_source=mail#fragen')
+        const component = mount()
+
+        component.full = 12
+        component.update()
+
+        expect(window.location.search).toBe('?utm_source=mail&full=12&light=0&billing=yearly')
+        expect(window.location.hash).toBe('#fragen')
+    })
+
+    it('writes the corrected values, not what was typed', () => {
+        const component = mount()
+
+        component.full = 900
+        component.light = -4
+        component.update()
+
+        expect(window.location.search).toBe('?full=150&light=0&billing=yearly')
+    })
+
+    it('builds the summary link from the current configuration', () => {
+        const component = mount(sharing)
+
+        component.full = 25
+        component.light = 10
+
+        expect(component.summaryUrl).toBe(`${sharing.summaryUrl}?full=25&light=10&billing=yearly`)
+    })
+})
+
+describe('sharing the odoo configuration', () => {
+    const original = { share: navigator.share, clipboard: navigator.clipboard }
+
+    function stubNavigator(values) {
+        Object.entries(values).forEach(([key, value]) => {
+            Object.defineProperty(navigator, key, { value, configurable: true, writable: true })
+        })
+    }
+
+    afterEach(() => {
+        stubNavigator(original)
+        vi.useRealTimers()
+    })
+
+    it('opens the share sheet with the summary link where the device has one', async () => {
+        const share = vi.fn(() => Promise.resolve())
+        stubNavigator({ share })
+        const component = mount({ ...sharing, selection: JSON.stringify({ full: 25, light: 10, billing: 'yearly' }) })
+
+        await component.share()
+
+        expect(share).toHaveBeenCalledWith({
+            title: 'Deine Odoo-Kosten',
+            url: `${sharing.summaryUrl}?full=25&light=10&billing=yearly`,
+        })
+    })
+
+    it('does nothing more when the share sheet is closed', async () => {
+        const writeText = vi.fn(() => Promise.resolve())
+        stubNavigator({ share: () => Promise.reject(Object.assign(new Error('closed'), { name: 'AbortError' })), clipboard: { writeText } })
+        const component = mount(sharing)
+
+        await component.share()
+
+        expect(writeText).not.toHaveBeenCalled()
+        expect(component.shareLabel).toBe('Teilen')
+    })
+
+    it('copies the link when the share sheet fails', async () => {
+        const writeText = vi.fn(() => Promise.resolve())
+        stubNavigator({ share: () => Promise.reject(Object.assign(new Error('denied'), { name: 'NotAllowedError' })), clipboard: { writeText } })
+        const component = mount(sharing)
+
+        await component.share()
+
+        expect(writeText).toHaveBeenCalledWith(`${sharing.summaryUrl}?full=10&light=0&billing=yearly`)
+        expect(component.shareLabel).toBe('Link kopiert')
+    })
+
+    it('copies the link without a share sheet and resets the label after two seconds', async () => {
+        vi.useFakeTimers()
+        const writeText = vi.fn(() => Promise.resolve())
+        stubNavigator({ share: undefined, clipboard: { writeText } })
+        const component = mount(sharing)
+
+        await component.share()
+
+        expect(component.shareLabel).toBe('Link kopiert')
+        vi.advanceTimersByTime(1999)
+        expect(component.shareLabel).toBe('Link kopiert')
+        vi.advanceTimersByTime(1)
+        expect(component.shareLabel).toBe('Teilen')
+    })
+
+    it('opens the summary when the link cannot be copied', async () => {
+        stubNavigator({ share: undefined, clipboard: { writeText: () => Promise.reject(new Error('blocked')) } })
+        const component = mount(sharing)
+        component.open = vi.fn()
+
+        await component.share()
+
+        expect(component.open).toHaveBeenCalledWith(`${sharing.summaryUrl}?full=10&light=0&billing=yearly`)
+        expect(component.shareLabel).toBe('Teilen')
+    })
+
+    it('opens the summary when there is no clipboard at all', async () => {
+        stubNavigator({ share: undefined, clipboard: undefined })
+        const component = mount(sharing)
+        component.open = vi.fn()
+
+        await component.share()
+
+        expect(component.open).toHaveBeenCalledOnce()
+    })
+
+    it('stops the label timer when the component goes away', () => {
+        vi.useFakeTimers()
+        const component = mount(sharing)
+
+        component.confirmCopied()
+        component.destroy()
+        vi.advanceTimersByTime(5000)
+
+        expect(component.shareLabel).toBe('Link kopiert')
     })
 })

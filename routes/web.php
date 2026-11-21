@@ -11,6 +11,7 @@ use App\Http\Controllers\Contact\ContactIndexController;
 use App\Http\Controllers\CoWorking\CoWorkingIndexController;
 use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Erp\ErpOdooPricingShowController;
+use App\Http\Controllers\Erp\ErpOdooPricingSummaryController;
 use App\Http\Controllers\Erp\ErpRedirectController;
 use App\Http\Controllers\Jobs\ApplicationAutosaveController;
 use App\Http\Controllers\Jobs\ApplicationFileDestroyController;
@@ -78,6 +79,7 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     Route::get('services/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
 
     Route::get('erp/odoo/pricing', ErpOdooPricingShowController::class)->name('erp.systems.pricing.show');
+    Route::get('erp/odoo/pricing/summary', ErpOdooPricingSummaryController::class)->name('erp.systems.pricing.summary');
 
     Route::get('products', ProductsIndexController::class)->name('products.index');
     Route::get('products/{locale}/{product}', ProductsShowController::class)->whereIn('locale', $locales)->name('products.show');
@@ -130,6 +132,7 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::get('dienstleistungen/{locale}/{service}', ServicesShowController::class)->whereIn('locale', $locales)->name('services.show');
 
     Route::get('erp/odoo/preise', ErpOdooPricingShowController::class)->name('erp.systems.pricing.show');
+    Route::get('erp/odoo/preise/zusammenfassung', ErpOdooPricingSummaryController::class)->name('erp.systems.pricing.summary');
 
     Route::get('produkte', ProductsIndexController::class)->name('products.index');
     Route::get('produkte/{locale}/{product}', ProductsShowController::class)->whereIn('locale', $locales)->name('products.show');
