@@ -91,3 +91,29 @@ it('shows only the yearly amounts on a phone', function () {
         ->assertScript('getComputedStyle(document.querySelector("th.sm\\\\:table-cell")).display', 'table-cell');
 })->group('odoo-pricing');
 
+it('keeps every column in place when the amounts grow', function (string $path, int $width) {
+    $measure = 'JSON.stringify([...document.querySelectorAll("main thead th, main tfoot td, main .sm\\\\:grid-cols-3 > span")].map((cell) => { const box = cell.getBoundingClientRect(); return [Math.round(box.left), Math.round(box.width)] }))';
+
+    $small = visit($path.'?full=1&light=0&billing=yearly')->resize($width, 900)->script($measure);
+    $large = visit($path.'?full=75&light=75&billing=monthly')->resize($width, 900)->script($measure);
+
+    expect(is_string($small) && strlen($small) > 2)->toBeTrue()
+        ->and($large)->toBe($small);
+})->with([
+    'calculator desktop' => ['/erp/odoo/preise', 1280],
+    'calculator phone' => ['/erp/odoo/preise', 375],
+    'summary desktop' => ['/erp/odoo/preise/zusammenfassung', 1280],
+    'summary phone' => ['/erp/odoo/preise/zusammenfassung', 375],
+])->group('odoo-pricing');
+
+it('keeps the columns in place while the calculator changes', function () {
+    $measure = 'JSON.stringify([...document.querySelectorAll("main thead th")].map((cell) => Math.round(cell.getBoundingClientRect().left)))';
+
+    $page = visit('/erp/odoo/preise?full=1&light=0&billing=yearly')->resize(1280, 900);
+    $before = $page->script($measure);
+
+    $page->script('() => { const input = document.querySelector("#odoo-full"); input.value = "150"; input.dispatchEvent(new Event("input", { bubbles: true })); input.dispatchEvent(new Event("change", { bubbles: true })) }');
+    $page->click('Monatlich')->assertValue('#odoo-full', '150');
+
+    expect($page->script($measure))->toBe($before);
+})->group('odoo-pricing');
