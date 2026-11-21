@@ -390,7 +390,7 @@ return [
             'button' => 'Kontakt aufnehmen',
         ],
         'copy' => [
-            'button' => 'Link kopieren',
+            'button' => 'Teilen',
             'done' => 'Link kopiert',
         ],
         'report' => [

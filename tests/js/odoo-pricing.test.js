@@ -338,8 +338,6 @@ describe('the odoo price calculator component', () => {
 
 const copying = {
     summaryUrl: 'https://www.codebar.ch/erp/odoo/preise/zusammenfassung',
-    copyLabel: 'Link kopieren',
-    copyDone: 'Link kopiert',
 }
 
 describe('reading the configuration from the address', () => {
@@ -501,21 +499,21 @@ describe('copying the summary link', () => {
         stubClipboard({ writeText })
         const component = mount({ ...copying, selection: JSON.stringify({ full: 25, light: 10, billing: 'yearly' }) })
 
-        expect(component.copyLabel).toBe('Link kopieren')
-        expect(component.notCopied).toBe(true)
+        expect(component.idleClass).toEqual({ invisible: false })
+        expect(component.doneClass).toEqual({ invisible: true })
 
         await component.copy()
 
         expect(writeText).toHaveBeenCalledWith(`${copying.summaryUrl}?full=25&light=10&billing=yearly`)
         expect(component.copied).toBe(true)
-        expect(component.notCopied).toBe(false)
-        expect(component.copyLabel).toBe('Link kopiert')
+        expect(component.idleClass).toEqual({ invisible: true })
+        expect(component.doneClass).toEqual({ invisible: false })
 
         vi.advanceTimersByTime(1999)
         expect(component.copied).toBe(true)
         vi.advanceTimersByTime(1)
         expect(component.copied).toBe(false)
-        expect(component.copyLabel).toBe('Link kopieren')
+        expect(component.idleClass).toEqual({ invisible: false })
     })
 
     it('restarts the confirmation when copied twice', async () => {
@@ -562,6 +560,6 @@ describe('copying the summary link', () => {
         component.destroy()
         vi.advanceTimersByTime(5000)
 
-        expect(component.copyLabel).toBe('Link kopiert')
+        expect(component.copied).toBe(true)
     })
 })

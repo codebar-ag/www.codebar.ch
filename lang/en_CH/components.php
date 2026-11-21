@@ -390,7 +390,7 @@ return [
             'button' => 'Get in touch',
         ],
         'copy' => [
-            'button' => 'Copy link',
+            'button' => 'Share',
             'done' => 'Link copied',
         ],
         'report' => [

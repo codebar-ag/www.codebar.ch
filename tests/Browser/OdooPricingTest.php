@@ -39,11 +39,17 @@ it('copies the summary link and confirms it with a checkmark', function () {
         Object.defineProperty(navigator, "clipboard", { value: { writeText: (text) => { window.copied = text; return Promise.resolve() } }, configurable: true });
     }');
 
-    $page->assertSeeIn('[data-copy-button]', 'Link kopieren')
+    $width = 'Math.round(document.querySelector("[data-copy-button]").getBoundingClientRect().width)';
+    $before = $page->script('() => '.$width);
+
+    $page->assertScript('document.querySelector("[data-copy-done]").classList.contains("invisible")')
+        ->assertSeeIn('[data-copy-idle]', 'Teilen')
         ->click('[data-copy-button]')
-        ->assertSeeIn('[data-copy-button]', 'Link kopiert')
+        ->assertScript('document.querySelector("[data-copy-idle]").classList.contains("invisible")')
+        ->assertScript('document.querySelector("[data-copy-done]").classList.contains("invisible")', false)
+        ->assertSeeIn('[data-copy-done]', 'Link kopiert')
+        ->assertScript($width, $before)
         ->assertScript('window.copied', route('de-ch.erp.systems.pricing.summary', ['full' => 3, 'light' => 2, 'billing' => 'monthly']))
-        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:last-of-type")).display !== "none"')
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 

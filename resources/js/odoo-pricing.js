@@ -82,7 +82,6 @@ export const odooPricing = () => ({
     light: 0,
     billing: 'yearly',
     copied: false,
-    copyLabel: '',
     copyTimer: null,
 
     init() {
@@ -94,7 +93,6 @@ export const odooPricing = () => ({
         this.full = address.full ?? server.full ?? this.config.full_users.default
         this.light = address.light ?? server.light ?? this.config.light_users.default
         this.billing = (address.billing ?? server.billing) === 'monthly' ? 'monthly' : 'yearly'
-        this.copyLabel = this.$root.dataset.copyLabel ?? ''
         this.settle('full')
 
         this.openFaqFromHash()
@@ -157,16 +155,18 @@ export const odooPricing = () => ({
 
     confirmCopied() {
         this.copied = true
-        this.copyLabel = this.$root.dataset.copyDone
         clearTimeout(this.copyTimer)
         this.copyTimer = setTimeout(() => {
             this.copied = false
-            this.copyLabel = this.$root.dataset.copyLabel
         }, 2000)
     },
 
-    get notCopied() {
-        return !this.copied
+    get idleClass() {
+        return { invisible: this.copied }
+    },
+
+    get doneClass() {
+        return { invisible: !this.copied }
     },
 
     normalize(event) {
