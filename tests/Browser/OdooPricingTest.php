@@ -140,3 +140,22 @@ it('moves nothing while the calculator changes', function (int $width) {
     'desktop' => [1280],
     'phone' => [390],
 ])->group('odoo-pricing');
+
+it('lines up the licence and hosting tables column by column', function (string $path, int $width) {
+    visit($path)
+        ->resize($width, 900)
+        ->assertScript('document.querySelectorAll("main table").length', 2)
+        ->assertScript('(() => {
+            const columns = [...document.querySelectorAll("main table")].map((table) => [...table.querySelectorAll("thead th")].map((cell) => {
+                const box = cell.getBoundingClientRect();
+                return `${Math.round(box.left)}:${Math.round(box.width)}`;
+            }).join(" "));
+            return columns[0] === columns[1];
+        })()');
+})->with([
+    'calculator desktop' => ['/erp/odoo/preise?full=10&light=0&billing=yearly', 1280],
+    'calculator narrow desktop' => ['/erp/odoo/preise?full=150&light=0&billing=monthly', 1055],
+    'calculator phone' => ['/erp/odoo/preise?full=150&light=0&billing=monthly', 390],
+    'summary desktop' => ['/erp/odoo/preise/zusammenfassung?full=25&light=10&billing=yearly', 1280],
+    'summary phone' => ['/erp/odoo/preise/zusammenfassung?full=25&light=10&billing=yearly', 390],
+])->group('odoo-pricing');
