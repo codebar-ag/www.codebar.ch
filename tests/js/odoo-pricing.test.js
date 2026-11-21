@@ -32,6 +32,7 @@ function mount(dataset = {}) {
     root.dataset.config = JSON.stringify(fixture.config)
     root.dataset.labels = JSON.stringify(labels)
     Object.assign(root.dataset, dataset)
+    root.insertAdjacentHTML('beforeend', '<button data-copy-button data-copy-done="Link kopiert"></button>')
 
     component.$root = root
     component.$watch = () => {}
@@ -39,6 +40,8 @@ function mount(dataset = {}) {
         fullRange: range(fixture.config.full_users.min, fixture.config.max_users),
         lightRange: range(fixture.config.light_users.min, fixture.config.max_users),
         lightRow: document.createElement('tr'),
+        storageHint: document.createElement('span'),
+        storageCapped: document.createElement('span'),
         licenseBar: document.createElement('div'),
         hostingBar: document.createElement('div'),
     }
@@ -279,9 +282,20 @@ describe('the odoo price calculator component', () => {
 
         expect(component.storageHint).toBe('5 GB pro Benutzer, also 50 GB × CHF 0.16')
 
+        expect(component.$refs.storageHint.classList.contains('invisible')).toBe(false)
+        expect(component.$refs.storageCapped.classList.contains('invisible')).toBe(true)
+
         component.full = 120
+        component.paint()
+
         expect(component.storageTitle).toBe('Speicherplatz 512 GB')
-        expect(component.storageHint).toBe('Höchstens 512 GB.')
+        expect(component.$refs.storageHint.classList.contains('invisible')).toBe(true)
+        expect(component.$refs.storageCapped.classList.contains('invisible')).toBe(false)
+
+        component.full = 10
+        component.paint()
+
+        expect(component.$refs.storageCapped.classList.contains('invisible')).toBe(true)
     })
 
     it('uses the singular for a single user', () => {
@@ -325,8 +339,6 @@ describe('the odoo price calculator component', () => {
 
 const copying = {
     summaryUrl: 'https://www.codebar.ch/erp/odoo/preise/zusammenfassung',
-    copyLabel: 'Link kopieren',
-    copyDone: 'Link kopiert',
 }
 
 describe('reading the configuration from the address', () => {
@@ -482,27 +494,34 @@ describe('copying the summary link', () => {
         vi.useRealTimers()
     })
 
-    it('copies the summary link and confirms it for two seconds', async () => {
+    it('copies the summary link and confirms it for one and a half seconds', async () => {
         vi.useFakeTimers()
         const writeText = vi.fn(() => Promise.resolve())
         stubClipboard({ writeText })
         const component = mount({ ...copying, selection: JSON.stringify({ full: 25, light: 10, billing: 'yearly' }) })
 
-        expect(component.copyLabel).toBe('Link kopieren')
-        expect(component.notCopied).toBe(true)
+        expect(component.copyClass).toEqual({ 'bg-brand! text-white! scale-105': false })
+        expect(component.idleIcon).toEqual({ invisible: false })
+        expect(component.doneIcon).toEqual({ invisible: true })
+        expect(component.copyStatus).toBe('')
 
         await component.copy()
 
         expect(writeText).toHaveBeenCalledWith(`${copying.summaryUrl}?full=25&light=10&billing=yearly`)
         expect(component.copied).toBe(true)
-        expect(component.notCopied).toBe(false)
-        expect(component.copyLabel).toBe('Link kopiert')
+        expect(component.copyClass).toEqual({ 'bg-brand! text-white! scale-105': true })
+        expect(component.idleIcon).toEqual({ invisible: true })
+        expect(component.doneIcon).toEqual({ invisible: false })
+        expect(component.copyStatus).toBe('Link kopiert')
 
-        vi.advanceTimersByTime(1999)
+        vi.advanceTimersByTime(1499)
         expect(component.copied).toBe(true)
         vi.advanceTimersByTime(1)
         expect(component.copied).toBe(false)
-        expect(component.copyLabel).toBe('Link kopieren')
+        expect(component.copyClass).toEqual({ 'bg-brand! text-white! scale-105': false })
+        expect(component.idleIcon).toEqual({ invisible: false })
+        expect(component.doneIcon).toEqual({ invisible: true })
+        expect(component.copyStatus).toBe('')
     })
 
     it('restarts the confirmation when copied twice', async () => {
@@ -511,9 +530,9 @@ describe('copying the summary link', () => {
         const component = mount(copying)
 
         await component.copy()
-        vi.advanceTimersByTime(1500)
+        vi.advanceTimersByTime(1000)
         await component.copy()
-        vi.advanceTimersByTime(1500)
+        vi.advanceTimersByTime(1000)
 
         expect(component.copied).toBe(true)
         vi.advanceTimersByTime(500)
@@ -549,6 +568,6 @@ describe('copying the summary link', () => {
         component.destroy()
         vi.advanceTimersByTime(5000)
 
-        expect(component.copyLabel).toBe('Link kopiert')
+        expect(component.copied).toBe(true)
     })
 })

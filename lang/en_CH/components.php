@@ -303,7 +303,7 @@ return [
             'operation_hint' => 'Sized for up to :count users and monitored around the clock.',
             'storage_title' => 'Storage :count GB',
             'storage_hint' => ':per GB per user, so :line',
-            'storage_capped' => 'At most :max GB are included. If you need more, we will work it out together with you.',
+            'storage_capped' => 'At most :max GB are included, more on request.',
         ],
         'total' => [
             'title' => 'Your running costs',
@@ -390,7 +390,7 @@ return [
             'button' => 'Get in touch',
         ],
         'copy' => [
-            'button' => 'Copy link',
+            'button' => 'Share',
             'done' => 'Link copied',
         ],
         'report' => [

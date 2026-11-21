@@ -31,7 +31,7 @@ it('corrects an invalid address before the calculator starts', function () {
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 
-it('copies the summary link and confirms it with a checkmark', function () {
+it('copies the summary link and confirms it with a filled button and a check', function () {
     $page = visit('/erp/odoo/preise?full=3&light=2&billing=monthly');
 
     $page->script('() => {
@@ -39,11 +39,18 @@ it('copies the summary link and confirms it with a checkmark', function () {
         Object.defineProperty(navigator, "clipboard", { value: { writeText: (text) => { window.copied = text; return Promise.resolve() } }, configurable: true });
     }');
 
-    $page->assertSeeIn('[data-copy-button]', 'Link kopieren')
+    $width = 'Math.round(document.querySelector("[data-copy-button]").getBoundingClientRect().width)';
+    $before = $page->script('() => '.$width);
+
+    $page->assertSeeIn('[data-copy-button]', 'Teilen')
         ->click('[data-copy-button]')
-        ->assertSeeIn('[data-copy-button]', 'Link kopiert')
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button]")).backgroundColor', 'rgb(80, 4, 114)')
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:first-child")).visibility', 'hidden')
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:last-child")).visibility', 'visible')
+        ->assertSeeIn('[data-copy-button]', 'Teilen')
+        ->assertScript('document.querySelector("[data-copy-button] [aria-live]").textContent', 'Link kopiert')
+        ->assertScript($width, $before)
         ->assertScript('window.copied', route('de-ch.erp.systems.pricing.summary', ['full' => 3, 'light' => 2, 'billing' => 'monthly']))
-        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:last-of-type")).display !== "none"')
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 
@@ -106,14 +113,56 @@ it('keeps every column in place when the amounts grow', function (string $path, 
     'summary phone' => ['/erp/odoo/preise/zusammenfassung', 375],
 ])->group('odoo-pricing');
 
-it('keeps the columns in place while the calculator changes', function () {
-    $measure = 'JSON.stringify([...document.querySelectorAll("main thead th")].map((cell) => Math.round(cell.getBoundingClientRect().left)))';
+it('moves nothing while the calculator changes', function (int $width) {
+    $page = visit('/erp/odoo/preise?full=1&light=0&billing=yearly')->resize($width, 900);
 
-    $page = visit('/erp/odoo/preise?full=1&light=0&billing=yearly')->resize(1280, 900);
-    $before = $page->script($measure);
+    $page->script('() => {
+        window.snapshot = () => [...document.querySelectorAll("[x-data=odooPricing] :is([x-text], dt, th, h3)")].map((element) => {
+            const box = element.getBoundingClientRect();
+            return [Math.round(box.left), Math.round(box.right), Math.round(box.top)];
+        });
+        window.baseline = window.snapshot();
+        window.moved = [];
+    }');
 
-    $page->script('() => { const input = document.querySelector("#odoo-full"); input.value = "150"; input.dispatchEvent(new Event("input", { bubbles: true })); input.dispatchEvent(new Event("change", { bubbles: true })) }');
-    $page->click('Monatlich')->assertValue('#odoo-full', '150');
+    foreach ([[9, 0], [10, 3], [99, 0], [100, 50], [150, 0]] as [$full, $light]) {
+        $page->script('() => {
+            for (const [ref, value] of [["fullRange", '.$full.'], ["lightRange", '.$light.']]) {
+                const range = document.querySelector(`[x-ref=${ref}]`);
+                range.value = value;
+                range.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+            window.snapshot().forEach(([left, right, top], index) => {
+                const [leftBefore, rightBefore, topBefore] = window.baseline[index];
+                if (top !== topBefore || (left !== leftBefore && right !== rightBefore)) {
+                    window.moved.push(`${index} at '.$full.'/'.$light.'`);
+                }
+            });
+        }');
+    }
 
-    expect($page->script($measure))->toBe($before);
-})->group('odoo-pricing');
+    $page->assertScript('window.baseline.length > 20')
+        ->assertScript('window.moved.join(", ")', '');
+})->with([
+    'desktop' => [1280],
+    'phone' => [390],
+])->group('odoo-pricing');
+
+it('lines up the licence and hosting tables column by column', function (string $path, int $width) {
+    visit($path)
+        ->resize($width, 900)
+        ->assertScript('document.querySelectorAll("main table").length', 2)
+        ->assertScript('(() => {
+            const columns = [...document.querySelectorAll("main table")].map((table) => [...table.querySelectorAll("thead th")].map((cell) => {
+                const box = cell.getBoundingClientRect();
+                return `${Math.round(box.left)}:${Math.round(box.width)}`;
+            }).join(" "));
+            return columns[0] === columns[1];
+        })()');
+})->with([
+    'calculator desktop' => ['/erp/odoo/preise?full=10&light=0&billing=yearly', 1280],
+    'calculator narrow desktop' => ['/erp/odoo/preise?full=150&light=0&billing=monthly', 1055],
+    'calculator phone' => ['/erp/odoo/preise?full=150&light=0&billing=monthly', 390],
+    'summary desktop' => ['/erp/odoo/preise/zusammenfassung?full=25&light=10&billing=yearly', 1280],
+    'summary phone' => ['/erp/odoo/preise/zusammenfassung?full=25&light=10&billing=yearly', 390],
+])->group('odoo-pricing');

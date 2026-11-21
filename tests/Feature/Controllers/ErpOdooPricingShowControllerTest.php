@@ -191,11 +191,11 @@ it('offers to copy the summary link', function () {
     get(route('de-ch.erp.systems.pricing.show'))
         ->assertOk()
         ->assertSee('data-copy-button', false)
-        ->assertSee('data-summary-url="'.route('de-ch.erp.systems.pricing.summary').'"', false)
-        ->assertSee('data-copy-label="Link kopieren"', false)
+        ->assertSee('x-bind:class="copyClass"', false)
         ->assertSee('data-copy-done="Link kopiert"', false)
-        ->assertSee('style="display: none;" x-show="copied"', false)
-        ->assertDontSee('data-share', false);
+        ->assertSee('data-summary-url="'.route('de-ch.erp.systems.pricing.summary').'"', false)
+        ->assertSee('<span class="sr-only" aria-live="polite" x-text="copyStatus"></span>', false)
+        ->assertSee('Teilen');
 })->group('odoo-pricing');
 
 it('hides the monthly column on small screens without hiding the light row', function () {
