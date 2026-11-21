@@ -98,12 +98,6 @@
                     </div>
                 @endforeach
 
-                <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 bg-surface px-6 py-4 text-base">
-                <span>{{ __($t.'summary.total') }} <span class="font-semibold text-gray-900" x-text="peopleLabel">{{ $result['users'] === 1 ? $label('user_one') : $label('users', ['count' => $result['users']]) }}</span></span>
-                <span class="text-muted">{{ __($t.'summary.storage') }} <span class="font-medium text-gray-800" x-text="storageLabel">{{ $label('gigabytes', ['count' => $result['storage_gb']]) }}</span></span>
-                <span class="text-muted">{{ __($t.'summary.tier') }} <span class="font-medium text-gray-800" x-text="tierLabel">{{ $label('tier', ['count' => $result['tier_up_to']]) }}</span></span>
-            </div>
-
                 <div class="border-t-2 border-t-brand bg-brand/5 p-6" role="status" aria-live="polite" aria-atomic="true">
                 <h3 class="text-subheading font-semibold text-gray-900">{{ __($t.'total.title') }}</h3>
 
@@ -142,6 +136,12 @@
                     </dl>
                 </div>
                 </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 bg-surface px-6 py-4 text-base">
+                <span>{{ __($t.'summary.total') }} <span class="font-semibold text-gray-900" x-text="peopleLabel">{{ $result['users'] === 1 ? $label('user_one') : $label('users', ['count' => $result['users']]) }}</span></span>
+                <span class="text-muted">{{ __($t.'summary.storage') }} <span class="font-medium text-gray-800" x-text="storageLabel">{{ $label('gigabytes', ['count' => $result['storage_gb']]) }}</span></span>
+                <span class="text-muted">{{ __($t.'summary.tier') }} <span class="font-medium text-gray-800" x-text="tierLabel">{{ $label('tier', ['count' => $result['tier_up_to']]) }}</span></span>
+            </div>
             </div>
 
             <x-layout.page-note>{{ __($t.'setup.note', ['max' => $max]) }}</x-layout.page-note>
