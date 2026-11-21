@@ -106,14 +106,37 @@ it('keeps every column in place when the amounts grow', function (string $path, 
     'summary phone' => ['/erp/odoo/preise/zusammenfassung', 375],
 ])->group('odoo-pricing');
 
-it('keeps the columns in place while the calculator changes', function () {
-    $measure = 'JSON.stringify([...document.querySelectorAll("main thead th")].map((cell) => Math.round(cell.getBoundingClientRect().left)))';
+it('moves nothing while the calculator changes', function (int $width) {
+    $page = visit('/erp/odoo/preise?full=1&light=0&billing=yearly')->resize($width, 900);
 
-    $page = visit('/erp/odoo/preise?full=1&light=0&billing=yearly')->resize(1280, 900);
-    $before = $page->script($measure);
+    $page->script('() => {
+        window.snapshot = () => [...document.querySelectorAll("[x-data=odooPricing] :is([x-text], dt, th, h3)")].map((element) => {
+            const box = element.getBoundingClientRect();
+            return [Math.round(box.left), Math.round(box.right), Math.round(box.top)];
+        });
+        window.baseline = window.snapshot();
+        window.moved = [];
+    }');
 
-    $page->script('() => { const input = document.querySelector("#odoo-full"); input.value = "150"; input.dispatchEvent(new Event("input", { bubbles: true })); input.dispatchEvent(new Event("change", { bubbles: true })) }');
-    $page->click('Monatlich')->assertValue('#odoo-full', '150');
+    foreach ([[9, 0], [10, 3], [99, 0], [100, 50], [150, 0]] as [$full, $light]) {
+        $page->script('() => {
+            for (const [ref, value] of [["fullRange", '.$full.'], ["lightRange", '.$light.']]) {
+                const range = document.querySelector(`[x-ref=${ref}]`);
+                range.value = value;
+                range.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+            window.snapshot().forEach(([left, right, top], index) => {
+                const [leftBefore, rightBefore, topBefore] = window.baseline[index];
+                if (top !== topBefore || (left !== leftBefore && right !== rightBefore)) {
+                    window.moved.push(`${index} at '.$full.'/'.$light.'`);
+                }
+            });
+        }');
+    }
 
-    expect($page->script($measure))->toBe($before);
-})->group('odoo-pricing');
+    $page->assertScript('window.baseline.length > 20')
+        ->assertScript('window.moved.join(", ")', '');
+})->with([
+    'desktop' => [1280],
+    'phone' => [390],
+])->group('odoo-pricing');

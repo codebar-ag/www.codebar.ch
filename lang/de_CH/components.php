@@ -303,7 +303,7 @@ return [
             'operation_hint' => 'Ausgelegt für bis :count Benutzer und rund um die Uhr überwacht.',
             'storage_title' => 'Speicherplatz :count GB',
             'storage_hint' => ':per GB pro Benutzer, also :line',
-            'storage_capped' => 'Eingerechnet sind höchstens :max GB. Brauchst du mehr, berechnen wir das gemeinsam mit dir.',
+            'storage_capped' => 'Eingerechnet sind höchstens :max GB, mehr auf Anfrage.',
         ],
         'total' => [
             'title' => 'Deine laufenden Kosten',

@@ -243,6 +243,8 @@ export const odooPricing = () => ({
         this.track(this.$refs.fullRange, result.full)
         this.track(this.$refs.lightRange, result.light)
         this.$refs.lightRow.classList.toggle('invisible', result.light === 0)
+        this.$refs.storageHint?.classList.toggle('invisible', result.storageCapped)
+        this.$refs.storageCapped?.classList.toggle('invisible', !result.storageCapped)
         this.$refs.licenseBar.style.width = `${share}%`
         this.$refs.hostingBar.style.width = `${100 - share}%`
     },
@@ -287,10 +289,6 @@ export const odooPricing = () => ({
     },
 
     get storageHint() {
-        if (this.result.storageCapped) {
-            return fill(this.labels.storage_capped, { max: this.config.storage_gb_max })
-        }
-
         return fill(this.labels.storage_hint, {
             per: this.config.storage_gb_per_user,
             line: `${this.storageLabel} × ${formatChf(this.result.storageUnit)}`,

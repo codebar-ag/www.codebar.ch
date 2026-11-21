@@ -41,14 +41,14 @@
             <div class="flex items-center justify-between gap-3 sm:justify-start">
                 <dt class="flex items-center gap-2">
                     <span class="size-3 rounded-full bg-brand" aria-hidden="true"></span>
-                    {{ __($t.'total.licenses') }} <span class="text-sm text-muted" x-text="licenseShare">{{ $licenseShare }} %</span>
+                    {{ __($t.'total.licenses') }} <span class="inline-block w-10 text-sm text-muted tabular-nums" x-text="licenseShare">{{ $licenseShare }} %</span>
                 </dt>
                 <dd class="font-semibold text-gray-900 tabular-nums" x-text="licenseYear">{{ $money($result['license_month'] * 12) }}</dd>
             </div>
             <div class="flex items-center justify-between gap-3 sm:justify-start">
                 <dt class="flex items-center gap-2">
                     <span class="size-3 rounded-full bg-brand/30" aria-hidden="true"></span>
-                    {{ __($t.'total.hosting') }} <span class="text-sm text-muted" x-text="hostingShare">{{ 100 - $licenseShare }} %</span>
+                    {{ __($t.'total.hosting') }} <span class="inline-block w-10 text-sm text-muted tabular-nums" x-text="hostingShare">{{ 100 - $licenseShare }} %</span>
                 </dt>
                 <dd class="font-semibold text-gray-900 tabular-nums" x-text="hostingYear">{{ $money($result['hosting_month'] * 12) }}</dd>
             </div>
@@ -58,6 +58,6 @@
 
 <div class="grid grid-cols-1 gap-x-6 gap-y-1 bg-surface px-6 py-4 text-base sm:grid-cols-3">
     <span>{{ __($t.'summary.total') }} <span class="font-semibold text-gray-900" x-text="peopleLabel">{{ $result['users'] === 1 ? $label('user_one') : $label('users', ['count' => $result['users']]) }}</span></span>
-    <span class="text-muted sm:text-center">{{ __($t.'summary.storage') }} <span class="font-medium text-gray-800" x-text="storageLabel">{{ $label('gigabytes', ['count' => $result['storage_gb']]) }}</span></span>
-    <span class="text-muted sm:text-right">{{ __($t.'summary.tier') }} <span class="font-medium text-gray-800" x-text="tierLabel">{{ $label('tier', ['count' => $result['tier_up_to']]) }}</span></span>
+    <span class="text-muted">{{ __($t.'summary.storage') }} <span class="font-medium text-gray-800" x-text="storageLabel">{{ $label('gigabytes', ['count' => $result['storage_gb']]) }}</span></span>
+    <span class="text-muted">{{ __($t.'summary.tier') }} <span class="font-medium text-gray-800" x-text="tierLabel">{{ $label('tier', ['count' => $result['tier_up_to']]) }}</span></span>
 </div>

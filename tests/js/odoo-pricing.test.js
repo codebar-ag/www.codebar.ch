@@ -39,6 +39,8 @@ function mount(dataset = {}) {
         fullRange: range(fixture.config.full_users.min, fixture.config.max_users),
         lightRange: range(fixture.config.light_users.min, fixture.config.max_users),
         lightRow: document.createElement('tr'),
+        storageHint: document.createElement('span'),
+        storageCapped: document.createElement('span'),
         licenseBar: document.createElement('div'),
         hostingBar: document.createElement('div'),
     }
@@ -279,9 +281,20 @@ describe('the odoo price calculator component', () => {
 
         expect(component.storageHint).toBe('5 GB pro Benutzer, also 50 GB × CHF 0.16')
 
+        expect(component.$refs.storageHint.classList.contains('invisible')).toBe(false)
+        expect(component.$refs.storageCapped.classList.contains('invisible')).toBe(true)
+
         component.full = 120
+        component.paint()
+
         expect(component.storageTitle).toBe('Speicherplatz 512 GB')
-        expect(component.storageHint).toBe('Höchstens 512 GB.')
+        expect(component.$refs.storageHint.classList.contains('invisible')).toBe(true)
+        expect(component.$refs.storageCapped.classList.contains('invisible')).toBe(false)
+
+        component.full = 10
+        component.paint()
+
+        expect(component.$refs.storageCapped.classList.contains('invisible')).toBe(true)
     })
 
     it('uses the singular for a single user', () => {

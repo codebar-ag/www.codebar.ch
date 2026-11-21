@@ -7,12 +7,11 @@
     $amount = 'py-3 pl-4 text-right align-top whitespace-nowrap tabular-nums';
     $month = 'hidden sm:table-cell';
     $live ??= false;
-    $storageHint = $result['storage_capped'] === 1
-        ? $label('storage_capped', ['max' => $pricing['storage_gb_max']])
-        : $label('storage_hint', [
-            'per' => $pricing['storage_gb_per_user'],
-            'line' => $label('gigabytes', ['count' => $result['storage_gb']]).' × '.$money($result['storage_unit']),
-        ]);
+    $capped = $result['storage_capped'] === 1;
+    $storageHint = $label('storage_hint', [
+        'per' => $pricing['storage_gb_per_user'],
+        'line' => $label('gigabytes', ['count' => $result['storage_gb']]).' × '.$money($result['storage_unit']),
+    ]);
 @endphp
 
 <x-layout.section>
@@ -109,7 +108,10 @@
                 <tr class="border-b border-border-soft">
                     <th scope="row" class="py-3 text-left font-medium text-gray-900">
                         <span x-text="storageTitle">{{ $label('storage_title', ['count' => $result['storage_gb']]) }}</span>
-                        <span class="block text-sm font-normal text-muted" x-text="storageHint">{{ $storageHint }}</span>
+                        <span class="grid text-sm font-normal text-muted">
+                            <span x-ref="storageHint" class="col-start-1 row-start-1 {{ $capped ? 'invisible' : '' }}" x-text="storageHint">{{ $storageHint }}</span>
+                            <span x-ref="storageCapped" class="col-start-1 row-start-1 {{ $capped ? '' : 'invisible' }}">{{ $label('storage_capped', ['max' => $pricing['storage_gb_max']]) }}</span>
+                        </span>
                     </th>
                     <td class="{{ $month }} {{ $amount }}" x-text="storageMonth">{{ $money($result['storage_month']) }}</td>
                     <td class="{{ $amount }}" x-text="storageYear">{{ $money($result['storage_month'] * 12) }}</td>
