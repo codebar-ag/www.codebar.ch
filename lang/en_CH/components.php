@@ -389,9 +389,9 @@ return [
             'body' => 'We are happy to show you Odoo in a demo and to discuss how we can deliver your project together. Let us talk.',
             'button' => 'Get in touch',
         ],
-        'share' => [
-            'button' => 'Share',
-            'copied' => 'Link copied',
+        'copy' => [
+            'button' => 'Copy link',
+            'done' => 'Link copied',
         ],
         'report' => [
             'title' => 'Your Odoo costs',

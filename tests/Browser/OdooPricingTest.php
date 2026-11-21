@@ -31,29 +31,32 @@ it('corrects an invalid address before the calculator starts', function () {
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 
-it('shares the summary link through the share sheet', function () {
-    $page = visit('/erp/odoo/preise?full=25&light=10&billing=yearly');
-
-    $page->script('() => { window.shared = null; navigator.share = (data) => { window.shared = data; return Promise.resolve() } }');
-
-    $page->click('[data-share-button]')
-        ->assertScript('window.shared.url', route('de-ch.erp.systems.pricing.summary', ['full' => 25, 'light' => 10, 'billing' => 'yearly']))
-        ->assertScript('window.shared.title', 'Deine Odoo-Kosten')
-        ->assertNoJavaScriptErrors();
-})->group('odoo-pricing');
-
-it('copies the summary link where there is no share sheet', function () {
+it('copies the summary link and confirms it with a checkmark', function () {
     $page = visit('/erp/odoo/preise?full=3&light=2&billing=monthly');
 
     $page->script('() => {
         window.copied = null;
-        Object.defineProperty(navigator, "share", { value: undefined, configurable: true });
         Object.defineProperty(navigator, "clipboard", { value: { writeText: (text) => { window.copied = text; return Promise.resolve() } }, configurable: true });
     }');
 
-    $page->click('[data-share-button]')
-        ->assertSeeIn('[data-share-button]', 'Link kopiert')
+    $page->assertSeeIn('[data-copy-button]', 'Link kopieren')
+        ->click('[data-copy-button]')
+        ->assertSeeIn('[data-copy-button]', 'Link kopiert')
         ->assertScript('window.copied', route('de-ch.erp.systems.pricing.summary', ['full' => 3, 'light' => 2, 'billing' => 'monthly']))
+        ->assertScript('getComputedStyle(document.querySelector("[data-copy-button] svg:last-of-type")).display !== "none"')
+        ->assertNoJavaScriptErrors();
+})->group('odoo-pricing');
+
+it('shows the values from the address even when the page content is older', function () {
+    $page = visit('/erp/odoo/preise');
+
+    $page->script('() => {
+        history.replaceState(null, "", "/erp/odoo/preise?full=15&light=0&billing=yearly");
+        const root = document.querySelector("[x-data=odooPricing]");
+        root.replaceWith(root.cloneNode(true));
+    }');
+
+    $page->assertValue('#odoo-full', '15')
         ->assertNoJavaScriptErrors();
 })->group('odoo-pricing');
 
@@ -86,4 +89,31 @@ it('shows only the yearly amounts on a phone', function () {
         ->assertScript('getComputedStyle(document.querySelector("th.sm\\\\:table-cell")).display', 'none')
         ->resize(1280, 900)
         ->assertScript('getComputedStyle(document.querySelector("th.sm\\\\:table-cell")).display', 'table-cell');
+})->group('odoo-pricing');
+
+it('keeps every column in place when the amounts grow', function (string $path, int $width) {
+    $measure = 'JSON.stringify([...document.querySelectorAll("main thead th, main tfoot td, main .sm\\\\:grid-cols-3 > span")].map((cell) => { const box = cell.getBoundingClientRect(); return [Math.round(box.left), Math.round(box.width)] }))';
+
+    $small = visit($path.'?full=1&light=0&billing=yearly')->resize($width, 900)->script($measure);
+    $large = visit($path.'?full=75&light=75&billing=monthly')->resize($width, 900)->script($measure);
+
+    expect(is_string($small) && strlen($small) > 2)->toBeTrue()
+        ->and($large)->toBe($small);
+})->with([
+    'calculator desktop' => ['/erp/odoo/preise', 1280],
+    'calculator phone' => ['/erp/odoo/preise', 375],
+    'summary desktop' => ['/erp/odoo/preise/zusammenfassung', 1280],
+    'summary phone' => ['/erp/odoo/preise/zusammenfassung', 375],
+])->group('odoo-pricing');
+
+it('keeps the columns in place while the calculator changes', function () {
+    $measure = 'JSON.stringify([...document.querySelectorAll("main thead th")].map((cell) => Math.round(cell.getBoundingClientRect().left)))';
+
+    $page = visit('/erp/odoo/preise?full=1&light=0&billing=yearly')->resize(1280, 900);
+    $before = $page->script($measure);
+
+    $page->script('() => { const input = document.querySelector("#odoo-full"); input.value = "150"; input.dispatchEvent(new Event("input", { bubbles: true })); input.dispatchEvent(new Event("change", { bubbles: true })) }');
+    $page->click('Monatlich')->assertValue('#odoo-full', '150');
+
+    expect($page->script($measure))->toBe($before);
 })->group('odoo-pricing');

@@ -12,9 +12,10 @@
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h3 class="text-subheading font-semibold text-gray-900">{{ __($t.'total.title') }}</h3>
         @if($live)
-            <x-ui.button type="button" variant="outline" size="sm" x-on:click="share" data-share-button>
-                <x-icon.share class="size-4"/>
-                <span x-text="shareLabel">{{ __($t.'share.button') }}</span>
+            <x-ui.button type="button" variant="outline" size="sm" x-on:click="copy" data-copy-button>
+                <x-icon.link class="size-4" x-show="notCopied"/>
+                <x-icon.check class="size-4" x-show="copied" style="display: none"/>
+                <span x-text="copyLabel">{{ __($t.'copy.button') }}</span>
             </x-ui.button>
         @endif
     </div>
@@ -55,8 +56,8 @@
     </div>
 </div>
 
-<div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 bg-surface px-6 py-4 text-base">
+<div class="grid grid-cols-1 gap-x-6 gap-y-1 bg-surface px-6 py-4 text-base sm:grid-cols-3">
     <span>{{ __($t.'summary.total') }} <span class="font-semibold text-gray-900" x-text="peopleLabel">{{ $result['users'] === 1 ? $label('user_one') : $label('users', ['count' => $result['users']]) }}</span></span>
-    <span class="text-muted">{{ __($t.'summary.storage') }} <span class="font-medium text-gray-800" x-text="storageLabel">{{ $label('gigabytes', ['count' => $result['storage_gb']]) }}</span></span>
-    <span class="text-muted">{{ __($t.'summary.tier') }} <span class="font-medium text-gray-800" x-text="tierLabel">{{ $label('tier', ['count' => $result['tier_up_to']]) }}</span></span>
+    <span class="text-muted sm:text-center">{{ __($t.'summary.storage') }} <span class="font-medium text-gray-800" x-text="storageLabel">{{ $label('gigabytes', ['count' => $result['storage_gb']]) }}</span></span>
+    <span class="text-muted sm:text-right">{{ __($t.'summary.tier') }} <span class="font-medium text-gray-800" x-text="tierLabel">{{ $label('tier', ['count' => $result['tier_up_to']]) }}</span></span>
 </div>

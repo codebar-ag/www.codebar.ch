@@ -33,12 +33,12 @@
             </div>
             <p class="mt-1 text-base text-muted">{{ __($t.'licenses.intro') }}</p>
 
-            <table class="mt-4 w-full text-base">
+            <table class="mt-4 w-full table-fixed text-base">
                 <thead>
                 <tr class="border-b border-border text-sm text-muted">
                     <th scope="col" class="py-2 text-left font-medium">{{ __($t.'details.item') }}</th>
-                    <th scope="col" class="{{ $month }} py-2 pl-4 text-right font-medium">{{ __($t.'details.month') }}</th>
-                    <th scope="col" class="py-2 pl-4 text-right font-medium">{{ __($t.'details.year') }}</th>
+                    <th scope="col" class="{{ $month }} w-40 py-2 pl-4 text-right font-medium">{{ __($t.'details.month') }}</th>
+                    <th scope="col" class="w-40 py-2 pl-4 text-right font-medium">{{ __($t.'details.year') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -89,12 +89,12 @@
                 @endif
             </p>
 
-            <table class="mt-4 w-full text-base">
+            <table class="mt-4 w-full table-fixed text-base">
                 <thead>
                 <tr class="border-b border-border text-sm text-muted">
                     <th scope="col" class="py-2 text-left font-medium">{{ __($t.'details.item') }}</th>
-                    <th scope="col" class="{{ $month }} py-2 pl-4 text-right font-medium">{{ __($t.'details.month') }}</th>
-                    <th scope="col" class="py-2 pl-4 text-right font-medium">{{ __($t.'details.year') }}</th>
+                    <th scope="col" class="{{ $month }} w-40 py-2 pl-4 text-right font-medium">{{ __($t.'details.month') }}</th>
+                    <th scope="col" class="w-40 py-2 pl-4 text-right font-medium">{{ __($t.'details.year') }}</th>
                 </tr>
                 </thead>
                 <tbody>

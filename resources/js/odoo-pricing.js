@@ -10,6 +10,19 @@ const clamp = (value, min, max) => {
     return Math.min(max, Math.max(min, Number.isFinite(number) ? number : min))
 }
 
+const countFrom = (value) => (typeof value === 'string' && /^\d{1,4}$/.test(value) ? Number(value) : undefined)
+
+export const selectionFromAddress = (search) => {
+    const params = new URLSearchParams(search)
+    const billing = params.get('billing')
+
+    return {
+        full: countFrom(params.get('full')),
+        light: countFrom(params.get('light')),
+        billing: billing === 'monthly' || billing === 'yearly' ? billing : undefined,
+    }
+}
+
 const fill = (label, replacements) =>
     Object.entries(replacements).reduce((text, [key, value]) => text.replace(`:${key}`, value), label ?? '')
 
@@ -68,18 +81,21 @@ export const odooPricing = () => ({
     full: 10,
     light: 0,
     billing: 'yearly',
-    shareLabel: '',
-    shareTimer: null,
+    copied: false,
+    copyLabel: '',
+    copyTimer: null,
 
     init() {
-        const selection = JSON.parse(this.$root.dataset.selection ?? '{}')
+        const server = JSON.parse(this.$root.dataset.selection ?? '{}')
+        const address = selectionFromAddress(window.location.search)
 
         this.config = JSON.parse(this.$root.dataset.config)
         this.labels = JSON.parse(this.$root.dataset.labels)
-        this.full = selection.full ?? this.config.full_users.default
-        this.light = selection.light ?? this.config.light_users.default
-        this.billing = selection.billing === 'monthly' ? 'monthly' : 'yearly'
-        this.shareLabel = this.$root.dataset.shareLabel ?? ''
+        this.full = address.full ?? server.full ?? this.config.full_users.default
+        this.light = address.light ?? server.light ?? this.config.light_users.default
+        this.billing = (address.billing ?? server.billing) === 'monthly' ? 'monthly' : 'yearly'
+        this.copyLabel = this.$root.dataset.copyLabel ?? ''
+        this.settle('full')
 
         this.openFaqFromHash()
 
@@ -90,7 +106,7 @@ export const odooPricing = () => ({
     },
 
     destroy() {
-        clearTimeout(this.shareTimer)
+        clearTimeout(this.copyTimer)
     },
 
     get result() {
@@ -120,21 +136,9 @@ export const odooPricing = () => ({
         window.history.replaceState(window.history.state, '', this.withQuery(window.location.href))
     },
 
-    share() {
+    copy() {
         const url = this.summaryUrl
 
-        if (typeof navigator.share !== 'function') {
-            return this.copy(url)
-        }
-
-        return navigator.share({ title: this.$root.dataset.shareTitle, url }).catch((error) => {
-            if (error?.name !== 'AbortError') {
-                return this.copy(url)
-            }
-        })
-    },
-
-    copy(url) {
         if (!navigator.clipboard) {
             this.open(url)
 
@@ -152,11 +156,17 @@ export const odooPricing = () => ({
     },
 
     confirmCopied() {
-        this.shareLabel = this.$root.dataset.shareCopied
-        clearTimeout(this.shareTimer)
-        this.shareTimer = setTimeout(() => {
-            this.shareLabel = this.$root.dataset.shareLabel
+        this.copied = true
+        this.copyLabel = this.$root.dataset.copyDone
+        clearTimeout(this.copyTimer)
+        this.copyTimer = setTimeout(() => {
+            this.copied = false
+            this.copyLabel = this.$root.dataset.copyLabel
         }, 2000)
+    },
+
+    get notCopied() {
+        return !this.copied
     },
 
     normalize(event) {
@@ -194,7 +204,8 @@ export const odooPricing = () => ({
     },
 
     openFaqFromHash() {
-        const target = document.getElementById(window.location.hash.slice(1))
+        const id = window.location.hash.slice(1)
+        const target = id === '' ? null : document.getElementById(id)
 
         if (target instanceof HTMLDetailsElement) {
             target.open = true

@@ -105,7 +105,7 @@ it('is read only and carries no site navigation, footer or on-premises link', fu
         ->assertDontSee('x-data="odooPricing"', false)
         ->assertDontSee('type="range"', false)
         ->assertDontSee('type="number"', false)
-        ->assertDontSee('data-share-button', false)
+        ->assertDontSee('data-copy-button', false)
         ->assertDontSee('faq-on_premises', false)
         ->assertDontSee('aria-label="Menü"', false)
         ->assertDontSee('<footer', false);

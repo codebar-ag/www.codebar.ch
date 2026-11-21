@@ -32,7 +32,7 @@
 
     <div x-data="odooPricing" data-config="{{ json_encode($pricing) }}" data-labels="{{ json_encode($labels) }}"
          data-selection="{{ json_encode($selection->query()) }}" data-summary-url="{{ $summaryUrl }}"
-         data-share-title="{{ __($t.'report.title') }}" data-share-label="{{ __($t.'share.button') }}" data-share-copied="{{ __($t.'share.copied') }}">
+         data-copy-label="{{ __($t.'copy.button') }}" data-copy-done="{{ __($t.'copy.done') }}">
 
         <x-layout.section>
             <x-layout.section-header :title="__($t.'setup.title')" :intro="__($t.'setup.intro')"/>
