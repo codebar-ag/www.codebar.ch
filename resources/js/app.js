@@ -14,6 +14,7 @@ import { odooPricing } from './odoo-pricing'
 import { readingProgress } from './reading-progress'
 import { tableOfContents } from './table-of-contents'
 import { toast } from './toast'
+import { turnstile } from './turnstile'
 
 window.Alpine = Alpine
 Alpine.plugin(focus)
@@ -33,6 +34,8 @@ Alpine.data('introTabs', introTabs)
 Alpine.data('markdownEditor', markdownEditor)
 
 Alpine.data('toast', toast)
+
+Alpine.data('turnstile', turnstile)
 
 Alpine.data('languageSuggestion', languageSuggestion)
 
