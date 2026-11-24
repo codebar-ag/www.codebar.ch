@@ -16,7 +16,7 @@
     --color-zunscan-dark-gray: #303b40;
     --color-zunscan-white: #f5f5f5;
 
-    --background-image-paper: url('../images/zunscan/zunscan_papertexture.jpg');
+    --background-image-paper: url('../images/zunscan/zunscan_papertexture.webp');
 
     /* ── Type scale ───────────────────────────────────────────────────────────
        Fluid between 360px and 768px, so the responsive step lives in the token
@@ -118,7 +118,7 @@
    brand navy and the speckle reads as grain rather than as a colour shift. */
 @utility bg-paper-dark {
     background-color: var(--color-zunscan-dark-blue);
-    background-image: url('../images/zunscan/zunscan_papertexture.jpg');
+    background-image: url('../images/zunscan/zunscan_papertexture.webp');
     background-size: cover;
     background-position: center;
     background-blend-mode: multiply;
@@ -131,7 +131,7 @@
    clears AA for the button label as well as the heading. */
 @utility bg-paper-blue {
     background-color: var(--color-zunscan-blue);
-    background-image: url('../images/zunscan/zunscan_papertexture.jpg');
+    background-image: url('../images/zunscan/zunscan_papertexture.webp');
     background-size: cover;
     background-position: center;
     background-blend-mode: multiply;
