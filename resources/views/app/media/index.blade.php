@@ -8,7 +8,7 @@
             @foreach($logos as $logo)
                 <x-card.download-card
                         :label="$logo['label']"
-                        :image="asset('images/logos/' . $logo['slug'] . '.png')"
+                        :image="asset('images/logos/' . $logo['slug'] . '.svg')"
                         :inverted="$logo['slug'] === 'codebar-logo-colored-inverted'"
                         :links="[
                             ['href' => asset('images/logos/' . $logo['slug'] . '.png'), 'label' => '.png', 'download' => $logo['slug'] . '.png'],

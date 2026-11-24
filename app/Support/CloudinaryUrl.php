@@ -23,7 +23,7 @@ class CloudinaryUrl
         return "{$oneX} {$width}w, {$twoX} ".($width * 2).'w';
     }
 
-    public static function transform(string $url, int $width): string
+    public static function transform(string $url, int $width, ?int $height = null): string
     {
         if (! str_contains($url, self::CLOUDINARY_HOST)) {
             return $url;
@@ -38,7 +38,8 @@ class CloudinaryUrl
         $base = substr($url, 0, $markerPos + strlen(self::UPLOAD_MARKER));
         $rest = substr($url, $markerPos + strlen(self::UPLOAD_MARKER));
         $publicId = self::stripExistingTransforms($rest);
-        $transforms = "w_{$width},h_{$width},c_fill,f_auto,q_auto";
+        $height ??= $width;
+        $transforms = "w_{$width},h_{$height},c_fill,f_auto,q_auto";
 
         return $base.$transforms.'/'.$publicId;
     }

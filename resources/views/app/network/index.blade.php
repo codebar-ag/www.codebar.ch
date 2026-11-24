@@ -15,7 +15,7 @@
                                 $drawing = 'images/network/'.$network->key.'.svg';
                             @endphp
                             @if($network->cover_url)
-                                <img src="{{ $network->cover_url }}" alt="{{ $network->name }}" loading="lazy" width="128" height="64" class="max-h-16 w-auto">
+                                <img src="{{ \App\Support\CloudinaryUrl::transform($network->cover_url, 384, 128) }}" alt="{{ $network->name }}" loading="lazy" width="192" height="64" class="max-h-16 w-auto">
                             @elseif(file_exists(public_path($drawing)))
                                 <img src="{{ asset($drawing) }}" alt="" aria-hidden="true"
                                      loading="lazy" width="160" height="96" class="max-h-16 w-auto">
