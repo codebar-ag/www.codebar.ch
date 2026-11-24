@@ -6,11 +6,12 @@
     $label = fn (string $key, array $replace = []): string => __($t.'labels.'.$key, $replace);
     $licenseShare = (int) round($result['license_month'] / $result['total_month'] * 100);
     $live ??= false;
+    $heading ??= 'h3';
 @endphp
 
 <div class="border-t-2 border-t-brand bg-brand/5 p-6" @if($live) role="status" aria-live="polite" aria-atomic="true" @endif>
     <div class="flex flex-wrap items-center justify-between gap-3">
-        <h3 class="text-subheading font-semibold text-gray-900">{{ __($t.'total.title') }}</h3>
+        <{{ $heading }} class="text-subheading font-semibold text-gray-900">{{ __($t.'total.title') }}</{{ $heading }}>
         @if($live)
             <x-ui.button type="button" variant="outline" size="sm" x-on:click="copy" x-bind:class="copyClass"
                          data-copy-button data-copy-done="{{ __($t.'copy.done') }}">
