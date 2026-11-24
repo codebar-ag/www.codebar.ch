@@ -77,7 +77,7 @@
                href="https://www.swissmadesoftware.org/about/swiss-digital-services.html">
                 <img class="max-w-[140px]"
                      src="{{ asset('images/zunscan/sms-logo-v-black-services.png') }}"
-                     loading="lazy" decoding="async"
+                     loading="lazy" decoding="async" width="140" height="46"
                      alt="{{ __('zunscan.footer.swiss_digital_services') }}">
             </a>
         </div>

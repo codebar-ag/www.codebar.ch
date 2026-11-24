@@ -4,8 +4,9 @@
     <x-zunscan.components.section>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <x-zunscan.components.card>
-                <img src="https://res.cloudinary.com/codebar/image/upload/w_600,f_auto,q_auto/www-paperflakes-ch/logos/ruyozrdfjlqykodlwabw.png"
-                     alt="{{ __('zunscan.media.logo_alt') }}" loading="lazy" decoding="async" class="w-full">
+                <img src="https://res.cloudinary.com/codebar/image/upload/w_300,f_auto,q_auto/www-paperflakes-ch/logos/ruyozrdfjlqykodlwabw.png"
+                     srcset="https://res.cloudinary.com/codebar/image/upload/w_300,f_auto,q_auto/www-paperflakes-ch/logos/ruyozrdfjlqykodlwabw.png 1x, https://res.cloudinary.com/codebar/image/upload/w_600,f_auto,q_auto/www-paperflakes-ch/logos/ruyozrdfjlqykodlwabw.png 2x"
+                     alt="{{ __('zunscan.media.logo_alt') }}" loading="lazy" decoding="async" width="600" height="217" class="w-full">
 
                 <a href="https://res.cloudinary.com/codebar/image/upload/www-paperflakes-ch/logos/ruyozrdfjlqykodlwabw.png"
                    download
