@@ -27,7 +27,7 @@
             </div>
 
             <a href="{{ zunscan_route('contact.index') }}"
-               class="mt-6 inline-flex min-h-control w-full shrink-0 items-center justify-center gap-2 rounded-card bg-zunscan-light-blue px-6 font-bold text-white transition hover:bg-zunscan-blue sm:mt-0 sm:w-auto">
+               class="mt-6 inline-flex min-h-control w-full shrink-0 items-center justify-center gap-2 rounded-card bg-zunscan-blue px-6 font-bold text-white transition hover:bg-zunscan-dark-blue sm:mt-0 sm:w-auto">
                 <span class="whitespace-nowrap">{{ __('zunscan.services.scanning.trial_cta') }}</span>
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
