@@ -51,7 +51,7 @@
             </div>
 
             <a href="{{ zunscan_route('services.scanning.show') }}"
-               class="mt-6 inline-flex min-h-control w-full shrink-0 items-center justify-center gap-2 rounded-card bg-zunscan-light-blue px-6 font-bold text-white transition hover:bg-zunscan-blue sm:mt-0 sm:w-auto">
+               class="mt-6 inline-flex min-h-control w-full shrink-0 items-center justify-center gap-2 rounded-card bg-zunscan-blue px-6 font-bold text-white transition hover:bg-zunscan-dark-blue sm:mt-0 sm:w-auto">
                 <span class="whitespace-nowrap">{{ __('zunscan.nav.scanning') }}</span>
 
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24"
