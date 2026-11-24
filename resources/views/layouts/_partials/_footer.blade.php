@@ -7,6 +7,7 @@
         ],
         __('Company') => [
             ['route' => 'jobs.index', 'label' => __('Jobs')],
+            ['route' => 'infrastructure.index', 'label' => __('Infrastructure')],
         ],
         __('Resources') => [
             ['route' => 'media.index', 'label' => __('Media')],

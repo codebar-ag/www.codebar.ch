@@ -350,5 +350,16 @@
       "cost split bar": "So teilen sich die Kosten auf",
       "yearly total": "Deine laufenden Kosten"
     }
+  },
+  "pages/infrastructure.index": {
+    "sentence": "an application you only know as its window → taking it apart layer by layer → the layers behind it, each service with its provider and the country where data is processed",
+    "act": "unstack",
+    "actSource": "Hier siehst du, mit welcher Infrastruktur, welchen Diensten und welchen Anbietern wir Anwendungen bauen, betreiben und überwachen.",
+    "objects": {
+      "application window": "hinter unseren Anwendungen",
+      "layer plates": "mit welcher Infrastruktur, welchen Diensten und welchen Anbietern",
+      "provider block": "wer ihn anbietet",
+      "country badge": "in welchem Land die Daten verarbeitet werden"
+    }
   }
 }

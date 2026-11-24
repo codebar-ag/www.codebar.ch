@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Intro-Header · Varianten</title>
+<style>
+@font-face{font-family:'Alan Sans';font-style:normal;font-weight:300 700;font-display:swap;src:url('../../resources/fonts/alan-sans/alan-sans-variable-latin.woff2') format('woff2')}
+:root{
+    --brand:#500472;--brand-strong:#3a0354;
+    --g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;--g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g800:#1f2937;--g900:#111827;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --pill:.375rem;--panel:.75rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scrollbar-gutter:stable;overflow-x:clip}
+body{margin:0;font-family:'Alan Sans',ui-sans-serif,system-ui,sans-serif;color:var(--g800);background:#fff;-webkit-font-smoothing:antialiased;overflow-x:clip}
+button{font:inherit}
+
+.sh{position:sticky;top:0;z-index:50;background:var(--g50);border-bottom:1px solid var(--g200);padding:.6rem 1rem .55rem;font-size:.8125rem}
+.sh-in{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.25rem;max-width:76rem;margin:0 auto}
+.sh strong{font-weight:600;color:var(--g900)}
+#chips{display:flex;flex-wrap:wrap;gap:.25rem 1rem;align-items:center}
+#chips span{display:inline-flex;align-items:center;gap:.2rem}
+#chips em{font-style:normal;color:var(--g500);margin-right:.3rem;font-size:.75rem}
+#chips button{min-width:1.7rem;height:1.7rem;border:1px solid var(--g300);background:#fff;border-radius:var(--pill);color:var(--g700);cursor:pointer;font-size:.75rem;padding:0 .3rem;transition:.15s}
+#chips button:hover{border-color:var(--brand);color:var(--brand)}
+#chips button[aria-current=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+.sh-meta{max-width:76rem;margin:.45rem auto 0;display:flex;gap:.6rem;align-items:baseline;color:var(--g600)}
+.sh-meta b{color:var(--g900);font-weight:600;white-space:nowrap}
+.sh-meta kbd{font:inherit;font-size:.6875rem;border:1px solid var(--g300);border-radius:3px;padding:0 .3rem;background:#fff;margin-left:auto;white-space:nowrap}
+
+.site-head{max-width:72rem;margin:0 auto;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.75rem}
+.site-head b{font-size:1.25rem;font-weight:700;color:var(--brand);margin-right:auto;letter-spacing:-.02em}
+.site-head i{width:4.5rem;height:.6rem;border-radius:1rem;background:var(--g200)}
+.frame{max-width:72rem;margin:0 auto;padding:0 2rem}
+#h1{font-size:clamp(1.875rem,1.544rem + 1.47vw,2.25rem);line-height:1.15;letter-spacing:-.02em;font-weight:700;color:var(--g900);margin:1.25rem 0 1.25rem}
+#h1[hidden]{display:none}
+.below{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;padding-top:3rem;padding-bottom:6rem}
+.below i{height:9rem;border-radius:var(--panel);background:var(--g100)}
+
+#stage{font-size:.9375rem;line-height:1.65;min-width:0}
+:where(#stage) button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:inherit}
+:where(#stage) :is(p,h2,ul){margin:0}
+:where(#stage) :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.hv-text p{max-width:68ch}
+.hv-text p+p{margin-top:.75rem}
+.hv-list{list-style:none;padding:0;margin-top:1rem;display:grid;gap:.5rem}
+.hv-list li{position:relative;padding-left:1.5rem;max-width:68ch}
+.hv-list li::before{content:'·';position:absolute;left:.3rem;color:var(--g500)}
+.hv-list b{font-weight:400;color:var(--brand)}
+.hv-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.hv-btn{display:inline-flex;align-items:center;gap:.5rem;min-height:2.5rem;padding:0 1rem;border-radius:var(--pill);border:1px solid var(--brand);background:#fff;color:var(--brand);font-size:.875rem;font-weight:500;text-decoration:none;cursor:pointer;transition:background .2s,color .2s,transform .2s;user-select:none}
+.hv-btn:hover{background:var(--brand);color:#fff}
+.hv-btn--solid{background:var(--brand);color:#fff}
+.hv-btn--solid:hover{background:var(--brand-strong)}
+.hv-kbd{display:inline-flex;min-width:1.25rem;align-items:center;justify-content:center;border-radius:3px;border:1px solid var(--g400);background:var(--g50);padding:.15rem .25rem;font-family:inherit;font-size:.6875rem;line-height:1;color:var(--g700)}
+.hv-dots{display:inline-flex;gap:.5rem}
+.hv-dots i{width:.75rem;height:.75rem;border-radius:50%;background:#f87171}
+.hv-dots i:nth-child(2){background:#fbbf24}
+.hv-dots i:nth-child(3){background:#34d399}
+.hv-stack{display:grid;min-width:0}
+.hv-pan{grid-area:1/1;min-width:0;visibility:hidden;opacity:0;transition:opacity .2s,visibility 0s .2s}
+.hv-pan.on{visibility:visible;opacity:1;transition:opacity .35s}
+.hv-in :is(h2,p,li){animation:hvUp .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*70ms)}
+@keyframes hvUp{from{opacity:0;transform:translateY(14px)}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media (max-width:640px){.frame,.site-head{padding-left:1rem;padding-right:1rem}.site-head i{display:none}.below{grid-template-columns:1fr}.sh-meta{flex-wrap:wrap}.sh-meta kbd{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+<style id="vstyle"></style>
+</head>
+<body>
+<header class="sh">
+    <div class="sh-in">
+        <strong>Intro-Header · Varianten</strong>
+        <nav id="chips" aria-label="Varianten"></nav>
+    </div>
+    <div class="sh-meta"><b id="vname"></b><span id="vdesc"></span><kbd>P / N wechselt die Variante</kbd></div>
+</header>
+<div class="site-head"><b>codebar</b><i></i><i></i><i></i><i></i></div>
+<main class="frame">
+    <h1 id="h1">Schön, bist du da</h1>
+    <div id="stage"></div>
+</main>
+<div class="frame below" aria-hidden="true"><i></i><i></i><i></i></div>
+<script src="core.js"></script>
+<script src="v1.js"></script>
+<script src="v2.js"></script>
+<script src="v3.js"></script>
+<script src="v4.js"></script>
+<script src="v5.js"></script>
+<script>HV.boot()</script>
+</body>
+</html>

@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NetworksTableSeeder::class);
         $this->call(NetworkUsersTableSeeder::class);
         $this->call(AiModelDailyUsagesTableSeeder::class);
+        $this->call(InfrastructureSeeder::class);
 
         Artisan::call(ClearCommand::class);
         Artisan::call('responsecache:clear');

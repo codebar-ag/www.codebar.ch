@@ -1,0 +1,28 @@
+{
+  "services/innovationsmanagement": {
+    "sentence": "loose idea notes and a light bulb nobody has weighed against each other → filtering them by benefit and effort → a rating matrix with one idea chosen, and a roadmap that starts with its pilot project",
+    "act": "funnel",
+    "actSource": "Wir bewerten jede Idee nach Nutzen und Aufwand, mit Kriterien, die wir gemeinsam festlegen.",
+    "objects": {
+      "idea notes": "In Workshops tragen wir Ideen aus Team, Kundschaft und Markt zusammen",
+      "light bulb": "Ideen gibt es genug, entscheidend ist die Auswahl",
+      "rating matrix": "Wir bewerten jede Idee nach Nutzen und Aufwand",
+      "chosen idea": "prüfen die besten in kleinen Pilotprojekten, bevor du investierst",
+      "roadmap": "Aus der Bewertung entsteht eine Roadmap",
+      "pilot milestone": "Am Ende jedes Pilotprojekts steht ein klarer Entscheid"
+    }
+  },
+  "pages/services.index": {
+    "sentence": "five offerings lying apart and unaligned → composing them into one sequence → the same five threaded on a single path from the first idea to day-to-day operations",
+    "act": "grid",
+    "actSource": "Fünf Bereiche, ein Weg",
+    "objects": {
+      "prototype screen": "wir schärfen deine Anforderungen und machen Ideen mit klickbaren Prototypen früh greifbar",
+      "idea note": "wir bewerten deine Ideen und prüfen die besten in kleinen Pilotprojekten",
+      "code tile": "Portale, Schnittstellen und Automatisierungen, entwickelt mit offenen Technologien wie Laravel",
+      "paper sheet": "begleiten wir dich ins papierlose Büro und automatisieren deine Prozesse",
+      "task board": "Odoo setzen wir selbst ein und begleiten dich als Odoo-Partner Schritt für Schritt bei der Einführung",
+      "one path spine": "von der ersten Idee über Konzept und Umsetzung bis zum Betrieb"
+    }
+  }
+}

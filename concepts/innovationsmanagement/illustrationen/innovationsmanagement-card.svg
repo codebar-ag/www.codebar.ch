@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 344 344" width="344" height="344" fill="none" role="img" aria-hidden="true">
+    <defs>
+        <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C026D3"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+
+        <path id="s1" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s2" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+        <path id="s3" d="M0 0c1.75-3 3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0s3.75-3 5.5 0s3.75 3 5.5 0"/>
+
+        <path id="n" d="M5 0h50a5 5 0 0 1 5 5v39L44 60H5a5 5 0 0 1-5-5V5a5 5 0 0 1 5-5Z"/>
+        <path id="f" d="M44 60V49a5 5 0 0 1 5-5h11Z"/>
+    </defs>
+
+    <g transform="translate(14 22) rotate(-8 30 30)">
+        <use href="#n" fill="#09090b" opacity="0.3" transform="translate(6 6)"/>
+        <g fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"><use href="#n"/><use href="#f"/></g>
+        <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round"><use href="#s3" x="10" y="20"/><use href="#s2" x="10" y="34"/></g>
+    </g>
+    <g transform="translate(92 10) rotate(6 30 30)">
+        <use href="#n" fill="#09090b" opacity="0.3" transform="translate(6 6)"/>
+        <g fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"><use href="#n"/><use href="#f"/></g>
+        <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round"><use href="#s2" x="10" y="20"/><use href="#s3" x="10" y="34"/></g>
+    </g>
+    <g transform="translate(58 84) rotate(4 30 30)">
+        <use href="#n" fill="#09090b" opacity="0.3" transform="translate(6 6)"/>
+        <g fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"><use href="#n"/><use href="#f"/></g>
+        <g stroke="#09090b" stroke-width="2.2" stroke-linecap="round"><use href="#s3" x="10" y="20"/><use href="#s1" x="10" y="34"/></g>
+    </g>
+
+    <circle cx="250" cy="62" r="36" fill="#09090b" opacity="0.3" transform="translate(7 7)"/>
+    <circle cx="250" cy="62" r="36" fill="#ffffff" stroke="#09090b" stroke-width="2.4"/>
+    <path d="M240 89V70l5-10 5 10 5-10 5 10v19" stroke="#09090b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="236" y="90" width="28" height="24" rx="5" fill="#ffffff" stroke="#09090b" stroke-width="2.4" stroke-linejoin="round"/>
+    <rect x="243" y="114" width="14" height="6" rx="3" fill="#09090b"/>
+    <path d="M236 102h28" stroke="#09090b" stroke-width="1.6" opacity="0.45"/>
+    <path d="M250 16V6M214 26l-7-7M286 26l7-7" data-detail="bulb rays" stroke="#09090b" stroke-width="2.2" stroke-linecap="round" opacity="0.45"/>
+
+    <g stroke="#09090b" stroke-width="2.2" fill="#09090b">
+        <path d="M158 142v14" stroke-linecap="round"/>
+        <path d="M158 168l-9-14h18Z" stroke="none"/>
+    </g>
+    <g class="act" transform="translate(180 136) scale(0.5)">
+        <path d="M4 6h52L34 32v20l-8 6V32Z" fill="url(#accent)"/>
+    </g>
+
+    <rect x="168" y="190" width="134" height="56" rx="9" fill="url(#accent)" opacity="0.14"/>
+    <path d="M22 250h282M164 186v124" data-detail="matrix quadrants" stroke="#09090b" stroke-width="1.6" opacity="0.14"/>
+    <path d="M22 186v124h282" data-detail="matrix axes" stroke="#09090b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g transform="translate(72 196) scale(0.62)">
+        <use href="#n" fill="#09090b" opacity="0.3" transform="translate(7 7)"/>
+        <g fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"><use href="#n"/><use href="#f"/></g>
+        <use href="#s3" x="10" y="24" stroke="#09090b" stroke-width="3.4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(40 260) scale(0.62)">
+        <use href="#n" fill="#09090b" opacity="0.3" transform="translate(7 7)"/>
+        <g fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"><use href="#n"/><use href="#f"/></g>
+        <use href="#s2" x="10" y="24" stroke="#09090b" stroke-width="3.4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(196 260) scale(0.62)">
+        <use href="#n" fill="#09090b" opacity="0.3" transform="translate(7 7)"/>
+        <g fill="#ffffff" stroke="#09090b" stroke-width="3" stroke-linejoin="round"><use href="#n"/><use href="#f"/></g>
+        <use href="#s3" x="10" y="24" stroke="#09090b" stroke-width="3.4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(206 196) scale(0.72)">
+        <use href="#n" fill="#09090b" opacity="0.3" transform="translate(7 7)"/>
+        <g fill="#ffffff" stroke="url(#accent)" stroke-width="3.6" stroke-linejoin="round"><use href="#n"/><use href="#f"/></g>
+        <g stroke="#500472" stroke-width="3.2" stroke-linecap="round"><use href="#s3" x="10" y="22"/><use href="#s2" x="10" y="36"/></g>
+    </g>
+    <circle cx="262" cy="200" r="13" fill="url(#accent)"/>
+    <path d="M256 200l4 5 8-10" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 use App\Enums\LocaleEnum;
+use Database\Seeders\InfrastructureSeeder;
 use Illuminate\Support\Str;
 
 use function Pest\Laravel\get;
+use function Pest\Laravel\seed;
 
 dataset('routes', function () {
     return [
@@ -17,6 +19,7 @@ dataset('routes', function () {
         [LocaleEnum::EN->value, 'jobs.index'],
         [LocaleEnum::EN->value, 'jobs.internship.show'],
         [LocaleEnum::EN->value, 'media.index'],
+        [LocaleEnum::EN->value, 'infrastructure.index'],
         [LocaleEnum::EN->value, 'contact.index'],
         [LocaleEnum::EN->value, 'ai.index'],
         [LocaleEnum::EN->value, 'ai.llm.index'],
@@ -36,6 +39,7 @@ dataset('routes', function () {
         [LocaleEnum::DE->value, 'jobs.index'],
         [LocaleEnum::DE->value, 'jobs.internship.show'],
         [LocaleEnum::DE->value, 'media.index'],
+        [LocaleEnum::DE->value, 'infrastructure.index'],
         [LocaleEnum::DE->value, 'contact.index'],
         [LocaleEnum::DE->value, 'ai.index'],
         [LocaleEnum::DE->value, 'ai.llm.index'],
@@ -50,6 +54,8 @@ dataset('routes', function () {
 });
 
 it('returns 200 for localized route', function (string $locale, string $name, array $params = []) {
+    seed(InfrastructureSeeder::class);
+
     $route = route(Str::slug($locale).'.'.$name, $params);
 
     get($route)->assertOk();

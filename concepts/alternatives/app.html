@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alternativen: Application</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14181F;--muted:#5B6472;--line:#E4E7EC;--panel:#F7F8FA;--brand:#6B46C1;--ch:#C8102E;--eu:#1F4FA3;--us:#5B6472;--ok:#2E7D5B}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font:400 15px/1.55 Poppins,system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+a{color:var(--brand)}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{margin:0 0 6px;font-size:30px;line-height:1.2;letter-spacing:-.02em}
+h2{margin:40px 0 4px;font-size:20px;display:flex;align-items:center;gap:10px}
+h2 small{font-weight:400;font-size:13px;color:var(--muted)}
+.lead{color:var(--muted);margin:0 0 24px;max-width:70ch}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:500;background:var(--panel);border:1px solid var(--line)}
+.layer{border-left:4px solid var(--c);padding-left:10px}
+.now{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.now div{background:#fff;padding:12px 14px}
+.now dt{font-size:12px;color:var(--muted)}
+.now dd{margin:2px 0 0;font-weight:500}
+.why{margin:18px 0 0;padding:14px 16px;background:var(--panel);border-radius:12px}
+.rec{margin:14px 0 0;padding:14px 16px;border:1.5px solid var(--ok);border-radius:12px}
+.rec b{color:var(--ok)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--t);flex:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px;margin-top:12px}
+.card{border:1px solid var(--line);border-top:3px solid var(--t);border-radius:12px;padding:14px 16px}
+.card h3{margin:0;font-size:16px}
+.card .co{font-size:13px;color:var(--muted)}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:10px 0 0;font-size:13px}
+.card dt{color:var(--muted)}
+.card dd{margin:0}
+.card p{margin:10px 0 0;font-size:14px}
+.chk{font-size:11px;color:var(--muted)}
+.none{color:var(--muted);font-size:14px;margin-top:8px}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500}
+.scroll{overflow-x:auto}
+.note{margin-top:40px;font-size:13px;color:var(--muted)}
+@media (max-width:640px){h1{font-size:24px}}
+</style>
+</head>
+<body>
+<main>
+
+<div class="crumb"><a href="index.html">Alternativen</a> › Plattform</div>
+<h1 class="layer" style="--c:#5FA8A3">Application</h1>
+<p class="lead">Heute: Laravel Cloud. Alternativen in der Reihenfolge Schweiz, Europa, USA.</p>
+<dl class="now">
+<div><dt>Dienst</dt><dd>Laravel Cloud</dd></div>
+<div><dt>Anbieter</dt><dd>Laravel Holdings Inc.</dd></div>
+<div><dt>Herkunft des Anbieters</dt><dd>USA</dd></div>
+<div><dt>Datenverarbeitung heute</dt><dd>Frankfurt (AWS)</dd></div>
+</dl>
+<p class="why"><b>Warum nicht Schweiz:</b> Die Anwendung läuft in Frankfurt, also in der EU. Anbieter und Unterbau (AWS) sind aber amerikanisch, und wo die Steuerung und die Logs laufen, ist nicht dokumentiert.</p>
+<p class="rec"><b>Empfehlung:</b> Laravel Forge mit Servern bei cloudscale.ch oder Infomaniak. Wir behalten das Laravel-Werkzeug, die Anwendung läuft in der Schweiz. Dafür betreiben wir die Server wieder selbst (Updates, Skalierung). Für Kunden ohne Schweiz-Pflicht bleibt Laravel Cloud.</p>
+<h2 style="--t:var(--ch)"><span class="dot"></span>Schweiz <small>Anbieter und Verarbeitung in der Schweiz oder bei uns selbst betrieben.</small></h2>
+<div class="cards" style="--t:var(--ch)"><article class="card">
+<h3>Laravel Forge + cloudscale.ch</h3>
+<div class="co">cloudscale.ch AG, Zürich</div>
+<dl><dt>Verarbeitung</dt><dd>Schweiz (Rümlang, Lupfig)</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>Forge verwaltet nur den Server; Daten und Rechenleistung bleiben in der Schweiz. Wir haben schon Forge-Projekte. Forge selbst ist US-Anbieter, sieht aber keine Anwendungsdaten.</p>
+
+</article>
+<article class="card">
+<h3>Laravel Forge + Infomaniak Public Cloud</h3>
+<div class="co">Infomaniak Network SA, Genf</div>
+<dl><dt>Verarbeitung</dt><dd>Schweiz</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>Wie oben, mit eigenen Rechenzentren und Ökostrom.</p>
+
+</article>
+<article class="card">
+<h3>Nine Managed GKE / Deploio</h3>
+<div class="co">Nine Internet Solutions AG, Zürich</div>
+<dl><dt>Verarbeitung</dt><dd>Schweiz</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>Plattform ähnlich Laravel Cloud, Push-to-Deploy, Betrieb durch Nine.</p>
+
+</article>
+<article class="card">
+<h3>Exoscale</h3>
+<div class="co">Exoscale (Akenes SA), Lausanne</div>
+<dl><dt>Verarbeitung</dt><dd>Schweiz (Genf, Zürich)</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>Server, Kubernetes, Datenbanken und Speicher aus einer Hand.</p>
+
+</article></div>
+<h2 style="--t:var(--eu)"><span class="dot"></span>Europa <small>Europäischer Anbieter, Verarbeitung in der EU oder in der Schweiz.</small></h2>
+<div class="cards" style="--t:var(--eu)"><article class="card">
+<h3>Upsun (Platform.sh)</h3>
+<div class="co">Platform.sh SAS, Frankreich</div>
+<dl><dt>Verarbeitung</dt><dd>EU, auch Schweiz wählbar</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>PaaS mit Laravel-Vorlage, Umgebungen pro Branch.</p>
+
+</article>
+<article class="card">
+<h3>Clever Cloud</h3>
+<div class="co">Clever Cloud SAS, Frankreich</div>
+<dl><dt>Verarbeitung</dt><dd>EU</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>PaaS mit PHP-Laufzeit, Workers und Add-ons aus einer Hand.</p>
+
+</article>
+<article class="card">
+<h3>Laravel Forge + Hetzner</h3>
+<div class="co">Hetzner Online GmbH, Deutschland</div>
+<dl><dt>Verarbeitung</dt><dd>EU (Deutschland, Finnland)</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>Günstigste Variante, sonst wie Forge + cloudscale.</p>
+
+</article></div>
+<h2 style="--t:var(--us)"><span class="dot"></span>USA <small>Amerikanischer Anbieter, aber mit Region in der Schweiz oder der EU.</small></h2>
+<div class="cards" style="--t:var(--us)"><article class="card">
+<h3>Laravel Cloud (Status quo)</h3>
+<div class="co">Laravel Holdings Inc., USA</div>
+<dl><dt>Verarbeitung</dt><dd>Frankfurt</dd><dt>Aufwand</dt><dd>keiner</dd></dl>
+<p>Bleibt in der EU. Regelmässig prüfen, ob eine Region Zürich dazukommt.</p>
+<p class="chk">Recherche 21.11.</p>
+</article>
+<article class="card">
+<h3>Laravel Forge + AWS Zürich</h3>
+<div class="co">Amazon Web Services, USA</div>
+<dl><dt>Verarbeitung</dt><dd>Schweiz (eu-central-2)</dd><dt>Aufwand</dt><dd>mittel</dd></dl>
+<p>Verarbeitung in der Schweiz, Anbieter aber amerikanisch.</p>
+
+</article></div>
+<p class="note">Stand 21.11.2026. Einträge mit «Recherche 21.11.» stammen aus <code>concepts/transparency/version-three/eu-datenstandorte.md</code> und sind dort mit Quellen belegt. Alle anderen sind ungeprüft: Vor einem Wechsel Standort, DPA und Subprozessorliste beim Anbieter einholen.</p>
+</main>
+</body>
+</html>

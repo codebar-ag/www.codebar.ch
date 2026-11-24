@@ -37,6 +37,8 @@ class SitemapBuilder
         'jobs.index' => 0.6,
         'ai.llm.index' => 0.6,
         // 'network.show' => 0.5, — disabled controller, see NetworkShowController.
+        'infrastructure.index' => 0.5,
+        'infrastructure.show' => 0.3,
         'media.index' => 0.4,
         'ai.llm.analytics.index' => 0.3,
         'legal.imprint.index' => 0.2,

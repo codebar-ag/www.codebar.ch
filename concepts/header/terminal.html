@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Intro-Header · Terminal</title>
+<style>
+@font-face{font-family:'Alan Sans';font-style:normal;font-weight:300 700;font-display:swap;src:url('../../resources/fonts/alan-sans/alan-sans-variable-latin.woff2') format('woff2')}
+:root{--brand:#500472;--bg:#17111f;--bar:#221a2d;--line:#3d3050;--text:#e9e2f2;--dim:#a99bb8;--accent:#c08cf0;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box}
+html{overflow-x:clip}
+body{margin:0;font-family:'Alan Sans',ui-sans-serif,system-ui,sans-serif;color:#1f2937;background:#fff;-webkit-font-smoothing:antialiased}
+.frame{max-width:72rem;margin:0 auto;padding:3rem 2rem}
+h1{font-size:clamp(1.875rem,1.544rem + 1.47vw,2.25rem);line-height:1.15;letter-spacing:-.02em;font-weight:700;color:#111827;margin:0 0 1.25rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+.term{border:0;margin:0;padding:0;min-width:0;border-radius:.75rem;background:var(--bg);color:var(--text);font-family:var(--mono);font-size:.8125rem;line-height:1.7;overflow:hidden;box-shadow:0 30px 60px -30px rgba(80,4,114,.6)}
+:where(.term) button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer}
+.term :focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+:where(.term) :is(p,ul){margin:0}
+.bar{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;background:var(--bar);color:var(--dim);font-size:.75rem}
+.dots{display:inline-flex;gap:.5rem}
+.dots i{width:.75rem;height:.75rem;border-radius:50%;background:#f87171}
+.dots i:nth-child(2){background:#fbbf24}
+.dots i:nth-child(3){background:#34d399}
+.tabs{display:flex;flex-wrap:wrap;background:var(--bar);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tab{display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;border-right:1px solid var(--line);color:var(--dim);box-shadow:inset 0 2px 0 transparent;transition:color .2s,background .2s,box-shadow .2s}
+.tab:hover{color:#fff}
+.tab[aria-selected=true]{background:var(--bg);color:#fff;box-shadow:inset 0 2px 0 var(--accent)}
+kbd,.key{display:inline-flex;min-width:1.25rem;align-items:center;justify-content:center;border-radius:3px;border:1px solid #57456f;background:#2f2540;padding:.15rem .25rem;font-family:inherit;font-size:.6875rem;line-height:1;color:var(--text)}
+.arrows{margin-left:auto;display:flex;align-items:center;gap:.4rem;padding:0 1rem}
+.term .arrows .key{border:1px solid #57456f;background:#2f2540;padding:.15rem .25rem}
+.term .arrows .key:hover{border-color:var(--accent)}
+.screen{padding:1.5rem 1.5rem 1.6rem}
+.panels{display:grid;min-width:0}
+.panel{grid-area:1/1;min-width:0;display:flex;flex-direction:column;visibility:hidden}
+.panel.on{visibility:visible}
+.panel p{max-width:68ch}
+.panel ul{list-style:none;padding:0;margin-top:1rem;display:grid;gap:.5rem}
+.panel li{position:relative;padding-left:1.5rem;max-width:68ch}
+.panel li::before{content:'▸';position:absolute;left:0;color:var(--accent)}
+.panel b{color:#f0b3ff;font-weight:700}
+.w{opacity:0}
+.w.on{opacity:1}
+.actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:auto;padding-top:1.5rem;opacity:0;transition:opacity .3s}
+.actions.on{opacity:1}
+.term .btn{display:inline-flex;align-items:center;gap:.5rem;min-height:2.5rem;padding:0 1rem;border-radius:.375rem;border:1px solid #6b4a85;color:var(--text);text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.term .btn:hover,.term .btn.solid{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+@media (max-width:640px){.frame{padding:2rem 1rem}.screen{padding:1rem}.arrows{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<main class="frame">
+    <h1>Schön, bist du da</h1>
+
+    <fieldset class="term" id="intro">
+        <legend class="sr">Was möchtest du über uns wissen?</legend>
+
+        <div class="bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>codebar Solutions AG — zsh</span>
+        </div>
+
+        <div class="tabs" role="tablist">
+            <button type="button" class="tab" role="tab" data-go="0"><kbd aria-hidden="true">1</kbd><span>wer-wir-sind</span></button>
+            <button type="button" class="tab" role="tab" data-go="1"><kbd aria-hidden="true">2</kbd><span>was-wir-machen</span></button>
+            <button type="button" class="tab" role="tab" data-go="2"><kbd aria-hidden="true">3</kbd><span>wie-wir-arbeiten</span></button>
+            <span class="arrows">
+                <button type="button" class="key" data-step="-1" aria-label="Vorheriger Abschnitt">←</button>
+                <button type="button" class="key" data-step="1" aria-label="Nächster Abschnitt">→</button>
+            </span>
+        </div>
+
+        <div class="screen">
+            <div class="panels" aria-live="polite">
+                <div class="panel" data-panel="0">
+                    <h2 class="sr">Wer wir sind</h2>
+                    <div class="text">
+                        <p>Wir sind codebar – ein kleines Team aus der Region Basel. Wir erwecken Ideen zum Leben: von der ersten Skizze bis zur Software im täglichen Einsatz. Dabei verstehen wir uns als Bindeglied zwischen Business und Technik – wir hören zu, denken wirtschaftlich mit und bauen auf offene Technologien.</p>
+                    </div>
+                    <p class="actions"><button type="button" class="btn" data-go="1"><span aria-hidden="true">→</span>weiter: was-wir-machen</button></p>
+                </div>
+
+                <div class="panel" data-panel="1">
+                    <h2 class="sr">Was wir machen</h2>
+                    <div class="text">
+                        <p>Unsere Arbeit deckt den ganzen Weg einer digitalen Lösung ab:</p>
+                        <ul>
+                            <li><b>Konzeption</b> – wir schärfen deine Anforderungen und machen Ideen mit klickbaren Prototypen früh greifbar.</li>
+                            <li><b>Softwareentwicklung</b> – Portale, Schnittstellen und Automatisierungen, entwickelt mit offenen Technologien wie Laravel.</li>
+                            <li><b>DMS/ECM</b> – als DocuWare Silver &amp; Cloud Partner begleiten wir dich ins papierlose Büro und automatisieren deine Prozesse.</li>
+                            <li><b>Open Source ERP</b> – Odoo setzen wir selbst ein und begleiten dich als Odoo-Partner Schritt für Schritt bei der Einführung.</li>
+                        </ul>
+                    </div>
+                    <p class="actions"><button type="button" class="btn" data-go="2"><span aria-hidden="true">→</span>weiter: wie-wir-arbeiten</button></p>
+                </div>
+
+                <div class="panel" data-panel="2">
+                    <h2 class="sr">Wie wir arbeiten</h2>
+                    <div class="text">
+                        <p>Am Anfang hören wir dir zu. Denn eine gute Lösung beginnt damit, das Problem zu verstehen – und ehrlich zu prüfen, ob sie sich für dich rechnet. Danach entwickeln wir gemeinsam ein Konzept, das sich nach deinen Prozessen richtet und nach den Menschen, die täglich damit arbeiten. Liegt die Umsetzung in unserer Expertise, begleiten wir dich bis in den Betrieb. Wenn nicht, sagen wir es offen – und freuen uns, wenn andere unsere Pläne verwirklichen.</p>
+                    </div>
+                    <p class="actions">
+                        <a class="btn solid" href="#"><span aria-hidden="true">→</span>schau dir unsere Expertise an</a>
+                        <a class="btn" href="#"><span aria-hidden="true">→</span>erzähl uns von deinem Projekt</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</main>
+
+<script>
+(() => {
+    const root = document.getElementById('intro')
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const tabs = [...root.querySelectorAll('.tab')]
+    const panels = [...root.querySelectorAll('.panel')]
+    const actions = panels.map((p) => p.querySelector('.actions'))
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+    const wrap = (el) => {
+        const out = []
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+        const nodes = []
+        while (walker.nextNode()) nodes.push(walker.currentNode)
+        nodes.forEach((n) => {
+            const f = document.createDocumentFragment()
+            n.textContent.split(/(\s+)/).forEach((part) => {
+                if (!part) return
+                if (/^\s+$/.test(part)) {
+                    f.append(part)
+                    return
+                }
+                const s = document.createElement('span')
+                s.className = 'w'
+                s.textContent = part
+                f.append(s)
+                out.push(s)
+            })
+            n.replaceWith(f)
+        })
+        return out
+    }
+    const words = panels.map((p) => wrap(p.querySelector('.text')))
+
+    let current = -1
+    let run = 0
+
+    const show = (target) =>
+        panels.forEach((p) => {
+            const on = p === target
+            p.classList.toggle('on', on)
+            p.inert = !on
+        })
+
+    const reset = () => {
+        words.flat().forEach((w) => w.classList.remove('on'))
+        actions.forEach((a) => a.classList.remove('on'))
+    }
+
+    const play = async (i) => {
+        const id = ++run
+        current = i
+        tabs.forEach((t, k) => t.setAttribute('aria-selected', String(k === i)))
+        reset()
+        show(panels[i])
+        if (reduced) {
+            words[i].forEach((w) => w.classList.add('on'))
+            actions[i].classList.add('on')
+            return
+        }
+        for (let k = 0; k < words[i].length; k += 2) {
+            if (id !== run) return
+            words[i][k].classList.add('on')
+            if (words[i][k + 1]) words[i][k + 1].classList.add('on')
+            await sleep(16)
+        }
+        actions[i].classList.add('on')
+    }
+
+    const go = (i) => {
+        i = ((i % panels.length) + panels.length) % panels.length
+        if (i !== current) play(i)
+    }
+
+    root.addEventListener('click', (e) => {
+        if (e.target.closest('a[href="#"]')) e.preventDefault()
+        const step = e.target.closest('[data-step]')
+        if (step) {
+            go(current + +step.dataset.step)
+            return
+        }
+        const target = e.target.closest('[data-go]')
+        if (target) go(+target.dataset.go)
+    })
+
+    window.addEventListener('keydown', (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return
+        if (e.target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return
+        if (e.key >= '1' && e.key <= String(panels.length)) {
+            e.preventDefault()
+            go(+e.key - 1)
+            return
+        }
+        const direction = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
+        if (direction === 0) return
+        const box = root.getBoundingClientRect()
+        if (box.bottom <= 0 || box.top >= window.innerHeight) return
+        e.preventDefault()
+        go(current + direction)
+    })
+
+    play(0)
+})()
+</script>
+</body>
+</html>
