@@ -30,6 +30,8 @@ function visitWithTurnstile(string $path, string $secret): PendingAwaitablePage
 
     $page = visit($path);
 
+    $page->script("window.dispatchEvent(new Event('pointerdown'))");
+
     // The widget solves the challenge asynchronously and writes the token into a hidden input.
     $token = 'document.querySelector(\'input[name="'.TurnstileRule::FIELD.'"]\')?.value';
 

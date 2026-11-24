@@ -201,7 +201,7 @@ it('renders the turnstile widget on the internship page when a site key is confi
 
     get(route('de-ch.jobs.internship.show'))
         ->assertOk()
-        ->assertSee('challenges.cloudflare.com/turnstile/v0/api.js', false)
+        ->assertSee('data-turnstile-src="https://challenges.cloudflare.com/turnstile/v0/api.js"', false)
         ->assertSee('data-sitekey="test-site-key"', false)
         ->assertSee('data-language="de"', false);
 })->group('applications', 'turnstile');

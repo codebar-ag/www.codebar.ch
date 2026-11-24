@@ -3,8 +3,8 @@
      writes into a hidden cf-turnstile-response input. Only use it on pages behind
      DoNotCacheResponse, or a cached copy would keep serving the old widget state. --}}
 @if(filled(config('services.turnstile.site_key')))
-    <div {{ $attributes->merge(['class' => 'mt-4']) }}>
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <div {{ $attributes->merge(['class' => 'mt-4']) }}
+         x-data="turnstile" data-turnstile-src="https://challenges.cloudflare.com/turnstile/v0/api.js">
         <div class="cf-turnstile"
              data-sitekey="{{ config('services.turnstile.site_key') }}"
              data-language="{{ str(app()->getLocale())->before('_') }}"
