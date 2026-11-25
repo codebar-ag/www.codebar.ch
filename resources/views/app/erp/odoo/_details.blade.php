@@ -107,7 +107,10 @@
                 </tr>
                 <tr class="border-b border-border-soft">
                     <th scope="row" class="py-3 text-left font-medium text-gray-900">
-                        <span x-text="storageTitle">{{ $label('storage_title', ['count' => $result['storage_gb']]) }}</span>
+                        <span class="grid">
+                            <span class="col-start-1 row-start-1" x-text="storageTitle">{{ $label('storage_title', ['count' => $result['storage_gb']]) }}</span>
+                            <span class="invisible col-start-1 row-start-1" aria-hidden="true">{{ $label('storage_title', ['count' => $pricing['storage_gb_max']]) }}</span>
+                        </span>
                         <span class="grid text-sm font-normal text-muted">
                             <span x-ref="storageHint" class="col-start-1 row-start-1 {{ $capped ? 'invisible' : '' }}" x-text="storageHint">{{ $storageHint }}</span>
                             <span x-ref="storageCapped" class="col-start-1 row-start-1 {{ $capped ? '' : 'invisible' }}">{{ $label('storage_capped', ['max' => $pricing['storage_gb_max']]) }}</span>
