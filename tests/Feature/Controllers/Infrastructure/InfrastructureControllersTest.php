@@ -62,6 +62,7 @@ it('lists every service of the default stack with area filters and the graphic',
         ->assertSee('data-infra-open', false)
         ->assertSee(__('components.infrastructure.open_graphic', locale: $locale))
         ->assertSee('"auto":false', false)
+        ->assertDontSee('data-infra-cover', false)
         ->assertSee('Hosttech')
         ->assertSee('ClouDNS')
         ->assertSee('Laravel Cloud')
@@ -154,6 +155,7 @@ it('shows a customer stack for a known slug and keeps it out of the index', func
         ->assertSee('www.example.ch')
         ->assertSee('Cloudflare R2')
         ->assertSee('"auto":true', false)
+        ->assertSee('data-infra-cover', false)
         ->assertSee('href="'.e(route('de-ch.infrastructure.show', ['station' => 'spaces', 'site' => 'web.example'])).'"', false)
         ->assertSee('data-infra-filter="services"', false)
         ->assertDontSee('data-infra-filter="monitoring"', false)
@@ -187,6 +189,7 @@ it('falls back to the codebar stack for an unknown or malformed slug', function 
     get(route('de-ch.infrastructure.index', ['site' => $slug]))
         ->assertOk()
         ->assertSee('"auto":true', false)
+        ->assertSee('data-infra-cover', false)
         ->assertSee('www.codebar.ch')
         ->assertSee('name="robots" content="noindex,nofollow"', false)
         ->assertDontSee('?site=', false);
@@ -201,6 +204,7 @@ it('treats an empty or non-text customer parameter as the public view', function
     get(route('de-ch.infrastructure.index').$query)
         ->assertOk()
         ->assertSee('"auto":false', false)
+        ->assertDontSee('data-infra-cover', false)
         ->assertSee('www.codebar.ch');
 })->with(['?site=', '?site[]=web.example', '?other=1'])->group('infrastructure');
 

@@ -27,6 +27,10 @@
 
     <x-infrastructure.list :layers="$layers" :urls="$urls"/>
 
+    @if($data['auto'])
+        <div data-infra-cover class="fixed inset-0 z-[1100] hidden bg-white min-[980px]:block"></div>
+    @endif
+
     <dialog class="infra-overlay" id="infraOverlay" aria-label="{{ __('components.infrastructure.open_graphic') }}">
         <button type="button" class="infra-overlay-x" data-infra-close aria-label="{{ __('components.infrastructure.close') }}">×</button>
         <div class="infra-scroller" id="infraScroller">
