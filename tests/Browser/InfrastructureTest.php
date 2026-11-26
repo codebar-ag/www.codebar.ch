@@ -160,7 +160,7 @@ it('starts with a click on the cover, jumps with the bar and returns with the re
 it('opens a customer view by itself and keeps the customer in every link', function () {
     infraCustomer();
 
-    $page = visit('/infrastruktur?kunde=web.example')->resize(1440, 900)->wait(0.6);
+    $page = visit('/infrastruktur?site=web.example')->resize(1440, 900)->wait(0.6);
 
     expect($page->script(INFRA_OVERLAY_OPEN))->toBeTrue()
         ->and($page->script('() => document.querySelectorAll("#sxWorld .sx-plate[data-k]").length'))->toBe(3)
@@ -173,13 +173,13 @@ it('opens a customer view by itself and keeps the customer in every link', funct
     $page->wait(0.3);
 
     $page->assertSeeIn('#infraDialog .infra-dialog-lead', 'Cloudflare R2')
-        ->assertAttributeContains('#infraDialog a.infra-dialog-open', 'href', '/infrastruktur/spaces?kunde=web.example');
+        ->assertAttributeContains('#infraDialog a.infra-dialog-open', 'href', '/infrastruktur/spaces?site=web.example');
 
     $page->keys('#infraDialog', 'Escape')->wait(0.2);
     $page->click('[data-infra-close]')->wait(0.3);
-    $page->click('main ul a[href*="/infrastruktur/spaces?kunde=web.example"]')
+    $page->click('main ul a[href*="/infrastruktur/spaces?site=web.example"]')
         ->assertPathIs('/infrastruktur/spaces')
-        ->assertQueryStringHas('kunde', 'web.example')
+        ->assertQueryStringHas('site', 'web.example')
         ->assertSee('Cloudflare R2')
         ->assertNoJavaScriptErrors();
 })->group('infrastructure');
@@ -272,9 +272,9 @@ it('renders the pages in both languages without JavaScript errors or console out
     'detail en' => ['/infrastructure/vimeo', 'Video'],
 ])->group('infrastructure');
 
-it('shows the error page for an unknown customer or service', function (string $path) {
-    visit($path)->assertSee(__('errors.title_client', [], 'de_CH'));
-})->with(['/infrastruktur?kunde=web.missing', '/infrastruktur/nothing'])->group('infrastructure');
+it('shows the error page for an unknown service', function () {
+    visit('/infrastruktur/nothing')->assertSee(__('errors.title_client', [], 'de_CH'));
+})->group('infrastructure');
 
 it('shows https in the address bar and opens the certificate without starting the tour', function () {
     $page = visit('/infrastruktur')->resize(1440, 900);

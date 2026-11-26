@@ -99,7 +99,7 @@ it('lists the detail pages of the default stack in the sitemap in both languages
         ->and(substr_count($xml, '<loc>'.route('en-ch.infrastructure.show', ['station' => 'vimeo']).'</loc>'))->toBe(1)
         ->and(preg_match_all('#<loc>[^<]*/infrastruktur/[a-z]+</loc>#', $xml))->toBe(24)
         ->and($xml)->toContain('/infrastruktur/azure')
-        ->and($xml)->not->toContain('kunde=')
+        ->and($xml)->not->toContain('?site=')
         ->and($xml)->not->toContain('web.example');
 })->group('infrastructure');
 
@@ -147,14 +147,14 @@ it('shows a customer stack for a known slug and keeps it out of the index', func
     seed(PagesTableSeeder::class);
     exampleStack();
 
-    get(route('de-ch.infrastructure.index', ['kunde' => 'web.example']))
+    get(route('de-ch.infrastructure.index', ['site' => 'web.example']))
         ->assertOk()
         ->assertSee('name="robots" content="noindex,nofollow"', false)
         ->assertSee('data:image/svg+xml;base64,'.base64_encode('<svg xmlns="http://www.w3.org/2000/svg"/>'), false)
         ->assertSee('www.example.ch')
         ->assertSee('Cloudflare R2')
         ->assertSee('"auto":true', false)
-        ->assertSee('href="'.e(route('de-ch.infrastructure.show', ['station' => 'spaces', 'kunde' => 'web.example'])).'"', false)
+        ->assertSee('href="'.e(route('de-ch.infrastructure.show', ['station' => 'spaces', 'site' => 'web.example'])).'"', false)
         ->assertSee('data-infra-filter="services"', false)
         ->assertDontSee('data-infra-filter="monitoring"', false)
         ->assertDontSee(route('de-ch.infrastructure.show', ['station' => 'postmark']), false)
@@ -166,27 +166,35 @@ it('shows the customer provider on the detail page and keeps the customer in the
     $prefix = Str::slug($locale);
 
     withSession([SessionKeyEnum::LANGUAGE->value => $locale])
-        ->get(route($prefix.'.infrastructure.show', ['station' => 'spaces', 'kunde' => 'web.example']))
+        ->get(route($prefix.'.infrastructure.show', ['station' => 'spaces', 'site' => 'web.example']))
         ->assertOk()
         ->assertSee('name="robots" content="noindex,nofollow"', false)
         ->assertSee('Cloudflare R2')
         ->assertDontSee('DigitalOcean')
-        ->assertSee(e(route($prefix.'.infrastructure.index', ['kunde' => 'web.example'])), false);
+        ->assertSee(e(route($prefix.'.infrastructure.index', ['site' => 'web.example'])), false);
 })->with([LocaleEnum::DE->value, LocaleEnum::EN->value])->group('infrastructure');
 
-it('answers 404 on the detail page for a service the customer does not use or an unknown customer', function (string $station, string $slug) {
+it('answers 404 on the detail page for a service the customer does not use', function (string $station) {
     exampleStack();
 
-    get(route('de-ch.infrastructure.show', ['station' => $station, 'kunde' => $slug]))->assertNotFound();
-})->with([
-    ['postmark', 'web.example'],
-    ['unknown', 'web.example'],
-    ['spaces', 'web.missing'],
-    ['spaces', '../.env'],
-])->group('infrastructure');
+    get(route('de-ch.infrastructure.show', ['station' => $station, 'site' => 'web.example']))->assertNotFound();
+})->with(['postmark', 'unknown'])->group('infrastructure');
 
-it('answers 404 for an unknown or malformed slug', function (string $slug) {
-    get(route('de-ch.infrastructure.index', ['kunde' => $slug]))->assertNotFound();
+it('falls back to the codebar stack for an unknown or malformed slug', function (string $slug) {
+    seed(PagesTableSeeder::class);
+    exampleStack();
+
+    get(route('de-ch.infrastructure.index', ['site' => $slug]))
+        ->assertOk()
+        ->assertSee('"auto":false', false)
+        ->assertSee('www.codebar.ch')
+        ->assertSee('name="robots" content="noindex,nofollow"', false)
+        ->assertDontSee('?site=', false);
+
+    get(route('de-ch.infrastructure.show', ['station' => 'app', 'site' => $slug]))
+        ->assertOk()
+        ->assertSee('name="robots" content="noindex,nofollow"', false)
+        ->assertDontSee('?site=', false);
 })->with(['web.missing', '../.env', 'UPPER', 'a', '.hidden', 'web example', str_repeat('a', 62)])->group('infrastructure');
 
 it('treats an empty or non-text customer parameter as the public view', function (string $query) {
@@ -194,12 +202,12 @@ it('treats an empty or non-text customer parameter as the public view', function
         ->assertOk()
         ->assertSee('"auto":false', false)
         ->assertSee('www.codebar.ch');
-})->with(['?kunde=', '?kunde[]=web.example', '?other=1'])->group('infrastructure');
+})->with(['?site=', '?site[]=web.example', '?other=1'])->group('infrastructure');
 
 it('shows a customer stack without a sketch and without services', function () {
     InfrastructureStack::factory()->create(['slug' => 'web.empty', 'domain' => 'www.empty.ch', 'services' => []]);
 
-    $data = infrastructureData(route('de-ch.infrastructure.index', ['kunde' => 'web.empty']));
+    $data = infrastructureData(route('de-ch.infrastructure.index', ['site' => 'web.empty']));
 
     expect($data['layers'])->toBe([])
         ->and($data['edges'])->toBe([])
@@ -273,7 +281,7 @@ it('shows the issuer a customer stack overrides for the certificate', function (
         'overrides' => ['tls' => ['provider' => "Let's Encrypt"]],
     ]);
 
-    get(localized_route('infrastructure.show', ['station' => 'tls']).'?kunde=portal.example')
+    get(localized_route('infrastructure.show', ['station' => 'tls']).'?site=portal.example')
         ->assertOk()
         ->assertSee("Let's Encrypt", false)
         ->assertDontSee('Google Trust Services');

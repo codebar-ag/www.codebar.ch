@@ -96,15 +96,15 @@ describe('infrastructure filter', () => {
     })
 
     it('keeps the customer and the graphic mark in the address', () => {
-        mount('?kunde=web.example', '#grafik')
+        mount('?site=web.example', '#grafik')
         button('platform').click()
 
-        expect(location.search).toBe('?kunde=web.example&bereich=platform')
+        expect(location.search).toBe('?site=web.example&bereich=platform')
         expect(location.hash).toBe('#grafik')
 
         reset().click()
 
-        expect(location.search).toBe('?kunde=web.example')
+        expect(location.search).toBe('?site=web.example')
         expect(location.hash).toBe('#grafik')
     })
 

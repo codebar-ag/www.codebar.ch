@@ -15,14 +15,16 @@ class InfrastructureIndexController extends Controller
 {
     public function __invoke(Request $request): View
     {
-        $slug = $request->query('kunde');
-        $isCustomer = is_string($slug) && $slug !== '';
-        $stack = $isCustomer ? InfrastructureStack::findBySlug($slug) : InfrastructureStack::default();
+        $slug = $request->query('site');
+        $hasSlug = is_string($slug) && $slug !== '';
+        $customer = $hasSlug ? InfrastructureStack::findBySlug($slug) : null;
+        $isCustomer = $customer !== null;
+        $stack = $customer ?? InfrastructureStack::default();
 
         abort_if($stack === null, 404);
 
         $layers = Catalog::layers($stack);
-        $query = $isCustomer ? ['kunde' => $slug] : [];
+        $query = $isCustomer ? ['site' => $slug] : [];
         $urls = [];
 
         foreach ($layers as $layer) {
@@ -33,7 +35,7 @@ class InfrastructureIndexController extends Controller
 
         $page = (new PageAction(locale: null, routeName: 'infrastructure.index'))->default();
 
-        if ($page !== null && $isCustomer) {
+        if ($page !== null && $hasSlug) {
             $page->robots = 'noindex,nofollow';
         }
 
