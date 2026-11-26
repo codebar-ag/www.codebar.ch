@@ -75,7 +75,7 @@ it('keeps the four areas on one line each', function () {
     $panel = introPanel(introMarkup(), 1);
 
     foreach (introItems() as $item) {
-        expect($panel)->toContain('<span class="[&_b]:font-normal [&_b]:text-brand">'.$item.'</span>');
+        expect($panel)->toContain('<span class="[&_b]:font-bold [&_b]:text-(--it-strong)">'.$item.'</span>');
     }
 });
 
@@ -184,25 +184,25 @@ it('spends no vertical space on prompt lines', function () {
     expect(introMarkup())->not->toContain('➜');
 });
 
-it('lets the panel height follow the content on mobile and freezes it on desktop', function () {
+it('stacks the panels in one cell so switching never changes the height', function () {
     $css = file_get_contents(resource_path('css/app.css'));
 
     if ($css === false) {
         throw new RuntimeException('Unable to read resources/css/app.css');
     }
 
-    $intro = Str::after($css, '.intro-tabs__panels');
+    $fallback = Str::of($css)->after('@supports not selector(:has(*))')->before('@supports selector(:has(*))')->toString();
+    $stacked = Str::of($css)->after('@supports selector(:has(*))')->before('.odoo-range')->toString();
 
-    $mobile = Str::before($intro, '@media');
-    $desktop = Str::after($intro, '@media (width >= 40rem)');
+    expect($fallback)->toContain('.intro-tabs__panel {')
+        ->and($fallback)->toContain('display: none')
+        ->and($fallback)->toContain('.intro-tabs__panel:first-child');
 
-    expect($mobile)->toContain('display: none')
-        ->and($mobile)->not->toContain('display: grid')
-        ->and($desktop)->toContain('display: grid')
-        ->and($desktop)->toContain('grid-area: 1 / 1');
-
-    expect(Str::before($intro, '.intro-tabs__panel:not(:first-child)'))
-        ->toContain('@supports not selector(:has(*))');
+    expect($stacked)->toContain('display: grid')
+        ->and($stacked)->toContain('grid-area: 1 / 1')
+        ->and($stacked)->toContain('visibility: hidden')
+        ->and($stacked)->toContain('visibility: visible')
+        ->and($stacked)->not->toContain('display: none');
 });
 
 it('translates the commands per locale', function () {
