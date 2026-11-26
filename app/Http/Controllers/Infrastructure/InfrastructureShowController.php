@@ -16,13 +16,15 @@ class InfrastructureShowController extends Controller
 {
     public function __invoke(Request $request, string $station): View
     {
-        $slug = $request->query('kunde');
-        $isCustomer = is_string($slug) && $slug !== '';
-        $stack = $isCustomer ? InfrastructureStack::findBySlug($slug) : InfrastructureStack::default();
+        $slug = $request->query('site');
+        $hasSlug = is_string($slug) && $slug !== '';
+        $customer = $hasSlug ? InfrastructureStack::findBySlug($slug) : null;
+        $isCustomer = $customer !== null;
+        $stack = $customer ?? InfrastructureStack::default();
 
         abort_if($stack === null, 404);
 
-        $query = $isCustomer ? ['kunde' => $slug] : [];
+        $query = $isCustomer ? ['site' => $slug] : [];
 
         foreach (Catalog::layers($stack) as $layer) {
             foreach ($layer['stations'] as $candidate) {
@@ -34,7 +36,7 @@ class InfrastructureShowController extends Controller
                             routeName: Str::slug(app()->getLocale()).'.infrastructure.show',
                             title: $candidate['name'].' · '.$candidate['provider'],
                             lastModificationDate: now(),
-                            robots: $isCustomer ? 'noindex,nofollow' : 'index,follow',
+                            robots: $hasSlug ? 'noindex,nofollow' : 'index,follow',
                             routeParameters: ['station' => $station],
                             description: $candidate['text'],
                         ),

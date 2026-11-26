@@ -57,9 +57,9 @@ describe('stationSheet', () => {
     })
 
     it('links to the detail page in a new tab when an address is given', () => {
-        const link = render({}, { url: '/infrastruktur/postmark?kunde=web.example&x=1' }).querySelector('a.infra-dialog-open')
+        const link = render({}, { url: '/infrastruktur/postmark?site=web.example&x=1' }).querySelector('a.infra-dialog-open')
 
-        expect(link.getAttribute('href')).toBe('/infrastruktur/postmark?kunde=web.example&x=1')
+        expect(link.getAttribute('href')).toBe('/infrastruktur/postmark?site=web.example&x=1')
         expect(link.target).toBe('_blank')
         expect(link.rel).toBe('noopener')
         expect(link.getAttribute('aria-label')).toBe('Mehr zu diesem Dienst')
