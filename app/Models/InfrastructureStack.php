@@ -50,6 +50,10 @@ class InfrastructureStack extends Model
 
     public function cover(): ?string
     {
+        if ($this->sketch !== null && str_starts_with($this->sketch, 'data:image/')) {
+            return $this->sketch;
+        }
+
         if ($this->sketch !== null && $this->sketch !== '') {
             return 'data:image/svg+xml;base64,'.base64_encode($this->sketch);
         }

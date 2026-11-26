@@ -5,10 +5,10 @@ import {join} from 'node:path';
 
 const [url, out, wArg, hArg] = process.argv.slice(2);
 if (!url || !out) {
-  console.error('usage: node site-to-svg.mjs <url> <out.svg> [width=1440] [height=900]');
+  console.error('usage: node scripts/infrastructure-sketch.mjs <url> <out.svg|out.webp|out.jpg> [width=1440] [height=900]');
   process.exit(1);
 }
-const W = +(wArg || 1440), H = +(hArg || 900);
+const W = +(wArg || 1440), H = +(hArg || 900), PHOTO = /\.(jpe?g|webp)$/i.test(out);
 const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const port = 9300 + Math.floor(Math.random() * 500);
 const profile = mkdtempSync(join(tmpdir(), 'site-to-svg-'));
@@ -173,13 +173,15 @@ const sample = (png, jpg, data) => `(async () => {
 try {
   const c = await client(await target());
   await c.send('Page.enable');
-  await c.send('Emulation.setDeviceMetricsOverride', {width: W, height: H, deviceScaleFactor: /\.jpe?g$/i.test(out) ? 1.5 : 2, mobile: false});
+  await c.send('Emulation.setDeviceMetricsOverride', {width: W, height: H, deviceScaleFactor: PHOTO ? 4 / 3 : 2, mobile: false});
   const loaded = c.once('Page.loadEventFired');
   await c.send('Page.navigate', {url});
   await loaded;
   await sleep(2500);
-  if (/\.jpe?g$/i.test(out)) {
-    const jpg = (await c.send('Page.captureScreenshot', {format: 'jpeg', quality: 78})).data;
+  if (PHOTO) {
+    await c.send('Runtime.evaluate', {expression: "(()=>{const s=document.createElement('style');s.textContent='#CybotCookiebotDialog,#CybotCookiebotDialogBodyUnderlay,#cookiefirst-root,[class*=cookiefirst],[data-cookiefirst-widget],.cky-consent-container,.cky-overlay{display:none!important}';document.head.appendChild(s)})()"});
+    await sleep(200);
+    const jpg = (await c.send('Page.captureScreenshot', {format: /\.webp$/i.test(out) ? 'webp' : 'jpeg', quality: 78})).data;
     writeFileSync(out, Buffer.from(jpg, 'base64'));
     console.log(`${out}: ${(jpg.length * .75 / 1024).toFixed(0)} KB`);
     c.close();

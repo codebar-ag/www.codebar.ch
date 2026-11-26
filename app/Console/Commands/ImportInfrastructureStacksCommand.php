@@ -9,7 +9,7 @@ use Illuminate\Console\Command;
 
 class ImportInfrastructureStacksCommand extends Command
 {
-    protected $signature = 'infrastructure:import-stacks {path? : Folder with one <slug>.json and an optional <slug>.svg per customer}';
+    protected $signature = 'infrastructure:import-stacks {path? : Folder with one <slug>.json and an optional <slug>.webp screenshot or <slug>.svg sketch per customer}';
 
     protected $description = 'Import customer stacks for the infrastructure page from a private folder';
 
@@ -44,7 +44,6 @@ class ImportInfrastructureStacksCommand extends Command
                 }
             }
 
-            $sketch = $path.'/'.$slug.'.svg';
             $stack = InfrastructureStack::query()->firstOrNew(['slug' => $slug]);
 
             if ($stack->is_default) {
@@ -56,7 +55,7 @@ class ImportInfrastructureStacksCommand extends Command
             $stack->fill([
                 'name' => is_string($data['name'] ?? null) ? $data['name'] : $slug,
                 'domain' => is_string($data['domain'] ?? null) ? $data['domain'] : $slug,
-                'sketch' => is_file($sketch) ? (string) file_get_contents($sketch) : null,
+                'sketch' => $this->cover($path.'/'.$slug),
                 'services' => array_values(array_filter($data['stations'], 'is_string')),
                 'overrides' => $overrides,
             ])->save();
@@ -67,5 +66,14 @@ class ImportInfrastructureStacksCommand extends Command
         $this->info($imported.' stacks imported.');
 
         return self::SUCCESS;
+    }
+
+    private function cover(string $base): ?string
+    {
+        if (is_file($base.'.webp')) {
+            return 'data:image/webp;base64,'.base64_encode((string) file_get_contents($base.'.webp'));
+        }
+
+        return is_file($base.'.svg') ? (string) file_get_contents($base.'.svg') : null;
     }
 }

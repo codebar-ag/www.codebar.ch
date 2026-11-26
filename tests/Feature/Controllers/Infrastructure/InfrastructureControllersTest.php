@@ -20,13 +20,13 @@ beforeEach(function () {
 });
 
 /**
- * @return array{layers: list<array{key: string, stations: list<array{id: string, provider: string}>}>, edges: list<array{0: string, 1: string}>, urls: array<string, string>, auto: bool, site: array{image: string|null, domain: string}, labels: array<string, string>}
+ * @return array{layers: list<array{key: string, stations: list<array{id: string, provider: string}>}>, edges: list<array{0: string, 1: string, 2: string}>, urls: array<string, string>, auto: bool, site: array{image: string|null, domain: string}, labels: array<string, string>}
  */
 function infrastructureData(string $url): array
 {
     preg_match('/<script type="application\/json" id="infraData">(.*?)<\/script>/s', (string) get($url)->assertOk()->getContent(), $match);
 
-    /** @var array{layers: list<array{key: string, stations: list<array{id: string, provider: string}>}>, edges: list<array{0: string, 1: string}>, urls: array<string, string>, auto: bool, site: array{image: string|null, domain: string}, labels: array<string, string>} $data */
+    /** @var array{layers: list<array{key: string, stations: list<array{id: string, provider: string}>}>, edges: list<array{0: string, 1: string, 2: string}>, urls: array<string, string>, auto: bool, site: array{image: string|null, domain: string}, labels: array<string, string>} $data */
     $data = json_decode($match[1] ?? '', true, flags: JSON_THROW_ON_ERROR);
 
     return $data;
@@ -113,12 +113,12 @@ it('hands the graphic the layers, connections, cover, labels and detail links', 
     $data = infrastructureData(route('de-ch.infrastructure.index'));
 
     expect(array_column($data['layers'], 'key'))->toBe(['network', 'platform', 'services', 'ai', 'monitoring', 'development', 'backups'])
-        ->and($data['edges'])->toContain(['req', 'domain'])
-        ->and($data['edges'])->toContain(['app', 'azure'])
+        ->and($data['edges'])->toContain(['req', 'domain', 'constant'])
+        ->and($data['edges'])->toContain(['app', 'azure', 'occasional'])
         ->and($data['urls']['app'])->toBe(route('de-ch.infrastructure.show', ['station' => 'app']))
         ->and($data['auto'])->toBeFalse()
         ->and($data['site']['domain'])->toBe('www.codebar.ch')
-        ->and($data['site']['image'])->toEndWith('images/infrastructure/front-codebar.svg')
+        ->and($data['site']['image'])->toEndWith('images/infrastructure/front-codebar.webp')
         ->and(array_keys($data['labels']))->toBe(['back', 'progress', 'close', 'processing', 'provider', 'origin', 'operation', 'details']);
 })->group('infrastructure');
 

@@ -439,6 +439,7 @@ return [
             'SE' => 'Schweden',
             'BE' => 'Belgien',
             'BG' => 'Bulgarien',
+            'TW' => 'Taiwan',
             'US' => 'USA',
             'WW' => 'Weltweit',
         ],

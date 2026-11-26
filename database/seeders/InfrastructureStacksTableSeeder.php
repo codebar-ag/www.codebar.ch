@@ -17,7 +17,7 @@ class InfrastructureStacksTableSeeder extends Seeder
             'is_default' => true,
             'name' => 'codebar Solutions AG',
             'domain' => 'www.codebar.ch',
-            'image' => 'images/infrastructure/front-codebar.svg',
+            'image' => 'images/infrastructure/front-codebar.webp',
             'sketch' => null,
             'services' => ['domain', 'dns', 'tls', 'waf', 'app', 'cache', 'db', 'workers', 'turnstile', 'cloudinary', 'vimeo', 'postmark', 'spaces', 'azure', 'macs', 'ohdear', 'logs', 'analytics', 'feedback', 'github', 'cicd', 'gitlab', 'synon', 'synoff'],
             'overrides' => [

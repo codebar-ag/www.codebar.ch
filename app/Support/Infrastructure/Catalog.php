@@ -46,7 +46,7 @@ class Catalog
 
     /**
      * @param  list<Layer>  $layers
-     * @return list<array{0: string, 1: string}>
+     * @return list<array{0: string, 1: string, 2: string}>
      */
     public static function edges(array $layers): array
     {
@@ -62,7 +62,7 @@ class Catalog
 
         foreach (InfrastructureConnection::query()->orderBy('order')->orderBy('id')->get() as $connection) {
             if (in_array($connection->from, $ids, true) && in_array($connection->to, $ids, true)) {
-                $edges[] = [$connection->from, $connection->to];
+                $edges[] = [$connection->from, $connection->to, $connection->flow->value];
             }
         }
 

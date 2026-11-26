@@ -11,7 +11,9 @@ const source=document.getElementById('infraData');
 if(source){
 const D=JSON.parse(source.textContent),T=D.labels,root=document.documentElement;
 const S={};D.layers.forEach(l=>l.stations.forEach(s=>{S[s.id]={...s,color:l.color}}));
-const EDGES=D.edges.map(e=>({from:e[0],to:e[1]}));
+const FLOW={constant:[33.33,2.3,4.5],frequent:[50,4.6,4.5],occasional:[100,12,4.5],scheduled:[50,9,4.5]};
+const EDGES=D.edges.map(e=>({from:e[0],to:e[1],flow:FLOW[e[2]]||FLOW.constant}));
+const pace=(p,f,shift)=>{p.style.strokeDasharray=f[2]+' '+(f[0]-f[2]).toFixed(2);p.style.setProperty('--o',-f[0]);p.style.animationDuration=f[1]+'s';p.style.animationDelay=(-(shift%1)*f[1]).toFixed(2)+'s'};
 const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FLAGS={};document.querySelectorAll('#infraFlags [data-flag]').forEach(el=>{FLAGS[el.dataset.flag]=el.innerHTML});
 const flagsOf=s=>s.flags.map(c=>FLAGS[c]||'').join('');
@@ -40,9 +42,11 @@ for(let k=NL-1;k>=0;k--){const sh=mk('div','sx-sh'),pl=mk('div','sx-plate');pl.s
 const site=mk('div','sx-plate sx-site',siteMock());site.style.setProperty('--c','#C9D3DD');world.append(site);
 const cta=null;
 const svgL=LAY.map(l=>{const v=document.createElementNS(NS,'svg');v.style.setProperty('--c',l.color);v.setAttribute('class','sx-lines');v.setAttribute('width','1');v.setAttribute('height','1');v.setAttribute('aria-hidden','true');world.append(v);return v});
+const svgG=LAY.map(()=>{const v=document.createElementNS(NS,'svg');v.setAttribute('class','sx-lines');v.setAttribute('width','1');v.setAttribute('height','1');v.setAttribute('aria-hidden','true');world.append(v);return v});
 const mkPath=(k,col,i)=>{const e=document.createElementNS(NS,'path');e.setAttribute('class','sx-ln');e.setAttribute('stroke',col);if(i!=null)e.dataset.i=i;const p=document.createElementNS(NS,'path');p.setAttribute('class','sx-pk');p.setAttribute('stroke',col);p.setAttribute('pathLength','100');svgL[k].append(e,p);e.pk=p;return e};
 const ln0=E0?mkPath(layerOf[E0.to],LAY[layerOf[E0.to]].color):mkPath(0,LAY[0].color),lnEls=EDG.map((e,i)=>mkPath(Math.max(layerOf[e.from],layerOf[e.to]),LAY[Math.max(layerOf[e.from],layerOf[e.to])].color,i));
-{const dep={};if(E0)dep[E0.to]=1;for(let n=0;n<8;n++)EDG.forEach(e=>{if(dep[e.from]!=null&&(dep[e.to]==null||dep[e.to]>dep[e.from]+1))dep[e.to]=dep[e.from]+1});const D=id=>dep[id]!=null?dep[id]:Math.max(1,...Object.values(dep))+1;ln0.pk.style.animationDelay='0s';EDG.forEach((e,i)=>{lnEls[i].pk.style.animationDirection=layerOf[e.from]<layerOf[e.to]?'reverse':'normal';lnEls[i].pk.style.animationDelay=(-(D(e.from)*.9+i*.37)%4.2).toFixed(2)+'s'})}
+const ghEls=EDG.map(e=>{const ka=layerOf[e.from],kb=layerOf[e.to];const out=[];for(let k=Math.min(ka,kb);k<Math.max(ka,kb);k++){const p=document.createElementNS(NS,'path');p.setAttribute('class','sx-gh');p.style.setProperty('--c',LAY[Math.max(ka,kb)].color);const q=document.createElementNS(NS,'path');q.setAttribute('class','sx-pk');q.setAttribute('pathLength','100');q.style.setProperty('--c',LAY[Math.max(ka,kb)].color);svgG[k].append(p,q);p.pk=q;out.push(p)}return out});
+{const dep={};if(E0)dep[E0.to]=1;for(let n=0;n<8;n++)EDG.forEach(e=>{if(dep[e.from]!=null&&(dep[e.to]==null||dep[e.to]>dep[e.from]+1))dep[e.to]=dep[e.from]+1});const D=id=>dep[id]!=null?dep[id]:Math.max(1,...Object.values(dep))+1;pace(ln0.pk,(E0||{flow:FLOW.constant}).flow,0);EDG.forEach((e,i)=>{const shift=(D(e.from)*.9+i*.37)/4.2;pace(lnEls[i].pk,e.flow,shift);ghEls[i].forEach(p=>pace(p.pk,e.flow,shift))})}
 LIDS.forEach(id=>{const s=S[id],b=mk('button','sx-card',`<i class="sx-bs"></i><i class="sx-bf"><b>${esc(s.name)}</b><small>${esc(s.provider)}</small></i><i class="sx-br"><span class="sx-f">${flagsOf(s)}</span></i>`);b.type='button';b.dataset.station=id;b.style.setProperty('--c',s.color);world.append(b);cards[id]=b});
 LAY.forEach((l,k)=>{const b=mk('button','sx-tab',`<b>${esc(l.name)}</b>`);b.type='button';b.dataset.k=k;b.style.setProperty('--c',l.color);plates[k].append(b);tabs[k]=b});
 const time=mk('nav','sx-time',`<button type="button" class="sx-time-r" data-t="-1" aria-label="${esc(T.back)}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button><div class="sx-time-t">`+LAY.map(l=>`<button type="button" data-t="${l.k}" style="--c:${l.color}" aria-label="${esc(l.name)}" title="${esc(l.name)}"><span></span></button>`).join('')+`</div>`);time.setAttribute('aria-label',T.progress);stage.append(time);
@@ -89,7 +93,7 @@ function draw(){
   LAY.forEach((l,k)=>{
     const s=ST[k],pl=plates[k],sh=shadows[k],vis=s.vis;
     pl.style.width=sh.style.width=g.w+'px';pl.style.height=sh.style.height=s.hk+'px';
-    pl.style.transform=mt+s.ox+','+s.oy+')';pl.style.zIndex=900-k*10;svgL[k].style.zIndex=902-k*10;
+    pl.style.transform=mt+s.ox+','+s.oy+')';pl.style.zIndex=900-k*10;svgL[k].style.zIndex=902-k*10;svgG[k].style.zIndex=901-k*10;svgG[k].style.clipPath='polygon('+[[0,0],[g.w,0],[g.w,1],[0,1]].map(q=>{const c=pt(s,q[0],q[1]);return c[0].toFixed(1)+'px '+c[1].toFixed(1)+'px'}).join(',')+')';
     sh.style.transform=mt+(s.ox+10)+','+(s.oy+16)+')';sh.style.opacity=.75*clamp(P[k].o);sh.style.zIndex=897-k*10;
     edge(pl,'p'+g.key,P[k]);
     l.ids.forEach((id,i)=>{const[x,fy]=local(k,i),c=cards[id],root=TREE[k]===id,grow=smooth(.05,1,vis),bh=g.bh*grow,fw=root?g.colS*(l.ids.length-1):TREE[k]?g.colS:g.fw,fd=g.fd,lift=root?bh:0,hh=bh+lift,yb=fy*g.HL,inner=TREE[k]&&!root&&l.pos[id][1]>l.pos[l.ids[1]][1],x0=x-fw/2,p=pt(s,x,fy),A=pt(s,x0,(yb-fd)/g.HL),B=pt(s,x0,fy),R=pt(s,x0+fw,(yb-fd)/g.HL),left=g.b<=0,f=c.children;feet[id]=p;tops[id]=[(A[0]+R[0])/2+g.c*fd/2,(A[1]+R[1])/2+g.d*fd/2-hh];
@@ -104,11 +108,11 @@ function draw(){
   EDG.forEach((ed,i)=>{const ka=layerOf[ed.from],kb=layerOf[ed.to],a=loc[ed.from],b=loc[ed.to],tree=ka===kb&&TREE[ka]&&(TREE[ka]===ed.from||TREE[ka]===ed.to),v=tree?0:Math.min(ST[ka].vis,ST[kb].vis),n=g.eL[i]||0,os=g.eS[i]||0,ot=g.eT[i]||0;
     const yl=ly(ed.to,n),sh=g.c*(a[1]*H-g.fd-yl*H)/g.a,[X,Z]=fit(a[0]+sh,lim(ed.from),b[0],lim(ed.to)),row=ka===kb&&!tree&&LAY[ka].pos[ed.from][0]===LAY[ka].pos[ed.to][0]&&Math.abs(LAY[ka].pos[ed.from][1]-LAY[ka].pos[ed.to][1])<1.01;
     const pts=row?[mid(ed.from),mid(ed.to)]:ka===kb?[bk(ed.from,os),pt(ST[ka],a[0]+os,ly(ed.from,n)),pt(ST[kb],b[0]+ot,ly(ed.from,n)),pt(ST[kb],b[0]+ot,ly(ed.to,n)),bk(ed.to,ot)]:[bk(ed.from,X-sh-a[0]),pt(ST[kb],X,yl),pt(ST[kb],Z,yl),bk(ed.to,Z-b[0])];
-    const dd=path(pts);lnEls[i].setAttribute('d',dd);lnEls[i].pk.setAttribute('d',dd);lnEls[i].dataset.v=v.toFixed(2)});
+    const dd=path(pts);lnEls[i].setAttribute('d',dd);lnEls[i].pk.setAttribute('d',dd);lnEls[i].dataset.v=v.toFixed(2);ghEls[i].forEach(p=>{p.setAttribute('d',dd);p.pk.setAttribute('d',dd)})});
   applyEdges()}
 function applyEdges(){
-  const set=(ln,v)=>{ln.style.opacity=v*.3;ln.style.visibility=ln.pk.style.visibility=v<.03?'hidden':'';ln.pk.style.opacity=v};
-  EDG.forEach((ed,i)=>set(lnEls[i],+lnEls[i].dataset.v||0));set(ln0,+ln0.dataset.v||0)}
+  const set=(ln,v)=>{ln.style.opacity=v*.55;ln.style.visibility=ln.pk.style.visibility=v<.03?'hidden':'';ln.pk.style.opacity=v};
+  EDG.forEach((ed,i)=>{const v=+lnEls[i].dataset.v||0;set(lnEls[i],v);ghEls[i].forEach(p=>{p.style.opacity=v*.45;p.pk.style.opacity=v;p.style.visibility=p.pk.style.visibility=v<.03?'hidden':''})});set(ln0,+ln0.dataset.v||0)}
 
 let last=0;
 function frame(){requestAnimationFrame(frame);tick()}
