@@ -116,7 +116,7 @@ it('renders the turnstile widget when a site key is configured', function () {
 
     get(route('en-ch.network.request.index'))
         ->assertOk()
-        ->assertSee('challenges.cloudflare.com/turnstile/v0/api.js', false)
+        ->assertSee('data-turnstile-src="https://challenges.cloudflare.com/turnstile/v0/api.js"', false)
         ->assertSee('data-sitekey="test-site-key"', false)
         ->assertSee('data-language="en"', false);
 })->group('network', 'turnstile');

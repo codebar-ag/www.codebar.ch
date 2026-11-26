@@ -6,7 +6,7 @@
            title="{{ $locale->getLabel() }}"
            @class([
                'grid min-h-control min-w-control place-items-center rounded-full px-3 text-sm font-bold uppercase transition',
-               'bg-zunscan-light-blue text-white' => $locale->value === app()->getLocale(),
+               'bg-zunscan-blue text-white' => $locale->value === app()->getLocale(),
                'text-zunscan-dark-gray hover:bg-white/60' => $locale->value !== app()->getLocale(),
            ])>
             {{ $locale->getLabel() }}

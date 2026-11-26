@@ -71,13 +71,20 @@
 
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 
+    @foreach([300, 400, 700] as $weight)
+        <link rel="preload" href="{{ Vite::asset("resources/fonts/titillium-web/titillium-web-{$weight}-normal-latin.woff2") }}" as="font" type="font/woff2" crossorigin>
+    @endforeach
+    <link rel="preload" href="{{ Vite::asset('resources/images/zunscan/zunscan_papertexture.webp') }}" as="image" type="image/webp" fetchpriority="high">
+
     <x-zunscan.patials.schema :title="$title" :description="$description" :canonical="$canonical" :image="$image"/>
 
     @vite(['resources/js/zunscan.js'])
 </head>
 
 <body class="font-sans antialiased text-zunscan-dark-gray">
-{{ $slot }}
+<main>
+    {{ $slot }}
+</main>
 
 <x-zunscan.patials.footer/>
 

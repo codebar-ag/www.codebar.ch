@@ -24,7 +24,7 @@
         @if($src = NewsImage::src($image, 1280))
             <img src="{{ $src }}"
                  @if($srcset = NewsImage::srcset($image, 1280)) srcset="{{ $srcset }}" sizes="(min-width: 960px) 896px, 100vw" @endif
-                 alt="" width="1800" height="600" decoding="async"
+                 alt="" width="1800" height="600" decoding="async" fetchpriority="high"
                  class="mb-6 hidden aspect-[16/9] w-full object-cover sm:block lg:aspect-[3/1]">
         @endif
 

@@ -107,6 +107,9 @@ it('uses the sketch as cover, then the image, then nothing', function () {
 
     expect($stack->cover())->toBe('data:image/svg+xml;base64,'.base64_encode('<svg/>'));
 
+    $stack->sketch = 'data:image/webp;base64,AAAA';
+    expect($stack->cover())->toBe('data:image/webp;base64,AAAA');
+
     $stack->sketch = '';
     expect($stack->cover())->toBe(asset('images/a.svg'));
 

@@ -1,9 +1,9 @@
-<header x-data="{ mobileMenu: false }" x-cloak>
+<header x-data="{ mobileMenu: false }">
     <nav class="mx-auto flex items-center justify-between py-6">
         <div class="flex md:flex-1">
             <a href="{{ zunscan_route('start.index') }}">
                 <span class="sr-only">zunscan.ch</span>
-                <img class="h-16 w-auto" src="{{ asset('images/zunscan/zunscan_logo_pos.svg') }}" alt="">
+                <img class="h-16 w-auto" src="{{ asset('images/zunscan/zunscan_logo_pos.svg') }}" alt="" width="247" height="87">
             </a>
         </div>
         <div class="flex md:hidden">
@@ -34,13 +34,13 @@
     </nav>
 
     <!-- Mobile menu -->
-    <div x-show="mobileMenu" class="md:hidden" role="dialog" aria-modal="true">
+    <div x-show="mobileMenu" x-cloak class="md:hidden" role="dialog" aria-modal="true">
         <div class="fixed inset-0 z-50"></div>
         <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div class="flex items-center justify-between">
                 <a href="{{ zunscan_route('start.index') }}" class="-m-1.5 p-1.5">
                     <span class="sr-only">zunscan.ch</span>
-                    <img class="h-16 w-auto" src="{{ asset('images/zunscan/zunscan_logo_pos.svg') }}" alt="">
+                    <img class="h-16 w-auto" src="{{ asset('images/zunscan/zunscan_logo_pos.svg') }}" alt="" width="247" height="87">
                 </a>
                 <button x-on:click="mobileMenu = !mobileMenu" type="button"
                         class="-m-2.5 rounded-md p-2.5 text-gray-700">

@@ -63,7 +63,7 @@ it('drops layers without services, unknown services and connections without both
     $layers = Catalog::layers(stackOf(['domain', 'app', 'db', 'unknown', 'domain']));
 
     expect(array_column($layers, 'key'))->toBe(['network', 'platform'])
-        ->and(Catalog::edges($layers))->toBe([['req', 'domain'], ['app', 'db']]);
+        ->and(Catalog::edges($layers))->toBe([['req', 'domain', 'constant'], ['app', 'db', 'constant']]);
 })->group('unit', 'infrastructure');
 
 it('returns nothing for an empty stack or an empty catalog', function () {

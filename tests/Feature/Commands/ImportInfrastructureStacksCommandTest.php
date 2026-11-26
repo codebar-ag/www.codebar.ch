@@ -38,6 +38,13 @@ it('imports a stack with its sketch and updates it on the next run', function ()
         ->and($stack->overrides)->toBe(['app' => ['provider' => 'Forge']])
         ->and($stack->is_default)->toBeFalse();
 
+    File::put($path.'/web.example.webp', 'photo');
+
+    runArtisan('infrastructure:import-stacks', ['path' => $path])->assertSuccessful();
+
+    expect($stack->refresh()->sketch)->toBe('data:image/webp;base64,'.base64_encode('photo'));
+
+    File::delete($path.'/web.example.webp');
     File::put($path.'/web.example.json', (string) json_encode(['stations' => ['db']]));
     File::delete($path.'/web.example.svg');
 

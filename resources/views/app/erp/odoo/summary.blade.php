@@ -19,7 +19,7 @@
 
     <x-layout.section>
         <div class="divide-y divide-border overflow-hidden rounded-panel border border-border-strong bg-white">
-            @include('app.erp.odoo._costs')
+            @include('app.erp.odoo._costs', ['heading' => 'h2'])
         </div>
     </x-layout.section>
 

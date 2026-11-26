@@ -26,8 +26,9 @@
 .infra .sx-lines{z-index:40;overflow:visible;pointer-events:none}
 .infra .sx-ln,.infra .sx-pk{fill:none;stroke:color-mix(in srgb,var(--c) 78%,#27343C);stroke-linecap:round;stroke-linejoin:round}
 .infra .sx-ln{stroke-width:2.5}
+.infra .sx-gh{fill:none;stroke:color-mix(in srgb,var(--c) 78%,#27343C);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1.5 6.5}
 .infra .sx-pk{stroke-width:4;stroke-dasharray:4.5 28.83;filter:brightness(1.25) drop-shadow(0 0 5px currentColor);animation:infra-pulse 2.3s linear infinite}
-@keyframes infra-pulse{to{stroke-dashoffset:-33.33}}
+@keyframes infra-pulse{to{stroke-dashoffset:var(--o,-33.33)}}
 .infra .sx-card{z-index:50;width:0;height:0;margin:0;padding:0;border:0;background:none;overflow:visible;cursor:pointer;text-align:left}
 .infra .sx-card:hover,.infra .sx-card:focus-visible{filter:brightness(1.06) drop-shadow(0 0 6px color-mix(in srgb,var(--c) 60%,transparent));outline:none}
 .infra .sx-card>i{position:absolute;left:0;top:0;transform-origin:0 0;box-sizing:border-box;font-style:normal;display:block}

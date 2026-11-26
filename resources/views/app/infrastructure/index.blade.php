@@ -47,7 +47,7 @@
     <dialog class="infra-dialog" id="infraDialog" aria-labelledby="infraDialogTitle"></dialog>
 
     <div hidden id="infraFlags">
-        @foreach(['CH', 'DE', 'SE', 'BE', 'BG', 'US', 'WW'] as $code)
+        @foreach(['CH', 'DE', 'SE', 'BE', 'BG', 'TW', 'US', 'WW'] as $code)
             <span data-flag="{{ $code }}"><x-infrastructure.flag :code="$code" :name="__('components.infrastructure.countries.'.$code)"/></span>
         @endforeach
     </div>
