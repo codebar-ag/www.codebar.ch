@@ -13,6 +13,8 @@ use App\Http\Controllers\Entry\EntryIndexController;
 use App\Http\Controllers\Erp\ErpOdooPricingShowController;
 use App\Http\Controllers\Erp\ErpOdooPricingSummaryController;
 use App\Http\Controllers\Erp\ErpRedirectController;
+use App\Http\Controllers\Infrastructure\InfrastructureIndexController;
+use App\Http\Controllers\Infrastructure\InfrastructureShowController;
 use App\Http\Controllers\Jobs\ApplicationAutosaveController;
 use App\Http\Controllers\Jobs\ApplicationFileDestroyController;
 use App\Http\Controllers\Jobs\ApplicationRequestStoreController;
@@ -115,6 +117,8 @@ Route::group(['as' => Str::slug(LocaleEnum::EN->value).'.'], function () use ($l
     Route::patch('jobs/internship/application/{application}', ApplicationAutosaveController::class)->whereNumber('application')->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
     Route::delete('jobs/internship/application/{application}/files/{applicationFile}', ApplicationFileDestroyController::class)->whereNumber(['application', 'applicationFile'])->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
     Route::get('media', MediaIndexController::class)->name('media.index');
+    Route::get('infrastructure', InfrastructureIndexController::class)->name('infrastructure.index');
+    Route::get('infrastructure/{station}', InfrastructureShowController::class)->where('station', '[a-z]+')->name('infrastructure.show');
     // Not cached: the opening hours box reflects the current day and open/closed state.
     Route::get('contact', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
 });
@@ -171,6 +175,8 @@ Route::group(['as' => Str::slug(LocaleEnum::DE->value).'.'], function () use ($l
     Route::patch('stellen/praktikum/bewerbung/{application}', ApplicationAutosaveController::class)->whereNumber('application')->middleware(['signed', 'throttle:60,1'])->name('jobs.internship.application.autosave');
     Route::delete('stellen/praktikum/bewerbung/{application}/dateien/{applicationFile}', ApplicationFileDestroyController::class)->whereNumber(['application', 'applicationFile'])->middleware(['signed', 'throttle:30,1'])->name('jobs.internship.application.files.destroy');
     Route::get('medien', MediaIndexController::class)->name('media.index');
+    Route::get('infrastruktur', InfrastructureIndexController::class)->name('infrastructure.index');
+    Route::get('infrastruktur/{station}', InfrastructureShowController::class)->where('station', '[a-z]+')->name('infrastructure.show');
     // Not cached: the opening hours box reflects the current day and open/closed state.
     Route::get('kontakt', ContactIndexController::class)->middleware(DoNotCacheResponse::class)->name('contact.index');
 });

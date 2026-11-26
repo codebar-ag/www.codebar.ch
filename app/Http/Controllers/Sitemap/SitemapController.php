@@ -9,10 +9,14 @@ use App\DTO\PageDTO;
 use App\Enums\CacheKeyEnum;
 use App\Enums\LocaleEnum;
 use App\Http\Controllers\Controller;
+use App\Models\InfrastructureService;
+use App\Models\InfrastructureStack;
 use App\Models\News;
 use App\Sitemap\SitemapBuilder;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class SitemapController extends Controller
 {
@@ -24,6 +28,7 @@ class SitemapController extends Controller
         'erp.systems.pricing.show',
         'contact.index',
         'media.index',
+        'infrastructure.index',
         'legal.imprint.index',
         'legal.privacy.index',
         'legal.terms.index',
@@ -64,7 +69,40 @@ class SitemapController extends Controller
     private function builder(SitemapBuilder $sitemap): void
     {
         $this->addDefaultRoutesToSitemap($sitemap);
+        $this->addInfrastructureToSitemap($sitemap);
         $this->addNewsToSitemap($sitemap);
+    }
+
+    private function addInfrastructureToSitemap(SitemapBuilder $sitemap): void
+    {
+        $stack = InfrastructureStack::default();
+
+        if ($stack === null) {
+            return;
+        }
+
+        InfrastructureService::query()
+            ->orderBy('infrastructure_layer_id')
+            ->orderBy('order')
+            ->get()
+            ->each(function (InfrastructureService $service) use ($sitemap): void {
+                $this->addLocalizedSet($sitemap, function (string $locale) use ($service): PageDTO {
+                    /** @var string $name */
+                    $name = $service->getTranslation('name', $locale);
+                    /** @var string $text */
+                    $text = $service->getTranslation('text', $locale);
+
+                    return new PageDTO(
+                        locale: $locale,
+                        routeKey: 'infrastructure.show',
+                        routeName: Str::slug($locale).'.infrastructure.show',
+                        title: $name.' · '.$service->provider,
+                        lastModificationDate: Carbon::parse($service->updated_at ?? now()),
+                        routeParameters: ['station' => $service->key],
+                        description: $text,
+                    );
+                });
+            });
     }
 
     private function addNewsToSitemap(SitemapBuilder $sitemap): void

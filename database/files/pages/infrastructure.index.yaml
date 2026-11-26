@@ -1,0 +1,9 @@
+key: infrastructure.index
+robots: index,follow
+image: images/pages/infrastructure.index.svg
+title:
+  de_CH: 'Infrastruktur und Dienste hinter unseren Anwendungen'
+  en_CH: 'Infrastructure and services behind our applications'
+description:
+  de_CH: 'Mit diesen Diensten und Anbietern bauen und betreiben wir Anwendungen, mit Anbieter und Land der Datenverarbeitung.'
+  en_CH: 'The services and providers we use to build and run applications, with provider and country of data processing.'

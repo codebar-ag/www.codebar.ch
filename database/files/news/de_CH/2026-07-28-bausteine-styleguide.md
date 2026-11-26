@@ -17,7 +17,7 @@ featured: false
 ---
 
 Der erste Absatz ist der Einstieg. Die ganze Website nutzt eine einzige Schrift —
-Poppins —, im Artikel nur etwas grösser und luftiger gesetzt. **Fetter Text** und *kursiver Text* funktionieren wie gewohnt,
+Alan Sans —, im Artikel nur etwas grösser und luftiger gesetzt. **Fetter Text** und *kursiver Text* funktionieren wie gewohnt,
 ebenso [Links](https://www.codebar.ch) und `Inline-Code`.
 
 ## Überschrift der zweiten Ebene

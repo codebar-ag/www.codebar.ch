@@ -16,7 +16,7 @@ tags: [Styleguide, Redaktion]
 featured: false
 ---
 
-The opening paragraph sets the scene. The whole site uses a single typeface — Poppins —
+The opening paragraph sets the scene. The whole site uses a single typeface — Alan Sans —
 set a little larger and more open inside an article. **Bold text** and *italics* work as expected, as do
 [links](https://www.codebar.ch) and `inline code`.
 

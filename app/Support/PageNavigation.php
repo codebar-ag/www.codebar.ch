@@ -46,6 +46,8 @@ class PageNavigation
             'network.index' => 'contact.index',
             'jobs.index' => 'about-us.index',
             'media.index' => 'network.index',
+            'infrastructure.index' => 'services.index',
+            'infrastructure.show' => 'services.index',
         ];
     }
 

@@ -226,3 +226,67 @@ describe('arrow buttons', () => {
         expect(checkedIndex()).toBe(0)
     })
 })
+
+describe('writing the text in word by word', () => {
+    function mountWithPanels() {
+        document.body.innerHTML = `
+            <fieldset class="intro-tabs">
+                ${TABS.map((index) => `
+                    <input type="radio" name="intro-tab" data-tab="${index}" data-shortcut="${index + 1}" ${index === 0 ? 'checked' : ''}>
+                    <div data-panel="${index}">
+                        <div data-intro-text><p>one <b>two</b> three</p></div>
+                        <p class="intro-tabs__actions"></p>
+                    </div>
+                `).join('')}
+            </fieldset>
+        `
+
+        const root = document.querySelector('.intro-tabs')
+        root.getBoundingClientRect = () => ({ top: 0, bottom: 500 })
+
+        const component = introTabs()
+        component.$root = root
+        component.init()
+
+        return { component, root }
+    }
+
+    const shown = (root, index) => root.querySelectorAll(`[data-panel="${index}"] .intro-tabs__word.is-on`).length
+
+    it('keeps the text intact and reveals every word, then the buttons', () => {
+        vi.useFakeTimers()
+        const { root } = mountWithPanels()
+
+        expect(root.classList.contains('intro-tabs--animated')).toBe(true)
+        expect(root.querySelector('[data-panel="0"] [data-intro-text]').textContent).toBe('one two three')
+        expect(root.querySelector('[data-panel="0"] .intro-tabs__actions').classList.contains('is-on')).toBe(false)
+
+        vi.runAllTimers()
+
+        expect(shown(root, 0)).toBe(3)
+        expect(root.querySelector('[data-panel="0"] .intro-tabs__actions').classList.contains('is-on')).toBe(true)
+        vi.useRealTimers()
+    })
+
+    it('starts over on the section a visitor switches to', () => {
+        vi.useFakeTimers()
+        const { root } = mountWithPanels()
+        vi.runAllTimers()
+
+        press('2')
+        vi.runAllTimers()
+
+        expect(shown(root, 0)).toBe(0)
+        expect(shown(root, 1)).toBe(3)
+        vi.useRealTimers()
+    })
+
+    it('leaves the text alone when reduced motion is requested', () => {
+        window.matchMedia = () => ({ matches: true })
+        const { root } = mountWithPanels()
+
+        expect(root.classList.contains('intro-tabs--animated')).toBe(false)
+        expect(root.querySelectorAll('.intro-tabs__word').length).toBe(0)
+        delete window.matchMedia
+    })
+})

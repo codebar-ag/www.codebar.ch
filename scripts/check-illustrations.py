@@ -74,6 +74,7 @@ ACTS = {
     "disclose": "disclose — what was collected quietly is written down and limited",
     "agree": "agree — what both sides owe each other is signed rather than assumed",
     "add": "add up — prices kept apart become one total",
+    "unstack": "unstack — what was one closed thing is shown layer by layer",
 }
 
 ABSTRACT_WORDS = {

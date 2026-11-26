@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alternativen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14181F;--muted:#5B6472;--line:#E4E7EC;--panel:#F7F8FA;--brand:#6B46C1;--ch:#C8102E;--eu:#1F4FA3;--us:#5B6472;--ok:#2E7D5B}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font:400 15px/1.55 Poppins,system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:40px 16px 80px}
+a{color:var(--brand)}
+.crumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+h1{margin:0 0 6px;font-size:30px;line-height:1.2;letter-spacing:-.02em}
+h2{margin:40px 0 4px;font-size:20px;display:flex;align-items:center;gap:10px}
+h2 small{font-weight:400;font-size:13px;color:var(--muted)}
+.lead{color:var(--muted);margin:0 0 24px;max-width:70ch}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:500;background:var(--panel);border:1px solid var(--line)}
+.layer{border-left:4px solid var(--c);padding-left:10px}
+.now{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.now div{background:#fff;padding:12px 14px}
+.now dt{font-size:12px;color:var(--muted)}
+.now dd{margin:2px 0 0;font-weight:500}
+.why{margin:18px 0 0;padding:14px 16px;background:var(--panel);border-radius:12px}
+.rec{margin:14px 0 0;padding:14px 16px;border:1.5px solid var(--ok);border-radius:12px}
+.rec b{color:var(--ok)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--t);flex:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px;margin-top:12px}
+.card{border:1px solid var(--line);border-top:3px solid var(--t);border-radius:12px;padding:14px 16px}
+.card h3{margin:0;font-size:16px}
+.card .co{font-size:13px;color:var(--muted)}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:10px 0 0;font-size:13px}
+.card dt{color:var(--muted)}
+.card dd{margin:0}
+.card p{margin:10px 0 0;font-size:14px}
+.chk{font-size:11px;color:var(--muted)}
+.none{color:var(--muted);font-size:14px;margin-top:8px}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500}
+.scroll{overflow-x:auto}
+.note{margin-top:40px;font-size:13px;color:var(--muted)}
+@media (max-width:640px){h1{font-size:24px}}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Alternativen</h1>
+<p class="lead">Alle Dienste von <a href="https://web.codebar.test/infrastruktur">/infrastruktur</a>, die nicht in der Schweiz laufen oder nicht von einem Schweizer Anbieter kommen. Pro Dienst eine Seite mit Alternativen, zuerst Schweiz, dann Europa, dann USA. Schon in der Schweiz und deshalb nicht aufgeführt: Domain (Hosttech), Lokale KI, CI/CD (eigene Runner bei uns im Haus), Analytics, Feedback, Backups (GitLab, Synology).</p>
+<div class="scroll"><table>
+<thead><tr><th>Schicht</th><th>Dienst</th><th>Heute</th><th>Beste Schweizer Option</th><th>Empfehlung</th></tr></thead>
+<tbody>
+<tr><td><span class="layer" style="--c:#6F9CC3">Netzwerk</span></td><td><a href="dns.html">DNS</a></td><td>ClouDNS<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: Bulgarien<br>Daten: Anycast weltweit, Kontodaten ohne dokumentierten Standort</span></td><td>Hosttech DNS</td><td>Hosttech DNS.</td></tr>
+<tr><td><span class="layer" style="--c:#6F9CC3">Netzwerk</span></td><td><a href="waf.html">WAF</a></td><td>Cloudflare<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Weltweites Edge-Netz, Logs in den USA und in Europa</span></td><td>Airlock Gateway</td><td>Kurzfristig keine gute Schweizer Alternative mit gleichem Schutz zum gleichen Preis.</td></tr>
+<tr><td><span class="layer" style="--c:#5FA8A3">Plattform</span></td><td><a href="app.html">Application</a></td><td>Laravel Cloud<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Frankfurt (AWS)</span></td><td>Laravel Forge + cloudscale.ch</td><td>Laravel Forge mit Servern bei cloudscale.ch oder Infomaniak.</td></tr>
+<tr><td><span class="layer" style="--c:#5FA8A3">Plattform</span></td><td><a href="cache.html">Cache</a></td><td>Laravel Cloud<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Frankfurt (AWS)</span></td><td>Valkey auf dem eigenen Server</td><td>Folgt dem Entscheid zur Application.</td></tr>
+<tr><td><span class="layer" style="--c:#5FA8A3">Plattform</span></td><td><a href="db.html">Datenbank</a></td><td>Neon<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Frankfurt (AWS)</span></td><td>Exoscale DBaaS PostgreSQL</td><td>Wichtigster Kandidat für die Schweiz.</td></tr>
+<tr><td><span class="layer" style="--c:#5FA8A3">Plattform</span></td><td><a href="workers.html">Workers</a></td><td>Laravel Cloud<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Frankfurt (AWS)</span></td><td>Forge-Daemons auf cloudscale.ch</td><td>Folgt dem Entscheid zur Application.</td></tr>
+<tr><td><span class="layer" style="--c:#D8B36A">Services</span></td><td><a href="turnstile.html">Captcha</a></td><td>Cloudflare Turnstile<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Weltweites Edge-Netz, ohne Regionsgarantie</span></td><td>ALTCHA (selbst gehostet)</td><td>ALTCHA selbst gehostet.</td></tr>
+<tr><td><span class="layer" style="--c:#D8B36A">Services</span></td><td><a href="cloudinary.html">Bilder</a></td><td>Cloudinary<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: USA</span></td><td>imgproxy oder Glide + Schweizer Storage</td><td>Bilder selbst umrechnen (Glide oder imgproxy) und auf einem Schweizer Object Storage ablegen.</td></tr>
+<tr><td><span class="layer" style="--c:#D8B36A">Services</span></td><td><a href="vimeo.html">Videos</a></td><td>Vimeo<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: USA (Google Cloud)</span></td><td>Infomaniak VOD</td><td>Infomaniak VOD.</td></tr>
+<tr><td><span class="layer" style="--c:#D8B36A">Services</span></td><td><a href="postmark.html">E-Mail</a></td><td>Postmark<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: USA (bei Chicago und AWS)</span></td><td>Infomaniak Mail (SMTP)</td><td>Lettermint (Niederlande).</td></tr>
+<tr><td><span class="layer" style="--c:#D8B36A">Services</span></td><td><a href="spaces.html">Dateien</a></td><td>DigitalOcean Spaces<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Frankfurt (FRA1)</span></td><td>cloudscale.ch Object Storage</td><td>cloudscale.ch Object Storage.</td></tr>
+<tr><td><span class="layer" style="--c:#A487C2">KI</span></td><td><a href="azure.html">Cloud-KI</a></td><td>Azure Foundry<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Je nach Modell Schweden, Schweiz oder USA</span></td><td>Azure Switzerland North</td><td>Zuerst ohne Wechsel aufräumen: jedes Deployment auf «Standard» in Switzerland North oder «Data Zone Standard» (EU).</td></tr>
+<tr><td><span class="layer" style="--c:#D38B72">Monitoring</span></td><td><a href="ohdear.html">Uptime</a></td><td>Oh Dear<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: Belgien<br>Daten: Belgien, Prüfknoten weltweit</span></td><td>Uptime Kuma (selbst gehostet)</td><td>Behalten.</td></tr>
+<tr><td><span class="layer" style="--c:#D38B72">Monitoring</span></td><td><a href="logs.html">Logs</a></td><td>Laravel Nightwatch<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: Frankfurt (wenn Region EU gewählt)</span></td><td>Laravel Pulse</td><td>Prüfen, dass jede Applikation in der Region EU läuft.</td></tr>
+<tr><td><span class="layer" style="--c:#86B38C">Entwicklung</span></td><td><a href="github.html">Code</a></td><td>GitHub<br><span class="co" style="color:var(--muted);font-size:13px">Anbieter: USA<br>Daten: USA</span></td><td>GitLab (bei uns, schon als Spiegel)</td><td>Unser eigenes GitLab vom Spiegel zur Hauptquelle machen und GitHub nur noch für Open-Source-Pakete nutzen.</td></tr>
+</tbody>
+</table></div>
+<p class="note">Stand 21.11.2026. Einträge mit «Recherche 21.11.» stammen aus <code>concepts/transparency/version-three/eu-datenstandorte.md</code> und sind dort mit Quellen belegt. Alle anderen sind ungeprüft: Vor einem Wechsel Standort, DPA und Subprozessorliste beim Anbieter einholen.</p>
+</main>
+</body>
+</html>

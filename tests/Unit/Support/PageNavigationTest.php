@@ -70,6 +70,8 @@ it('sends each page on to its curated next page', function (string $from, string
     ['network.index', 'contact.index'],
     ['jobs.index', 'about-us.index'],
     ['media.index', 'network.index'],
+    ['infrastructure.index', 'services.index'],
+    ['infrastructure.show', 'services.index'],
 ])->group('unit', 'navigation');
 
 it('never sends a page to itself', function () {
