@@ -47,7 +47,7 @@ class InfrastructureIndexController extends Controller
                 'layers' => $layers,
                 'edges' => Catalog::edges($layers),
                 'urls' => $urls,
-                'auto' => $isCustomer,
+                'auto' => $hasSlug,
                 'site' => [
                     'domain' => $stack->domain,
                     'image' => $stack->cover(),

@@ -186,7 +186,7 @@ it('falls back to the codebar stack for an unknown or malformed slug', function 
 
     get(route('de-ch.infrastructure.index', ['site' => $slug]))
         ->assertOk()
-        ->assertSee('"auto":false', false)
+        ->assertSee('"auto":true', false)
         ->assertSee('www.codebar.ch')
         ->assertSee('name="robots" content="noindex,nofollow"', false)
         ->assertDontSee('?site=', false);
