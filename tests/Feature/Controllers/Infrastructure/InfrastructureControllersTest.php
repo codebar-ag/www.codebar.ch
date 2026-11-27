@@ -182,6 +182,20 @@ it('answers 404 on the detail page for a service the customer does not use', fun
     get(route('de-ch.infrastructure.show', ['station' => $station, 'site' => 'web.example']))->assertNotFound();
 })->with(['postmark', 'unknown'])->group('infrastructure');
 
+it('shows a customer stack for its domain', function () {
+    exampleStack();
+
+    get(route('de-ch.infrastructure.index', ['site' => 'www.example.ch']))
+        ->assertOk()
+        ->assertSee('"auto":true', false)
+        ->assertSee('www.example.ch')
+        ->assertSee('href="'.e(route('de-ch.infrastructure.show', ['station' => 'spaces', 'site' => 'www.example.ch'])).'"', false);
+
+    get(route('de-ch.infrastructure.show', ['station' => 'spaces', 'site' => 'www.example.ch']))
+        ->assertOk()
+        ->assertSee('Cloudflare R2');
+})->group('infrastructure');
+
 it('falls back to the codebar stack for an unknown or malformed slug', function (string $slug) {
     seed(PagesTableSeeder::class);
     exampleStack();

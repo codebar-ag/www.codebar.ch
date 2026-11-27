@@ -18,7 +18,7 @@ class InfrastructureShowController extends Controller
     {
         $slug = $request->query('site');
         $hasSlug = is_string($slug) && $slug !== '';
-        $customer = $hasSlug ? InfrastructureStack::findBySlug($slug) : null;
+        $customer = $hasSlug ? InfrastructureStack::findBySite($slug) : null;
         $isCustomer = $customer !== null;
         $stack = $customer ?? InfrastructureStack::default();
 

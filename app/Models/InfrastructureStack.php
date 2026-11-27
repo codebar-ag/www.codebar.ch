@@ -39,13 +39,14 @@ class InfrastructureStack extends Model
         return self::query()->where('is_default', true)->oldest('id')->first();
     }
 
-    public static function findBySlug(string $slug): ?self
+    public static function findBySite(string $site): ?self
     {
-        if (preg_match(self::SLUG, $slug) !== 1) {
+        if (preg_match(self::SLUG, $site) !== 1) {
             return null;
         }
 
-        return self::query()->where('slug', $slug)->first();
+        return self::query()->where('slug', $site)->first()
+            ?? self::query()->where('domain', $site)->oldest('id')->first();
     }
 
     public function cover(): ?string
