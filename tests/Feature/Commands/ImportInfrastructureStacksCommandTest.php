@@ -107,5 +107,5 @@ it('reads the configured folder when no path is given', function () {
 
     runArtisan('infrastructure:import-stacks')->expectsOutputToContain('1 stacks imported.')->assertSuccessful();
 
-    expect(InfrastructureStack::findBySlug('web.example'))->not->toBeNull();
+    expect(InfrastructureStack::findBySite('web.example'))->not->toBeNull();
 })->group('infrastructure');

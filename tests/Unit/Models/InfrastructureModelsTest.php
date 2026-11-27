@@ -83,7 +83,7 @@ it('finds a stack by a valid slug only', function (string $slug, bool $found) {
     InfrastructureStack::factory()->create(['slug' => 'ab']);
     InfrastructureStack::factory()->create(['slug' => str_repeat('a', 61)]);
 
-    expect(InfrastructureStack::findBySlug($slug) !== null)->toBe($found);
+    expect(InfrastructureStack::findBySite($slug) !== null)->toBe($found);
 })->with([
     ['web.example', true],
     ['ab', true],
@@ -120,3 +120,13 @@ it('uses the sketch as cover, then the image, then nothing', function () {
     $stack->image = null;
     expect($stack->cover())->toBeNull();
 })->group('unit', 'infrastructure');
+
+it('finds a stack by its domain and prefers a matching slug', function () {
+    $byDomain = InfrastructureStack::factory()->create(['slug' => 'web.example', 'domain' => 'www.example.ch']);
+    $bySlug = InfrastructureStack::factory()->create(['slug' => 'www.example.ch', 'domain' => 'other.example.ch']);
+
+    expect(InfrastructureStack::findBySite('www.example.ch')?->is($bySlug))->toBeTrue()
+        ->and(InfrastructureStack::findBySite('other.example.ch')?->is($bySlug))->toBeTrue()
+        ->and(InfrastructureStack::findBySite('web.example')?->is($byDomain))->toBeTrue()
+        ->and(InfrastructureStack::findBySite('www.missing.ch'))->toBeNull();
+})->group('infrastructure');
