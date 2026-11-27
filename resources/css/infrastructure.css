@@ -97,6 +97,7 @@
 .infra-overlay{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#fff;overflow:hidden}
 .infra-overlay::backdrop{background:#101828}
 .infra-overlay[open]{animation:infra-overlay .25s ease-out}
+.infra-overlay.infra-instant[open]{animation:none}
 @keyframes infra-overlay{from{opacity:0}}
 .infra-scroller{height:100%;overflow-y:auto;overscroll-behavior:contain}
 .infra-overlay .sx-stage{height:100vh;height:100dvh}

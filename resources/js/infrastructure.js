@@ -153,8 +153,9 @@ if(hp!==null)jump(parseFloat(hp));else if(REDUCE)jump(STEPS);
 onScroll();
 const openOverlay=()=>{if(innerWidth<980||overlay.open)return;overlay.showModal();SC.scrollTop=0;sv=svS=0;setup();onScroll();dirty=true};
 document.addEventListener('click',ev=>{if(ev.target.closest('[data-infra-open]'))openOverlay();else if(ev.target.closest('[data-infra-close]'))overlay.close()});
-overlay.addEventListener('close',()=>{wide=false;if(location.hash==='#grafik')history.replaceState(null,'',location.pathname+location.search)});
-if(D.auto||location.hash==='#grafik')openOverlay();
+overlay.addEventListener('close',()=>{wide=false;overlay.classList.remove('infra-instant');if(location.hash==='#grafik')history.replaceState(null,'',location.pathname+location.search)});
+if(D.auto||location.hash==='#grafik'){overlay.classList.add('infra-instant');openOverlay()}
+document.querySelector('[data-infra-cover]')?.remove();
 addEventListener('hashchange',()=>{if(location.hash==='#grafik')openOverlay()});
 last=performance.now();requestAnimationFrame(frame);setInterval(()=>{if(performance.now()-last>80)tick()},40);
 }
